@@ -1,0 +1,829 @@
+----------------------------------------------- -*- text -*-
+-- Langage MiniJava : Sous-ensemble du langage Java pour le projet STL 2016-2017
+-- Sémantique : Construction de l'arbre abstrait
+--                      Gestion de la table des symboles
+--                      Typage
+--                      Calcul des déplacements (Allocation mémoire)
+--                      Génération de code TAM
+-----------------------------------------------
+option auto= true;
+option version = 0.0.1 ;
+option k=2;
+
+inh factory : BlockFactory for Bloc, TypeAtomique, Instruction, Affectable, SuiteAffectable;
+syn ast     : Block for Bloc, SuiteConditionnelle;
+inh tds     : SymbolTable for Bloc, Instructions, Instruction, Affectable, SuiteConditionnelle;
+inh tree    : List<Instruction> for Instructions;
+syn ast		: Type for TypeAtomique, Type ;
+syn ast     : Instruction for Instruction;
+syn insts   : List<Instruction> for Instructions;
+syn ast     : Expression for Expression;
+syn ast     : Assignable for Affectable, SuiteAffectable;
+inh support : Assignable for SuiteAffectable;
+
+
+space  separateur				is    "[\n\r\t ]+";
+space  commentaire			    is    "\/\/.*\n";
+sugar  accolade_ouvrante		is    "\{";  
+sugar  accolade_fermante		is    "\}";
+sugar  crochet_ouvrant			is    "\[";  
+sugar  crochet_fermant			is    "\]";  
+sugar  parenthese_ouvrante		is    "\(";
+sugar  parenthese_fermante		is    "\)";
+sugar  inferieur				is    "\<";  
+sugar  superieur				is    "\>";  
+sugar  inferieur_egal			is    "\<=";  
+sugar  superieur_egal			is    "\>=";  
+sugar  point					is    "\.";  
+sugar  point_virgule			is    ";";  
+sugar  virgule					is    ",";
+sugar  affectation				is    "=";
+sugar  egalite					is    "==";  
+sugar  different				is    "\!=";  
+sugar  addition				    is    "\+";
+sugar  soustraction				is    "\-";
+sugar  ou						is    "\|\|";  
+sugar  multiplication			is    "\*";
+sugar  division				    is    "/";
+sugar  modulo					is    "%";
+sugar  adresse					is    "&";  
+sugar  negation				    is    "\!";  
+sugar  et						is    "&&";  
+sugar  vrai				    	is    "true";
+sugar  faux					    is    "false";
+sugar  si						is    "if";
+sugar  sinon					is    "else";
+sugar  afficher					is    "print";  
+sugar  nouveau				    is    "new";  
+sugar  tant_que				    is    "while";  
+sugar  retour					is    "return";  
+sugar  type_int				    is    "int";
+sugar  type_bool				is    "boolean";  
+sugar  type_float				is    "float";  
+sugar  type_char				is    "char";        
+sugar  type_String				is    "String";        
+sugar vide					    is    "void";     
+sugar nul						is    "null";     
+sugar  choix					is    "\?";         
+sugar  deux_points				is    ":";          
+sugar  interface				is    "interface";     
+sugar  classe					is    "class";      
+sugar  extension				is    "extends";      
+sugar  implantation				is    "implements";      
+sugar public					is    "public";    
+sugar protege					is    "protected";    
+sugar prive					    is    "private";     
+sugar statique					is    "static";       
+sugar final					    is    "final";       
+sugar principale				is    "main";  
+term   chaine					is    "\"([^\"]|\\\")*\"";  
+term   caractere				is    "\'[^\']\'";  
+term   entier					is    "[0-9]+";
+term   identificateur			is    "[a-z_][a-zA-Z0-9_]*"; 
+term   identificateur_type		is    "[A-Z][a-zA-Z0-9_]*"; 
+
+
+Programme -> Interfaces Classes Principale ;
+
+
+Interfaces -> Interface Interfaces ;
+
+Interfaces -> ;
+
+
+Interface -> interface identificateur_type Genericite HeritageInterface accolade_ouvrante ElementsInterface accolade_fermante ;
+
+
+HeritageInterface -> extension identificateur_type InstanceGenericite SuiteHeritageInterface ;
+
+HeritageInterface -> ;
+
+
+SuiteHeritageInterface -> virgule identificateur_type InstanceGenericite SuiteHeritageInterface ;
+
+SuiteHeritageInterface -> ;
+
+
+ElementsInterface -> ElementInterface ElementsInterface ;
+
+ElementsInterface -> ;
+
+
+ElementInterface -> final statique Type identificateur affectation Expression point_virgule ;
+
+ElementInterface -> Signature point_virgule ;
+
+
+Signature -> vide identificateur parenthese_ouvrante Parametres parenthese_fermante ;  
+ 
+Signature -> Type identificateur parenthese_ouvrante Parametres parenthese_fermante ;  
+
+
+Classes -> Classe Classes ;
+
+Classes -> ;
+
+
+Classe -> classe  identificateur_type Genericite HeritageClasse ImplantationInterface accolade_ouvrante ElementsClasse accolade_fermante ;
+
+
+HeritageClasse -> extension identificateur_type InstanceGenericite ;
+
+HeritageClasse -> ;
+
+ImplantationInterface -> implantation identificateur_type InstanceGenericite SuiteHeritageInterface ;
+
+ImplantationInterface -> ;
+
+
+Principale -> public classe identificateur_type accolade_ouvrante MethodePrincipale accolade_fermante ;
+
+
+MethodePrincipale -> public statique vide principale parenthese_ouvrante type_String crochet_ouvrant crochet_fermant identificateur parenthese_fermante Bloc ;
+
+
+Genericite -> inferieur ParametresGenericite superieur ;
+
+Genericite -> ;
+
+
+ParametresGenericite -> ParametreGenericite SuiteParametresGenericite ;
+
+
+SuiteParametresGenericite -> virgule ParametreGenericite SuiteParametresGenericite ;
+
+SuiteParametresGenericite -> ;
+
+
+ParametreGenericite -> identificateur_type HeritageGenericite ;  
+ 
+ParametreGenericite -> choix HeritageGenericite ;  
+ 
+
+HeritageGenericite -> extension identificateur_type SuiteHeritageGenericite ;
+
+HeritageGenericite -> ;
+
+SuiteHeritageGenericite -> adresse identificateur_type SuiteHeritageGenericite ;
+
+SuiteHeritageGenericite -> ;
+
+
+InstanceGenericite -> ;
+
+InstanceGenericite -> inferieur ArgumentsGenericite superieur ;
+
+
+ArgumentsGenericite -> ArgumentGenericite SuiteArgumentsGenericite ;
+
+
+SuiteArgumentsGenericite -> virgule ArgumentGenericite SuiteArgumentsGenericite ;
+
+SuiteArgumentsGenericite -> ;
+
+
+ArgumentGenericite -> identificateur_type InstanceGenericite ;
+
+ArgumentGenericite -> type_String ;
+
+
+ElementsClasse -> DroitAcces ElementClasse ElementsClasse ;
+  
+ElementsClasse -> ;  
+ 
+
+DroitAcces -> public ;  
+ 
+DroitAcces -> protege ;  
+ 
+DroitAcces -> prive ;  
+ 
+
+ElementClasse -> statique AttributOuMethode ;  
+ 
+ElementClasse -> AttributOuMethode ;
+ 
+ElementClasse -> Constructeur ;  
+   
+
+AttributOuMethode -> Type identificateur SuiteAttributOuMethode;
+
+AttributOuMethode -> vide identificateur parenthese_ouvrante Parametres parenthese_fermante Bloc ;
+
+
+SuiteAttributOuMethode -> point_virgule ;
+
+SuiteAttributOuMethode -> parenthese_ouvrante Parametres parenthese_fermante Bloc ;
+
+
+Constructeur -> identificateur_type parenthese_ouvrante Parametres parenthese_fermante Bloc ;
+ 
+
+
+Parametres -> ;
+
+Parametres -> Parametre SuiteParametres ;
+
+
+Parametre -> Type identificateur ;
+
+
+SuiteParametres -> ;
+
+SuiteParametres -> virgule Parametre SuiteParametres ;
+
+
+Bloc -> accolade_ouvrante #inh Instructions accolade_fermante #ast;
+#ast {
+do
+    Bloc^ast := Bloc^factory.createBlock(Instructions^insts);
+end
+}
+#inh {
+do
+    Instructions^tree := new ArrayList<Instruction>();
+    Instructions^tds := new SymbolTable(Bloc^tds);
+end
+}
+
+
+Type -> TypeAtomique SuiteTypeAtomique ;
+
+
+TypeAtomique -> type_bool #ast ;
+#ast {
+do
+   TypeAtomique^ast := TypeAtomique^factory.createBooleanType();  
+end
+}
+
+TypeAtomique -> type_int  #ast ;
+#ast {
+do
+   TypeAtomique^ast := TypeAtomique^factory.createIntegerType(); 
+end
+}
+
+TypeAtomique -> type_char #ast ;
+#ast {
+do
+   TypeAtomique^ast := TypeAtomique^factory.createCharType();  
+end
+}
+
+ 
+TypeAtomique -> type_float #ast ;
+#ast {
+do
+   TypeAtomique^ast := TypeAtomique^factory.createFloatingType();  
+end
+}
+
+
+TypeAtomique -> type_String #ast ;
+#ast {
+do
+   TypeAtomique^ast := TypeAtomique^factory.createStringType();  
+end
+}
+
+ 
+TypeAtomique -> identificateur_type InstanceGenericite  ; 
+
+
+SuiteTypeAtomique -> crochet_ouvrant crochet_fermant SuiteTypeAtomique ;
+
+SuiteTypeAtomique -> ;
+
+
+Instructions -> #ast;
+#ast {
+do
+    Instructions^insts := Instructions^tree;
+end
+}
+
+Instructions -> #tds Instruction #tree Instructions #ast;
+#ast {
+do
+    Instructions^insts := Instructions1^insts;
+end
+}
+#tree {
+do
+    Instructions^tree.add(Instruction^ast);
+    Instructions1^tree := Instructions^tree;
+end
+}
+#tds {
+do
+    Instruction^tds := Instructions^tds;
+end
+}
+
+
+Instruction -> Type identificateur affectation #tds Expression point_virgule #ast #tds1;
+#ast {
+do
+    Instruction^ast := Instruction^factory.createVariableDeclaration(identificateur^txt, Type^ast, Expression^ast);
+end
+}
+#tds {
+do
+    Expression^tds := Instruction^tds;
+end
+}
+#tds1 {
+local
+    d : Declaration;
+do
+    if Instruction^tds.knows(identificateur^txt) then
+        error(Variable_unexpected,identificateur^txt);
+    else
+        d := Instruction^factory.createVariableDeclaration(identificateur^txt, Type^ast, Expression^ast);
+        Instruction^tds.register(d);
+    end
+end
+}
+
+Instruction -> Affectable affectation Expression point_virgule #ast ;
+#ast {
+do
+      Instruction^ast := Instruction^factory.createAssignment( Affectable^ast, Expression^ast);  
+ end
+}
+
+
+
+Affectable -> parenthese_ouvrante Affectable parenthese_fermante #ast ;
+#ast {
+do
+   Affectable^ast := Affectable1^ast;
+end
+}
+
+Affectable -> identificateur #inh SuiteAffectable #ast ;
+#inh {
+local
+   o : Optional<Declaration>;
+   d : Declaration;
+do
+   if (Affectable^tds.knows(identificateur^txt)) then
+      o := Affectable^tds.get(identificateur^txt);
+      d := o.get();
+      match d
+      with VariableDeclaration then SuiteAffectable^support := Affectable^factory.createVariableAssignment( d );
+      with ConstantDeclaration then error(BLOC_not_a_variable, identificateur^txt);
+      end
+   else
+      error(BLOC_undefined_ident, identificateur^txt);
+   end
+end
+}
+
+#ast {
+do
+   Affectable^ast := SuiteAffectable^ast;
+end
+}
+
+
+SuiteAffectable -> #ast ;
+
+#ast { 
+do  
+   SuiteAffectable^ast := SuiteAffectable^support;  
+end  
+}
+
+SuiteAffectable -> point identificateur AppelOuAcces ;
+
+SuiteAffectable -> crochet_ouvrant Expression crochet_fermant #inh SuiteAffectable #ast ;
+#inh {
+do
+   SuiteAffectable1^support := SuiteAffectable^factory.createArrayAssignment(SuiteAffectable^support,Expression^ast);  
+end
+}
+
+#ast {
+do
+   SuiteAffectable^ast := SuiteAffectable1^ast;   
+end
+}
+
+
+
+Instruction -> si parenthese_ouvrante #tds1 Expression parenthese_fermante #tds2 Bloc #tds3 SuiteConditionnelle #ast;
+#ast {
+do
+    if (SuiteConditionnelle^ast = nil) then
+        Instruction^ast := Instruction^factory.createConditional(Expression^ast, Bloc^ast);
+    else
+        Instruction^ast := Instruction^factory.createConditional(Expression^ast, Bloc^ast, SuiteConditionnelle^ast);
+    end
+end
+}
+#tds1 {
+do
+    Expression^tds := Instruction^tds;
+end
+}
+
+#tds2 {
+do
+    Bloc^tds := Instruction^tds;
+end
+}
+#tds3 {
+do
+    SuiteConditionnelle^tds := Instruction^tds;
+end
+}
+
+
+SuiteConditionnelle -> #ast;
+#ast {
+do
+    SuiteConditionnelle^ast := nil;
+end
+}
+
+SuiteConditionnelle ->sinon #tds Bloc #ast;
+#ast {
+do
+    SuiteConditionnelle^ast := Bloc^ast;
+end
+}
+#tds {
+do
+    Bloc^tds := SuiteConditionnelle^tds;
+end
+}
+
+Instruction -> tant_que parenthese_ouvrante #tds1 Expression parenthese_fermante #tds2 Bloc #ast;
+#ast {
+do
+    Instruction^ast := Instruction^factory.createRepetition(Expression^ast, Bloc^ast);
+end
+}
+#tds1 {
+do
+    Expression^tds := Instruction^tds;
+end
+}
+#tds2 {
+do
+    Bloc^tds := Instruction^tds;
+end
+}
+
+Instruction -> afficher Expression point_virgule #ast;
+#ast {
+do
+    Instruction^ast := Instruction^factory.createPrinter(Expression^ast);
+end
+}
+
+Instruction -> retour Expression point_virgule ;
+
+
+Expression -> Condition #inh SuiteCondition #ast ;
+#inh {
+do
+   SuiteCondition^gauche := Condition^ast ;
+   SuiteCondition^tds := Expression^tds;
+end 
+}
+#ast {
+do
+    Expression^ast := SuiteCondition^ast;
+end 
+}
+
+SuiteCondition -> Comparatif #tds Condition #ast ;
+#ast {
+do
+	SuiteCondition^ast :=
+	SuiteCondition^factory.createBinaryExpression(
+	SuiteCondition^gauche,
+	Comparatif^bin_op,
+	Condition^ast);
+end 
+}
+#tds {
+do
+    Condition^tds := SuiteCondition^tds;
+end
+}
+
+SuiteCondition -> #ast ;
+#ast {
+do
+   SuiteCondition^ast := SuiteCondition^gauche;
+end 
+}
+
+Comparatif -> egalite #texte;
+#texte {
+do
+   Comparatif^bin_op := BinaryOperator.Equals;
+end
+}
+
+Comparatif -> different #texte;  
+#texte {  
+do  
+   Comparatif^bin_op := BinaryOperator.Different;   
+end  
+}
+  
+Comparatif -> inferieur #texte;  
+#texte {  
+do  
+   Comparatif^bin_op := BinaryOperator.Lesser;   
+end  
+}
+  
+Comparatif -> inferieur_egal #texte;  
+#texte {  
+do  
+   Comparatif^bin_op := BinaryOperator.LesserOrEqual;   
+end  
+}
+  
+Comparatif -> superieur #texte;  
+#texte {   
+do  
+   Comparatif^bin_op := BinaryOperator.Greater;    
+end  
+}
+   
+Comparatif -> superieur_egal #texte;  
+#texte {   
+do  
+   Comparatif^bin_op := BinaryOperator.GreaterOrEqual;    
+end  
+}
+
+   
+Condition -> Terme #ast_inh SuiteTerme #ast_syn ;
+#ast_inh {
+do 
+   SuiteTerme^gauche := Terme^ast; 
+end 
+}
+
+#ast_syn {
+do
+   Condition^ast := SuiteTerme^ast; 
+end
+}
+
+SuiteTerme -> Additif Terme #ast_inh SuiteTerme #ast_syn ;  
+#ast_inh {
+do
+   SuiteTerme1^gauche := SuiteTerme^factory.createBinaryExpression(
+      SuiteTerme^gauche,  
+      Additif^bin_op,  
+      Terme^ast);  
+end 
+}
+
+#ast_syn {
+do 
+   SuiteTerme^ast := SuiteTerme1^ast; 
+end 
+}
+
+SuiteTerme -> #ast ;
+#ast {
+do
+   SuiteTerme^ast := SuiteTerme^gauche;
+end
+}
+
+Additif -> addition #ast;  
+#ast { 
+do  
+   Additif^bin_op := BinaryOperator.Add;  
+end  
+}
+
+Additif -> soustraction #ast;  
+#ast {  
+do  
+   Additif^bin_op := BinaryOperator.Substract;   
+end  
+}
+   
+Additif -> ou #ast;  
+#ast {  
+do  
+   Additif^bin_op := BinaryOperator.Or;   
+end  
+}
+
+
+Terme -> Facteur #ast_inh SuiteFacteur #ast_syn ;
+#ast_inh {
+do 
+   SuiteFacteur^gauche := Facteur^ast; 
+end 
+}
+
+#ast_syn {
+do
+   Terme^ast := SuiteFacteur^ast; 
+end
+}
+
+
+SuiteFacteur -> Multiplicatif Facteur #ast_inh SuiteFacteur #ast_syn ;  
+#ast_inh {
+do 
+   SuiteFacteur1^gauche := SuiteFacteur^factory.createBinaryExpression(
+      SuiteFacteur^gauche,  
+      Multiplicatif^bin_op,  
+      Facteur^ast);  
+end 
+}
+
+#ast_syn {
+do 
+   SuiteFacteur^ast := SuiteFacteur1^ast; 
+end 
+}
+ 
+SuiteFacteur -> #ast;  
+#ast {
+do
+   SuiteFacteur^ast := SuiteFacteur^gauche;
+end
+}
+
+Multiplicatif -> multiplication #ast; 
+#ast {
+do 
+   Multiplicatif^bin_op := BinaryOperator.Multiply; 
+end 
+}
+
+Multiplicatif -> division #ast; 
+#ast { 
+do 
+   Multiplicatif^bin_op := BinaryOperator.Divide;  
+end 
+}
+ 
+Multiplicatif -> modulo #ast; 
+#ast {  
+do 
+   Multiplicatif^bin_op := BinaryOperator.Modulo;   
+end 
+}
+  
+Multiplicatif -> et #ast; 
+#ast {  
+do 
+   Multiplicatif^bin_op := BinaryOperator.And;   
+end 
+}
+
+  
+Facteur -> accolade_ouvrante Expressions accolade_fermante #ast ;
+#ast {
+do
+   Facteur^ast := Facteur^factory.createSequence( Expressions^expressions );
+end
+}
+
+Expressions -> Expression SuiteExpressions #ast ;
+#ast {
+do 
+   SuiteExpressions^expressions.addFirst(Expression^ast); 
+   Expressions^expressions := SuiteExpressions^expressions; 
+end 
+}
+
+SuiteExpressions -> virgule Expression SuiteExpressions #ast ;
+#ast {
+do 
+   SuiteExpressions1^expressions.addFirst(Expression^ast); 
+   SuiteExpressions^expressions := SuiteExpressions1^expressions; 
+end 
+}
+
+SuiteExpressions -> #ast ;
+#ast {
+do
+   SuiteExpressions^expressions := new LinkedList<Expression>();
+end
+}
+
+
+Facteur -> soustraction Facteur #ast ;  
+#ast { 
+do  
+   Facteur^ast := Facteur ^factory.createUnaryExpression(UnaryOperator.Opposite,Facteur1^ast);  
+end  
+}
+ 
+Facteur -> negation Facteur #ast ;  
+#ast { 
+do  
+   Facteur^ast := Facteur ^factory. createUnaryExpression(UnaryOperator.Negate,Facteur1^ast);  
+end  
+}
+
+Facteur -> nouveau Type #inh SuiteNouveau #ast ; 
+#inh {
+do 
+   SuiteNouveau^type := Type^ast; 
+end 
+}
+
+#ast {
+do 
+   Facteur^ast := SuiteNouveau^ast; 
+end 
+}
+
+SuiteNouveau -> crochet_ouvrant Expression crochet_fermant #ast ; 
+#ast {
+do  
+   SuiteNouveau^ast := SuiteNouveau^factory.createArrayAllocation(SuiteNouveau^type,Expression^ast);  
+end  
+}
+
+SuiteNouveau -> ;
+
+Facteur -> Valeur #ast;
+#ast {
+do
+   Facteur^ast := Valeur^ast;
+end
+}
+ 
+Valeur -> entier #ast;
+#ast {
+do
+    Valeur^ast := Valeur^factory.createIntegerValue(entier^txt); 
+end
+}
+
+Valeur -> vrai #ast;
+#ast {
+do
+    Valeur^ast := Valeur^factory.createBooleanValue(true);  
+end
+}
+
+Valeur -> faux #ast;
+#ast {
+do
+    Valeur^ast := Valeur^factory.createBooleanValue(false);  
+end
+}
+
+Valeur -> chaine ;
+
+Valeur -> caractere ;
+
+
+Facteur -> identificateur AppelOuAcces ;
+
+
+AppelOuAcces -> Acces ;
+
+AppelOuAcces -> Appel ;
+
+
+Acces -> #ast ;
+#ast { 
+do  
+   Acces^ast := Acces^support;  
+end  
+}
+
+Acces -> crochet_ouvrant Expression crochet_fermant #inh Acces #ast;
+
+#inh {
+do
+   Acces1^support := Acces^factory.createArrayAccess(Acces^support,Expression^ast);
+end
+}
+
+#ast { 
+do  
+   Acces^ast := Acces1^ast;  
+end  
+}
+
+Acces -> point identificateur AppelOuAcces ;
+
+
+Appel -> parenthese_ouvrante parenthese_fermante Acces ;  
+ 
+Appel -> parenthese_ouvrante Expressions parenthese_fermante Acces ;  
+ 
+end
