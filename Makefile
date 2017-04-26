@@ -1,4 +1,4 @@
-EGGJAR=./eggc-5.4.3.jar
+EGGJAR=../../../eggc-5.4.3.jar
 JDIR=/usr/bin
 JAVAC=$(JDIR)/javac $(JOPTS)
 JAVA=$(JDIR)/java
