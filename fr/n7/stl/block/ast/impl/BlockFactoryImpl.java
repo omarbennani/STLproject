@@ -162,7 +162,26 @@ public class BlockFactoryImpl implements BlockFactory {
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.ExpressionFactory#createSecond(fr.n7.stl.block.ast.Expression)
-	 */
+	 */package fr.n7.stl.block.ast.impl;
+
+import fr.n7.stl.block.ast.ElementInterface;
+
+public class ElementInterfaceImpl implements ElementInterface {
+
+	@Override
+	public Type getType() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Fragment getCode(TAMFactory _factory) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}
+
 	@Override
 	public Expression createSecond(Expression _parameter) {
 		return new UnaryExpressionImpl(UnaryOperator.Second,_parameter);
@@ -441,11 +460,11 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new InterfaceImpl(_name, _methodes);	
 	}
 	@Override
-	public Signature createSignature(String _name, List<Parametre> _param){
+	public ElementInterface createSignature(String _name, List<Parametre> _param){
 		return new SignatureImpl(_name,_param);
 	}
 	@Override
-	public Signature createSignature(String _name,Type _type,List<Parametre> _param){
+	public ElementInterface createSignature(String _name,Type _type,List<Parametre> _param){
 		return new SignatureImpl(_type,_name,_param);
 	}
 	public FinalStaticFieldImpl createFinalStaticField(String _name, Type _type, Expression _expr) {
