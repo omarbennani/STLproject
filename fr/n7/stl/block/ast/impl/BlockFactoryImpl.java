@@ -4,6 +4,7 @@
 package fr.n7.stl.block.ast.impl;
 
 import java.net.InterfaceAddress;
+import java.util.List;
 
 import fr.n7.stl.block.ast.Assignable;
 import fr.n7.stl.block.ast.AtomicType;
@@ -432,9 +433,12 @@ public class BlockFactoryImpl implements BlockFactory {
         return new PointerAllocationImpl(_type);
     }
 
+    /**
+     * créer une interface avec un nom et une liste de méthodes
+     */
 	@Override
-	public Interface createInterface(String _name, Expression _heritage, Iterable<ElementInterface> _methodes) {
-		return new InterfaceImpl(_name, _heritage, _methodes);	
+	public Interface createInterface(String _name, List<ElementInterface> _methodes) {
+		return new InterfaceImpl(_name, _methodes);	
 	}
 
 }
