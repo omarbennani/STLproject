@@ -433,7 +433,7 @@ public class BlockFactoryImpl implements BlockFactory {
     }
 
 	@Override
-	public Interface createInterface(String _name, Expression _heritage, ElementInterface _methodes) {
+	public Interface createInterface(String _name, Expression _heritage, Iterable<ElementInterface> _methodes) {
 		return new InterfaceImpl(_name, _heritage, _methodes);	
 	}
 
