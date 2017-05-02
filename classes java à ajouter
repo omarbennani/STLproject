@@ -1,0 +1,15 @@
+créer une interface Interface et une classe InterfaceImpl
+créer une fonction Block.add (Interface )
+
+createInterface Dans le blockFactory
+
+Interface ElementInterface à créer
+
+créer la classe FinalStaticFieldImpl implements ElementInterface extends VariableDeclarationImpl
+createFinalStaticField(String name, Type type, Expression expr) dans BlockFactoryImpl
+
+
+
+créer la classe SignatureImpl implements ElementInterface
+createSignature(List<Parametre> param) dans BlockFactoryImpl
+createSignature(Type type, List<Parametre> param) dans BlockFactoryImpl
