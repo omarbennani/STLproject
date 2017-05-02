@@ -21,3 +21,6 @@ ajouter dans BlockFactoryImpl createParametreGenericite ( String, List<String> )
 
 
 createInterface Dans le blockFactory (String,LinkedLIst<ParametreGenericite>, List<ElementInterface>)
+
+createInterface(String, LinkedList<Type>, List<ElementInterface>)
+createInterface(String, LinkedLIst<ParametreGenericite>, LinkedList<Type>, List<ElementInterface>)
