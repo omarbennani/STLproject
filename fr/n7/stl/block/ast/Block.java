@@ -27,6 +27,12 @@ public interface Block {
 	public void add(Instruction _instruction);
 	
 	/**
+	 * Ajoute une interface à la fin d'un bloc.
+	 * @param _interface noeud Interface ajouté au noeud Bloc
+	 */
+	public void add(Interface _interface);
+	
+	/**
 	 * Add a sequence of instruction in a block.
 	 * @param _instructions Sequence of instruction nodes in the AST added to the block node.
 	 */
