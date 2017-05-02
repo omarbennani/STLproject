@@ -10,6 +10,7 @@ import java.util.Iterator;
 
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.Instruction;
+import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -128,6 +129,12 @@ public class BlockImpl implements Block {
 //        	_code.add(_factory.createHalt());
 //        }
         return _code;
+	}
+
+	@Override
+	public void add(Interface _interface) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

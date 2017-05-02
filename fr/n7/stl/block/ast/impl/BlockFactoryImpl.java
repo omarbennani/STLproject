@@ -13,10 +13,12 @@ import fr.n7.stl.block.ast.BlockFactory;
 import fr.n7.stl.block.ast.BooleanValue;
 import fr.n7.stl.block.ast.Sequence;
 import fr.n7.stl.block.ast.ConstantDeclaration;
+import fr.n7.stl.block.ast.ElementInterface;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.FieldDeclaration;
 import fr.n7.stl.block.ast.FunctionCall;
 import fr.n7.stl.block.ast.Instruction;
+import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.block.ast.RecordType;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.block.ast.TypeDeclaration;
@@ -429,5 +431,10 @@ public class BlockFactoryImpl implements BlockFactory {
     public Expression createPointerAllocation(Type _type) {
         return new PointerAllocationImpl(_type);
     }
+
+	@Override
+	public Interface createInterface(String _name, Expression _heritage, ElementInterface _methodes) {
+		return new InterfaceImpl(_name, _heritage, _methodes);	
+	}
 
 }
