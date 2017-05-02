@@ -16,6 +16,5 @@ public interface BlockFactory extends ExpressionFactory, InstructionFactory, Typ
 	 * Crée une interface dans la factory
 	 * @return 
 	 */
-	public Interface createInterface(String _name, List<ElementInterface> _methodes);
 	
 }

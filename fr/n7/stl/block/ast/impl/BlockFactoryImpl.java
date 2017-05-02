@@ -2,10 +2,8 @@
  * 
  */
 package fr.n7.stl.block.ast.impl;
-
 import java.net.InterfaceAddress;
 import java.util.List;
-
 import fr.n7.stl.block.ast.Assignable;
 import fr.n7.stl.block.ast.AtomicType;
 import fr.n7.stl.block.ast.BinaryOperator;
@@ -13,6 +11,7 @@ import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.BlockFactory;
 import fr.n7.stl.block.ast.BooleanValue;
 import fr.n7.stl.block.ast.Sequence;
+import fr.n7.stl.block.ast.Signature;
 import fr.n7.stl.block.ast.ConstantDeclaration;
 import fr.n7.stl.block.ast.ElementInterface;
 import fr.n7.stl.block.ast.Expression;
@@ -20,6 +19,7 @@ import fr.n7.stl.block.ast.FieldDeclaration;
 import fr.n7.stl.block.ast.FunctionCall;
 import fr.n7.stl.block.ast.Instruction;
 import fr.n7.stl.block.ast.Interface;
+import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.RecordType;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.block.ast.TypeDeclaration;

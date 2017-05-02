@@ -3,6 +3,11 @@
  */
 package fr.n7.stl.block.ast;
 
+import java.util.List;
+
+import fr.n7.stl.block.ast.impl.ElementInterface;
+import fr.n7.stl.block.ast.impl.Signature;
+
 /**
  * Factory to create Abstract Syntax Tree nodes for common expressions in programming languages.
  * @author Marc Pantel
@@ -178,4 +183,10 @@ public interface ExpressionFactory {
     public Expression createArrayAllocation(Type _type, Expression _array);
 
     public Expression createPointerAllocation(Type _type);
+
+	Signature createSignature(String _name, List<Parametre> _param);
+
+	Signature createSignature(String _name, Type _type, List<Parametre> _param);
+
+	Interface createInterface(String _name, List<ElementInterface> _methodes);
 }
