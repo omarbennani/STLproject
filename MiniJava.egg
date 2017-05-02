@@ -14,7 +14,7 @@ option k=2;
 inh gauche	: Expression for SuiteCondition, SuiteTerme, SuiteFacteur;
 inh factory	: BlockFactory for Bloc, Instruction, TypeAtomique,
     		  	       SuiteConditionnelle, Instructions, Expression, Condition,
-			       SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Type, Valeur, Affectable, SuiteAffectable, Acces, SuiteExpressions, Expressions, SuiteNouveau, Programme, Interfaces, Interface, ElementInterface, ElementsInterface, Signature, Parametre, SuiteParametres, Parametres;  
+			       SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Type, Valeur, Affectable, SuiteAffectable, Acces, SuiteExpressions, Expressions, SuiteNouveau, Programme, Interfaces, Interface, ElementInterface, ElementsInterface, Signature, Parametre, SuiteParametres, Parametres, ParametreGenericite, SuiteParametresGenericite, ParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, Genericite;  
 syn ast		: Block for Programme; 
 syn ast		: Expression for Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, Acces, SuiteNouveau ;
 syn ast     : Block for Bloc, SuiteConditionnelle;
@@ -36,6 +36,9 @@ syn ast     : ElementInterface for ElementInterface, Signature;
 syn ast     : LinkedList<ElementInterface> for ElementsInterface;
 syn ast     : Parametre for Parametre;
 syn ast     : LinkedList<Parametre> for Parametres, SuiteParametres;
+syn ast     : ParametreGenericite for ParametreGenericite;
+syn ast     : LinkedList<ParametreGenericite> for ParametresGenericite, SuiteParametresGenericite, Genericite;
+syn ast     : LinkedList<String> for HeritageGenericite, SuiteHeritageGenericite;
 
 space  separateur				is    "[\n\r\t ]+";
 space  commentaire			    is    "\/\/.*\n";
@@ -158,7 +161,11 @@ end
 Interface -> interface identificateur_type Genericite HeritageInterface accolade_ouvrante ElementsInterface accolade_fermante #ast;
 #ast {
 do
-    Interface^ast := Interface^factory.createInterface(identificateur_type^txt, ElementsInterfaces^ast);
+    if Genericite^ast = nil then
+        Interface^ast := Interface^factory.createInterface(identificateur_type^txt, ElementsInterfaces^ast);
+    else
+        Interface^ast := Interface^factory.createInterface(identificateur_type^txt, Genericite^ast, ElementsInterfaces^ast);
+    end
 end
 }
 
@@ -241,31 +248,91 @@ Principale -> public classe identificateur_type accolade_ouvrante MethodePrincip
 MethodePrincipale -> public statique vide principale parenthese_ouvrante type_String crochet_ouvrant crochet_fermant identificateur parenthese_fermante Bloc ;
 
 
-Genericite -> inferieur ParametresGenericite superieur ;
+Genericite -> inferieur ParametresGenericite superieur #ast ;
+#ast {
+do
+    Generecite^ast := ParametresGenericite^ast;
+end
+}
 
-Genericite -> ;
+Genericite -> #ast;
+#ast {
+do
+    Generecite^ast := nil;
+end
+}
 
 
-ParametresGenericite -> ParametreGenericite SuiteParametresGenericite ;
+ParametresGenericite -> ParametreGenericite SuiteParametresGenericite #ast;
+#ast {
+do
+    SuiteParametresGenericite^ast.addFirst(ParametreGenericite^ast);
+    ParametresGenericite^ast := SuiteParametresGenericite^ast;
+end
+}
 
 
-SuiteParametresGenericite -> virgule ParametreGenericite SuiteParametresGenericite ;
+SuiteParametresGenericite -> virgule ParametreGenericite SuiteParametresGenericite #ast;
+#ast {
+do
+    SuiteParametresGenericite1^ast.addFirst(ParametreGenericite^ast);
+    SuiteParametresGenericite^ast := SuiteParametresGenericite1^ast;
+end
+}
 
-SuiteParametresGenericite -> ;
+SuiteParametresGenericite -> #ast;
+#ast {
+do
+    SuiteParametresGenericite^ast := new LinkedList<ParametreGenericite>();
+end
+}
 
 
-ParametreGenericite -> identificateur_type HeritageGenericite ;  
+ParametreGenericite -> identificateur_type HeritageGenericite #ast;
+#ast {
+do
+    ParametreGenericite^ast := ParametreGenericite^factory.createParametreGenericite(identificateur_type^txt, HeritageGenericite^ast);
+end
+}
  
-ParametreGenericite -> choix HeritageGenericite ;  
+ParametreGenericite -> choix HeritageGenericite ;
+#ast {
+do
+    ParametreGenericite^ast := ParametreGenericite^factory.createParametreGenericite(HeritageGenericite^ast);
+end
+}
+
  
 
-HeritageGenericite -> extension identificateur_type SuiteHeritageGenericite ;
+HeritageGenericite -> extension identificateur_type SuiteHeritageGenericite #ast;
+#ast {
+do
+    SuiteHeritageGenericite^ast.addFirst(identificateur_type^txt);
+    HeritageGenericite^ast := SuiteHeritageGenericite^ast;
+end
+}
 
-HeritageGenericite -> ;
+HeritageGenericite -> #ast;
+#ast {
+do
+    HeritageGenericite^ast := nil;
+end
+}
 
-SuiteHeritageGenericite -> adresse identificateur_type SuiteHeritageGenericite ;
+SuiteHeritageGenericite -> adresse identificateur_type SuiteHeritageGenericite #ast;
+#ast {
+do
+    SuiteHeritageGenericite1^ast.addFirst(identificateur_type^txt);
+    SuiteHeritageGenericite^ast := SuiteHeritageGenericite1^ast;
+end
+}
 
-SuiteHeritageGenericite -> ;
+SuiteHeritageGenericite -> #ast;
+#ast {
+do
+    HeritageGenericite^ast := new LinkedList<String>();
+end
+}
 
 
 InstanceGenericite -> ;
@@ -494,64 +561,69 @@ end
 
 
 
-Affectable -> parenthese_ouvrante Affectable parenthese_fermante #ast ;
+--Affectable -> parenthese_ouvrante Affectable parenthese_fermante #ast ;
+--#ast {
+--do
+--   Affectable^ast := Affectable1^ast;
+--end
+--}
+
+--Affectable -> identificateur #inh SuiteAffectable #ast ;
+--#inh {
+--local
+--   o : Optional<Declaration>;
+--   d : Declaration;
+--do
+--   if (Affectable^tds.knows(identificateur^txt)) then
+--      o := Affectable^tds.get(identificateur^txt);
+--      d := o.get();
+--      match d
+--      with VariableDeclaration then SuiteAffectable^support := Affectable^factory.createVariableAssignment( d );
+--     with ConstantDeclaration then error(BLOC_not_a_variable, identificateur^txt);
+--      end
+--   else
+--      error(BLOC_undefined_ident, identificateur^txt);
+--   end
+--end
+--}
+
+--#ast {
+--do
+--   Affectable^ast := SuiteAffectable^ast;
+--end
+--}
+
+
+--SuiteAffectable -> #ast ;
+
+--#ast { 
+--do  
+--   SuiteAffectable^ast := SuiteAffectable^support;  
+--end  
+--}
+
+--SuiteAffectable -> point identificateur AppelOuAcces ;
+
+--SuiteAffectable -> crochet_ouvrant Expression crochet_fermant #inh SuiteAffectable #ast ;
+--#inh {
+--do
+--   SuiteAffectable1^support := SuiteAffectable^factory.createArrayAssignment(SuiteAffectable^support,Expression^ast);  
+--end
+--}
+
+--#ast {
+--do
+--   SuiteAffectable^ast := SuiteAffectable1^ast;   
+--end
+--}
+
+
+Instruction -> Expression point_virgule #ast;
 #ast {
 do
-   Affectable^ast := Affectable1^ast;
+
 end
 }
-
-Affectable -> identificateur #inh SuiteAffectable #ast ;
-#inh {
-local
-   o : Optional<Declaration>;
-   d : Declaration;
-do
-   if (Affectable^tds.knows(identificateur^txt)) then
-      o := Affectable^tds.get(identificateur^txt);
-      d := o.get();
-      match d
-      with VariableDeclaration then SuiteAffectable^support := Affectable^factory.createVariableAssignment( d );
-      with ConstantDeclaration then error(BLOC_not_a_variable, identificateur^txt);
-      end
-   else
-      error(BLOC_undefined_ident, identificateur^txt);
-   end
-end
-}
-
-#ast {
-do
-   Affectable^ast := SuiteAffectable^ast;
-end
-}
-
-
-SuiteAffectable -> #ast ;
-
-#ast { 
-do  
-   SuiteAffectable^ast := SuiteAffectable^support;  
-end  
-}
-
-SuiteAffectable -> point identificateur AppelOuAcces ;
-
-SuiteAffectable -> crochet_ouvrant Expression crochet_fermant #inh SuiteAffectable #ast ;
-#inh {
-do
-   SuiteAffectable1^support := SuiteAffectable^factory.createArrayAssignment(SuiteAffectable^support,Expression^ast);  
-end
-}
-
-#ast {
-do
-   SuiteAffectable^ast := SuiteAffectable1^ast;   
-end
-}
-
-
-Instruction -> Expression point_virgule ;*
 
 Instruction -> si parenthese_ouvrante #tds1 Expression parenthese_fermante #tds2 Bloc #tds3 SuiteConditionnelle #ast;
 #ast {
