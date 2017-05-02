@@ -11,9 +11,9 @@ public class InterfaceImpl implements Interface {
 
 	protected String _name;
 	protected Expression _heritageInteface;
-	protected ElementInterface _methodes;
+	protected Iterable<ElementInterface> _methodes;
 
-	public InterfaceImpl(String _name, Expression _heritageInteface, ElementInterface _methodes) {
+	public InterfaceImpl(String _name, Expression _heritageInteface, Iterable<ElementInterface> _methodes) {
 		this._name=_name;
 		this._heritageInteface=_heritageInteface;
 		this._methodes=_methodes;
