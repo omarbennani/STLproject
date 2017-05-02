@@ -440,7 +440,14 @@ public class BlockFactoryImpl implements BlockFactory {
 	public Interface createInterface(String _name, List<ElementInterface> _methodes) {
 		return new InterfaceImpl(_name, _methodes);	
 	}
-	
+	@Override
+	public Signature createSignature(String _name, List<Parametre> _param){
+		return new SignatureImpl(_name,_param);
+	}
+	@Override
+	public Signature createSignature(String _name,Type _type,List<Parametre> _param){
+		return new SignatureImpl(_type,_name,_param);
+	}
 	public FinalStaticFieldImpl createFinalStaticField(String _name, Type _type, Expression _expr) {
 		return new FinalStaticFieldImpl(_name, _type, _expr);
 	}
