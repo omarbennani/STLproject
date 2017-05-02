@@ -3,6 +3,8 @@
  */
 package fr.n7.stl.block.ast;
 
+import java.util.List;
+
 /**
  * Combines the various factories for the Bloc language.
  * @author Marc Pantel
@@ -14,6 +16,6 @@ public interface BlockFactory extends ExpressionFactory, InstructionFactory, Typ
 	 * Crée une interface dans la factory
 	 * @return 
 	 */
-	public Interface createInterface(String _name, Expression _heritage, Iterable<ElementInterface> _methodes);
+	public Interface createInterface(String _name, List<ElementInterface> _methodes);
 	
 }
