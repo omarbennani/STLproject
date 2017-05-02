@@ -9,5 +9,10 @@ package fr.n7.stl.block.ast;
  *
  */
 public interface BlockFactory extends ExpressionFactory, InstructionFactory, TypeFactory {
-
+	
+	/**
+	 * Crée une interface dans la factory
+	 */
+	public createInterface();
+	
 }
