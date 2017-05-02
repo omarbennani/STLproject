@@ -9,7 +9,7 @@ import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
-public class SignatureImpl implements Signature{
+public class SignatureImpl implements ElementInterface{
 	protected Type _type;
 	protected String _name;
 	protected List<Parametre> _param;
@@ -23,17 +23,5 @@ public class SignatureImpl implements Signature{
 	public SignatureImpl(String _name2, List<Parametre> _param2) {
 		this._name=_name2;
 		this._param=_param2;
-	}
-
-	@Override
-	public Type getType() {
-		return this._type;
-	}
-
-	@Override
-	public Fragment getCode(TAMFactory _factory) {
-		return null;
-	}
-
-	
+	}	
 }
