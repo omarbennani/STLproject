@@ -20,6 +20,7 @@ import fr.n7.stl.block.ast.FieldDeclaration;
 import fr.n7.stl.block.ast.FunctionCall;
 import fr.n7.stl.block.ast.Instruction;
 import fr.n7.stl.block.ast.Interface;
+import fr.n7.stl.block.ast.Objet;
 import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.ParametreGenericite;
 import fr.n7.stl.block.ast.RecordType;
@@ -453,10 +454,10 @@ public class BlockFactoryImpl implements BlockFactory {
 	public FinalStaticFieldImpl createFinalStaticField(String _name, Type _type, Expression _expr) {
 		return new FinalStaticFieldImpl(_name, _type, _expr);
 	}
-	public ParametreGenericite createParametreGenericite(String _name, List<String> _param ){
+	public ParametreGenericite createParametreGenericite(String _name, List<Objet> _param ){
 		return new ParametreGenericiteImpl(_name,_param);
 	}
-	public ParametreGenericite createParametreGenericite( List<String> _param ){
+	public ParametreGenericite createParametreGenericite( List<Objet> _param ){
 		return new ParametreGenericiteImpl(_param);
 	}
 	public Interface createInterface(String _name,List<Type> _types,List<ElementInterface> _elts){
