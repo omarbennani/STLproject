@@ -2,9 +2,9 @@ package fr.n7.stl.block.ast.impl;
 
 import java.util.List;
 
+import fr.n7.stl.block.ast.ElementInterface;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Parametre;
-import fr.n7.stl.block.ast.Signature;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;

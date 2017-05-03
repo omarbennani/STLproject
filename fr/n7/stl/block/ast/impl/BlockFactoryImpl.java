@@ -11,7 +11,6 @@ import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.BlockFactory;
 import fr.n7.stl.block.ast.BooleanValue;
 import fr.n7.stl.block.ast.Sequence;
-import fr.n7.stl.block.ast.Signature;
 import fr.n7.stl.block.ast.ConstantDeclaration;
 import fr.n7.stl.block.ast.ElementInterface;
 import fr.n7.stl.block.ast.Expression;
@@ -20,6 +19,7 @@ import fr.n7.stl.block.ast.FunctionCall;
 import fr.n7.stl.block.ast.Instruction;
 import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.block.ast.Parametre;
+import fr.n7.stl.block.ast.ParametreGenericite;
 import fr.n7.stl.block.ast.RecordType;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.block.ast.TypeDeclaration;
@@ -162,26 +162,7 @@ public class BlockFactoryImpl implements BlockFactory {
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.ExpressionFactory#createSecond(fr.n7.stl.block.ast.Expression)
-	 */package fr.n7.stl.block.ast.impl;
-
-import fr.n7.stl.block.ast.ElementInterface;
-
-public class ElementInterfaceImpl implements ElementInterface {
-
-	@Override
-	public Type getType() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Fragment getCode(TAMFactory _factory) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-}
-
+	 */
 	@Override
 	public Expression createSecond(Expression _parameter) {
 		return new UnaryExpressionImpl(UnaryOperator.Second,_parameter);
@@ -469,5 +450,17 @@ public class ElementInterfaceImpl implements ElementInterface {
 	}
 	public FinalStaticFieldImpl createFinalStaticField(String _name, Type _type, Expression _expr) {
 		return new FinalStaticFieldImpl(_name, _type, _expr);
+	}
+	public ParametreGenericite createParametreGenericite(String _name, List<String> _param ){
+		return new ParametreGenericiteImpl(_name,_param);
+	}
+	public ParametreGenericite createParametreGenericite( List<String> _param ){
+		return new ParametreGenericiteImpl(_param);
+	}
+	public Interface createInterface(String _name,List<Type> _types,List<ElementInterface> _elts){
+		return new InterfaceImpl(_name,_types,_elts);
+	}
+	public Interface createInterface(String _name,List<ParametreGenericite> _param,List<Type> _types,List<ElementInterface> _elts){
+		return new InterfaceImpl(_name,_param,_types,_elts);
 	}
 }

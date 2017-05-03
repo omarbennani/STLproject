@@ -5,8 +5,7 @@ package fr.n7.stl.block.ast;
 
 import java.util.List;
 
-import fr.n7.stl.block.ast.impl.ElementInterface;
-import fr.n7.stl.block.ast.impl.Signature;
+import fr.n7.stl.block.ast.ElementInterface;
 
 /**
  * Factory to create Abstract Syntax Tree nodes for common expressions in programming languages.
@@ -184,9 +183,9 @@ public interface ExpressionFactory {
 
     public Expression createPointerAllocation(Type _type);
 
-	Signature createSignature(String _name, List<Parametre> _param);
+    ElementInterface createSignature(String _name, List<Parametre> _param);
 
-	Signature createSignature(String _name, Type _type, List<Parametre> _param);
+    ElementInterface createSignature(String _name, Type _type, List<Parametre> _param);
 
 	Interface createInterface(String _name, List<ElementInterface> _methodes);
 }
