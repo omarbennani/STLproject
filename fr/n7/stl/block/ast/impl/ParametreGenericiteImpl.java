@@ -21,4 +21,11 @@ public class ParametreGenericiteImpl implements ParametreGenericite{
 		return _name;
 	}
 
+	public String toString() {
+		String res= this._name+" ";
+		for (Objet o:this._param){
+			res+=o.toString()+" ";
+		}
+		return res;
+	}
 }

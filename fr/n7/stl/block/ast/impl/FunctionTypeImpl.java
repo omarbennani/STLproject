@@ -70,7 +70,11 @@ public class FunctionTypeImpl implements Type {
 	 */
 	@Override
 	public int length() {
-		throw new SemanticsUndefinedException("Semantics length is undefined in FunctionTypeImpl.");
+		int res=this.result.length();
+		for (Type t:this.parameters){
+			res+=t.length();
+		}
+		return res;
 	}
 
 	/* (non-Javadoc)

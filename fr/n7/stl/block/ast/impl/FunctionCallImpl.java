@@ -3,6 +3,7 @@
  */
 package fr.n7.stl.block.ast.impl;
 
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -52,7 +53,11 @@ public class FunctionCallImpl implements FunctionCall {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException( "getType is undefined in FunctionCallImpl.");
+		List<Type> lres=new ArrayList<Type>();
+		for(Expression t:this.parameters){
+			lres.add(t.getType());
+		}
+		return new FunctionTypeImpl(this.function.getType(), lres);
 	}
 
 	/* (non-Javadoc)
@@ -60,7 +65,8 @@ public class FunctionCallImpl implements FunctionCall {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException( "getCode is undefined in FunctionCallImpl.");
+		Fragment _code = _factory.createFragment();
+		return _code;
 	}
 
 }
