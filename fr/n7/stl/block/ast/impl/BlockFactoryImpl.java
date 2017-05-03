@@ -463,4 +463,7 @@ public class BlockFactoryImpl implements BlockFactory {
 	public Interface createInterface(String _name,List<ParametreGenericite> _param,List<Type> _types,List<ElementInterface> _elts){
 		return new InterfaceImpl(_name,_param,_types,_elts);
 	}
+	public Type createTypeGenerique(String _name,List<ArgumentGenericite> _argGen){
+		return new TypeGenericiteImpl(_name,_argGen);
+	}
 }

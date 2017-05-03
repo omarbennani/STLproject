@@ -15,9 +15,13 @@ public class InterfaceImpl implements Interface {
 	protected List<ParametreGenericite> _heritageInterface;
 	protected Iterable<ElementInterface> _methodes;
 
-	public InterfaceImpl(String _name, List<ElementInterface> _methodes) {
+	public InterfaceImpl(String _name, List<ElementInterface> _methodes2) {
 		this._name=_name;
-		this._methodes = new ArrayList<ElementInterface>();
+		if (_methodes2==null){
+			this._methodes = new ArrayList<ElementInterface>();
+		}else{
+			this._methodes=_methodes2;
+		}
 	}
 
 	public InterfaceImpl(String _name2, List<Type> _types, List<ElementInterface> _elts) {

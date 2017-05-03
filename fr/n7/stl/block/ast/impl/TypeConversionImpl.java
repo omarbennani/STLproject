@@ -29,7 +29,7 @@ public class TypeConversionImpl implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException("Semantics getType undefined in TypeConversionImpl.");
+		return this.type
 	}
 
 	/* (non-Javadoc)
