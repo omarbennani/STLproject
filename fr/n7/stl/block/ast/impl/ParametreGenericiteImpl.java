@@ -15,5 +15,9 @@ public class ParametreGenericiteImpl implements ParametreGenericite{
 	public ParametreGenericiteImpl(List<String> _param2) {
 		this._param=_param2;
 	}
+	@Override
+	public String getName() {
+		return _name;
+	}
 
 }
