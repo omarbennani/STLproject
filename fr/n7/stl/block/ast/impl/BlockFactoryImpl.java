@@ -4,6 +4,8 @@
 package fr.n7.stl.block.ast.impl;
 import java.net.InterfaceAddress;
 import java.util.List;
+
+import fr.n7.stl.block.ast.ArgumentGenericite;
 import fr.n7.stl.block.ast.Assignable;
 import fr.n7.stl.block.ast.AtomicType;
 import fr.n7.stl.block.ast.BinaryOperator;

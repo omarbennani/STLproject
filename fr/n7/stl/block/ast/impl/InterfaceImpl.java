@@ -39,5 +39,15 @@ public class InterfaceImpl implements Interface {
 	public String getName() {
 		return this._name;
 	}
+	public String toString(){
+		String ret=this.getName();
+		for(ParametreGenericite p:this._heritageInterface){
+			ret+=p.toString();
+		}
+		for(ElementInterface e:this._methodes){
+			ret+=e.toString();
+		}
+		return ret;
+	}
 
 }

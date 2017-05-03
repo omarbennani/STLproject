@@ -23,5 +23,13 @@ public class SignatureImpl implements ElementInterface{
 	public SignatureImpl(String _name2, List<Parametre> _param2) {
 		this._name=_name2;
 		this._param=_param2;
-	}	
+	}
+	public String toString(){
+		String ret= this._name+" ";
+		ret+=this._type.toString()+" ";
+		for(Parametre p:this._param){
+			ret+=p+" ";
+		}
+		return ret;
+	}
 }

@@ -1,5 +1,7 @@
 package fr.n7.stl.block.ast.impl;
 
-public class ArgumentGenericiteImpl {
+import fr.n7.stl.block.ast.ArgumentGenericite;
+
+public class ArgumentGenericiteImpl implements ArgumentGenericite{
 
 }
