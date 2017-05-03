@@ -18,7 +18,7 @@ syn ast		    : Expression for Expression, Condition, SuiteCondition, Terme, Suit
 syn ast         : Block for Bloc, SuiteConditionnelle;
 syn ast		    : Type for Type, TypeAtomique, SuiteTypeAtomique;
 syn ast         : Instruction for Instruction;
-inh tds         : SymbolTable for Bloc, Instructions, Instruction, Expression, SuiteConditionnelle, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Type, Affectable, SuiteAffectable, SuiteExpressions, Expressions, SuiteNouveau, Acces, Programme, Interfaces, Interface, Genericite, ParametreGenericite, ParametresGenericite, SuiteParametresGenericite, ElementsInterface, ElementInterface, Signature, Classes, Classe, MethodePrincipale, Principale, HeritageGenericite;
+inh tds         : SymbolTable for Bloc, Instructions, Instruction, Expression, SuiteConditionnelle, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Type, TypeAtomique, Affectable, SuiteAffectable, SuiteExpressions, Expressions, SuiteNouveau, Acces, Programme, Interfaces, Interface, Genericite, ParametreGenericite, ParametresGenericite, SuiteParametresGenericite, ElementsInterface, ElementInterface, Signature, Classes, Classe, MethodePrincipale, Principale, HeritageGenericite, HeritageInterface, SuiteHeritageInterface, SuiteHeritageGenericite, Parametre, Parametres, SuiteParametres;
 syn insts       : List<Instruction> for Instructions;
 inh tree        : List<Instruction> for Instructions;
 syn bin_op	    : BinaryOperator for Additif, Multiplicatif, Comparatif;
@@ -163,7 +163,7 @@ end
 }
 
 
-Interface -> interface identificateur_type Genericite HeritageInterface accolade_ouvrante ElementsInterface accolade_fermante #ast;
+Interface -> interface identificateur_type Genericite #tds HeritageInterface accolade_ouvrante ElementsInterface accolade_fermante #ast;
 #ast {
 do
      if Interface^tds.knows(identificateur_type^txt) then
@@ -185,13 +185,32 @@ do
     end
 end
 }
+#tds {
+do
+    HeritageInterface^tds := new Symboltable(Interface^tds);
+end
+}
 
 
 HeritageInterface -> extension identificateur_type InstanceGenericite SuiteHeritageInterface #ast;
 #ast {
+local
+    f : Optional<Declaration>;
+    d : Declaration;
 do
-    SuiteHeritageInterface^ast.add(HeritageInterface^factory.createTypeGenerique(identificateur_type^txt, InstanceGenericite^ast));
-    HeritageInterface^ast := SuiteHeritageInterface^ast;
+    if HeritageInterface^tds.knows(identificateur_type^txt) then
+        f := HeritageInterface^tds.get(identificateur_type^txt);
+        d := f.get();
+        match d
+        with Interface then
+            SuiteHeritageInterface^ast.add(HeritageInterface^factory.createTypeGenerique(d, InstanceGenericite^ast));
+            HeritageInterface^ast := SuiteHeritageInterface^ast;
+        else
+            error(BLOC_not_an_interface, identificateur_type);
+        end
+    else
+        error(BLOC_undefined_ident, identificateur_type^txt);
+    end
 end
 }
 
@@ -206,9 +225,27 @@ end
 
 SuiteHeritageInterface -> virgule identificateur_type InstanceGenericite SuiteHeritageInterface #ast;
 #ast {
+local
+    f : Optional<Declaration>;
+    d : Declaration;
 do
-    SuiteHeritageInterface1^ast.add(SuiteHeritageInterface^factory.createTypeGenerique(identificateur_type^txt, InstanceGenericite^ast));
-    SuiteHeritageInterface^ast := SuiteHeritageInterface1^ast;
+    if SuiteHeritageInterface^tds.knows(identificateur_type^txt) then
+        if SuiteHeritageInterface^tds.contains(identificateur_type^txt) then
+            error(duplicate_heritage, identificateur_type^txt);
+        else
+            f := SuiteHeritageInterface^tds.get(identificateur_type^txt);
+            d := f.get();
+            match d
+            with Interface then
+                SuiteHeritageInterface1^ast.add(SuiteHeritageInterface^factory.createTypeGenerique(d, InstanceGenericite^ast));
+                SuiteHeritageInterface^ast := SuiteHeritageInterface1^ast;
+            else
+                error(BLOC_not_an_interface, identificateur_type);
+            end
+        end
+    else
+        error(BLOC_undefined_ident, identificateur_type^txt);
+    end
 end
 }
 
@@ -242,13 +279,17 @@ do
 end
 }
 
-ElementInterface -> Signature point_virgule #ast;
+ElementInterface -> #tds Signature point_virgule #ast;
 #ast {
 do
     ElementInterface^ast := Signature^ast;
 end
 }
-
+#tds {
+do
+    Signature^tds := new SymbolTable(ElementInterface^tds);
+end
+}
 
 Signature -> vide identificateur parenthese_ouvrante Parametres parenthese_fermante #ast;
 #ast {
@@ -333,7 +374,7 @@ end
 ParametreGenericite -> identificateur_type HeritageGenericite #ast;
 #ast {
 do
-    if ParametreGenericite^tds.knows(identificateur_type^txt) then
+    if ParametreGenericite^tds.contains(identificateur_type^txt) then
         error(BLOC_already_defined, identificateur_type^txt);
     else
         ParametreGenericite^ast := ParametreGenericite^factory.createParametreGenericite(identificateur_type^txt, HeritageGenericite^ast);
@@ -493,20 +534,28 @@ do
 end
 }
 
-Parametres -> Parametre SuiteParametres #ast ;
+Parametres -> Parametre #tds SuiteParametres #ast ;
 #ast {
 do
     SuiteParametres^ast.addFirst(Parametre^ast);
-    Parametres^ast.addAll(SuiteParametres^ast);
+    Parametres^ast := SuiteParametres^ast;
 end
 }
-
+#tds {
+do
+    Parametres^tds.register(Parametre^ast);
+end
+}
 
 
 Parametre -> Type identificateur #ast;
 #ast {
 do
-    Parametre^ast := Parametre^factory.createParametre(Type^ast, identificateur^txt);
+    if Parametre^tds.contains(identificateur^txt) then
+        error(BLOC_already_defined, identificateur^txt);
+    else
+        Parametre^ast := Parametre^factory.createParametre(Type^ast, identificateur^txt);
+    end
 end
 }
 
@@ -522,7 +571,7 @@ SuiteParametres -> virgule Parametre SuiteParametres #ast ;
 #ast {
 do
     SuiteParametres1^ast.addFirst(Parametre^ast);
-    SuiteParametres^ast.addAll(SuiteParametres1^ast);
+    SuiteParametres^ast := SuiteParametres1^ast;
 end
 }
 
@@ -546,6 +595,11 @@ Type -> TypeAtomique #inh SuiteTypeAtomique #ast;
 #inh {
 do
     SuiteTypeAtomique^type := TypeAtomique^ast;
+end
+}
+#ast {
+do
+    Type^ast := SuiteTypeAtomique^ast;
 end
 }
 
@@ -581,11 +635,25 @@ end
  
 TypeAtomique -> identificateur_type InstanceGenericite #ast;
 #ast {
+local
+    f : Optional<Declaration>;
+    d : Declaration;
 do
-    if InstanceGenericite^ast = nil then
-        TypeAtomique^ast := TypeAtomique^factory.createTypeClasse(identificateur_type^txt);
+    if TypeAtomique^tds.knows(identificateur_type^txt) then
+        f := TypeAtomique^tds.get(identificateur_type^txt);
+        d := f.get();
+        match d
+        with Objet then
+            if InstanceGenericite^ast = nil then
+                TypeAtomique^ast := TypeAtomique^factory.createTypeClasse(d);
+            else
+                TypeAtomique^ast := TypeAtomique^factory.createTypeGenerique(d, InstanceGenericite^ast);
+            end
+        else
+            error(BLOC_not_an_object, identificateur_type^txt);
+        end
     else
-        TypeAtomique^ast := TypeAtomique^factory.createTypeGenerique(identificateur_type^txt, InstanceGenericite^ast);
+        error(BLOC_undefined_ident, identificateur_type^txt);
     end
 end
 }
