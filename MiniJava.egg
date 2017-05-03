@@ -11,37 +11,35 @@ option version = 0.0.1 ;
 option k=2;
 
 
-inh gauche	: Expression for SuiteCondition, SuiteTerme, SuiteFacteur;
-inh factory	: BlockFactory for Bloc, Instruction, TypeAtomique,
-    		  	       SuiteConditionnelle, Instructions, Expression, Condition,
-			       SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Type, Valeur, Affectable, SuiteAffectable, Acces, SuiteExpressions, Expressions, SuiteNouveau, Programme, Interfaces, Interface, ElementInterface, ElementsInterface, Signature, Parametre, SuiteParametres, Parametres, ParametreGenericite, SuiteParametresGenericite, ParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, Genericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, HeritageInterface, SuiteHeritageInterface;  
-syn ast		: Block for Programme; 
-syn ast		: Expression for Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, Acces, SuiteNouveau ;
-syn ast     : Block for Bloc, SuiteConditionnelle;
-syn ast		: Type for Type, TypeAtomique;
-syn ast     : Instruction for Instruction;
-inh tds     : SymbolTable for Bloc, Instructions, Instruction, Expression, SuiteConditionnelle, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Type, Affectable, SuiteAffectable, SuiteExpressions, Expressions, SuiteNouveau, Acces;
-syn insts   : List<Instruction> for Instructions;
-inh tree    : List<Instruction> for Instructions;
-syn bin_op	: BinaryOperator for Additif, Multiplicatif, Comparatif;
-inh support : Assignable for SuiteAffectable;
-syn ast     : Assignable for Affectable, SuiteAffectable;
-inh support : Expression for Acces;
+inh gauche	    : Expression for SuiteCondition, SuiteTerme, SuiteFacteur;
+inh factory	    : BlockFactory for Bloc, Instruction, TypeAtomique, SuiteTypeAtomique, SuiteConditionnelle, Instructions, Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Type, Valeur, Affectable, SuiteAffectable, Acces, SuiteExpressions, Expressions, SuiteNouveau, Programme, Interfaces, Interface, ElementInterface, ElementsInterface, Signature, Parametre, SuiteParametres, Parametres, ParametreGenericite, SuiteParametresGenericite, ParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, Genericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, HeritageInterface, SuiteHeritageInterface, Classes, Classe, ImplantationInterface, MethodePrincipale, Principale, InstanceGenericite, HeritageClasse;
+syn ast		    : Block for Programme; 
+syn ast		    : Expression for Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, Acces, SuiteNouveau ;
+syn ast         : Block for Bloc, SuiteConditionnelle;
+syn ast		    : Type for Type, TypeAtomique, SuiteTypeAtomique;
+syn ast         : Instruction for Instruction;
+inh tds         : SymbolTable for Bloc, Instructions, Instruction, Expression, SuiteConditionnelle, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Type, Affectable, SuiteAffectable, SuiteExpressions, Expressions, SuiteNouveau, Acces, Programme, Interfaces, Interface, Genericite, ParametreGenericite, ParametresGenericite, SuiteParametresGenericite, ElementsInterface, ElementInterface, Signature, Classes, Classe, MethodePrincipale, Principale, HeritageGenericite;
+syn insts       : List<Instruction> for Instructions;
+inh tree        : List<Instruction> for Instructions;
+syn bin_op	    : BinaryOperator for Additif, Multiplicatif, Comparatif;
+inh support     : Assignable for SuiteAffectable;
+syn ast         : Assignable for Affectable, SuiteAffectable;
+inh support     : Expression for Acces;
 syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
-inh type    : Type for SuiteNouveau, SuiteTypeAtomique;
-syn ast     : List<Interface> for Interfaces;
-syn ast     : Interface for Interface;
-inh tree    : List<Interface> for Interfaces;
-syn ast     : ElementInterface for ElementInterface, Signature;
-syn ast     : LinkedList<ElementInterface> for ElementsInterface;
-syn ast     : Parametre for Parametre;
-syn ast     : LinkedList<Parametre> for Parametres, SuiteParametres;
-syn ast     : ParametreGenericite for ParametreGenericite;
-syn ast     : LinkedList<ParametreGenericite> for ParametresGenericite, SuiteParametresGenericite, Genericite;
-syn ast     : LinkedList<String> for HeritageGenericite, SuiteHeritageGenericite;
-syn ast     : ArgumentGenericite for ArgumentGenericite;
-syn ast     : LinkedList<ArgumentGenericite> for ArgumentsGenericite, SuiteArgumentsGenericite, InstanceGenericite;
-syn ast     : LinkedList<Type> for HeritageInterface, SuiteHeritageInterface;
+inh type        : Type for SuiteNouveau, SuiteTypeAtomique;
+syn ast         : List<Interface> for Interfaces;
+syn ast         : Interface for Interface;
+inh tree        : List<Interface> for Interfaces;
+syn ast         : ElementInterface for ElementInterface, Signature;
+syn ast         : LinkedList<ElementInterface> for ElementsInterface;
+syn ast         : Parametre for Parametre;
+syn ast         : LinkedList<Parametre> for Parametres, SuiteParametres;
+syn ast         : ParametreGenericite for ParametreGenericite;
+syn ast         : LinkedList<ParametreGenericite> for ParametresGenericite, SuiteParametresGenericite, Genericite;
+syn ast         : LinkedList<Objet> for HeritageGenericite, SuiteHeritageGenericite;
+syn ast         : ArgumentGenericite for ArgumentGenericite;
+syn ast         : LinkedList<ArgumentGenericite> for ArgumentsGenericite, SuiteArgumentsGenericite, InstanceGenericite;
+syn ast         : LinkedList<Type> for HeritageInterface, SuiteHeritageInterface;
 
 space  separateur				is    "[\n\r\t ]+";
 space  commentaire			    is    "\/\/.*\n";
@@ -55,7 +53,7 @@ sugar  inferieur				is    "\<";
 sugar  superieur				is    "\>";  
 sugar  inferieur_egal			is    "\<=";  
 sugar  superieur_egal			is    "\>=";  
-sugar  point					is    "\.";  
+sugar  point					is    "\.";
 sugar  point_virgule			is    ";";  
 sugar  virgule					is    ",";
 sugar  affectation				is    "=";
@@ -103,7 +101,7 @@ term   identificateur			is    "[a-z_][a-zA-Z0-9_]*";
 term   identificateur_type		is    "[A-Z][a-zA-Z0-9_]*"; 
 
 
---Programme -> #factocry Interfaces #tree1 Classes #tree2 Principale #ast;
+--Programme -> #factory Interfaces #tree1 Classes #tree2 Principale #ast;
 --#ast {
 --do
 --    Programme^ast := Principale^ast;
@@ -127,10 +125,12 @@ term   identificateur_type		is    "[A-Z][a-zA-Z0-9_]*";
 --end
 --}
 
-Programme -> #factocry Interfaces #ast;
+Programme -> #factory Interfaces #ast;
 #factory {
 do
-    Programme^factory := new BlockFactoryImpl();
+    Interfaces^tds := new SymbolTable();
+    Interfaces^factory := new BlockFactoryImpl();
+    Interfaces^tree := new LinkedList<Interface>();
 end
 }
 #ast {
@@ -150,6 +150,8 @@ end
 do
     Interfaces^tree.add(Interface^ast);
     Interfaces1^tree := Interfaces^tree;
+    Interfaces^tds.register(Interface^ast);
+    Interfaces1^tds := Interfaces^tds;
 end
 }
 
@@ -164,17 +166,21 @@ end
 Interface -> interface identificateur_type Genericite HeritageInterface accolade_ouvrante ElementsInterface accolade_fermante #ast;
 #ast {
 do
-    if Genericite^ast = nil then
-        if HeritageInterface^ast = nil then
-            Interface^ast := Interface^factory.createInterface(identificateur_type^txt, ElementsInterfaces^ast);
-        else
-            Interface^ast := Interface^factory.createInterface(identificateur_type^txt, HeritageInterface^ast, ElementsInterfaces^ast);
-        end
+     if Interface^tds.knows(identificateur_type^txt) then
+        error(BLOC_already_defined, identificateur_type^txt);
     else
-        if HeritageInterface^ast = nil then
-            Interface^ast := Interface^factory.createInterface(identificateur_type^txt, Genericite^ast, ElementsInterfaces^ast);
+        if Genericite^ast = nil then
+            if HeritageInterface^ast = nil then
+                Interface^ast := Interface^factory.createInterface(identificateur_type^txt, ElementsInterface^ast);
+            else
+                Interface^ast := Interface^factory.createInterface(identificateur_type^txt, HeritageInterface^ast, ElementsInterface^ast);
+            end
         else
-            Interface^ast := Interface^factory.createInterface(identificateur_type^txt, Genericite^ast, HeritageInterface^ast, ElementsInterfaces^ast);
+            if HeritageInterface^ast = nil then
+                Interface^ast := Interface^factory.createInterface(identificateur_type^txt, Genericite^ast, ElementsInterface^ast);
+            else
+                Interface^ast := Interface^factory.createInterface(identificateur_type^txt, Genericite^ast, HeritageInterface^ast, ElementsInterface^ast);
+            end
         end
     end
 end
@@ -184,7 +190,7 @@ end
 HeritageInterface -> extension identificateur_type InstanceGenericite SuiteHeritageInterface #ast;
 #ast {
 do
-    SuiteHeritageInterface^ast.add(SuiteHeritageInterface^factory.createTypeGenerique(identificateur_type^txt, InstanceGenericite^ast));
+    SuiteHeritageInterface^ast.add(HeritageInterface^factory.createTypeGenerique(identificateur_type^txt, InstanceGenericite^ast));
     HeritageInterface^ast := SuiteHeritageInterface^ast;
 end
 }
@@ -201,7 +207,7 @@ end
 SuiteHeritageInterface -> virgule identificateur_type InstanceGenericite SuiteHeritageInterface #ast;
 #ast {
 do
-    SuiteHeritageInterface1^ast.add(SuiteHeritageInterface1^factory.createTypeGenerique(identificateur_type^txt, InstanceGenericite^ast));
+    SuiteHeritageInterface1^ast.add(SuiteHeritageInterface^factory.createTypeGenerique(identificateur_type^txt, InstanceGenericite^ast));
     SuiteHeritageInterface^ast := SuiteHeritageInterface1^ast;
 end
 }
@@ -285,14 +291,14 @@ MethodePrincipale -> public statique vide principale parenthese_ouvrante type_St
 Genericite -> inferieur ParametresGenericite superieur #ast ;
 #ast {
 do
-    Generecite^ast := ParametresGenericite^ast;
+    Genericite^ast := ParametresGenericite^ast;
 end
 }
 
 Genericite -> #ast;
 #ast {
 do
-    Generecite^ast := nil;
+    Genericite^ast := nil;
 end
 }
 
@@ -302,6 +308,7 @@ ParametresGenericite -> ParametreGenericite SuiteParametresGenericite #ast;
 do
     SuiteParametresGenericite^ast.addFirst(ParametreGenericite^ast);
     ParametresGenericite^ast := SuiteParametresGenericite^ast;
+    ParametresGenericite^tds.register(ParametreGenericite^ast);
 end
 }
 
@@ -311,6 +318,7 @@ SuiteParametresGenericite -> virgule ParametreGenericite SuiteParametresGenerici
 do
     SuiteParametresGenericite1^ast.addFirst(ParametreGenericite^ast);
     SuiteParametresGenericite^ast := SuiteParametresGenericite1^ast;
+    SuiteParametresGenericite^tds.register(ParametreGenericite^ast);
 end
 }
 
@@ -325,11 +333,15 @@ end
 ParametreGenericite -> identificateur_type HeritageGenericite #ast;
 #ast {
 do
-    ParametreGenericite^ast := ParametreGenericite^factory.createParametreGenericite(identificateur_type^txt, HeritageGenericite^ast);
+    if ParametreGenericite^tds.knows(identificateur_type^txt) then
+        error(BLOC_already_defined, identificateur_type^txt);
+    else
+        ParametreGenericite^ast := ParametreGenericite^factory.createParametreGenericite(identificateur_type^txt, HeritageGenericite^ast);
+    end
 end
 }
  
-ParametreGenericite -> choix HeritageGenericite ;
+ParametreGenericite -> choix HeritageGenericite #ast;
 #ast {
 do
     ParametreGenericite^ast := ParametreGenericite^factory.createParametreGenericite(HeritageGenericite^ast);
@@ -341,8 +353,12 @@ end
 HeritageGenericite -> extension identificateur_type SuiteHeritageGenericite #ast;
 #ast {
 do
-    SuiteHeritageGenericite^ast.addFirst(identificateur_type^txt);
-    HeritageGenericite^ast := SuiteHeritageGenericite^ast;
+    if HeritageGenericite^tds.knows(identificateur_type^txt) then
+        SuiteHeritageGenericite^ast.addFirst(identificateur_type^txt);
+        HeritageGenericite^ast := SuiteHeritageGenericite^ast;
+    else
+        error(BLOC_undefined_ident,identificateur_type^txt);
+    end
 end
 }
 
@@ -355,16 +371,30 @@ end
 
 SuiteHeritageGenericite -> adresse identificateur_type SuiteHeritageGenericite #ast;
 #ast {
+local
+    f : Optional<Declaration>;
+    d : Declaration;
 do
-    SuiteHeritageGenericite1^ast.addFirst(identificateur_type^txt);
-    SuiteHeritageGenericite^ast := SuiteHeritageGenericite1^ast;
+    if SuiteHeritageGenericite^tds.knows(identificateur_type^txt) then
+        f := SuiteHeritageGenericite^tds.get(identificateur_type^txt);
+        d := f.get();
+        match d
+        with Objet then 
+            SuiteHeritageGenericite1^ast.addFirst(identificateur_type^txt);
+            SuiteHeritageGenericite^ast := SuiteHeritageGenericite1^ast;
+        else
+            error(BLOC_not_an_object, identificateur_type^txt);
+        end
+    else
+        error(BLOC_undefined_ident, identificateur_type^txt);
+    end
 end
 }
 
 SuiteHeritageGenericite -> #ast;
 #ast {
 do
-    HeritageGenericite^ast := new LinkedList<String>();
+    SuiteHeritageGenericite^ast := new LinkedList<Objet>();
 end
 }
 
@@ -387,8 +417,8 @@ end
 ArgumentsGenericite -> ArgumentGenericite SuiteArgumentsGenericite #ast;
 #ast {
 do
-    SuiteArgumentsGenericite.addFirst(ArgumentGenericite);
-    ArgumentsGenericite := SuiteArgumentsGenericite;
+    SuiteArgumentsGenericite^ast.addFirst(ArgumentGenericite^ast);
+    ArgumentsGenericite^ast := SuiteArgumentsGenericite^ast;
 end
 }
 
@@ -396,15 +426,15 @@ end
 SuiteArgumentsGenericite -> virgule ArgumentGenericite SuiteArgumentsGenericite #ast;
 #ast {
 do
-    SuiteArgumentsGenericite1.addFirst(ArgumentGenericite);
-    SuiteArgumentsGenericite := SuiteArgumentsGenericite1;
+    SuiteArgumentsGenericite1^ast.addFirst(ArgumentGenericite^ast);
+    SuiteArgumentsGenericite^ast := SuiteArgumentsGenericite1^ast;
 end
 }
 
 SuiteArgumentsGenericite -> #ast;
 #ast {
 do
-    SuiteArgumentsGenericite := new LinkedList<ArgumentGenericite>();
+    SuiteArgumentsGenericite^ast := new LinkedList<ArgumentGenericite>();
 end
 }
 
@@ -417,8 +447,10 @@ do
     else
         ArgumentGenericite^ast := ArgumentGenericite^factory.createArgumentGenericite(identificateur_type^txt, InstanceGenericite^ast);
     end
-
--- ArgumentGenericite -> type_String ;  -- A FAIRE !!!!!!!!!!!!!
+end
+}
+-- A FAIRE !!!!!!!!!!!!!
+--ArgumentGenericite -> type_String ;
 
 
 ElementsClasse -> DroitAcces ElementClasse ElementsClasse ;
