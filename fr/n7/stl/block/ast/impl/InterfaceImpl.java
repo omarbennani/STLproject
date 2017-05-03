@@ -31,4 +31,9 @@ public class InterfaceImpl implements Interface {
 
 	}
 
+	@Override
+	public String getName() {
+		return this._name;
+	}
+
 }
