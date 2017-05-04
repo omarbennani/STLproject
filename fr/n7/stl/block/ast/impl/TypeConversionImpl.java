@@ -29,7 +29,7 @@ public class TypeConversionImpl implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		return this.type
+		return this.type;
 	}
 
 	/* (non-Javadoc)

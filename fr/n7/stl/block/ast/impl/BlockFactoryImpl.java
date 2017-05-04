@@ -12,8 +12,10 @@ import fr.n7.stl.block.ast.BinaryOperator;
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.BlockFactory;
 import fr.n7.stl.block.ast.BooleanValue;
+import fr.n7.stl.block.ast.Classe;
 import fr.n7.stl.block.ast.Sequence;
 import fr.n7.stl.block.ast.ConstantDeclaration;
+import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.ElementInterface;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.FieldDeclaration;
@@ -468,5 +470,8 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 	public Type createTypeGenerique(String _name,List<ArgumentGenericite> _argGen){
 		return new TypeGenericiteImpl(_name,_argGen);
+	}
+	public Classe createClasse(String _name,List<ElementClasse> _elts){
+		return new ClasseImpl(_name,_elts);
 	}
 }
