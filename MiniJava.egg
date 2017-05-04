@@ -1455,9 +1455,19 @@ do
 end
 }
 
-Valeur -> chaine ;
+Valeur -> chaine #ast;
+#ast {
+do
+    Valeur^ast := Valeur^factory.createStringValue(chaine^txt);
+end
+}
 
-Valeur -> caractere ;
+Valeur -> caractere #ast;
+#ast {
+do
+    Valeur^ast := Valeur^factory.createCharValue(caractere^txt);
+end
+}
 
 
 Facteur -> identificateur AppelOuAcces ;
