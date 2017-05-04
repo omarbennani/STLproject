@@ -15,6 +15,7 @@ import fr.n7.stl.block.ast.BooleanValue;
 import fr.n7.stl.block.ast.Classe;
 import fr.n7.stl.block.ast.Sequence;
 import fr.n7.stl.block.ast.ConstantDeclaration;
+import fr.n7.stl.block.ast.DroitAcces;
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.ElementInterface;
 import fr.n7.stl.block.ast.Expression;
@@ -458,6 +459,7 @@ public class BlockFactoryImpl implements BlockFactory {
 	public FinalStaticFieldImpl createFinalStaticField(String _name, Type _type, Expression _expr) {
 		return new FinalStaticFieldImpl(_name, _type, _expr);
 	}
+	// Objet ou TypeObjet?
 	public ParametreGenericite createParametreGenericite(String _name, List<Objet> _param ){
 		return new ParametreGenericiteImpl(_name,_param);
 	}
@@ -496,5 +498,15 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 	public Classe createClasse(String _name,List<ParametreGenericite> _genericite,List<TypeObjet> _heritage,List<TypeInterface> _interfaces,List<ElementClasse> _elts){
 		return new ClasseImpl(_name,_genericite,_heritage,_interfaces,_elts);
+	}
+	public ArgumentGenericite createArgumentGenericite(String _name){
+		return new ArgumentGenericiteImpl(_name);
+	}
+	public ArgumentGenericite createArgumentGenericite(String _name,List<ArgumentGenericite> _inst){
+		return new ArgumentGenericiteImpl(_name,_inst);
+	}
+	public DroitAcces createDroitAcces(int i ){
+		return new DroitAccesImpl(i);
+		
 	}
 }
