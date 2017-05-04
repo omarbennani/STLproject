@@ -256,7 +256,7 @@ do
             d := f.get();
             match d
             with Interface then
-                SuiteHeritageInterface1^ast.add(SuiteHeritageInterface^factory.createTypeGenerique(d, InstanceGenericite^ast));
+                SuiteHeritageInterface1^ast.add(SuiteHeritageInterface^factory.TypeGenerique(d, InstanceGenericite^ast));
                 SuiteHeritageInterface^ast := SuiteHeritageInterface1^ast;
             else
                 error(BLOC_not_an_interface, identificateur_type);
@@ -294,7 +294,7 @@ end
 ElementInterface -> final statique Type identificateur affectation Expression point_virgule #ast;
 #ast {
 do
-    ElementInterface^ast := ElementInterface^factory.createFinalStaticField(identificateur^txt, Type^ast, Expression^ast);
+    ElementInterface^ast := ElementInterface^factory.FinalStaticField(identificateur^txt, Type^ast, Expression^ast);
 end
 }
 
@@ -313,14 +313,14 @@ end
 Signature -> vide identificateur parenthese_ouvrante Parametres parenthese_fermante #ast;
 #ast {
 do
-    Signature^ast := Signature^factory.createSignature(identificateur^txt, Parametres^ast);
+    Signature^ast := Signature^factory.Signature(identificateur^txt, Parametres^ast);
 end
 }
 
 Signature -> Type identificateur parenthese_ouvrante Parametres parenthese_fermante #ast;
 #ast {
 do
-    Signature^ast := Signature^factory.createSignature(identificateur^txt, Type^ast, Parametres^ast);
+    Signature^ast := Signature^factory.Signature(identificateur^txt, Type^ast, Parametres^ast);
 end
 }
 
@@ -358,13 +358,14 @@ do
         if Genericite^ast = nil then
             if HeritageClasse^ast = nil then
                 if ImplantationInterface^ast = nil then
-                    Classe^ast := Classe^factory.createClasse(identificateur_type^txt, ElementsClasse^ast);
+                    Classe^ast := Classe^factory.Classe(identificateur_type^txt, ElementsClasse^ast);
                 else
-                    Classe^ast := Classe^factory.createClasse(identificateur_type^txt, ImplantationInterface^ast, ElementsClasse^ast);
+                    Classe^ast := Classe^factory.Classe(identificateur_type^txt, ImplantationInterface^ast, ElementsClasse^ast);
                 end
             else
                 if ImplantationInterface^ast = nil then
-                    Classe^ast := Classe^factory.createClasse(identificateur_type^txt, HeritageClasse^ast, ElementsClasse^ast);
+		--Modif a verifier ^txt passe 2eme
+                    Classe^ast := Classe^factory.createClasse( HeritageClasse^ast,identificateur_type^txt, ElementsClasse^ast);
                 else
                     Classe^ast := Classe^factory.createClasse(identificateur_type^txt, HeritageClasse^ast, ImplantationInterface^ast, ElementsClasse^ast);
                 end
@@ -372,13 +373,16 @@ do
         else
             if HeritageClasse^ast = nil then
                 if ImplantationInterface^ast = nil then
-                    Classe^ast := Classe^factory.createClasse(identificateur_type^txt, Genericite^ast, ElementsClasse^ast);
+		-- Pareil ^txt passe 3eme
+                    Classe^ast := Classe^factory.createClasse(Genericite^ast, ElementsClasse^ast,identificateur_type^txt);
                 else
-                    Classe^ast := Classe^factory.createClasse(identificateur_type^txt, Genericite^ast, ImplantationInterface^ast, ElementsClasse^ast);
+		--^txt -> 4eme
+                    Classe^ast := Classe^factory.createClasse (Genericite^ast, ImplantationInterface^ast, ElementsClasse^ast,identificateur_type^txt);
                 end
             else
                 if ImplantationInterface^ast = nil then
-                    Classe^ast := Classe^factory.createClasse(identificateur_type^txt, Genericite^ast, HeritageClasse^ast, ElementsClasse^ast);
+		-- ^txt -> 3eme
+                    Classe^ast := Classe^factory.createClasse(Genericite^ast, HeritageClasse^ast,identificateur_type^txt, ElementsClasse^ast);
                 else
                     Classe^ast := Classe^factory.createClasse(identificateur_type^txt, Genericite^ast, HeritageClasse^ast, ImplantationInterface^ast, ElementsClasse^ast);
                 end

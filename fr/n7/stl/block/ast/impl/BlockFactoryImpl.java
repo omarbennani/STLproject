@@ -28,6 +28,8 @@ import fr.n7.stl.block.ast.ParametreGenericite;
 import fr.n7.stl.block.ast.RecordType;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.block.ast.TypeDeclaration;
+import fr.n7.stl.block.ast.TypeInterface;
+import fr.n7.stl.block.ast.TypeObjet;
 import fr.n7.stl.block.ast.UnaryOperator;
 import fr.n7.stl.block.ast.Value;
 import fr.n7.stl.block.ast.VariableDeclaration;
@@ -473,5 +475,26 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 	public Classe createClasse(String _name,List<ElementClasse> _elts){
 		return new ClasseImpl(_name,_elts);
+	}
+	public Classe createClasse(String _name,List<TypeInterface> _interfaces,List<ElementClasse> _elts){
+		return new ClasseImpl(_name, _interfaces, _elts);	
+	}
+	public Classe createClasse(List<ParametreGenericite> _heritage,String _name,List<ElementClasse> _elts){
+		return new ClasseImpl( _heritage,_name, _elts);	
+	}
+	public Classe createClasse(String _name,List<TypeObjet> _heritage,List<TypeInterface> _interfaces,  List<ElementClasse> _elts){
+		return new ClasseImpl(_name,_heritage,_interfaces,_elts);
+	}
+	public Classe createClasse(List<ParametreGenericite> _genericite,  List<ElementClasse> _elts,String _name){
+		return new ClasseImpl(_genericite,_elts,_name);
+	}
+	public Classe createClasse(List<ParametreGenericite> _genericite,List<TypeInterface> _interfaces,  List<ElementClasse> _elts,String _name){
+		return new ClasseImpl(_genericite,_interfaces,_elts,_name);
+	}
+	public Classe createClasse(List<ParametreGenericite> _genericite,List<TypeObjet> _heritage,String _name,List<ElementClasse> _elts){
+		return new ClasseImpl(_genericite,_heritage,_name,_elts);
+	}
+	public Classe createClasse(String _name,List<ParametreGenericite> _genericite,List<TypeObjet> _heritage,List<TypeInterface> _interfaces,List<ElementClasse> _elts){
+		return new ClasseImpl(_name,_genericite,_heritage,_interfaces,_elts);
 	}
 }
