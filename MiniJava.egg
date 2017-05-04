@@ -12,13 +12,13 @@ option k=2;
 
 
 inh gauche	    : Expression for SuiteCondition, SuiteTerme, SuiteFacteur;
-inh factory	    : BlockFactory for Bloc, Instruction, TypeAtomique, SuiteTypeAtomique, SuiteConditionnelle, Instructions, Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Type, Valeur, Acces, SuiteExpressions, Expressions, SuiteNouveau, Programme, Interfaces, Interface, ElementInterface, ElementsInterface, Signature, Parametre, SuiteParametres, Parametres, ParametreGenericite, SuiteParametresGenericite, ParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, Genericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, HeritageInterface, SuiteHeritageInterface, Classes, Classe, ImplantationInterface, MethodePrincipale, Principale, InstanceGenericite, HeritageClasse, Constructeur;
+inh factory	    : BlockFactory for Bloc, Instruction, TypeAtomique, SuiteTypeAtomique, SuiteConditionnelle, Instructions, Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Type, Valeur, Acces, SuiteExpressions, Expressions, SuiteNouveau, Programme, Interfaces, Interface, ElementInterface, ElementsInterface, Signature, Parametre, SuiteParametres, Parametres, ParametreGenericite, SuiteParametresGenericite, ParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, Genericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, HeritageInterface, SuiteHeritageInterface, Classes, Classe, ImplantationInterface, MethodePrincipale, Principale, InstanceGenericite, HeritageClasse, Constructeur, DroitAcces, ElementsClasse, ElementClasse, AttributOuMethode, Attribut, Methode, SuiteAttributOuMethode;
 syn ast		    : Block for Programme; 
 syn ast		    : Expression for Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, Acces, SuiteNouveau ;
 syn ast         : Block for Bloc, SuiteConditionnelle;
 syn ast		    : Type for Type, TypeAtomique, SuiteTypeAtomique;
 syn ast         : Instruction for Instruction;
-inh tds         : SymbolTable for Bloc, Instructions, Instruction, Expression, SuiteConditionnelle, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Type, TypeAtomique, SuiteExpressions, Expressions, SuiteNouveau, Acces, Programme, Interfaces, Interface, Genericite, ParametreGenericite, ParametresGenericite, SuiteParametresGenericite, ElementsInterface, ElementInterface, Signature, Classes, Classe, MethodePrincipale, Principale, HeritageGenericite, HeritageInterface, SuiteHeritageInterface, SuiteHeritageGenericite, Parametre, Parametres, SuiteParametres, HeritageClasse, ImplantationInterface;
+inh tds         : SymbolTable for Bloc, Instructions, Instruction, Expression, SuiteConditionnelle, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Type, TypeAtomique, SuiteExpressions, Expressions, SuiteNouveau, Acces, Programme, Interfaces, Interface, Genericite, ParametreGenericite, ParametresGenericite, SuiteParametresGenericite, ElementsInterface, ElementInterface, Signature, Classes, Classe, MethodePrincipale, Principale, HeritageGenericite, HeritageInterface, SuiteHeritageInterface, SuiteHeritageGenericite, Parametre, Parametres, SuiteParametres, HeritageClasse, ImplantationInterface, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, ElementsClasse, Constructeur;
 syn insts       : List<Instruction> for Instructions;
 inh tree        : List<Instruction> for Instructions;
 syn bin_op	    : BinaryOperator for Additif, Multiplicatif, Comparatif;
@@ -45,10 +45,11 @@ syn ast         : Type for HeritageClasse;
 syn ast         : LinkedList<ElementClasse> for ElementsClasse;
 inh typeAtt     : Type for SuiteAttributOuMethode;
 inh nomAtt      : String for SuiteAttributOuMethode;
-syn ast         : ElementClasse for AttributOuMethode, SuiteAttributOuMethode;
+syn ast         : ElementClasse for AttributOuMethode, SuiteAttributOuMethode, ElementClasse;
 inh droit       : DroitAcces for ElementClasse, AttributOuMethode, SuiteAttributOuMethode;
 inh nomClasse   : String for ElementClasse, ElementsClasse, Constructeur;
 syn ast         : Constructeur for Constructeur;
+syn ast         : DroitAcces for DroitAcces;
 
 space  separateur				is    "[\n\r\t ]+";
 space  commentaire			    is    "\/\/.*\n";
@@ -391,7 +392,7 @@ do
     ImplantationInterface^tds := new Symboltable(Classe^tds);
 end
 }
-#inh {
+#inh {
 do
     ElementsClasse^nomClasse := identificateur_type^txt;
 end
@@ -637,7 +638,7 @@ end
 }
 #droit {
 do
-    ElementsClasse^droit := DroitAcces^ast;
+    ElementClasse^droit := DroitAcces^ast;
 end
 }
   
@@ -686,7 +687,12 @@ do
 end
 }
  
-ElementClasse -> Constructeur ;
+ElementClasse -> Constructeur #ast;
+#ast {
+do
+    ElementClasse^ast := Constructeur^ast;
+end
+}
    
 
 AttributOuMethode -> Type identificateur #inh SuiteAttributOuMethode #ast;
