@@ -507,6 +507,9 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 	public DroitAcces createDroitAcces(int i ){
 		return new DroitAccesImpl(i);
-		
+	}
+	public ElementClasse createMethode(DroitAcces _droit,String _name,Parametre _param, Expression _exp){
+		return new ElementClasse() {
+		};
 	}
 }
