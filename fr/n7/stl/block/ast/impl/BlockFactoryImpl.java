@@ -506,7 +506,14 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new ArgumentGenericiteImpl(_name,_inst);
 	}
 	public DroitAcces createDroitAcces(int i ){
-		return new DroitAccesImpl(i);
+		switch (i) {
+		case 0:
+			return DroitAcces.publique;
+		case 1:
+			return DroitAcces.protege;
+		case 2:
+			return DroitAcces.prive;
+		}
 	}
 	public ElementClasse createMethode(DroitAcces _droit,String _name,Parametre _param, Expression _exp){
 		return new ElementClasse() {
