@@ -12,18 +12,18 @@ option k=2;
 
 
 inh gauche	    : Expression for SuiteCondition, SuiteTerme, SuiteFacteur;
-inh factory	    : BlockFactory for Bloc, Instruction, TypeAtomique, SuiteTypeAtomique, SuiteConditionnelle, Instructions, Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Type, Valeur, Acces, SuiteExpressions, Expressions, SuiteNouveau, Programme, Interfaces, Interface, ElementInterface, ElementsInterface, Signature, Parametre, SuiteParametres, Parametres, ParametreGenericite, SuiteParametresGenericite, ParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, Genericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, HeritageInterface, SuiteHeritageInterface, Classes, Classe, ImplantationInterface, MethodePrincipale, Principale, InstanceGenericite, HeritageClasse, Constructeur, DroitAcces, ElementsClasse, ElementClasse, AttributOuMethode, Attribut, Methode, SuiteAttributOuMethode;
+inh factory	    : BlockFactory for Bloc, Instruction, TypeAtomique, SuiteTypeAtomique, SuiteConditionnelle, Instructions, Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Type, Valeur, Acces, SuiteExpressions, Expressions, SuiteNouveau, Programme, Interfaces, Interface, ElementInterface, ElementsInterface, Signature, Parametre, SuiteParametres, Parametres, ParametreGenericite, SuiteParametresGenericite, ParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, Genericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, HeritageInterface, SuiteHeritageInterface, Classes, Classe, ImplantationInterface, MethodePrincipale, Principale, InstanceGenericite, HeritageClasse, Constructeur, DroitAcces, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode;
 syn ast		    : Block for Programme; 
-syn ast		    : Expression for Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, Acces, SuiteNouveau ;
+syn ast		    : Expression for Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, Acces, SuiteNouveau;
 syn ast         : Block for Bloc, SuiteConditionnelle;
 syn ast		    : Type for Type, TypeAtomique, SuiteTypeAtomique;
 syn ast         : Instruction for Instruction;
-inh tds         : SymbolTable for Bloc, Instructions, Instruction, Expression, SuiteConditionnelle, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Type, TypeAtomique, SuiteExpressions, Expressions, SuiteNouveau, Acces, Programme, Interfaces, Interface, Genericite, ParametreGenericite, ParametresGenericite, SuiteParametresGenericite, ElementsInterface, ElementInterface, Signature, Classes, Classe, MethodePrincipale, Principale, HeritageGenericite, HeritageInterface, SuiteHeritageInterface, SuiteHeritageGenericite, Parametre, Parametres, SuiteParametres, HeritageClasse, ImplantationInterface, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, ElementsClasse, Constructeur;
+inh tds         : SymbolTable for Bloc, Instructions, Instruction, Expression, SuiteConditionnelle, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Type, TypeAtomique, SuiteExpressions, Expressions, SuiteNouveau, Acces, Programme, Interfaces, Interface, Genericite, ParametreGenericite, ParametresGenericite, SuiteParametresGenericite, ElementsInterface, ElementInterface, Signature, Classes, Classe, MethodePrincipale, Principale, HeritageGenericite, HeritageInterface, SuiteHeritageInterface, SuiteHeritageGenericite, Parametre, Parametres, SuiteParametres, HeritageClasse, ImplantationInterface, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, ElementsClasse, Constructeur, Affectation;
 syn insts       : List<Instruction> for Instructions;
 inh tree        : List<Instruction> for Instructions;
 syn bin_op	    : BinaryOperator for Additif, Multiplicatif, Comparatif;
-inh support     : Assignable for SuiteAffectable;
-syn ast         : Assignable for Affectable, SuiteAffectable;
+inh support     : Assignable for SuiteAffectation;
+syn ast         : Assignable for Affectation, SuiteAffectation;
 inh support     : Expression for Acces;
 syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
 inh type        : Type for SuiteNouveau, SuiteTypeAtomique;
@@ -950,76 +950,10 @@ do
 end
 }
 
---Instruction -> Affectable affectation Expression point_virgule #ast ;
---#ast {
---do
---      Instruction^ast := Instruction^factory.createAssignment( Affectable^ast, Expression^ast);  
---end
---}
-
-
-
---Affectable -> parenthese_ouvrante Affectable parenthese_fermante #ast ;
---#ast {
---do
---   Affectable^ast := Affectable1^ast;
---end
---}
-
---Affectable -> identificateur #inh SuiteAffectable #ast ;
---#inh {
---local
---   o : Optional<Declaration>;
---   d : Declaration;
---do
---   if (Affectable^tds.knows(identificateur^txt)) then
---      o := Affectable^tds.get(identificateur^txt);
---      d := o.get();
---      match d
---      with VariableDeclaration then SuiteAffectable^support := Affectable^factory.createVariableAssignment( d );
---     with ConstantDeclaration then error(BLOC_not_a_variable, identificateur^txt);
---      end
---   else
---      error(BLOC_undefined_ident, identificateur^txt);
---   end
---end
---}
-
---#ast {
---do
---   Affectable^ast := SuiteAffectable^ast;
---end
---}
-
-
---SuiteAffectable -> #ast ;
-
---#ast { 
---do  
---   SuiteAffectable^ast := SuiteAffectable^support;  
---end  
---}
-
---SuiteAffectable -> point identificateur AppelOuAcces ;
-
---SuiteAffectable -> crochet_ouvrant Expression crochet_fermant #inh SuiteAffectable #ast ;
---#inh {
---do
---   SuiteAffectable1^support := SuiteAffectable^factory.createArrayAssignment(SuiteAffectable^support,Expression^ast);  
---end
---}
-
---#ast {
---do
---   SuiteAffectable^ast := SuiteAffectable1^ast;   
---end
---}
-
-
 Instruction -> Expression point_virgule #ast;
 #ast {
 do
-
+    Instruction^ast := ;
 end
 }
 
@@ -1097,79 +1031,46 @@ end
 Instruction -> retour Expression point_virgule ;
 
 
---Expression -> Condition #inh SuiteCondition #ast ;
---#inh {
---do
---   SuiteCondition^gauche := Condition^ast ;
---   SuiteCondition^tds := Expression^tds;
---end 
---}
---#ast {
---do
---    Expression^ast := SuiteCondition^ast;
---end 
---}
-
---Instruction -> Affectable affectation Expression point_virgule #ast ;
---#ast {
---do
---      Instruction^ast := Instruction^factory.createAssignment( Affectable^ast, Expression^ast);  
---end
---}
+Expression -> Affectation #inh SuiteAffectation #ast;
+#inh {
+do
+    SuiteAffectation^support := Affectation^ast;
+end
+}
+#ast {
+do
+    Expression^ast := SuiteAffectation^ast;
+end
+}
 
 
-
---Affectable -> parenthese_ouvrante Affectable parenthese_fermante #ast ;
---#ast {
---do
---   Affectable^ast := Affectable1^ast;
---end
---}
-
---Affectable -> identificateur #inh SuiteAffectable #ast ;
---#inh {
---local
---   o : Optional<Declaration>;
---   d : Declaration;
---do
---   if (Affectable^tds.knows(identificateur^txt)) then
---      o := Affectable^tds.get(identificateur^txt);
---      d := o.get();
---      match d
---      with VariableDeclaration then SuiteAffectable^support := Affectable^factory.createVariableAssignment( d );
---     with ConstantDeclaration then error(BLOC_not_a_variable, identificateur^txt);
---      end
---   else
---      error(BLOC_undefined_ident, identificateur^txt);
---   end
---end
---}
-
---#ast {
---do
---   Affectable^ast := SuiteAffectable^ast;
---end
---}
+Affectation -> Condition #inh SuiteCondition #ast;
+#ast {
+do
+    Affectation^ast := SuiteCondition^ast;
+end
+}
+#inh {
+do
+   SuiteCondition^gauche := Condition^ast ;
+   SuiteCondition^tds := Affectation^tds;
+end 
+}
 
 
---SuiteAffectable -> #ast ;
+SuiteAffectation -> affectation Expression #ast;
+#ast {
+do
+    SuiteAffectation^ast := SuiteAffectation^factory.createAssignment(SuiteAffectation^support, Expression^ast);
+end
+}
 
---#ast { 
---do  
---   SuiteAffectable^ast := SuiteAffectable^support;  
---end  
---}
-
-
-Expression -> Affectation SuiteAffectation ;
-
-
-Affectation -> Condition SuiteCondition ;
-
-
-SuiteAffectation -> affectation Expression ;
-
-SuiteAffectation -> ;
+SuiteAffectation -> #ast;
+#ast {
+do
+    SuiteAffectation^ast := SuiteAffectation^support;
+end
+}
 
 
 SuiteCondition -> Comparatif #tds Condition #ast ;
