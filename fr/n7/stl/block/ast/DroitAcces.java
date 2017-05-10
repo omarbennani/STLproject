@@ -1,5 +1,7 @@
 package fr.n7.stl.block.ast;
 
-public interface DroitAcces {
-
+public enum DroitAcces {
+	publique,
+	prive,
+	protege;
 }
