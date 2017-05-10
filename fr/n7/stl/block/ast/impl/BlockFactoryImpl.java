@@ -15,6 +15,7 @@ import fr.n7.stl.block.ast.BooleanValue;
 import fr.n7.stl.block.ast.Classe;
 import fr.n7.stl.block.ast.Sequence;
 import fr.n7.stl.block.ast.ConstantDeclaration;
+import fr.n7.stl.block.ast.Declaration;
 import fr.n7.stl.block.ast.DroitAcces;
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.ElementInterface;
@@ -532,5 +533,11 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 	public Parametre createParametre(Type _type,String _name){
 		return new ParametreImpl(_type,_name);
+	}
+	public TypeObjet createTypeObjet(Declaration _decl){
+		return new TypeObjetImpl(_decl);
+	}
+	public Type createTypeGenerique(Declaration _decl,List<ArgumentGenericite> _argGen){
+		return new TypeGenericiteImpl(_decl,_argGen);
 	}
 }
