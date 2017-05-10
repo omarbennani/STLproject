@@ -466,7 +466,6 @@ public class BlockFactoryImpl implements BlockFactory {
 	public FinalStaticFieldImpl createFinalStaticField(String _name, Type _type, Expression _expr) {
 		return new FinalStaticFieldImpl(_name, _type, _expr);
 	}
-	// Objet ou TypeObjet?
 	public ParametreGenericite createParametreGenericite(String _name, List<Objet> _param ){
 		return new ParametreGenericiteImpl(_name,_param);
 	}
@@ -477,36 +476,45 @@ public class BlockFactoryImpl implements BlockFactory {
 	public Type createTypeGenerique(String _name,List<ArgumentGenericite> _argGen){
 		return new TypeGenericiteImpl(_name,_argGen);
 	}
+	
 	public Classe createClasse(String _name,List<ElementClasse> _elts){
 		return new ClasseImpl(_name,_elts);
 	}
+	
 	public Classe createClasse(String _name,List<TypeInterface> _interfaces,List<ElementClasse> _elts){
 		return new ClasseImpl(_name, _interfaces, _elts);	
 	}
 	public Classe createClasse(List<ParametreGenericite> _heritage,String _name,List<ElementClasse> _elts){
 		return new ClasseImpl( _heritage,_name, _elts);	
 	}
+	
 	public Classe createClasse(String _name,List<TypeObjet> _heritage,List<TypeInterface> _interfaces,  List<ElementClasse> _elts){
 		return new ClasseImpl(_name,_heritage,_interfaces,_elts);
 	}
 	public Classe createClasse(List<ParametreGenericite> _genericite,  List<ElementClasse> _elts,String _name){
 		return new ClasseImpl(_genericite,_elts,_name);
 	}
+	
 	public Classe createClasse(List<ParametreGenericite> _genericite,List<TypeInterface> _interfaces,  List<ElementClasse> _elts,String _name){
 		return new ClasseImpl(_genericite,_interfaces,_elts,_name);
 	}
+	
 	public Classe createClasse(List<ParametreGenericite> _genericite,List<TypeObjet> _heritage,String _name,List<ElementClasse> _elts){
 		return new ClasseImpl(_genericite,_heritage,_name,_elts);
 	}
+	
 	public Classe createClasse(String _name,List<ParametreGenericite> _genericite,List<TypeObjet> _heritage,List<TypeInterface> _interfaces,List<ElementClasse> _elts){
 		return new ClasseImpl(_name,_genericite,_heritage,_interfaces,_elts);
 	}
+	
 	public ArgumentGenericite createArgumentGenericite(String _name){
 		return new ArgumentGenericiteImpl(_name);
 	}
+	
 	public ArgumentGenericite createArgumentGenericite(String _name,List<ArgumentGenericite> _inst){
 		return new ArgumentGenericiteImpl(_name,_inst);
 	}
+	
 	public DroitAcces createDroitAcces(int i ){
 		switch (i) {
 		case 0:
@@ -518,26 +526,34 @@ public class BlockFactoryImpl implements BlockFactory {
 		default:
 			return null;
 		}
-	}                        
+	}       
+	
 	public ElementClasse createMethode(DroitAcces _droit,String _name,List<Parametre> _param, Expression _exp){
 		return new Methode(_droit,_name,_param,_exp);
 	}
+	
 	public ElementClasse createAttribut(DroitAcces _droit,Type _type,String _name){
 		return new Attribut(_droit,_type,_name);
 	}
+	
 	public ElementClasse createMethode(DroitAcces _droit,Type _type,String _name,List<Parametre> _param, Expression _exp){
 		return new Methode(_droit,_type,_param,_name,_exp);
 	}
+	
 	public ElementClasse createConstructeur(String _name,List<Parametre> _param,Expression _exp) {
 		return new Constructeur(_name,_param,_exp);
 	}
+	
 	public Parametre createParametre(Type _type,String _name){
 		return new ParametreImpl(_type,_name);
 	}
+	
 	public TypeObjet createTypeObjet(Declaration _decl){
 		return new TypeObjetImpl(_decl);
 	}
+	
 	public Type createTypeGenerique(Declaration _decl,List<ArgumentGenericite> _argGen){
 		return new TypeGenericiteImpl(_decl,_argGen);
 	}
+	
 }

@@ -9,6 +9,7 @@ public class Attribut implements ElementClasse {
 	protected DroitAcces _droitAcces;
 	protected Type _typeAtt;
 	protected String _nom;
+	
 	public Attribut(DroitAcces _droit, Type _type, String _name) {
 		this._droitAcces=_droit;
 		this._typeAtt=_type;

@@ -16,6 +16,7 @@ public class ClasseImpl implements Classe{
 	protected List<TypeInterface> _interfaces;
 	protected List<TypeObjet> _parents;
 	List<ParametreGenericite> _gene;
+	
 	public ClasseImpl(String _name2, List<ElementClasse> _elts2) {
 		this._name=_name2;
 		this._elts=new ArrayList<ElementClasse>();
@@ -25,6 +26,7 @@ public class ClasseImpl implements Classe{
 		this._parents=new ArrayList<TypeObjet>();
 		this._gene=new ArrayList<ParametreGenericite>();
 	}
+	
 	public ClasseImpl(String _name2,List<TypeInterface> _interfaces2, List<ElementClasse> _elts2) {
 		this._name=_name2;
 		this._elts=new ArrayList<ElementClasse>();
@@ -48,6 +50,7 @@ public class ClasseImpl implements Classe{
 		this._gene=new ArrayList<ParametreGenericite>();
 
 		}
+	
 	public ClasseImpl(String _name2,List<TypeObjet> _heritage,List<TypeInterface> _interfaces2,  List<ElementClasse> _elts2) {
 		this._name=_name2;
 		this._elts=new ArrayList<ElementClasse>();
@@ -87,6 +90,7 @@ public class ClasseImpl implements Classe{
 		if (_genericite!=null)
 			this._gene=_genericite;
 	}
+	
 	public ClasseImpl(List<ParametreGenericite> _genericite, List<TypeObjet> _heritage, String _name2,List<ElementClasse> _elts2) {
 		this._name=_name2;
 		this._elts=new ArrayList<ElementClasse>();
@@ -100,6 +104,7 @@ public class ClasseImpl implements Classe{
 		if (_genericite!=null)
 			this._gene=_genericite;
 	}
+	
 	public ClasseImpl(String _name2, List<ParametreGenericite> _genericite, List<TypeObjet> _heritage,List<TypeInterface> _interfaces2, List<ElementClasse> _elts2) {
 		this._name=_name2;
 		this._elts=new ArrayList<ElementClasse>();
@@ -115,6 +120,7 @@ public class ClasseImpl implements Classe{
 		if (_genericite!=null)
 			this._gene=_genericite;
 	}
+	
 	@Override
 	public String getName() {
 		return this._name;
