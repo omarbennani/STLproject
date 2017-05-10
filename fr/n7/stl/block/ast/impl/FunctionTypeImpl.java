@@ -38,7 +38,7 @@ public class FunctionTypeImpl implements Type {
 		int i=0;
 	    if (_other instanceof FunctionTypeImpl) {
 	    	while(b&&i<this.parameters.size())
-	    		b=this.parameters.get(i).compatibleWith(((FunctionTypeImpl)_other).parameters.get(i));
+	    		b=this.parameters.get(i).equalsTo(((FunctionTypeImpl)_other).parameters.get(i));
 	       return (this.result.equalsTo(((FunctionTypeImpl) _other).result) && b);
 	    } else {
 	        return false;
@@ -50,8 +50,12 @@ public class FunctionTypeImpl implements Type {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
+		boolean b=true;
+		int i=0;
 	    if (_other instanceof FunctionTypeImpl) {
-	        return this.result.compatibleWith(((FunctionTypeImpl) _other).result);
+	    	while(b&&i<this.parameters.size())
+	    		b=this.parameters.get(i).compatibleWith(((FunctionTypeImpl)_other).parameters.get(i));
+	        return (this.result.compatibleWith(((FunctionTypeImpl) _other).result)&&b);
 	    } else {
 	        return false;
 	    }
