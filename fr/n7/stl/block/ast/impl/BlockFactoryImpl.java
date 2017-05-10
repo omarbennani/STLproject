@@ -513,7 +513,7 @@ public class BlockFactoryImpl implements BlockFactory {
 			return DroitAcces.protege;
 		case 2:
 			return DroitAcces.prive;
-		case default:
+		default:
 			return null;
 		}
 			
