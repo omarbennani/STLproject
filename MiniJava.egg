@@ -18,7 +18,7 @@ syn ast		    : Expression for Expression, Condition, SuiteCondition, Terme, Suit
 syn ast         : Block for Bloc, SuiteConditionnelle;
 syn ast		    : Type for Type, TypeAtomique, SuiteTypeAtomique;
 syn ast         : Instruction for Instruction;
-inh tds         : SymbolTable for Bloc, Instructions, Instruction, Expression, SuiteConditionnelle, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Type, TypeAtomique, SuiteExpressions, Expressions, SuiteNouveau, Acces, Programme, Interfaces, Interface, Genericite, ParametreGenericite, ParametresGenericite, SuiteParametresGenericite, ElementsInterface, ElementInterface, Signature, Classes, Classe, MethodePrincipale, Principale, HeritageGenericite, HeritageInterface, SuiteHeritageInterface, SuiteHeritageGenericite, Parametre, Parametres, SuiteParametres, HeritageClasse, ImplantationInterface, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, ElementsClasse, Constructeur, Affectation;
+inh tds         : SymbolTable for Bloc, Instructions, Instruction, Expression, SuiteConditionnelle, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Type, TypeAtomique, SuiteExpressions, Expressions, SuiteNouveau, Acces, Programme, Interfaces, Interface, Genericite, ParametreGenericite, ParametresGenericite, SuiteParametresGenericite, ElementsInterface, ElementInterface, Signature, Classes, Classe, MethodePrincipale, Principale, HeritageGenericite, HeritageInterface, SuiteHeritageInterface, SuiteHeritageGenericite, Parametre, Parametres, SuiteParametres, HeritageClasse, ImplantationInterface, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, ElementsClasse, Constructeur, Affectation, ArgumentGenericite, ArgumentsGenericite, InstanceGenericite, SuiteArgumentsGenericite;
 syn insts       : List<Instruction> for Instructions;
 inh tree        : List<Instruction> for Instructions;
 syn bin_op	    : BinaryOperator for Additif, Multiplicatif, Comparatif;
@@ -27,20 +27,20 @@ syn ast         : Assignable for Affectation, SuiteAffectation;
 inh support     : Expression for Acces;
 syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
 inh type        : Type for SuiteNouveau, SuiteTypeAtomique;
-syn ast         : List<Objet> for Interfaces, Classes;
+syn ast         : LinkedList<Objet> for Interfaces, Classes;
 syn ast         : Objet for Interface, Classe;
-inh tree        : List<Objet> for Interfaces, Classes;
+-- inh tree        : List<Objet> for Interfaces, Classes;
 syn ast         : ElementInterface for ElementInterface, Signature;
 syn ast         : LinkedList<ElementInterface> for ElementsInterface;
 syn ast         : Parametre for Parametre;
 syn ast         : LinkedList<Parametre> for Parametres, SuiteParametres;
 syn ast         : ParametreGenericite for ParametreGenericite;
 syn ast         : LinkedList<ParametreGenericite> for ParametresGenericite, SuiteParametresGenericite, Genericite;
-syn ast         : LinkedList<Objet> for HeritageGenericite, SuiteHeritageGenericite;
+syn ast         : LinkedList<Type> for HeritageGenericite, SuiteHeritageGenericite;
 syn ast         : ArgumentGenericite for ArgumentGenericite;
 syn ast         : LinkedList<ArgumentGenericite> for ArgumentsGenericite, SuiteArgumentsGenericite, InstanceGenericite;
 syn ast         : LinkedList<Type> for HeritageInterface, SuiteHeritageInterface, ImplantationInterface;
-syn tdsnh       : SymbolTable for Interfaces;
+--syn tdsnh       : SymbolTable for Interfaces, Classes;
 syn ast         : Type for HeritageClasse;
 syn ast         : LinkedList<ElementClasse> for ElementsClasse;
 inh typeAtt     : Type for SuiteAttributOuMethode;
@@ -50,6 +50,7 @@ inh droit       : DroitAcces for ElementClasse, AttributOuMethode, SuiteAttribut
 inh nomClasse   : String for ElementClasse, ElementsClasse, Constructeur;
 syn ast         : Constructeur for Constructeur;
 syn ast         : DroitAcces for DroitAcces;
+syn ast         : MethodePrincipale for Principale, MethodePrincipale;
 
 space  separateur				is    "[\n\r\t ]+";
 space  commentaire			    is    "\/\/.*\n";
@@ -110,64 +111,49 @@ term   entier					is    "[0-9]+";
 term   identificateur			is    "[a-z_][a-zA-Z0-9_]*";
 term   identificateur_type		is    "[A-Z][a-zA-Z0-9_]*"; 
 
-
---Programme -> #factory Interfaces #tree1 Classes #tree2 Principale #ast;
---#ast {
---do
---    Programme^ast := Principale^ast;
---end
---}
-
---#factory {
---do
---    Programme^factory := new BlockFactoryImpl();
---end
---}
-
---#tree1 {
---do
---   Classes^tree := Interfaces^ast;
---end
---}
---#tree2 {
---do
---    Principale^tree := Classes^ast;
---end
---}
-
-Programme -> #factory Interfaces #tree1 Classes #ast;
-#factory {
+Programme -> #inter Interfaces #class Classes #principal Principale #ast;
+global
+    s : SymbolTable;
+    t : SymbolTable;
+#inter {
 do
-    Interfaces^tds := new SymbolTable();
+    s := new SymbolTable();
+    Interfaces^tds := s;
     Interfaces^factory := new BlockFactoryImpl();
+end
+}
+#class {
+do
+    t := new SymbolTable(s);
+    Classes^tds := t;
     Classes^factory := new BlockFactoryImpl();
-    Interfaces^tree := new LinkedList<Interface>();
+end
+}
+#principal {
+do
+    Principale^tds := new SymbolTable(t);
+    Principale^factory := new BlockFactoryImpl();
 end
 }
 #ast {
 do
-    Programme^ast := Programme^factory.createBloc(Interfaces^ast);
-end
-}
-#tree1 {
-do
-    Classes^tds := new SymbolTable(Interfaces^tdsnh);
-    Classes^tree := Interfaces^ast;
+    Programme^ast := Programme^factory.createProgramme(Interfaces^ast, Classes^ast, Principale^ast);
 end
 }
 
 Interfaces -> Interface #tree Interfaces #ast;
 #ast {
 do
+    Interfaces1^ast.addFirst(Interface^ast);
     Interfaces^ast := Interfaces1^ast;
-    Interfaces^tdsnh := Interfaces1^tdsnh;
+--    Interfaces^tdsnh := Interfaces1^tdsnh;
 end
 }
 
 #tree {
 do
-    Interfaces^tree.add(Interface^ast);
-    Interfaces1^tree := Interfaces^tree;
+--    Interfaces^tree.add(Interface^ast);
+--    Interfaces1^tree := Interfaces^tree;
     Interfaces^tds.register(Interface^ast);
     Interfaces1^tds := Interfaces^tds;
 end
@@ -176,8 +162,9 @@ end
 Interfaces -> #ast;
 #ast {
 do
-    Interfaces^ast := Interfaces^tree;
-    Interfaces^tdsnh := Interfaces^tds;
+    Interfaces^ast := new LinkedList<Interface>();
+--    Interfaces^ast := Interfaces^tree;
+--    Interfaces^tdsnh := Interfaces^tds;
 end
 }
 
@@ -294,7 +281,7 @@ end
 ElementInterface -> final statique Type identificateur affectation Expression point_virgule #ast;
 #ast {
 do
-    ElementInterface^ast := ElementInterface^factory.FinalStaticField(identificateur^txt, Type^ast, Expression^ast);
+    ElementInterface^ast := ElementInterface^factory.createFinalStaticField(identificateur^txt, Type^ast, Expression^ast);
 end
 }
 
@@ -328,13 +315,14 @@ end
 Classes -> Classe #tree Classes #ast;
 #ast {
 do
+    Classes1^ast.addFirst(Classe^ast);
     Classes^ast := Classes1^ast;
 end
 }
 #tree {
 do
-    Classes^tree.add(Classe^ast);
-    Classes1^tree := Classes^tree;
+--    Classes^tree.add(Classe^ast);
+--    Classes1^tree := Classes^tree;
     Classes^tds.register(Classe^ast);
     Classes1^tds := Classes^tds;
 end
@@ -343,7 +331,9 @@ end
 Classes -> #ast;
 #ast {
 do
-    Classes^ast := Classes^tree;
+    Classes^ast := new LinkedList<Classe>();
+--    Classes^ast := Classes^tree;
+--    Classes^tdsnh := Classes^tds;
 end
 }
 
@@ -462,10 +452,20 @@ end
 }
 
 
-Principale -> public classe identificateur_type accolade_ouvrante MethodePrincipale accolade_fermante ;
+Principale -> public classe identificateur_type accolade_ouvrante MethodePrincipale accolade_fermante #ast;
+#ast {
+do
+    Principale^ast := MethodePrincipale^ast;
+end
+}
 
 
-MethodePrincipale -> public statique vide principale parenthese_ouvrante type_String crochet_ouvrant crochet_fermant identificateur parenthese_fermante Bloc ;
+MethodePrincipale -> public statique vide principale parenthese_ouvrante type_String crochet_ouvrant crochet_fermant identificateur parenthese_fermante Bloc #ast;
+#ast {
+do
+    MethodePrincipale^ast := MethodePrincipale^factory.createMethodePrincipale(identificateur^txt, Bloc^ast);
+end
+}
 
 
 Genericite -> inferieur ParametresGenericite superieur #ast ;
@@ -521,21 +521,41 @@ do
 end
 }
  
-ParametreGenericite -> choix HeritageGenericite #ast;
+ArgumentGenericite -> choix HeritageGenericite #ast;
 #ast {
 do
-    ParametreGenericite^ast := ParametreGenericite^factory.createParametreGenericite(HeritageGenericite^ast);
+    ArgumentGenericite^ast := ArgumentGenericite^factory.createArgumentGenericite(HeritageGenericite^ast);
 end
 }
 
  
 
-HeritageGenericite -> extension identificateur_type SuiteHeritageGenericite #ast;
+HeritageGenericite -> extension identificateur_type InstanceGenericite SuiteHeritageGenericite #ast;
 #ast {
+local
+    f : Optional<Declaration>;
+    d : Declaration;
 do
     if HeritageGenericite^tds.knows(identificateur_type^txt) then
-        SuiteHeritageGenericite^ast.addFirst(identificateur_type^txt);
-        HeritageGenericite^ast := SuiteHeritageGenericite^ast;
+        f := HeritageGenericite^tds.get(identificateur_type^txt);
+        d := f.get();
+        if (InstanceGenericite = nil) then
+            match d
+            with Objet then
+                SuiteHeritageGenericite^ast.addFirst(d.getType());
+                HeritageGenericite^ast := SuiteHeritageGenericite^ast;
+            else
+                error(BLOC_not_an_object, identificateur_type^txt);
+            end
+        else
+            match d
+            with Objet then
+                SuiteHeritageGenericite^ast.addFirst(HeritageGenericite^factory.createTypeGenerique(d, InstanceGenericite^ast));
+                HeritageGenericite^ast := SuiteHeritageGenericite^ast;
+            else
+                error(BLOC_not_an_object, identificateur_type^txt);
+            end
+        end
     else
         error(BLOC_undefined_ident,identificateur_type^txt);
     end
@@ -549,7 +569,7 @@ do
 end
 }
 
-SuiteHeritageGenericite -> adresse identificateur_type SuiteHeritageGenericite #ast;
+SuiteHeritageGenericite -> adresse identificateur_type InstanceGenericite SuiteHeritageGenericite #ast;
 #ast {
 local
     f : Optional<Declaration>;
@@ -558,12 +578,22 @@ do
     if SuiteHeritageGenericite^tds.knows(identificateur_type^txt) then
         f := SuiteHeritageGenericite^tds.get(identificateur_type^txt);
         d := f.get();
-        match d
-        with Objet then 
-            SuiteHeritageGenericite1^ast.addFirst(identificateur_type^txt);
-            SuiteHeritageGenericite^ast := SuiteHeritageGenericite1^ast;
+        if (InstanceGenericite = nil) then
+            match d
+            with Objet then 
+                SuiteHeritageGenericite1^ast.addFirst(d.getType());
+                SuiteHeritageGenericite^ast := SuiteHeritageGenericite1^ast;
+            else
+                error(BLOC_not_an_object, identificateur_type^txt);
+            end
         else
-            error(BLOC_not_an_object, identificateur_type^txt);
+            match d
+            with Objet then 
+                SuiteHeritageGenericite1^ast.addFirst(SuiteHeritageGenericite^factory.createTypeGenerique(d, InstanceGenericite^ast));
+                SuiteHeritageGenericite^ast := SuiteHeritageGenericite1^ast;
+            else
+                error(BLOC_not_an_object, identificateur_type^txt);
+            end
         end
     else
         error(BLOC_undefined_ident, identificateur_type^txt);
@@ -621,11 +651,25 @@ end
 
 ArgumentGenericite -> identificateur_type InstanceGenericite #ast;
 #ast {
+local
+    f : Optional<Declaration>;
+    d : Declaration;
 do
-    if InstanceGenericite^ast = nil then
-        ArgumentGenericite^ast := ArgumentGenericite^factory.createArgumentGenericite(identificateur_type^txt);
+    if ArgumentGenericite^tds.knows(identificateur_type^txt) then
+        f := ArgumentGenericite^tds.get(identificateur_type^txt);
+        d := f.get();
+        match d
+        with Objet then
+            if InstanceGenericite^ast = nil then
+                ArgumentGenericite^ast := ArgumentGenericite^factory.createArgumentGenericite(identificateur_type^txt);
+            else
+                ArgumentGenericite^ast := ArgumentGenericite^factory.createArgumentGenericite(identificateur_type^txt, InstanceGenericite^ast);
+            end
+        else
+            error(BLOC_not_an_object, identificateur_type^txt);
+        end
     else
-        ArgumentGenericite^ast := ArgumentGenericite^factory.createArgumentGenericite(identificateur_type^txt, InstanceGenericite^ast);
+        error(BLOC_undefined_ident, identificateur_type^txt);
     end
 end
 }
@@ -1028,7 +1072,12 @@ do
 end
 }
 
-Instruction -> retour Expression point_virgule ;
+Instruction -> retour Expression point_virgule #ast;
+#ast {
+do
+    Instruction^ast := Instruction^factory.createReturnInstruction(Expression^ast);------------------------------- CLASSE A FAIRE ReturnInstructionImpl implements Instruction
+end
+}
 
 
 Expression -> Affectation #inh SuiteAffectation #ast;
@@ -1061,7 +1110,7 @@ end
 SuiteAffectation -> affectation Expression #ast;
 #ast {
 do
-    SuiteAffectation^ast := SuiteAffectation^factory.createAssignment(SuiteAffectation^support, Expression^ast);
+SuiteAffectation^ast := SuiteAffectation^factory.createAssignment(SuiteAffectation^support, Expression^ast);
 end
 }
 
