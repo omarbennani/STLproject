@@ -12,6 +12,7 @@ import fr.n7.stl.block.ast.FunctionCall;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.tam.ast.TAMInstruction;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a function call expression.
