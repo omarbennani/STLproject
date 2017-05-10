@@ -513,7 +513,10 @@ public class BlockFactoryImpl implements BlockFactory {
 			return DroitAcces.protege;
 		case 2:
 			return DroitAcces.prive;
+		case default:
+			return null;
 		}
+			
 	}
 	public ElementClasse createMethode(DroitAcces _droit,String _name,Parametre _param, Expression _exp){
 		return new ElementClasse() {
