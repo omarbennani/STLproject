@@ -12,19 +12,22 @@ option k=2;
 
 
 inh gauche	    : Expression for SuiteCondition, SuiteTerme, SuiteFacteur;
-inh factory	    : BlockFactory for Bloc, Instruction, TypeAtomique, SuiteTypeAtomique, SuiteConditionnelle, Instructions, Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Type, Valeur, Acces, SuiteExpressions, Expressions, SuiteNouveau, Programme, Interfaces, Interface, ElementInterface, ElementsInterface, Signature, Parametre, SuiteParametres, Parametres, ParametreGenericite, SuiteParametresGenericite, ParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, Genericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, HeritageInterface, SuiteHeritageInterface, Classes, Classe, ImplantationInterface, MethodePrincipale, Principale, InstanceGenericite, HeritageClasse, Constructeur, DroitAcces, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode;
+inh factory	    : BlockFactory for Bloc, Instruction, TypeAtomique, SuiteTypeAtomique, SuiteConditionnelle, Instructions, Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Type, Valeur, Acces, SuiteExpressions, Expressions, SuiteNouveau, Programme, Interfaces, Interface, ElementInterface, ElementsInterface, Signature, Parametre, SuiteParametres, Parametres, ParametreGenericite, SuiteParametresGenericite, ParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, Genericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, HeritageInterface, SuiteHeritageInterface, Classes, Classe, ImplantationInterface, MethodePrincipale, Principale, InstanceGenericite, HeritageClasse, Constructeur, DroitAcces, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Affectation, SuiteAffectation, Appel, AppelOuAcces;
 syn ast		    : Block for Programme; 
 syn ast		    : Expression for Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, Acces, SuiteNouveau;
 syn ast         : Block for Bloc, SuiteConditionnelle;
 syn ast		    : Type for Type, TypeAtomique, SuiteTypeAtomique;
 syn ast         : Instruction for Instruction;
-inh tds         : SymbolTable for Bloc, Instructions, Instruction, Expression, SuiteConditionnelle, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Type, TypeAtomique, SuiteExpressions, Expressions, SuiteNouveau, Acces, Programme, Interfaces, Interface, Genericite, ParametreGenericite, ParametresGenericite, SuiteParametresGenericite, ElementsInterface, ElementInterface, Signature, Classes, Classe, MethodePrincipale, Principale, HeritageGenericite, HeritageInterface, SuiteHeritageInterface, SuiteHeritageGenericite, Parametre, Parametres, SuiteParametres, HeritageClasse, ImplantationInterface, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, ElementsClasse, Constructeur, Affectation, ArgumentGenericite, ArgumentsGenericite, InstanceGenericite, SuiteArgumentsGenericite;
+inh tds         : SymbolTable for Bloc, Instructions, Instruction, Expression, SuiteConditionnelle, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Type, TypeAtomique, SuiteExpressions, Expressions, SuiteNouveau, Acces, Programme, Interfaces, Interface, Genericite, ParametreGenericite, ParametresGenericite, SuiteParametresGenericite, ElementsInterface, ElementInterface, Signature, Classes, Classe, MethodePrincipale, Principale, HeritageGenericite, HeritageInterface, SuiteHeritageInterface, SuiteHeritageGenericite, Parametre, Parametres, SuiteParametres, HeritageClasse, ImplantationInterface, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, ElementsClasse, Constructeur, Affectation, SuiteAffectation, ArgumentGenericite, ArgumentsGenericite, InstanceGenericite, SuiteArgumentsGenericite, Appel, AppelOuAcces;
+inh tdsMeth     : SymbolTable for Classe, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, ElementsClasse;
+inh tdsAtt      : SymbolTable for Classe, ElementClasse, ElementsClasse, AttributOuMethode,SuiteAttributOuMethode;
 syn insts       : List<Instruction> for Instructions;
 inh tree        : List<Instruction> for Instructions;
 syn bin_op	    : BinaryOperator for Additif, Multiplicatif, Comparatif;
 inh support     : Assignable for SuiteAffectation;
 syn ast         : Assignable for Affectation, SuiteAffectation;
-inh support     : Expression for Acces;
+inh support     : Expression for Acces, AppelOuAcces, Appel;
+inh ident       : String for AppelOuAcces, Appel, Acces;
 syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
 inh type        : Type for SuiteNouveau, SuiteTypeAtomique;
 syn ast         : LinkedList<Objet> for Interfaces, Classes;
@@ -51,6 +54,8 @@ inh nomClasse   : String for ElementClasse, ElementsClasse, Constructeur;
 syn ast         : Constructeur for Constructeur;
 syn ast         : DroitAcces for DroitAcces;
 syn ast         : MethodePrincipale for Principale, MethodePrincipale;
+syn ast         : FunctionCall for Appel;
+inh ident       : String for SuiteAttributOuMethode;
 
 space  separateur				is    "[\n\r\t ]+";
 space  commentaire			    is    "\/\/.*\n";
@@ -312,7 +317,13 @@ end
 }
 
 
-Classes -> Classe #tree Classes #ast;
+Classes -> #inh Classe #tree Classes #ast;
+#inh {
+do
+    Classe^tdsMeth := new SymbolTable(Classes^tds);
+    Classe^tdsAtt := new SymbolTable(Classes^tds);
+end
+}
 #ast {
 do
     Classes1^ast.addFirst(Classe^ast);
@@ -739,6 +750,7 @@ ElementClasse -> Constructeur #ast;
 #ast {
 do
     ElementClasse^ast := Constructeur^ast;
+    ElementClasse^tdsMeth.register(Constructeur^ast);
 end
 }
    
@@ -753,28 +765,45 @@ end
 do
     SuiteAttributOuMethode^nomAtt := identificateur^txt;
     SuiteAttributOuMethode^typeAtt := Type^ast;
+    SuiteAttributOuMethode^ident := identificateur^txt;
 end
 }
 
 AttributOuMethode -> vide identificateur parenthese_ouvrante Parametres parenthese_fermante Bloc #ast;
 #ast {
+local
+    m : ElementClasse;
 do
-    AttributOuMethode^ast := AttributOuMethode^factory.createMethode(AttributOuMethode^droit, identificateur^txt, Parametres^ast, Bloc^ast);
+    m := AttributOuMethode^factory.createMethode(AttributOuMethode^droit, identificateur^txt, Parametres^ast, Bloc^ast);
+    AttributOuMethode^ast := m;
+    AttributOuMethode^tdsMeth.register(m);
 end
 }
 
 
 SuiteAttributOuMethode -> point_virgule #ast;
 #ast {
+local
+    a : ElementClasse;
 do
-    SuiteAttributOuMethode^ast := SuiteAttributOuMethode^factory.createAttribut(SuiteAttributOuMethode^droit, SuiteAttributOuMethode^typeAtt, SuiteAttributOuMethode^nomAtt);
+    if SuiteAttributOuMethode^tdsAtt.contains(SuiteAttributOuMethode^ident) then
+        error(PROGRAMME_attribut_already_defined, SuiteAttributOuMethode^ident);
+    else
+        a := SuiteAttributOuMethode^factory.createAttribut(SuiteAttributOuMethode^droit, SuiteAttributOuMethode^typeAtt, SuiteAttributOuMethode^nomAtt);
+        SuiteAttributOuMethode^ast := a;
+        SuiteAttributOuMethode^tdsAtt.register(a);
+    end
 end
 }
 
 SuiteAttributOuMethode -> parenthese_ouvrante Parametres parenthese_fermante Bloc #ast;
 #ast {
+local
+    m : ElementClasse;
 do
-    SuiteAttributOuMethode^ast := SuiteAttributOuMethode^factory.createMethode(SuiteAttributOuMethode^droit, SuiteAttributOuMethode^typeAtt, SuiteAttributOuMethode^nomAtt, Parametres^ast, Bloc^ast);
+    m := SuiteAttributOuMethode^factory.createMethode(SuiteAttributOuMethode^droit, SuiteAttributOuMethode^typeAtt, SuiteAttributOuMethode^nomAtt, Parametres^ast, Bloc^ast);
+    SuiteAttributOuMethode^ast := m;
+    SuiteAttributOuMethode^tdsMeth.register(m);
 end
 }
 
@@ -997,7 +1026,10 @@ end
 Instruction -> Expression point_virgule #ast;
 #ast {
 do
-    Instruction^ast := ;
+    match Expression^ast
+    with Instruction then
+        Instruction^ast := Expression^ast;
+    end
 end
 }
 
@@ -1373,7 +1405,7 @@ end
 
 SuiteNouveau -> crochet_ouvrant Expression crochet_fermant ;
 
-SuiteNouveau -> Arguments ;  
+SuiteNouveau -> Arguments ;
 
 
 Arguments -> parenthese_ouvrante parenthese_fermante ; 
@@ -1424,7 +1456,22 @@ end
 }
 
 
-Facteur -> identificateur AppelOuAcces ;
+Facteur -> identificateur #support AppelOuAcces ;
+#support {
+local
+    d : Declaration;
+    o : Optional<Declaration>;
+do
+    if Facteur^tds.knows(identificateur^txt) then
+        o := Facteur^tds.get(identificateur^txt);
+        d := o.get();
+        AppelOuAcces^support := d;
+        AppelOuAcces^ident := identificateur^txt;
+    else
+        error(PROGRAMME_undefined_ident, identificateur^txt);
+    end
+end
+}
 
 
 AppelOuAcces -> Acces ;
@@ -1456,10 +1503,54 @@ end
 Acces -> point identificateur AppelOuAcces ;
 
 
-Appel -> Arguments Acces ;  
+Appel -> Arguments Acces #ast;
+#ast {
+do
+    match Acces^support
+    with FunctionDeclaration then
+        Appel^ast := Appel^factory.createFunctionCall(Appel^support, Arguments^ast);
+    else
+        error(PROGRAMME_not_a_function, Appel^ident);
+    end
+end
+}
 
 
-Facteur -> identificateur_type point identificateur AppelOuAcces;
+Facteur -> identificateur_type point identificateur #support AppelOuAcces #ast;
+#ast {
+local
+    o : Optional<Declaration>;
+    d : Declaration;
+do
+    if Facteur^tds.knows(identificateur_type^txt) then
+        o := Facteur^tds.get(identificateur_type^txt);
+        d := o.get();
+        match d
+        with Objet then    -------------  ATTENTION ObjetDeclaration
+            Facteur^ast := AppelOuAcces^ast;
+        else
+            error(PROGRAMME_not_an_object, identificateur_type^txt);
+        end
+    else
+        error(PROGRAMME_undefined_ident, identificateur_type^txt);
+    end
+end
+}
+#support {
+local
+    d : Declaration;
+    o : Optional<Declaration>;
+do
+    if Facteur^tds.knows(identificateur^txt) then
+        o := Facteur^tds.get(identificateur^txt);
+        d := o.get();
+        AppelOuAcces^support := o;
+        AppelOuAcces^ident := identificateur^txt;
+    else
+        error(PROGRAMME_undefined_ident, identificateur^txt);
+    end
+end
+}
 
 Facteur -> parenthese_ouvrante Expression parenthese_fermante;
  
