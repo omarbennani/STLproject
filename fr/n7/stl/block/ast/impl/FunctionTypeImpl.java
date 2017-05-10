@@ -66,8 +66,11 @@ public class FunctionTypeImpl implements Type {
 	 */
 	@Override
 	public Type merge(Type _other) {
-	    if (this.equalsTo(_other)) {
-                return this;
+	    if (_other instanceof FunctionTypeImpl) {
+	    	Type t=this.result.merge(((FunctionTypeImpl) _other).result);
+	    	for(int i=0;i<this.parameters.size();i++)
+	    		t.merge(this.parameters.get(i).merge(((FunctionTypeImpl) _other).parameters.get(i)));
+	    	return t;
             } else {
                 return AtomicType.ErrorType;
 	    }
