@@ -10,6 +10,7 @@ public class TypeGenericiteImpl implements Type {
 	
 	protected String _name;
 	protected List<ArgumentGenericite> _argGen;
+	
 	public TypeGenericiteImpl(String _name2, List<ArgumentGenericite> _argGen2) {
 		this._name=_name2;
 		this._argGen=_argGen2;

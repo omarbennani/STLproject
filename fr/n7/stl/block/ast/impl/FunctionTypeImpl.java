@@ -18,7 +18,7 @@ import fr.n7.stl.block.ast.Type;
 public class FunctionTypeImpl implements Type {
 
 	private Type result;
-	private List<Type> parameters;
+	protected List<Type> parameters;
 
 	public FunctionTypeImpl(Type _result, Iterable<Type> _parameters) {
 		this.result = _result;
@@ -34,8 +34,12 @@ public class FunctionTypeImpl implements Type {
 	@Override
 	public boolean equalsTo(Type _other) {
 	    // INCOMPLET !!!
+		boolean b=true;
+		int i=0;
 	    if (_other instanceof FunctionTypeImpl) {
-	        return this.result.equalsTo(((FunctionTypeImpl) _other).result);
+	    	while(b&&i<this.parameters.size())
+	    		b=this.parameters.get(i).compatibleWith(((FunctionTypeImpl)_other).parameters.get(i));
+	       return (this.result.equalsTo(((FunctionTypeImpl) _other).result) && b);
 	    } else {
 	        return false;
 	    }

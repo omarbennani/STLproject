@@ -9,10 +9,10 @@ import java.util.List;
 
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.FunctionCall;
+import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
-import fr.n7.stl.tam.ast.TAMInstruction;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a function call expression.
@@ -67,6 +67,11 @@ public class FunctionCallImpl implements FunctionCall {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
+		//On empile les parametres
+		for (Expression p:parameters)
+			_code.add(_factory.createPush(p.getType().length()));
+		//appel de la fonction
+		_code.append(function.getCode(_factory));
 		return _code;
 	}
 

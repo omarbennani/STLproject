@@ -18,4 +18,9 @@ public class ParametreImpl implements Parametre {
 		return this._nom;
 	}
 
+	@Override
+	public Type getType() {
+		return this._type;
+	}
+
 }
