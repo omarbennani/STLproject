@@ -516,10 +516,11 @@ public class BlockFactoryImpl implements BlockFactory {
 		default:
 			return null;
 		}
-			
+	}                        
+	public ElementClasse createMethode(DroitAcces _droit,String _name,List<Parametre> _param, Expression _exp){
+		return new Methode(_droit,_name,_param,_exp);
 	}
-	public ElementClasse createMethode(DroitAcces _droit,String _name,Parametre _param, Expression _exp){
-		return new ElementClasse() {
-		};
+	public ElementClasse createAttribut(DroitAcces _droit,Type _type,String _name){
+		return new Attribut(_droit,_type,_name);
 	}
 }
