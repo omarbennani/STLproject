@@ -448,6 +448,12 @@ public class BlockFactoryImpl implements BlockFactory {
 	public Interface createInterface(String _name, List<ElementInterface> _methodes) {
 		return new InterfaceImpl(_name, _methodes);	
 	}
+	public Interface createInterface(String _name,List<Type> _types,List<ElementInterface> _elts){
+		return new InterfaceImpl(_name,_types,_elts);
+	}
+	public Interface createInterface(String _name,List<ParametreGenericite> _param,List<Type> _types,List<ElementInterface> _elts){
+		return new InterfaceImpl(_name,_param,_types,_elts);
+	}
 	@Override
 	public ElementInterface createSignature(String _name, List<Parametre> _param){
 		return new SignatureImpl(_name,_param);
@@ -466,12 +472,7 @@ public class BlockFactoryImpl implements BlockFactory {
 	public ParametreGenericite createParametreGenericite( List<Objet> _param ){
 		return new ParametreGenericiteImpl(_param);
 	}
-	public Interface createInterface(String _name,List<Type> _types,List<ElementInterface> _elts){
-		return new InterfaceImpl(_name,_types,_elts);
-	}
-	public Interface createInterface(String _name,List<ParametreGenericite> _param,List<Type> _types,List<ElementInterface> _elts){
-		return new InterfaceImpl(_name,_param,_types,_elts);
-	}
+
 	public Type createTypeGenerique(String _name,List<ArgumentGenericite> _argGen){
 		return new TypeGenericiteImpl(_name,_argGen);
 	}
@@ -522,5 +523,14 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 	public ElementClasse createAttribut(DroitAcces _droit,Type _type,String _name){
 		return new Attribut(_droit,_type,_name);
+	}
+	public ElementClasse createMethode(DroitAcces _droit,Type _type,String _name,List<Parametre> _param, Expression _exp){
+		return new Methode(_droit,_type,_param,_name,_exp);
+	}
+	public ElementClasse createConstructeur(String _name,List<Parametre> _param,Expression _exp) {
+		return new Constructeur(_name,_param,_exp);
+	}
+	public Parametre createParametre(Type _type,String _name){
+		return new ParametreImpl(_type,_name);
 	}
 }
