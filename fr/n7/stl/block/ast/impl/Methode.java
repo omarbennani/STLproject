@@ -10,9 +10,10 @@ import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.util.Pair;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.TAMFactory;
 
-public class Methode implements ElementClasse {
+public class Methode implements ElementClasse,Expression {
 
 	protected DroitAcces _droitAcces;
 	protected String _nom;
@@ -39,4 +40,22 @@ public class Methode implements ElementClasse {
 		this._typeAtt=_type;
 	}
 
+	@Override
+	public Type getType() {
+		List<Type> lType=new ArrayList<Type>();
+		for (Parametre p:_param)
+			lType.add(p.getType());
+		return new FunctionTypeImpl(this._typeAtt, lType);
+	}
+
+	@Override
+	public Fragment getCode(TAMFactory _factory) {
+		Fragment _code = _factory.createFragment();
+		_code.append(this._exp.getCode(_factory));
+		//Prendre le premier elt de la pile pour chaque parametre
+		for (Parametre p:_param)
+			_code.add(_factory.createCallI(p.getType().length()) );
+		//bof
+		return _code;
+	}
 }

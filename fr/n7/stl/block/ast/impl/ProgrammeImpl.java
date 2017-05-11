@@ -11,7 +11,7 @@ public class ProgrammeImpl implements Programme{
 
 	protected List<Interface> _interfaces;
 	protected List<Classe> _classes;
-	
+	protected MethodePrincipal _methPrinc;
 	public ProgrammeImpl(List<Interface> _interfaces2,List<Classe> _classes2) {
 		this._interfaces=new ArrayList<Interface>();
 		if (_interfaces2!=null)
