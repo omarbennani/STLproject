@@ -1,13 +1,16 @@
 package fr.n7.stl.block.ast.impl;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
+import fr.n7.stl.block.ast.AtomicType;
 import fr.n7.stl.block.ast.DroitAcces;
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.util.Pair;
 
 public class Methode implements ElementClasse {
 
@@ -34,6 +37,6 @@ public class Methode implements ElementClasse {
 			this._param=_param2;
 		this._exp=_exp2;
 		this._typeAtt=_type;
-		}
+	}
 
 }

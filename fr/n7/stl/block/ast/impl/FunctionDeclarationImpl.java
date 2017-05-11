@@ -39,5 +39,9 @@ public class FunctionDeclarationImpl implements FunctionDeclaration{
 		//bof
 		return _code;
 	}
+	
+	public List<Parametre> getParametres() {
+		return this._param;
+	}
 
 }

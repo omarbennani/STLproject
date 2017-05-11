@@ -11,6 +11,7 @@ import java.util.Optional;
 import fr.n7.stl.block.ast.Declaration;
 import fr.n7.stl.block.ast.ForbiddenDeclarationException;
 import fr.n7.stl.block.ast.HierarchicalScope;
+import sun.swing.plaf.synth.Paint9Painter;
 
 /**
  * @author pantel2
