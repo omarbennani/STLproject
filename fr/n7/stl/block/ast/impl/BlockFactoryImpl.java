@@ -528,16 +528,16 @@ public class BlockFactoryImpl implements BlockFactory {
 		}
 	}       
 	
-	public ElementClasse createMethode(DroitAcces _droit,String _name,List<Parametre> _param, Expression _exp){
-		return new Methode(_droit,_name,_param,_exp);
+	public ElementClasse createMethode(DroitAcces _droit,String _name,List<Parametre> _param, Block _bloc){
+		return new Methode(_droit,_name,_param,_bloc);
 	}
 	
 	public ElementClasse createAttribut(DroitAcces _droit,Type _type,String _name){
 		return new Attribut(_droit,_type,_name);
 	}
 	
-	public ElementClasse createMethode(DroitAcces _droit,Type _type,String _name,List<Parametre> _param, Expression _exp){
-		return new Methode(_droit,_type,_param,_name,_exp);
+	public ElementClasse createMethode(DroitAcces _droit,Type _type,String _name,List<Parametre> _param, Block _bloc){
+		return new Methode(_droit,_type,_param,_name,_bloc);
 	}
 	
 	public ElementClasse createConstructeur(String _name,List<Parametre> _param,Expression _exp) {
