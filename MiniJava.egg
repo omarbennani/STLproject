@@ -11,28 +11,15 @@ option version = 0.0.1 ;
 option k=2;
 
 
-inh gauche	    : Expression for SuiteCondition, SuiteTerme, SuiteFacteur;
 inh factory	    : BlockFactory for Bloc, Instruction, TypeAtomique, SuiteTypeAtomique, SuiteConditionnelle, Instructions, Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Type, Valeur, Acces, SuiteExpressions, Expressions, SuiteNouveau, Programme, Interfaces, Interface, ElementInterface, ElementsInterface, Signature, Parametre, SuiteParametres, Parametres, ParametreGenericite, SuiteParametresGenericite, ParametresGenericite, HeritageGenericite, SuiteHeritageGenericite, Genericite, ArgumentGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, HeritageInterface, SuiteHeritageInterface, Classes, Classe, ImplantationInterface, MethodePrincipale, Principale, InstanceGenericite, HeritageClasse, Constructeur, DroitAcces, ElementsClasse, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Affectation, SuiteAffectation, Appel, AppelOuAcces;
+
+inh tds         : SymbolTable for Bloc, Instructions, Instruction, Expression, SuiteConditionnelle, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Type, TypeAtomique, SuiteExpressions, Expressions, SuiteNouveau, Acces, Programme, Interfaces, Interface, Genericite, ParametreGenericite, ParametresGenericite, SuiteParametresGenericite, ElementsInterface, ElementInterface, Signature, Classes, Classe, MethodePrincipale, Principale, HeritageGenericite, HeritageInterface, SuiteHeritageInterface, SuiteHeritageGenericite, Parametre, Parametres, SuiteParametres, HeritageClasse, ImplantationInterface, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, ElementsClasse, Constructeur, Affectation, SuiteAffectation, ArgumentGenericite, ArgumentsGenericite, InstanceGenericite, SuiteArgumentsGenericite, Appel, AppelOuAcces;
+
 syn ast		    : Block for Programme; 
 syn ast		    : Expression for Expression, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, Acces, SuiteNouveau;
 syn ast         : Block for Bloc, SuiteConditionnelle;
 syn ast		    : Type for Type, TypeAtomique, SuiteTypeAtomique;
 syn ast         : Instruction for Instruction;
-inh tds         : SymbolTable for Bloc, Instructions, Instruction, Expression, SuiteConditionnelle, Facteur, SuiteFacteur, Condition, SuiteCondition, Terme, SuiteTerme, Type, TypeAtomique, SuiteExpressions, Expressions, SuiteNouveau, Acces, Programme, Interfaces, Interface, Genericite, ParametreGenericite, ParametresGenericite, SuiteParametresGenericite, ElementsInterface, ElementInterface, Signature, Classes, Classe, MethodePrincipale, Principale, HeritageGenericite, HeritageInterface, SuiteHeritageInterface, SuiteHeritageGenericite, Parametre, Parametres, SuiteParametres, HeritageClasse, ImplantationInterface, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, ElementsClasse, Constructeur, Affectation, SuiteAffectation, ArgumentGenericite, ArgumentsGenericite, InstanceGenericite, SuiteArgumentsGenericite, Appel, AppelOuAcces;
-inh tdsMeth     : SymbolTable for Classe, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, ElementsClasse;
-inh tdsAtt      : SymbolTable for Classe, ElementClasse, ElementsClasse, AttributOuMethode,SuiteAttributOuMethode;
-syn insts       : List<Instruction> for Instructions;
-inh tree        : List<Instruction> for Instructions;
-syn bin_op	    : BinaryOperator for Additif, Multiplicatif, Comparatif;
-inh support     : Assignable for SuiteAffectation;
-syn ast         : Assignable for Affectation, SuiteAffectation;
-inh support     : Expression for Acces, AppelOuAcces, Appel;
-inh ident       : String for AppelOuAcces, Appel, Acces;
-syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
-inh type        : Type for SuiteNouveau, SuiteTypeAtomique;
-syn ast         : LinkedList<Objet> for Interfaces, Classes;
-syn ast         : Objet for Interface, Classe;
--- inh tree        : List<Objet> for Interfaces, Classes;
 syn ast         : ElementInterface for ElementInterface, Signature;
 syn ast         : LinkedList<ElementInterface> for ElementsInterface;
 syn ast         : Parametre for Parametre;
@@ -43,19 +30,47 @@ syn ast         : LinkedList<Type> for HeritageGenericite, SuiteHeritageGenerici
 syn ast         : ArgumentGenericite for ArgumentGenericite;
 syn ast         : LinkedList<ArgumentGenericite> for ArgumentsGenericite, SuiteArgumentsGenericite, InstanceGenericite;
 syn ast         : LinkedList<Type> for HeritageInterface, SuiteHeritageInterface, ImplantationInterface;
---syn tdsnh       : SymbolTable for Interfaces, Classes;
+syn ast         : Assignable for Affectation, SuiteAffectation;
 syn ast         : Type for HeritageClasse;
 syn ast         : LinkedList<ElementClasse> for ElementsClasse;
-inh typeAtt     : Type for SuiteAttributOuMethode;
-inh nomAtt      : String for SuiteAttributOuMethode;
-syn ast         : ElementClasse for AttributOuMethode, SuiteAttributOuMethode, ElementClasse;
-inh droit       : DroitAcces for ElementClasse, AttributOuMethode, SuiteAttributOuMethode;
-inh nomClasse   : String for ElementClasse, ElementsClasse, Constructeur;
 syn ast         : Constructeur for Constructeur;
 syn ast         : DroitAcces for DroitAcces;
 syn ast         : MethodePrincipale for Principale, MethodePrincipale;
 syn ast         : FunctionCall for Appel;
-inh ident       : String for SuiteAttributOuMethode;
+syn ast         : ElementClasse for AttributOuMethode, SuiteAttributOuMethode, ElementClasse;
+syn ast         : LinkedList<Objet> for Interfaces, Classes;
+syn ast         : Objet for Interface, Classe;
+
+inh tdsMeth     : SymbolTable for Classe, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, ElementsClasse;
+inh tdsAtt      : SymbolTable for Classe, ElementClasse, ElementsClasse, AttributOuMethode,SuiteAttributOuMethode;
+--syn tdsnh       : SymbolTable for Interfaces, Classes;
+
+syn insts       : List<Instruction> for Instructions;
+
+inh tree        : List<Instruction> for Instructions;
+-- inh tree        : List<Objet> for Interfaces, Classes;
+
+syn bin_op	    : BinaryOperator for Additif, Multiplicatif, Comparatif;
+
+inh support     : Assignable for SuiteAffectation;
+inh support     : Expression for Acces, AppelOuAcces, Appel;
+
+inh ident       : String for AppelOuAcces, Appel, Acces, SuiteAttributOuMethode;
+
+syn expressions : LinkedList<Expression> for Expressions, SuiteExpressions;
+
+inh type        : Type for SuiteNouveau, SuiteTypeAtomique;
+
+inh typeAtt     : Type for SuiteAttributOuMethode;
+
+inh nomAtt      : String for SuiteAttributOuMethode;
+
+inh droit       : DroitAcces for ElementClasse, AttributOuMethode, SuiteAttributOuMethode;
+
+inh nomClasse   : String for ElementClasse, ElementsClasse, Constructeur;
+
+inh gauche	    : Expression for SuiteCondition, SuiteTerme, SuiteFacteur;
+
 
 space  separateur				is    "[\n\r\t ]+";
 space  commentaire			    is    "\/\/.*\n";
@@ -115,6 +130,8 @@ term   caractere				is    "\'[^\']\'";
 term   entier					is    "[0-9]+";
 term   identificateur			is    "[a-z_][a-zA-Z0-9_]*";
 term   identificateur_type		is    "[A-Z][a-zA-Z0-9_]*"; 
+
+
 
 Programme -> #inter Interfaces #class Classes #principal Principale #ast;
 global
@@ -776,7 +793,9 @@ local
 do
     m := AttributOuMethode^factory.createMethode(AttributOuMethode^droit, identificateur^txt, Parametres^ast, Bloc^ast);
     AttributOuMethode^ast := m;
-    AttributOuMethode^tdsMeth.register(m);
+    if !AttributOuMethode^tdsMeth.contains(identificateur^txt) then
+        AttributOuMethode^tdsMeth.register(m);
+    end
 end
 }
 
@@ -803,7 +822,9 @@ local
 do
     m := SuiteAttributOuMethode^factory.createMethode(SuiteAttributOuMethode^droit, SuiteAttributOuMethode^typeAtt, SuiteAttributOuMethode^nomAtt, Parametres^ast, Bloc^ast);
     SuiteAttributOuMethode^ast := m;
-    SuiteAttributOuMethode^tdsMeth.register(m);
+    if !SuiteAttributOuMethode^tdsMeth.contains(SuiteAttributOuMethode^nomAtt) then
+        SuiteAttributOuMethode^tdsMeth.register(m);
+    end
 end
 }
 
