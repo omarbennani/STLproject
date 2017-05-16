@@ -59,5 +59,11 @@ public enum BooleanValue implements Value {
 		}
 		return _code;
 	}
+
+	@Override
+	public String getString() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 }

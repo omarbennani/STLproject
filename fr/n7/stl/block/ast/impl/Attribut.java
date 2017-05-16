@@ -33,9 +33,18 @@ public class Attribut implements ElementClasse,Expression {
 		}
 			
 	}
+	
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		return _val.getCode(_factory);
+	}
+	
+	public String toString(){
+		String res=this._nom+" ";
+		res+=_typeAtt.toString()+" ";
+		res+=_val.toString()+" ";
+		res+=_droitAcces.toString();
+		return res;
 	}
 
 }

@@ -22,5 +22,10 @@ public class ParametreImpl implements Parametre {
 	public Type getType() {
 		return this._type;
 	}
+	
+	public String getString() {
+		return this._type.toString()+this._nom;
+	}
+
 
 }

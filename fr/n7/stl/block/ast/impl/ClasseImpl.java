@@ -15,7 +15,7 @@ public class ClasseImpl implements Classe{
 	protected List<ElementClasse> _elts;
 	protected List<TypeInterface> _interfaces;
 	protected List<TypeObjet> _parents;
-	List<ParametreGenericite> _gene;
+	protected List<ParametreGenericite> _gene;
 	
 	public ClasseImpl(String _name2, List<ElementClasse> _elts2) {
 		this._name=_name2;
@@ -124,6 +124,18 @@ public class ClasseImpl implements Classe{
 	@Override
 	public String getName() {
 		return this._name;
+	}
+	public String toString(){
+		String res=this.getName()+" ";
+		for(ElementClasse e:this._elts)
+			res+=e.toString()+" ";
+		for(TypeInterface i:this._interfaces)
+			res+=i.toString()+" ";
+		for(TypeObjet o:this._parents)
+			res+=o.toString()+" ";
+		for(ParametreGenericite g:this._gene)
+			res+=g.toString()+" ";
+		return res;
 	}
 
 }

@@ -18,5 +18,11 @@ public class ArgumentGenericiteImpl implements ArgumentGenericite{
 		if (_inst2 != null)
 			this._inst=_inst2;
 	}
+	public String toString() {
+		String res=this._name+" ";
+		for(ArgumentGenericite arg:_inst)
+			res+=arg.toString()+" ";
+		return res;
+	}
 
 }

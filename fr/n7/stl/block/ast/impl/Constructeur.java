@@ -12,6 +12,8 @@ public class Constructeur implements ElementClasse{
 	protected String _nom;
 	protected List<Parametre> _param;
 	protected Expression _exp;
+	
+	
 	public Constructeur(String _name, List<Parametre> _param2, Expression _exp2) {
 		this._nom=_name;
 		this._param=new ArrayList<Parametre>();
@@ -20,4 +22,11 @@ public class Constructeur implements ElementClasse{
 		this._exp=_exp2;
 	}
 
+	public String toString(){
+		String res=this._nom+" ";
+		res+=_exp.toString()+" ";
+		for(Parametre p:this._param)
+			res+=p.toString()+" ";
+		return res;
+	}
 }
