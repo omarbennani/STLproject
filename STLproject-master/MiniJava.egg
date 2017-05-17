@@ -166,7 +166,7 @@ Programme -> #inter Interfaces #class Classes #principal Principale #ast;
 global
     s_clas : SymbolTable;
     s_intr : SymbolTable;
-	s_meth: SymbolTable;
+	s_meth: SymbolTableMethodes;
     s_att : SymbolTable;
 #inter {
 do
@@ -387,7 +387,8 @@ ElementInterface ->  Signature point_virgule #ast;
 #ast{
 do
 	ElementInterface^ast := Signature^ast;
-	ElementInterface^tdsMethodes.registerM(Signature^ast, ElementInterface^identObjetCourant);
+	ElementInterface^tdsMethodes.registerSignature(Signature^ast.getName(), ElementInterface^identObjetCourant, Signature^ast.getParametres(), Signature^ast);
+
 end
 }
 
@@ -643,7 +644,8 @@ do
 	if AttributOuMethode^typeElementClasse = 0 then
 		ElementClasse^tdsAttributs.register(a, ElementClasse^nomClasse);
 	--else
-	--	ElementClasse^tdsMethodes.registerM(a, ElementClasse^nomClasse);
+	--	ElementClasse^tdsMethodes.registerMethode(m^ast.getName(), ElementClasse^nomClasse, m^ast.getParametres(), m);
+		
 	end
 
 end
@@ -662,7 +664,7 @@ do
 	if AttributOuMethode^typeElementClasse = 0 then
 		ElementClasse^tdsAttributs.register(a, ElementClasse^nomClasse);
 	--else
-	--	ElementClasse^tdsMethodes.registerM(a, ElementClasse^nomClasse);
+	--	ElementClasse^tdsMethodes.registerMethode(m^ast.getName(), ElementClasse^nomClasse, m^ast.getParametres(), m);
 	end
 
 end
@@ -672,7 +674,10 @@ ElementClasse -> Constructeur #ast;
 #ast {
 do
     ElementClasse^ast := Constructeur^ast;
-    ElementClasse^tdsMethodes.registerM(Constructeur^ast, ElementClasse^nomClasse);
+	match Constructeur^ast with Constructeur then 
+    	ElementClasse^tdsMethodes.registerConstructeur(ElementClasse^nomClasse, Constructeur^ast.getParametres(), Constructeur^ast);
+	end
+	
 end
 }
    
@@ -706,8 +711,10 @@ do
     m := AttributOuMethode^factory.createMethode(AttributOuMethode^droit, identificateur^txt, Parametres^ast, Bloc^ast, AttributOuMethode^nomClasse);
     AttributOuMethode^ast := m;
 	
-    AttributOuMethode^tdsMeth.registerMethode(identificateur^txt, AttributOuMethode^nomClasse, Parametres^ast, m);
-	AttributOuMethode^tdsMethodes.registerMethode(identificateur^txt, AttributOuMethode^nomClasse, Parametres^ast, m);
+	match m with Methode then 
+    	AttributOuMethode^tdsMeth.registerMethode(identificateur^txt, AttributOuMethode^nomClasse, Parametres^ast, m);
+		AttributOuMethode^tdsMethodes.registerMethode(identificateur^txt, AttributOuMethode^nomClasse, Parametres^ast, m);
+	end
 
 	AttributOuMethode^typeElementClasse := 1;
 end
@@ -746,8 +753,10 @@ do
     m := SuiteAttributOuMethode^factory.createMethode(SuiteAttributOuMethode^droit, SuiteAttributOuMethode^typeAtt, SuiteAttributOuMethode^nomAtt, Parametres^ast, Bloc^ast, SuiteAttributOuMethode^nomClasse);
     SuiteAttributOuMethode^ast := m;
 
-    SuiteAttributOuMethode^tdsMeth.registerMethode(SuiteAttributOuMethode^nomAtt, SuiteAttributOuMethode^nomClasse, Parametres^ast, m);
-	SuiteAttributOuMethode^tdsMethodes.registerMethode(SuiteAttributOuMethode^nomAtt, SuiteAttributOuMethode^nomClasse, Parametres^ast, m);
+	match m with Methode then
+    	SuiteAttributOuMethode^tdsMeth.registerMethode(SuiteAttributOuMethode^nomAtt, SuiteAttributOuMethode^nomClasse, Parametres^ast, m);
+		SuiteAttributOuMethode^tdsMethodes.registerMethode(SuiteAttributOuMethode^nomAtt, SuiteAttributOuMethode^nomClasse, Parametres^ast, m);
+	end
 
 	SuiteAttributOuMethode^typeElementClasse := 1;
 end
@@ -1378,6 +1387,8 @@ local
 	a : Attribut;
 	
 do
+	a := nil;
+	v := nil;
 	if AppelOuAcces^tds.contains(AppelOuAcces^identificateur) then
 		o := AppelOuAcces^tds.get(AppelOuAcces^identificateur);
 		d := o.get();
@@ -1453,7 +1464,9 @@ local
 	t : Type;
 	c : Classe;
 	i : Interface;
+	s : String;
 do
+	o := nil;
 	if Appel^support = nil then
 		o := Appel^tdsMethodes.getMethode(Appel^identificateur, Appel^nomClasse, Arguments^ast);
 	else
@@ -1464,7 +1477,7 @@ do
 					s := c.getName();
 					o := Appel^tdsMethodes.getMethode(Appel^identificateur, s, Arguments^ast);
 			else 
-					error (NOT_AN_OBJECT, t.toSstring());
+					error (NOT_AN_OBJECT, t.toString());
 		end
 	end
 
