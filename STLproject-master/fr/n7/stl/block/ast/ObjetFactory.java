@@ -66,4 +66,9 @@ public interface ObjetFactory {
 
 	public Expression createStaticFieldUse(Declaration _declaration);
 
+	public Expression createClasseUse(Classe _classe);
+
+	public Expression createInterfaceUse(Interface _interface);
+	
+
 }

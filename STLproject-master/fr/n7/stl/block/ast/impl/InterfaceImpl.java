@@ -41,6 +41,12 @@ public class InterfaceImpl implements Interface {
 	}
 
 	@Override
+	public Type getType()
+	{
+		return new InterfaceTypeImpl(this);
+	}	
+
+	@Override
 	public String toString()
 	{
 		Iterator<Interface> itr = this.heritageInterface.iterator();

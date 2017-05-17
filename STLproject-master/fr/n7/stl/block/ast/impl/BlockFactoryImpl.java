@@ -609,8 +609,17 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 
 	public Expression createStaticFieldUse(Declaration _declaration)
-{
+	{
 		return new StaticFieldUseImpl(_declaration);
+	}
+
+	public Expression createClasseUse(Classe _classe)
+	{
+		return new ClasseUseImpl(_classe);
+	}
+	public Expression createInterfaceUse(Interface _interface)
+	{
+		return new InterfaceUseImpl(_interface);
 	}
 
 }

@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Iterator;
 
 import fr.n7.stl.block.ast.Classe;
+import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Interface;
 
@@ -28,6 +29,13 @@ public class ClasseImpl implements Classe
 	{
 		return this.name;
 	}
+	
+	@Override
+	public Type getType()
+	{
+		return new ClassTypeImpl(this);
+	}	
+	
 	@Override
 	public String toString()
 	{
