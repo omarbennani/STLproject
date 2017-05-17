@@ -63,4 +63,12 @@ public class Constructeur implements ElementClasse{
 		throw new SemanticsUndefinedException("getType is undefined in Methode");
 	}
 
+	@Override
+	public String getClassName() {
+		return this.nom;
+	}
+
+	public List<Parametre> getParametres() {
+		return this.param;
+	}
 }

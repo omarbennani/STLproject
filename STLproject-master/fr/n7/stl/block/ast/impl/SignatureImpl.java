@@ -3,18 +3,14 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.Parametre;
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Assignable;
-import fr.n7.stl.block.ast.Signature;
-import fr.n7.stl.block.ast.ElementInterface;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.TAMFactory;
-
-import java.util.LinkedList;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+
+import fr.n7.stl.block.ast.AtomicType;
+import fr.n7.stl.block.ast.Parametre;
+import fr.n7.stl.block.ast.Signature;
+import fr.n7.stl.block.ast.Type;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a pointer access expression.
@@ -26,7 +22,8 @@ public class SignatureImpl implements Signature {
 	protected String identificateur ;
 	protected Boolean _final;
 	protected Type type_retour;
-	protected LinkedList<Parametre> parametres;
+	protected List<Parametre> parametres;
+	protected String className;
 
 	public SignatureImpl()
 	{
@@ -51,7 +48,18 @@ public class SignatureImpl implements Signature {
 	{
 		return this.identificateur;
 	}
+	
+	@Override
+	public String getInterfaceName()
+	{
+		return this.className;
+	}
 
+	@Override
+	public List<Parametre> getParametres()
+	{
+		return this.parametres;
+	}
 	@Override
 	public String toString()
 	{

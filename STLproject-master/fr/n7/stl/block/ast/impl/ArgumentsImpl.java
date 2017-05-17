@@ -14,6 +14,7 @@ import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a variable declaration instruction.
