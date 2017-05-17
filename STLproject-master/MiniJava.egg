@@ -18,7 +18,7 @@ inh tdsClasses		: SymbolTable for Interfaces, Interface, HeritageInterface, Suit
 inh tdsInterface	: SymbolTable for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Type, TypeAtomique , SuiteTypeAtomique , Affectation, SuiteAffectation, Expression, Expressions, SuiteExpressions, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Arguments, Acces, Appel, AppelOuAcces, Parametre, SuiteParametres, Parametres, Classe, HeritageClasse, ImplantationInterface, ElementsClasse, Classes, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, Constructeur, Principale, MethodePrincipale, Instruction, Instructions, SuiteConditionnelle , Bloc;
 
 
-inh tdsMethodes		: SymbolTable for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Type, TypeAtomique , SuiteTypeAtomique , Affectation, SuiteAffectation, Expression, Expressions, SuiteExpressions, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Arguments, Acces, Appel, AppelOuAcces, Parametre, SuiteParametres, Parametres, Classe, HeritageClasse, ImplantationInterface, ElementsClasse, Classes, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, Constructeur, Principale, MethodePrincipale, Instruction, Instructions, SuiteConditionnelle , Bloc; -- Methodes statiques
+inh tdsMethodes		: SymbolTableMethodes for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Type, TypeAtomique , SuiteTypeAtomique , Affectation, SuiteAffectation, Expression, Expressions, SuiteExpressions, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Arguments, Acces, Appel, AppelOuAcces, Parametre, SuiteParametres, Parametres, Classe, HeritageClasse, ImplantationInterface, ElementsClasse, Classes, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, Constructeur, Principale, MethodePrincipale, Instruction, Instructions, SuiteConditionnelle , Bloc; -- Methodes statiques
 
 
 
@@ -30,7 +30,7 @@ inh tds		: SymbolTable for Interfaces, Interface, HeritageInterface, SuiteHerita
 
 inh tds_Params 	: SymbolTable for Parametre, Parametres, SuiteParametres;
 
-inh tdsMeth     : SymbolTable for Classe, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, ElementsClasse;
+inh tdsMeth     : SymbolTableMethodes for Classe, ElementClasse, AttributOuMethode, SuiteAttributOuMethode, ElementsClasse;
 
 inh tdsAtt      : SymbolTable for Classe, ElementClasse, ElementsClasse, Bloc, Facteur, SuiteAttributOuMethode, AttributOuMethode, Constructeur, Instruction, Instructions, SuiteConditionnelle, SuiteFacteur, Expression, Affectation, SuiteAffectation,Expressions, SuiteExpressions, SuiteNouveau, AppelOuAcces, Appel, Acces, Arguments, Terme, SuiteTerme, Condition, SuiteCondition;
 
@@ -69,8 +69,8 @@ syn ast 	: LinkedList<Classe> for Classes;
 
 inh droit 	: DroitAcces for ElementClasse, AttributOuMethode, SuiteAttributOuMethode; 
 inh nomAtt 	: String for SuiteAttributOuMethode;
-inh nomClasse : String for ElementsClasse,ElementClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode;
-inh typeAtt : Type for SuiteAttributOuMethode;
+inh nomClasse 	: String for ElementsClasse,ElementClasse, Constructeur, AttributOuMethode, SuiteAttributOuMethode;
+inh typeAtt 	: Type for SuiteAttributOuMethode;
 syn ast 	: DroitAcces for DroitAcces;
 syn ast 	: ElementClasse for ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur; 
 syn ast 	: Block for Bloc;
@@ -86,6 +86,10 @@ syn ast : Instruction for Instruction;
 
 syn ast : Block for SuiteConditionnelle;
 
+inh identificateur_type : String for AppelOuAcces, Appel, Acces;
+
+inh identificateur : String for AppelOuAcces, Appel, Acces;
+
 
 
 syn typeElementClasse	: Integer for AttributOuMethode, SuiteAttributOuMethode;
@@ -93,7 +97,7 @@ inh support 	:Expression for Appel, Acces, AppelOuAcces;
 --inh ident 		:String for Appel, Acces, AppelOuAcces;
 --inh typeAcces 	:Integer for Acces, Appel, AppelOuAcces;
 inh identObjetCourant 	: String for ElementsInterface, ElementInterface, Signature;
-inh decl		:Declaration for Acces, Appel, AppelOuAcces;
+--inh decl		:Declaration for Acces, Appel, AppelOuAcces;
 inh nomClasse		:String for Facteur, SuiteFacteur, Terme, SuiteTerme, Condition, SuiteCondition, Affectation, SuiteAffectation , Expression, SuiteNouveau, Acces, Instruction, Instructions,SuiteExpressions, Expressions, Arguments, Bloc, SuiteConditionnelle, AppelOuAcces, Appel;
 
 
@@ -168,7 +172,7 @@ global
 do
 	s_intr := new SymbolTable();
     s_clas := new SymbolTable();
-	s_meth := new SymbolTable();
+	s_meth := new SymbolTableMethodes();
 	s_att := new SymbolTable();
 
 	Interfaces^tdsInterface := s_intr;
@@ -426,7 +430,7 @@ end
 Classes -> #inh Classe #tree Classes #ast;
 #inh {
 do
-    Classe^tdsMeth := new SymbolTable(Classes^tds);
+    Classe^tdsMeth := new SymbolTableMethodes();
     Classe^tdsAtt := new SymbolTable(Classes^tds);
 end
 }
@@ -638,8 +642,8 @@ do
 
 	if AttributOuMethode^typeElementClasse = 0 then
 		ElementClasse^tdsAttributs.register(a, ElementClasse^nomClasse);
-	else
-		ElementClasse^tdsMethodes.registerM(a, ElementClasse^nomClasse);
+	--else
+	--	ElementClasse^tdsMethodes.registerM(a, ElementClasse^nomClasse);
 	end
 
 end
@@ -657,8 +661,8 @@ do
 
 	if AttributOuMethode^typeElementClasse = 0 then
 		ElementClasse^tdsAttributs.register(a, ElementClasse^nomClasse);
-	else
-		ElementClasse^tdsMethodes.registerM(a, ElementClasse^nomClasse);
+	--else
+	--	ElementClasse^tdsMethodes.registerM(a, ElementClasse^nomClasse);
 	end
 
 end
@@ -701,7 +705,9 @@ local
 do
     m := AttributOuMethode^factory.createMethode(AttributOuMethode^droit, identificateur^txt, Parametres^ast, Bloc^ast, AttributOuMethode^nomClasse);
     AttributOuMethode^ast := m;
-    --AttributOuMethode^tdsMeth.register(m);
+	
+    AttributOuMethode^tdsMeth.registerMethode(identificateur^txt, AttributOuMethode^nomClasse, Parametres^ast, m);
+	AttributOuMethode^tdsMethodes.registerMethode(identificateur^txt, AttributOuMethode^nomClasse, Parametres^ast, m);
 
 	AttributOuMethode^typeElementClasse := 1;
 end
@@ -737,9 +743,12 @@ end
 local
     m : ElementClasse;
 do
-    m := SuiteAttributOuMethode^factory.createMethode(SuiteAttributOuMethode^droit, SuiteAttributOuMethode^typeAtt, SuiteAttributOuMethode^nomAtt, Parametres^ast, Bloc^ast, AttributOuMethode^nomClasse);
+    m := SuiteAttributOuMethode^factory.createMethode(SuiteAttributOuMethode^droit, SuiteAttributOuMethode^typeAtt, SuiteAttributOuMethode^nomAtt, Parametres^ast, Bloc^ast, SuiteAttributOuMethode^nomClasse);
     SuiteAttributOuMethode^ast := m;
-    --SuiteAttributOuMethode^tdsMeth.register(m);
+
+    SuiteAttributOuMethode^tdsMeth.registerMethode(SuiteAttributOuMethode^nomAtt, SuiteAttributOuMethode^nomClasse, Parametres^ast, m);
+	SuiteAttributOuMethode^tdsMethodes.registerMethode(SuiteAttributOuMethode^nomAtt, SuiteAttributOuMethode^nomClasse, Parametres^ast, m);
+
 	SuiteAttributOuMethode^typeElementClasse := 1;
 end
 }
@@ -1304,7 +1313,91 @@ end
 }
 
 
-AppelOuAcces -> Acces #ast;
+Facteur -> identificateur_type point identificateur  #inh AppelOuAcces #ast;
+#inh{
+local
+	o : Optional<Declaration>;
+	d : Declaration;
+	i : Interface;
+	c : Classe;
+do
+	i := nil;
+	c := nil;
+	if Facteur^tdsClasses.contains(identificateur_type^txt) then
+		o :=  Facteur^tdsClasses.get(identificateur_type^txt);
+		d := o.get();
+		match d with Classe then c := d; end
+		
+		AppelOuAcces^support := Facteur^factory.createClasseUse(c);
+		AppelOuAcces^identificateur_type := identificateur_type^txt;
+		AppelOuAcces^identificateur := identificateur^txt;
+
+	elseif Facteur^tdsInterface.contains(identificateur_type^txt) then
+		o :=  Facteur^tdsInterface.get(identificateur_type^txt);
+		d := o.get();
+		match d with Interface then i := d; end
+		
+		AppelOuAcces^support := Facteur^factory.createInterfaceUse(i);
+		AppelOuAcces^identificateur_type := identificateur_type^txt;
+		AppelOuAcces^identificateur := identificateur^txt;
+
+	else
+		error(NOT_DEFINED_CLASS_OR_INTERFACE, identificateur_type^txt);
+	end
+end
+}
+
+#ast{
+do
+	Facteur^ast := AppelOuAcces^ast;
+end
+}
+
+Facteur -> identificateur #inh  AppelOuAcces #ast;
+#inh
+{
+do
+	AppelOuAcces^support := nil;
+	AppelOuAcces^identificateur_type := nil;
+	AppelOuAcces^identificateur := identificateur^txt;
+end
+}
+
+#ast{
+do
+	Facteur^ast := AppelOuAcces^ast;
+end
+}
+
+AppelOuAcces -> #inh Acces #ast;
+#inh{
+local
+	d : Declaration;
+	o : Optional<Declaration>;
+	v : VariableDeclaration;
+	a : Attribut;
+	
+do
+	if AppelOuAcces^tds.contains(AppelOuAcces^identificateur) then
+		o := AppelOuAcces^tds.get(AppelOuAcces^identificateur);
+		d := o.get();
+		match d with VariableDeclaration then v := d; end
+		
+		Acces^support := AppelOuAcces^factory.createVariableUse(v);
+
+	elseif AppelOuAcces^tdsAttributs.contains(AppelOuAcces^identificateur, AppelOuAcces^nomClasse) then
+		o := AppelOuAcces^tdsAttributs.get(AppelOuAcces^identificateur);
+		d := o.get();
+		match d with Attribut then a := d; end
+		
+		Acces^support := AppelOuAcces^factory.createAttributUse(a);
+
+	else
+		error(NOT_DEFINED_ATTRIBUT_OR_VARIABLE, AppelOuAcces^identificateur);
+	end
+end
+}
+
 #ast{
 do
 	AppelOuAcces^ast := Acces^ast;
@@ -1318,153 +1411,14 @@ do
 end
 }
 
-
-Facteur -> identificateur_type point identificateur #inh AppelOuAcces #ast;
-#inh{
-local
-	o : Optional<Declaration>;
-	d : Declaration;
-do
-	if Facteur^tdsAttributs.contains(identificateur^txt, identificateur_type^txt)  then
-		o := Facteur^tdsAttributs.get(identificateur_type^txt+"."+identificateur^txt);
-		d := o.get();
-		AppelOuAcces^decl := d;  
-		AppelOuAcces^support := Facteur^factory.createStaticFieldUse(d);
-		
-
-	elseif Facteur^tdsMethodes.contains(identificateur^txt, identificateur_type^txt) then
-		o := Facteur^tdsMethodes.get(identificateur_type^txt +"."+ identificateur^txt);
-		d := o.get();
-		AppelOuAcces^decl := d; --Attribut
-		AppelOuAcces^support := Facteur^factory.createStaticFieldUse(d);
-
-	else
-		error(Programme_undeclared_variable, " variable " + identificateur_type^txt+"."+identificateur^txt + " non déclaree");
-	end
-end
-}
-
-#ast{
-do
-	Facteur^ast := AppelOuAcces^ast;
-end
-}
-
-Facteur -> identificateur #inh AppelOuAcces #ast;
-#inh{
-local
-	o : Optional<Declaration>;
-	d : Declaration;
-do
-	if Facteur^tds.knows (identificateur^txt) then
-		o := Facteur^tds.get(identificateur^txt);
-		d := o.get();
-		AppelOuAcces^decl := d; --VariableDeclaration
-		match d 
-			with VariableDeclaration then AppelOuAcces^support := Facteur^factory.createVariableUse(d);
-		else	error(NOT_A_VARIABLE_DECLARATION, "should be a variable declaration");
-		end 
-		
-		
-
-	elseif Facteur^tdsAttributs.contains(identificateur^txt, Facteur^nomClasse) then
-		o := Facteur^tdsAttributs.get(Facteur^nomClasse +"."+ identificateur^txt);
-		d := o.get();
-		AppelOuAcces^decl := d; --Attribut
-		match d 
-			with Attribut then AppelOuAcces^support := Facteur^factory.createAttributUse(d);
-		else	error(NOT_AN_ATTRIBUT ," should be an attribut");
-		end 
-
-		
-		--AppelOuAcces^support := nil;
-
-	else
-		error(Programme_undeclared_variable, " variable " + identificateur^txt + " non déclaree");
-	end
-end
-}
-
-#ast{
-local
-	ap: AppelOuAcces;
-do
-	match AppelOuAcces^ast
-		with AppelOuAcces then ap := AppelOuAcces^ast; ap.setStatic(false);Facteur^ast := ap;
-		with VariableUseImpl then Facteur^ast := AppelOuAcces^ast;
-		with AttributUseImpl then Facteur^ast := AppelOuAcces^ast;
-		else error(Facteur_identificateur, " ap_o_acc should be an appelOuAcces or a VaraibleUse");
-	end	
-end
-}
-
-
-
 Acces -> point identificateur #inh AppelOuAcces #ast;
 #inh{
-local
-	o : Optional<Declaration>;
-	d1 : Declaration;
-	d2 : Declaration;
-	v : VariableDeclaration;
-	a : Attribut;
-	t : Type;
-	s : String;
-	c : Classe;
-	i : Interface;
-	m : Methode;
 do
-	a := nil;
-	v := nil;
-	m:=nil;
-	d1 := Acces^decl;
-	s := "erreur";
-	
-	match d1 
-		with VariableDeclaration then v := d1;
-		with Attribut then a := d1;
-		with Methode then m := d1;	
-		else error(Acces_idend_apOac, " Declaration should be an attribute or a variableDeclaration ");
-	end
-
-	if v != nil then
-		t := v.getType();
-	elseif a != nil then
-		t := a.getType();
-	else
-		t := m.getType();
-	end
-
-	match t
-		with ClassTypeImpl then c := t.getClasse(); s := c.getName(); --error(CL, s);
-		with InterfaceTypeImpl then i := t.getInterface(); s := i.getName(); --error(CL, s);
-		else error(Acces_idend_apOac, " Type should be Class or Interface ");
-	end
-
-	if s.equals("erreur") then
-		error(Acces_idend_apOac, " s bad initialized ");
-	end
-	if Acces^tdsAttributs.contains(identificateur^txt, s) then
-		o := Acces^tdsAttributs.get(s+"."+identificateur^txt);
-		d2 := o.get();
-		AppelOuAcces^decl := d2;
-		--if Acces^support = nil then
-			--AppelOuAcces^support := Acces^factory.createAcces(d1, d2);
-		--else
-			AppelOuAcces^support := Acces^factory.createAcces(Acces^support, d2);
-		--end
-	elseif Acces^tdsMethodes.contains(identificateur^txt, s) then
-		o := Acces^tdsMethodes.get(s+"."+identificateur^txt);
-		d2 := o.get();
-		AppelOuAcces^decl := d2;
-		AppelOuAcces^support := Acces^factory.createAcces(Acces^support, d2);
-		
-	else
-		error(Acces_idend_apOac, identificateur^txt + " should be an attribute or a Method ");
-	end
+	AppelOuAcces^support := Acces^support;
+	AppelOuAcces^identificateur_type := nil;
+	AppelOuAcces^identificateur := identificateur^txt;
 end
 }
-
 #ast{
 do
 	Acces^ast := AppelOuAcces^ast;
@@ -1473,28 +1427,54 @@ end
 
 Acces ->  #ast;
 #ast{
-local
 do
 	Acces^ast := Acces^support;
 end
 }
 
-Acces -> crochet_ouvrant Expression crochet_fermant Acces #ast;
-#ast{
+Acces -> crochet_ouvrant Expression crochet_fermant #inh  Acces #ast;
+#inh{
 do
-	Acces^ast := Acces^factory.createAcces();
+	   Acces1^support := Acces^factory.createArrayAccess(Acces^support,Expression^ast);
 end
 }
 
+#ast{
+do
+	Acces^ast := Acces1^ast;
+end
+}
 
 Appel -> Arguments #inh Acces #ast;
 #inh{
+local
+	o : Optional<Methode>;
+	m : Methode;
+	t : Type;
+	c : Classe;
+	i : Interface;
 do
-	--if Appel^support = nil then
-		Acces^support := Appel^factory.createAppel(Appel^support, Arguments^ast);
-	--else
-	--	error (in_appel, "support is not nul");
-	--end
+	if Appel^support = nil then
+		o := Appel^tdsMethodes.getMethode(Appel^identificateur, Appel^nomClasse, Arguments^ast);
+	else
+		t := Appel^support.getTypeReel();	
+		match t 
+			with ClassTypeImpl then 
+					c := t.getClasse(); 
+					s := c.getName();
+					o := Appel^tdsMethodes.getMethode(Appel^identificateur, s, Arguments^ast);
+			else 
+					error (NOT_AN_OBJECT, t.toSstring());
+		end
+	end
+
+	if o.isPresent() then
+		m := o.get();
+		Acces^support := Appel^factory.createAppel(m, Arguments^ast);
+	else
+		error (UNDEFINED_METHOD_OR_SIGNATURE, Appel^identificateur);
+	end
+
 end
 }
 #ast{
@@ -1502,7 +1482,6 @@ do
 	Appel^ast := Acces^ast;
 end
 }
-
 
 
 
