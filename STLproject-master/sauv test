@@ -1,0 +1,21 @@
+a = 5 ,
+a = b * c,
+a = new B(),
+a = new B(a, b, c+d, e[2],2),
+a = new C[2],
+a = new C[z/d],
+a = B.id,
+B.z = C.ur + D.az + D.fd[1] * f,
+e = a.dr,
+e = -a.dr,
+s = a.methode(),
+s = a.methode(a, c+f, e.d),
+e = not (false) 
+
+inh droit : DroitAcces for ElementClasse, AttributOuMethode, SuiteAttributOuMethode; 
+inh nomAtt : String for SuiteAttributOuMethode;
+inh nomClasse : String for ElementsClasses,ElementClasse, Constructeur;
+inh typeAtt : Type for SuiteAttributOuMethode;
+syn ast : DroitAcces for DroitAcces;
+syn ast : ElementClasse for ElementClasse, AttributOuMethode, SuiteAttributOuMethode; 
+syn ast : Block for Bloc;
