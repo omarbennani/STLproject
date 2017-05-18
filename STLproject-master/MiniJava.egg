@@ -1425,7 +1425,7 @@ end
 Acces -> point identificateur #inh AppelOuAcces #ast;
 #inh{
 do
-	AppelOuAcces^support := Acces^support;
+	AppelOuAcces^support := Acces^factory.createAcces(Acces^support, identificateur^txt);
 	AppelOuAcces^identificateur_type := nil;
 	AppelOuAcces^identificateur := identificateur^txt;
 end
