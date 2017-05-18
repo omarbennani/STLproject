@@ -404,7 +404,7 @@ do
 	if (Signature^tds.knows(identificateur^txt)) then
 		error(Signature_ident_already_defined, identificateur^txt);
 	else
-		Signature^ast := Signature^factory.createSignature(identificateur^txt, Parametres^ast);
+		Signature^ast := Signature^factory.createSignature(identificateur^txt, Parametres^ast, Signature^identObjetCourant);
 	end
 end
 }
@@ -422,7 +422,7 @@ do
 	if (Signature^tds.knows(identificateur^txt)) then
 		error(Signature_ident_already_defined, identificateur^txt);
 	else
-		Signature^ast := Signature^factory.createSignature(Type^ast, identificateur^txt, Parametres^ast);
+		Signature^ast := Signature^factory.createSignature(Type^ast, identificateur^txt, Parametres^ast, Signature^identObjetCourant);
 	end
 end
 }

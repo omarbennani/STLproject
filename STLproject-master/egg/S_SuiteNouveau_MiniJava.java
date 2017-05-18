@@ -62,7 +62,7 @@ this.att_ast=this.att_factory.createArrayAllocation(this.att_type, x_3.att_ast);
 private void action_ast_82(S_Arguments_MiniJava x_2) throws Exception {
 try {
 // instructions
-this.att_ast=this.att_factory.createObjet(this.att_type, x_2.att_ast);
+this.att_ast=this.att_factory.createObjetAllocation(this.att_type, x_2.att_ast);
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "MiniJava", "#ast","SuiteNouveau -> Arguments #ast ;", e });
 }
   }
