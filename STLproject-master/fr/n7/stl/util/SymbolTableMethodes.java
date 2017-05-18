@@ -57,8 +57,9 @@ public class SymbolTableMethodes  {
 	public boolean containsSignature(String _name, String _nomInterface, List<Parametre> _parametres) {
 		for(Signature s : this.signatures)
 		{
-			if (s.getInterfaceName().equals(_nomInterface) && s.getName().equals(_name))
+			if (s.getName().equals(_name))
 			{
+				if (s.getInterfaceName().equals(_nomInterface)) {
 				List<Parametre> p = s.getParametres();
 				if(p.size() == _parametres.size())
 				{
@@ -69,7 +70,7 @@ public class SymbolTableMethodes  {
 						if(i == p.size()-1)
 							return true;
 					}
-				}
+				}}
 			}
 		}
 

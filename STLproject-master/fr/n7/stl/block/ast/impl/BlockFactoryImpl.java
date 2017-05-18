@@ -474,13 +474,13 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new InterfaceImpl(_identificateurType, _heritageInterface, _elements);
 	}
 
-	public Signature createSignature(String _identificateur,LinkedList<Parametre> _param)	
+	public Signature createSignature(String _identificateur,LinkedList<Parametre> _param, String _interfaceName)	
 	{
-		return new SignatureImpl(_identificateur, _param);
+		return new SignatureImpl(_identificateur, _param, _interfaceName);
 	}
-	public Signature createSignature(Type _type_retour, String _identificateur,LinkedList<Parametre> _param)
+	public Signature createSignature(Type _type_retour, String _identificateur,LinkedList<Parametre> _param, String _interfaceName)
 	{
-		return new SignatureImpl(_type_retour, _identificateur, _param);
+		return new SignatureImpl(_type_retour, _identificateur, _param, _interfaceName);
 	}
 	
 	public StaticField createStaticField(Type _type, String _identificateur, Expression _expression)

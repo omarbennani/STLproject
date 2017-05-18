@@ -14,9 +14,9 @@ public interface ObjetFactory {
 	*/
 	public Interface createInterface(String _identificateurType, LinkedList<Interface> _heritageInterface, LinkedList<ElementInterface> _elements);
 
-	public Signature createSignature(String _identificateur,LinkedList<Parametre> _param);
+	public Signature createSignature(String _identificateur,LinkedList<Parametre> _param, String _interfaceName);
 
-	public Signature createSignature(Type _type_retour, String _identificateur,LinkedList<Parametre> _param);
+	public Signature createSignature(Type _type_retour, String _identificateur,LinkedList<Parametre> _param, String _interfaceName);
 	
 	public StaticField createStaticField(Type _type, String _identificateur, Expression _expression);
 

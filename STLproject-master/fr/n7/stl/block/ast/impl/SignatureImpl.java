@@ -23,24 +23,26 @@ public class SignatureImpl implements Signature {
 	protected Boolean _final;
 	protected Type type_retour;
 	protected List<Parametre> parametres;
-	protected String className;
+	protected String interfaceName;
 
 	public SignatureImpl()
 	{
 		this.parametres = new LinkedList<Parametre> ();
 	}
-	public SignatureImpl(String _identificateur, LinkedList<Parametre> _parametres)
+	public SignatureImpl(String _identificateur, LinkedList<Parametre> _parametres, String _interfaceName)
 	{
 		this.identificateur = _identificateur;
 		this.type_retour = AtomicType.VoidType;
 		this.parametres = _parametres;
+		this.interfaceName = _interfaceName;
 	}
 
-	public SignatureImpl(Type _type_retour, String _identificateur, LinkedList<Parametre> _parametres)
+	public SignatureImpl(Type _type_retour, String _identificateur, LinkedList<Parametre> _parametres, String _interfaceName)
 	{
 		this.identificateur = _identificateur;
 		this.type_retour = _type_retour;
 		this.parametres = _parametres;
+		this.interfaceName = _interfaceName;
 	}
 
 	@Override
@@ -52,7 +54,7 @@ public class SignatureImpl implements Signature {
 	@Override
 	public String getInterfaceName()
 	{
-		return this.className;
+		return this.interfaceName;
 	}
 
 	@Override
