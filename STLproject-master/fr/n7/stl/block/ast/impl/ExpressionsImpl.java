@@ -55,7 +55,12 @@ public class ExpressionsImpl implements Expressions {
 	 */
 	@Override
 	public Type getType() {
-		return AtomicType.VoidType;
+		throw new SemanticsUndefinedException("getType() not defined in ExpressionsImpl");
+	}
+	
+	@Override
+	public Type getTypeReel() {
+		throw new SemanticsUndefinedException("getTypeReel() not defined in ExpressionsImpl");
 	}
 
 	/* (non-Javadoc)

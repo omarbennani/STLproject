@@ -25,7 +25,7 @@ int [] sync= new int[0];
   ElementClasse att_ast;
   SymbolTable att_tdsAttributs;
   SymbolTable att_tdsInterface;
-  SymbolTable att_tdsMethodes;
+  SymbolTableMethodes att_tdsMethodes;
   boolean att_eval;
   SymbolTable att_tdsAtt;
   String att_nomAtt;
@@ -33,7 +33,7 @@ int [] sync= new int[0];
   DroitAcces att_droit;
   Integer att_typeElementClasse;
   String att_nomClasse;
-  SymbolTable att_tdsMeth;
+  SymbolTableMethodes att_tdsMeth;
   private void regle34() throws Exception {
 
 	//declaration
@@ -108,8 +108,13 @@ try {
 // locales
 ElementClasse loc_m;
 // instructions
-loc_m=this.att_factory.createMethode(this.att_droit, this.att_typeAtt, this.att_nomAtt, x_4.att_ast, x_6.att_ast);
+loc_m=this.att_factory.createMethode(this.att_droit, this.att_typeAtt, this.att_nomAtt, x_4.att_ast, x_6.att_ast, this.att_nomClasse);
 this.att_ast=loc_m;
+if (loc_m instanceof Methode ){
+this.att_tdsMeth.registerMethode(this.att_nomAtt, this.att_nomClasse, x_4.att_ast, ((Methode)loc_m));
+this.att_tdsMethodes.registerMethode(this.att_nomAtt, this.att_nomClasse, x_4.att_ast, ((Methode)loc_m));
+}
+
 this.att_typeElementClasse=1;
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "MiniJava", "#ast","SuiteAttributOuMethode -> #factory parenthese_ouvrante Parametres parenthese_fermante Bloc #ast ;", e });
 }

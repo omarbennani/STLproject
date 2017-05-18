@@ -7,7 +7,7 @@ import fr.n7.stl.block.ast.Type;
 public class Attribut implements ElementClasse {
 
 	protected DroitAcces droitAcces;
-	protected Type typeAtt;
+	protected Type typeAtt; 
 	protected String nom;
 	protected boolean finaL, statiC;
 	

@@ -24,13 +24,13 @@ int [] sync= new int[0];
   ElementClasse att_ast;
   SymbolTable att_tdsAttributs;
   SymbolTable att_tdsInterface;
-  SymbolTable att_tdsMethodes;
+  SymbolTableMethodes att_tdsMethodes;
   boolean att_eval;
   SymbolTable att_tdsAtt;
   LEX_MiniJava att_scanner;
   DroitAcces att_droit;
   String att_nomClasse;
-  SymbolTable att_tdsMeth;
+  SymbolTableMethodes att_tdsMeth;
   private void regle30() throws Exception {
 
 	//declaration
@@ -85,9 +85,7 @@ this.att_ast=loc_a;
 if ((x_3.att_typeElementClasse==0)){
 this.att_tdsAttributs.register(loc_a, this.att_nomClasse);
 }
-else {
-this.att_tdsMethodes.registerM(loc_a, this.att_nomClasse);
-}
+
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "MiniJava", "#ast","ElementClasse -> statique AttributOuMethode #ast ;", e });
 }
   }
@@ -102,9 +100,7 @@ this.att_ast=loc_a;
 if ((x_2.att_typeElementClasse==0)){
 this.att_tdsAttributs.register(loc_a, this.att_nomClasse);
 }
-else {
-this.att_tdsMethodes.registerM(loc_a, this.att_nomClasse);
-}
+
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "MiniJava", "#ast","ElementClasse -> AttributOuMethode #ast ;", e });
 }
   }
@@ -128,7 +124,10 @@ private void action_ast_30(S_Constructeur_MiniJava x_2) throws Exception {
 try {
 // instructions
 this.att_ast=x_2.att_ast;
-this.att_tdsMethodes.registerM(x_2.att_ast, this.att_nomClasse);
+if (x_2.att_ast instanceof Constructeur ){
+this.att_tdsMethodes.registerConstructeur(this.att_nomClasse, ((Constructeur)x_2.att_ast).getParametres(), ((Constructeur)x_2.att_ast));
+}
+
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "MiniJava", "#ast","ElementClasse -> Constructeur #ast ;", e });
 }
   }

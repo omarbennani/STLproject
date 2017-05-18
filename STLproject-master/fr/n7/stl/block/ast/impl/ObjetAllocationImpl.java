@@ -52,9 +52,10 @@ public class ObjetAllocationImpl implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		Fragment _code = _factory.createFragment();
-		_code.add(_factory.createLoadL(this.type.length()));
-		_code.add(Library.MAlloc);
-		return _code;
+		throw new SemanticsUndefinedException("getCode() not defined in ObjetAllocationImpl");
+//		Fragment _code = _factory.createFragment();
+//		_code.add(_factory.createLoadL(this.type.length()));
+//		_code.add(Library.MAlloc);
+//		return _code;
 	}
 }

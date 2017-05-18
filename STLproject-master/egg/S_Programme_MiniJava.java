@@ -21,7 +21,7 @@ int [] sync= new int[0];
   boolean att_eval;
   Programme att_ast;
   LEX_MiniJava att_scanner;
-  SymbolTable glob_0_s_meth;
+  SymbolTableMethodes glob_0_s_meth;
   SymbolTable glob_0_s_clas;
   SymbolTable glob_0_s_att;
   SymbolTable glob_0_s_intr;
@@ -45,7 +45,7 @@ try {
 // instructions
 glob_0_s_intr= new SymbolTable();
 glob_0_s_clas= new SymbolTable();
-glob_0_s_meth= new SymbolTable();
+glob_0_s_meth= new SymbolTableMethodes();
 glob_0_s_att= new SymbolTable();
 x_3.att_tdsInterface=glob_0_s_intr;
 x_3.att_tdsClasses=glob_0_s_clas;

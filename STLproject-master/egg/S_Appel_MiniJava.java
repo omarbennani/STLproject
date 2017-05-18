@@ -22,11 +22,12 @@ int [] sync= new int[0];
   BlockFactory att_factory;
   SymbolTable att_tds;
   Expression att_ast;
-  Declaration att_decl;
+  String att_identificateur_type;
   SymbolTable att_tdsAttributs;
   SymbolTable att_tdsInterface;
-  SymbolTable att_tdsMethodes;
+  SymbolTableMethodes att_tdsMethodes;
   boolean att_eval;
+  String att_identificateur;
   SymbolTable att_tdsAtt;
   LEX_MiniJava att_scanner;
   String att_nomClasse;
@@ -67,7 +68,8 @@ x_2.att_tdsAtt=this.att_tdsAtt;
 x_4.att_tdsAtt=this.att_tdsAtt;
 x_2.att_factory=this.att_factory;
 x_4.att_factory=this.att_factory;
-x_4.att_decl=this.att_decl;
+x_4.att_identificateur_type=this.att_identificateur_type;
+x_4.att_identificateur=this.att_identificateur;
 x_2.att_nomClasse=this.att_nomClasse;
 x_4.att_nomClasse=this.att_nomClasse;
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "MiniJava", "#auto_inh","Appel -> Arguments #inh Acces #ast ;", e });
@@ -75,8 +77,39 @@ x_4.att_nomClasse=this.att_nomClasse;
   }
 private void action_inh_92(S_Arguments_MiniJava x_2, S_Acces_MiniJava x_4) throws Exception {
 try {
+// locales
+Optional<Methode> loc_o;
+Methode loc_m;
+Type loc_t;
+Classe loc_c;
+Interface loc_i;
+String loc_s;
 // instructions
-x_4.att_support=this.att_factory.createAppel(this.att_support, x_2.att_ast);
+loc_o=null;
+if ((this.att_support==null)){
+loc_o=this.att_tdsMethodes.getMethode(this.att_identificateur, this.att_nomClasse, x_2.att_ast);
+}
+else {
+loc_t=this.att_support.getTypeReel();
+if (loc_t instanceof ClassTypeImpl ){
+loc_c=((ClassTypeImpl)loc_t).getClasse();
+loc_s=loc_c.getName();
+loc_o=this.att_tdsMethodes.getMethode(this.att_identificateur, loc_s, x_2.att_ast);
+}
+else {
+att_scanner._interrompre(IProblem.Semantic, att_scanner.getBeginLine(), IMiniJavaMessages.id_NOT_AN_OBJECT, MiniJavaMessages.NOT_AN_OBJECT,new Object[]{""+loc_t.toString()});
+
+
+}
+}
+if (loc_o.isPresent()){
+loc_m=loc_o.get();
+x_4.att_support=this.att_factory.createAppel(this.att_support, loc_m, x_2.att_ast);
+}
+else {
+att_scanner._interrompre(IProblem.Semantic, att_scanner.getBeginLine(), IMiniJavaMessages.id_UNDEFINED_METHOD_OR_SIGNATURE, MiniJavaMessages.UNDEFINED_METHOD_OR_SIGNATURE,new Object[]{""+this.att_identificateur});
+
+}
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "MiniJava", "#inh","Appel -> Arguments #inh Acces #ast ;", e });
 }
   }

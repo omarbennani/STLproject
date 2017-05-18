@@ -26,7 +26,7 @@ int [] sync= new int[0];
   LEX_MiniJava att_scanner;
   SymbolTable att_tdsAttributs;
   SymbolTable att_tdsInterface;
-  SymbolTable att_tdsMethodes;
+  SymbolTableMethodes att_tdsMethodes;
   String att_identObjetCourant;
   private void regle11() throws Exception {
 
@@ -122,7 +122,7 @@ private void action_ast_11(S_Signature_MiniJava x_2) throws Exception {
 try {
 // instructions
 this.att_ast=x_2.att_ast;
-this.att_tdsMethodes.registerM(x_2.att_ast, this.att_identObjetCourant);
+this.att_tdsMethodes.registerSignature(x_2.att_ast.getName(), this.att_identObjetCourant, x_2.att_ast.getParametres(), x_2.att_ast);
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "MiniJava", "#ast","ElementInterface -> Signature point_virgule #ast ;", e });
 }
   }

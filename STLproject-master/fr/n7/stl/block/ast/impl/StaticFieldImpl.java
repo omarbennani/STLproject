@@ -28,6 +28,7 @@ public class StaticFieldImpl implements StaticField {
 	protected Expression expression;
 
 	public StaticFieldImpl(){}
+	
 	public StaticFieldImpl(Type _type, String _identificateur, Expression _expression)
 	{
 		this.identificateur = _identificateur;
@@ -54,6 +55,12 @@ public class StaticFieldImpl implements StaticField {
 	public void setFinal(boolean b)
 	{
 		this._final = b;
+	}
+	
+	@Override
+	public String getInterfaceName() {
+		InterfaceTypeImpl iType = (InterfaceTypeImpl)this.type;
+		return iType.getInterface().getName();
 	}
 
 }

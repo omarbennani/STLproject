@@ -27,7 +27,7 @@ int [] sync= new int[0];
   SymbolTable att_tdsAttributs;
   SymbolTable att_tds_Params;
   SymbolTable att_tdsInterface;
-  SymbolTable att_tdsMethodes;
+  SymbolTableMethodes att_tdsMethodes;
   private void regle38() throws Exception {
 
 	//declaration

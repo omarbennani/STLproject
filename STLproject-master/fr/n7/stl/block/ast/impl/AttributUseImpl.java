@@ -45,6 +45,11 @@ public class AttributUseImpl implements Expression {
 		//return declaration.getType();
 		throw new SemanticsUndefinedException("getType is undefined in AttributUseImpl");
 	}
+	
+	@Override
+	public Type getTypeReel() {
+		return ((Attribut)this.declaration).getTypeReel();
+	}
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)

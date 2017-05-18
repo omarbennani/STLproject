@@ -26,7 +26,7 @@ int [] sync= new int[0];
   LEX_MiniJava att_scanner;
   SymbolTable att_tdsAttributs;
   SymbolTable att_tdsInterface;
-  SymbolTable att_tdsMethodes;
+  SymbolTableMethodes att_tdsMethodes;
   private void regle14() throws Exception {
 
 	//declaration
@@ -64,7 +64,7 @@ this.att_ast= new LinkedList<Classe>();
 private void action_inh_14(S_Classe_MiniJava x_3, S_Classes_MiniJava x_5) throws Exception {
 try {
 // instructions
-x_3.att_tdsMeth= new SymbolTable(this.att_tds);
+x_3.att_tdsMeth= new SymbolTableMethodes();
 x_3.att_tdsAtt= new SymbolTable(this.att_tds);
 }catch(RuntimeException e) {	   att_scanner._interrompre(IProblem.Internal,att_scanner.getBeginLine(),ICoreMessages.id_EGG_runtime_error, CoreMessages.EGG_runtime_error,new Object[] { "MiniJava", "#inh","Classes -> #inh Classe #tree Classes1 #ast ;", e });
 }

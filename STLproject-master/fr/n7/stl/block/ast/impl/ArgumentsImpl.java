@@ -47,12 +47,20 @@ public class ArgumentsImpl implements Arguments {
 	@Override
 	public Type getType()
 	{
-		throw new SemanticsUndefinedException("getType() not defined in ExpressionsImpl");
+		throw new SemanticsUndefinedException("getType() not defined in ArgumentsImpl");
 	}
 	
 	@Override
+	public Type getTypeReel()
+	{
+		throw new SemanticsUndefinedException("getTypeReel() not defined in ArgumentsImpl");
+	}
+	
+	
+	
+	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("getCode() not defined in ExpressionsImpl");
+		throw new SemanticsUndefinedException("getCode() not defined in ArgumentsImpl");
 	}
 
 	public List<Type> getListType()

@@ -19,6 +19,8 @@ public class StaticFieldUseImpl implements Expression {
 
 	protected Declaration declaration;
 	
+	protected Type typeReel;
+	
 	/**
 	 * Creates a variable use expression Abstract Syntax Tree node.
 	 * @param _declaration Declaration of the used variable.
@@ -44,6 +46,10 @@ public class StaticFieldUseImpl implements Expression {
 	public Type getType() {
 		//return declaration.getType();
 		throw new SemanticsUndefinedException("getType is undefined in AttributUseImpl");
+	}
+	
+	public Type getTypeReel() {
+		return this.typeReel;
 	}
 
 	/* (non-Javadoc)

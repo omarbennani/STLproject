@@ -27,8 +27,8 @@ int [] sync= new int[0];
   LEX_MiniJava att_scanner;
   SymbolTable att_tdsAttributs;
   SymbolTable att_tdsInterface;
-  SymbolTable att_tdsMethodes;
-  SymbolTable att_tdsMeth;
+  SymbolTableMethodes att_tdsMethodes;
+  SymbolTableMethodes att_tdsMeth;
   private void regle16() throws Exception {
 
 	//declaration

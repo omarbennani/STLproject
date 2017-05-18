@@ -28,7 +28,7 @@ int [] sync= new int[0];
   List<Instruction> att_tree;
   SymbolTable att_tdsAttributs;
   SymbolTable att_tdsInterface;
-  SymbolTable att_tdsMethodes;
+  SymbolTableMethodes att_tdsMethodes;
   String att_nomClasse;
   private void regle50() throws Exception {
 
