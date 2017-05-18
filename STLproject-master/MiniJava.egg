@@ -1302,7 +1302,7 @@ end
 SuiteNouveau -> Arguments #ast;
 #ast{
 do
-	SuiteNouveau^ast := SuiteNouveau^factory.createObjet(SuiteNouveau^type, Arguments^ast);
+	SuiteNouveau^ast := SuiteNouveau^factory.createObjetAllocation(SuiteNouveau^type, Arguments^ast);
 end
 }
 
