@@ -3,6 +3,8 @@ package fr.n7.stl.block.ast.impl;
 import fr.n7.stl.block.ast.DroitAcces;
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.TAMFactory;
 
 public class Attribut implements ElementClasse {
 
@@ -66,6 +68,11 @@ public class Attribut implements ElementClasse {
 	public String getClassName()
 	{
 		return this.typeAtt.toString();
+	}
+	
+	@Override
+	public Fragment getCode(TAMFactory _factory) {
+		return null;
 	}
 
 }

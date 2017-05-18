@@ -12,7 +12,7 @@ import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
-public class Methode implements ElementClasse,Expression {
+public class Methode implements ElementClasse {
 
 	protected DroitAcces droitAcces;
 	protected String nom;
@@ -88,6 +88,10 @@ public class Methode implements ElementClasse,Expression {
 	{
 		return this.typeRet;
 	}
+	
+	public Type getTypeReel() {
+		return this.getType();
+	}
 
 	public List<Parametre> getParametres()
 	{
@@ -99,13 +103,13 @@ public class Methode implements ElementClasse,Expression {
 	}
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		Fragment _res=_factory.createFragment();
-		_res.add(_factory.createLoadA(this.nom));
-		for (Parametre p:this.param)
-			_res.add(_factory.createLoadI(p.getType().length()));
-		_res.append(exp.getCode());
-		_res.add(_factory.createReturn(typeRet.getType().length(), typeRet.getType().length()));
-		return _res;
+//		Fragment _res=_factory.createFragment();
+//		_res.add(_factory.createLoadA(this.nom));
+//		for (Parametre p:this.param)
+//			_res.add(_factory.createLoadI(p.getType().length()));
+//		_res.append(exp.getCode());
+//		_res.add(_factory.createReturn(typeRet.getType().length(), typeRet.getType().length()));
+		return null;
 	}
 
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Parametre;
 
@@ -71,5 +73,10 @@ public class Constructeur implements ElementClasse{
 
 	public List<Parametre> getParametres() {
 		return this.param;
+	}
+	
+	@Override
+	public Fragment getCode(TAMFactory _factory) {
+		return null;
 	}
 }
