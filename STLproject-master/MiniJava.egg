@@ -1397,7 +1397,7 @@ do
 		Acces^support := AppelOuAcces^factory.createVariableUse(v);
 
 	elseif AppelOuAcces^tdsAttributs.contains(AppelOuAcces^identificateur, AppelOuAcces^nomClasse) then
-		o := AppelOuAcces^tdsAttributs.get(AppelOuAcces^identificateur);
+		o := AppelOuAcces^tdsAttributs.get(AppelOuAcces^nomClasse + "." + AppelOuAcces^identificateur);
 		d := o.get();
 		match d with Attribut then a := d; end
 		
