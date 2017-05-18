@@ -46,7 +46,7 @@ public class AccesImpl implements AppelOuAcces {
 	 */
 	@Override
 	public Type getType() {
-		 throw new SemanticsUndefinedException("getType is undefined in AccesImpl.java");
+		 return this.exp.getType();
 	}
 	
 	 @Override

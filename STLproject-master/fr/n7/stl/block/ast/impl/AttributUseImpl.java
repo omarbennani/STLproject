@@ -43,7 +43,7 @@ public class AttributUseImpl implements Expression {
 	@Override
 	public Type getType() {
 		//return declaration.getType();
-		throw new SemanticsUndefinedException("getType is undefined in AttributUseImpl");
+		return declaration.getType();
 	}
 	
 	@Override

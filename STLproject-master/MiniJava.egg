@@ -1349,10 +1349,10 @@ do
 		AppelOuAcces^support := Facteur^factory.createInterfaceUse(i);
 		AppelOuAcces^identificateur_type := identificateur_type^txt;
 		AppelOuAcces^identificateur := identificateur^txt;
-
 	else
 		error(NOT_DEFINED_CLASS_OR_INTERFACE, identificateur_type^txt);
 	end
+    AppelOuAcces^nomClasse := identificateur_type^txt;
 end
 }
 
@@ -1424,10 +1424,28 @@ end
 
 Acces -> point identificateur #inh AppelOuAcces #ast;
 #inh{
+local
+    t : Type;
+    c : Classe;
+    i : Interface;
+    s : String;
 do
+    s := nil;
 	AppelOuAcces^support := Acces^factory.createAcces(Acces^support, identificateur^txt);
 	AppelOuAcces^identificateur_type := nil;
 	AppelOuAcces^identificateur := identificateur^txt;
+    t := Acces^support.getType();
+    match t
+    with ClassTypeImpl then
+        c := t.getClasse();
+        s := c.getName();
+    with InterfaceTypeImpl then
+        i := t.getInterface();
+        s := i.getName();
+    else
+        error(Acces_idend_ap0ac, "s bad initialized");
+    end
+    AppelOuAcces^nomClasse := s;
 end
 }
 #ast{

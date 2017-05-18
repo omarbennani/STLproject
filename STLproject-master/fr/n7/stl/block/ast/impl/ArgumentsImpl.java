@@ -66,12 +66,13 @@ public class ArgumentsImpl implements Arguments {
 	public List<Type> getListType()
 	{
 		List<Type> t = new LinkedList<Type> ();
-		List<Expression> expr = this.exp.getExpressions();
-		for(Expression e : expr)
-		{
-			t.add (e.getType());
+		if (exp != null) {
+			List<Expression> expr = this.exp.getExpressions();
+			for(Expression e : expr)
+			{
+				t.add (e.getType());
+			}
 		}
-
 		return t;
 	}
 }
