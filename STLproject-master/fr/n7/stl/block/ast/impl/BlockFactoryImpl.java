@@ -572,35 +572,14 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new InterfaceTypeImpl(_interface);
 	}
 
-	public AppelOuAcces createAppel(Declaration _decl, Arguments _args)
+	public AppelOuAcces createAppel(Expression _exp, Declaration _meth, Arguments _args)
 	{
-		return new AppelImpl(_decl, _args);//, _nomMethode);
-	}
-
-	public AppelOuAcces createAppel(Expression _exp, Arguments _args)
-	{
-		return new AppelImpl(_exp, _args);//, _nomMethode);
+		return new AppelImpl(_exp, _meth, _args);//, _nomMethode);
 	}
 	
-	public AppelOuAcces createAcces(Expression _expr, Declaration _decl)
+	public AppelOuAcces createAcces(Expression _expr, String _ident)
 	{
-		return new AccesImpl(_expr, _decl);
-	}
-
-	public AppelOuAcces createAcces(Declaration _decl)
-	{
-		return new AccesImpl(_decl);
-	}
-
-	public AppelOuAcces createAcces(Declaration _decl, Declaration _decl1)
-	{
-		return new AccesImpl(_decl, _decl1);
-	}
-
-
-	public AppelOuAcces createAcces()
-	{
-		return new AccesImpl();
+		return new AccesImpl(_expr, _ident);
 	}
 
 	public Expression createAttributUse(ElementClasse _declaration)
