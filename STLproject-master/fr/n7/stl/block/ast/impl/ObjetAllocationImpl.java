@@ -31,7 +31,7 @@ public class ObjetAllocationImpl implements Expression {
 	 */
 	@Override
 	public String toString() {
-		return "new " + this.type + this.arguments + ";";
+		return "new " + this.type + this.arguments;
 	}
 
 	/* (non-Javadoc)

@@ -57,7 +57,11 @@ public interface ObjetFactory {
 
 	public Expression createAttributUse(ElementClasse _declaration);
 
+	public Expression createAttributUse(ElementClasse _declaration, Expression _exp);
+	
 	public Expression createStaticFieldUse(Declaration _declaration);
+
+	public Expression createStaticFieldUse(Declaration _declaration, Expression _exp);
 
 	public Expression createClasseUse(Classe _classe);
 

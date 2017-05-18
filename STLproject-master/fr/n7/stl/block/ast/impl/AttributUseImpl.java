@@ -18,6 +18,7 @@ import fr.n7.stl.tam.ast.TAMFactory;
 public class AttributUseImpl implements Expression {
 
 	protected ElementClasse declaration;
+	protected Expression exp;
 	
 	/**
 	 * Creates a variable use expression Abstract Syntax Tree node.
@@ -26,6 +27,10 @@ public class AttributUseImpl implements Expression {
 	public AttributUseImpl(ElementClasse _declaration) {
 		this.declaration = _declaration;
 	}
+	public AttributUseImpl(ElementClasse _declaration, Expression _exp) {
+		this.declaration = _declaration;
+		this.exp = _exp;
+	}
 
 
 	/* (non-Javadoc)
@@ -33,7 +38,10 @@ public class AttributUseImpl implements Expression {
 	 */
 	@Override
 	public String toString() {
+		if (exp == null)
 			return ("@{" + this.declaration.getName() + "}");
+		else
+			return exp.toString();
 		
 	}
 

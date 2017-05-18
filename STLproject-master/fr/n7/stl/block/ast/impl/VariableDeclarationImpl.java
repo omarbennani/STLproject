@@ -107,6 +107,7 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 
 	public Type getTypeReel() 
 	{
+		System.out.println("getTypeReelDeclaration" + this.value);
 		return this.value.getTypeReel();
 	}
 

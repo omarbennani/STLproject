@@ -66,6 +66,7 @@ public class VariableUseImpl implements Expression {
 	@Override
 	public Type getTypeReel() 
 	{
+		System.out.println("getTypeReel" + this.declaration);
 		return this.declaration.getTypeReel();
 	}
 }

@@ -45,14 +45,11 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 	@Override
 	public String toString() {
 		String res = "";
-
-		if(this.exp != null)
-			res+= this.exp.toString();
-
-		if(this.methode != null)
-			res+= this.methode.getName();
-
-		res+= this.args.toString() +" ";
+		res+= this.exp.toString();
+		res += ".";
+		res+= this.methode.getName();
+		if (args != null)
+			res+= this.args.toString();
 		
 
 		return res;

@@ -90,6 +90,8 @@ inh identificateur_type : String for AppelOuAcces, Appel, Acces;
 
 inh identificateur : String for AppelOuAcces, Appel, Acces;
 
+inh fromAcces : Boolean for AppelOuAcces, Appel, Acces;
+inh fromFacteur : Boolean for AppelOuAcces, Appel, Acces;
 
 
 syn typeElementClasse	: Integer for AttributOuMethode, SuiteAttributOuMethode;
@@ -1353,6 +1355,8 @@ do
 		error(NOT_DEFINED_CLASS_OR_INTERFACE, identificateur_type^txt);
 	end
     AppelOuAcces^nomClasse := identificateur_type^txt;
+    AppelOuAcces^fromAcces := true;
+    AppelOuAcces^fromFacteur := true;
 end
 }
 
@@ -1365,10 +1369,42 @@ end
 Facteur -> identificateur #inh  AppelOuAcces #ast;
 #inh
 {
+local
+    d : Declaration;
+	o : Optional<Declaration>;
+	v : VariableDeclaration;
+	a : Attribut;
+	s : StaticField;
 do
+    a := nil;
+	v := nil;
+    s := nil;
+    AppelOuAcces^fromFacteur := true;
+    AppelOuAcces^fromAcces := false;
 	AppelOuAcces^support := nil;
 	AppelOuAcces^identificateur_type := nil;
 	AppelOuAcces^identificateur := identificateur^txt;
+    if Facteur^tds.contains(identificateur^txt) then
+		o := Facteur^tds.get(identificateur^txt);
+		d := o.get();
+		match d with VariableDeclaration then v := d; end
+		
+		AppelOuAcces^support := Facteur^factory.createVariableUse(v);
+
+	elseif Facteur^tdsAttributs.contains(identificateur^txt, Facteur^nomClasse) then
+		o := Facteur^tdsAttributs.get(Facteur^nomClasse + "." + identificateur^txt);
+		d := o.get();
+		match d
+        with Attribut then a := d;
+        with StaticField then s := d;end
+        if a != nil then
+		    AppelOuAcces^support := Facteur^factory.createAttributUse(a);
+        else
+            AppelOuAcces^support := Facteur^factory.createStaticFieldUse(s);
+        end
+	else
+		error(NOT_DEFINED_ATTRIBUT_OR_VARIABLE, identificateur^txt);
+	end
 end
 }
 
@@ -1380,39 +1416,14 @@ end
 
 AppelOuAcces -> #inh Acces #ast;
 #inh{
-local
-	d : Declaration;
-	o : Optional<Declaration>;
-	v : VariableDeclaration;
-	a : Attribut;
-	s : StaticField;
 do
-	a := nil;
-	v := nil;
-    s := nil;
-	if AppelOuAcces^tds.contains(AppelOuAcces^identificateur) then
-		o := AppelOuAcces^tds.get(AppelOuAcces^identificateur);
-		d := o.get();
-		match d with VariableDeclaration then v := d; end
-		
-		Acces^support := AppelOuAcces^factory.createVariableUse(v);
-
-	elseif AppelOuAcces^tdsAttributs.contains(AppelOuAcces^identificateur, AppelOuAcces^nomClasse) then
-		o := AppelOuAcces^tdsAttributs.get(AppelOuAcces^nomClasse + "." + AppelOuAcces^identificateur);
-		d := o.get();
-		match d
-        with Attribut then a := d;
-        with StaticField then s := d;end
-		
-        if a != nil then
-		    Acces^support := AppelOuAcces^factory.createAttributUse(a);
-        else
-            Acces^support := AppelOuAcces^factory.createStaticFieldUse(s);
-        end
-
-	else
-		error(NOT_DEFINED_ATTRIBUT_OR_VARIABLE, AppelOuAcces^identificateur);
-	end
+    Acces^fromFacteur := false;
+    if AppelOuAcces^fromAcces then
+        Acces^support := AppelOuAcces^factory.createAcces(AppelOuAcces^support, AppelOuAcces^identificateur);
+        Acces^fromAcces := false;
+    else
+        Acces^support := AppelOuAcces^support;
+    end
 end
 }
 
@@ -1436,9 +1447,16 @@ local
     c : Classe;
     i : Interface;
     s : String;
+    d : Declaration;
+	o : Optional<Declaration>;
+	a : Attribut;
+	sf : StaticField;
+
 do
     s := nil;
-	AppelOuAcces^support := Acces^factory.createAcces(Acces^support, identificateur^txt);
+    a := nil;
+    sf := nil;
+    AppelOuAcces^fromAcces := true;
 	AppelOuAcces^identificateur_type := nil;
 	AppelOuAcces^identificateur := identificateur^txt;
     t := Acces^support.getType();
@@ -1453,6 +1471,21 @@ do
         error(Acces_idend_ap0ac, "s bad initialized");
     end
     AppelOuAcces^nomClasse := s;
+	if Acces^tdsAttributs.contains(identificateur^txt, s) then
+		o := Acces^tdsAttributs.get(s + "." + identificateur^txt);
+		d := o.get();
+		match d
+            with Attribut then a := d;
+            with StaticField then sf := d;
+        end
+        if a != nil then
+		    AppelOuAcces^support := Acces^factory.createAttributUse(a, Acces^support);
+        else
+            AppelOuAcces^support := Acces^factory.createStaticFieldUse(sf, Acces^support);
+        end
+	else
+        AppelOuAcces^support := Acces^support;
+    end
 end
 }
 #ast{
@@ -1471,7 +1504,7 @@ end
 Acces -> crochet_ouvrant Expression crochet_fermant #inh  Acces #ast;
 #inh{
 do
-	   Acces1^support := Acces^factory.createArrayAccess(Acces^support,Expression^ast);
+	Acces1^support := Acces^factory.createArrayAccess(Acces^support,Expression^ast);
 end
 }
 
@@ -1492,10 +1525,15 @@ local
 	s : String;
 do
 	o := nil;
-	if Appel^support = nil then
+	if Appel^fromFacteur then
 		o := Appel^tdsMethodes.getMethode(Appel^identificateur, Appel^nomClasse, Arguments^ast);
+        if o.isPresent() then
+            error(present, "present");
+        else
+            error(notpresent, "notpresent");
+        end
 	else
-		t := Appel^support.getTypeReel();	
+		t := Appel^support.getTypeReel();
 		match t 
 			with ClassTypeImpl then 
 					c := t.getClasse(); 
@@ -1509,10 +1547,15 @@ do
 
 	if o.isPresent() then
 		m := o.get();
-		Acces^support := Appel^factory.createAppel(Appel^support, m, Arguments^ast);
+        if !Appel^fromFacteur then 
+             Acces^support := Appel^factory.createAppel(Appel^support, m, Arguments^ast);
+        else
+            Acces^support := Appel^factory.createAppel(nil, m, Arguments^ast);
+        end
 	else
-		error (UNDEFINED_METHOD_OR_SIGNATURE, Appel^identificateur);
+		error (UNDEFINED_METHOD_OR_SIGNATURE_OR_ATTRIBUT_OR_VARIABLE, Appel^identificateur);
 	end
+    Acces^fromAcces := false;
 
 end
 }

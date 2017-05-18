@@ -15,7 +15,7 @@ public class StringValueImpl implements StringValue{
 	}
 
 	public String toString() {
-		return "\""+ this.value + "\"";
+		return this.value;
 	}
 	
 	@Override

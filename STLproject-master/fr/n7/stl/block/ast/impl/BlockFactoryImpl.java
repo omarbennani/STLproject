@@ -585,10 +585,20 @@ public class BlockFactoryImpl implements BlockFactory {
 	{
 		return new AttributUseImpl(_declaration);
 	}
+	
+	public Expression createAttributUse(ElementClasse _declaration, Expression _exp)
+	{
+		return new AttributUseImpl(_declaration, _exp);
+	}
 
 	public Expression createStaticFieldUse(Declaration _declaration)
 	{
 		return new StaticFieldUseImpl(_declaration);
+	}
+	
+	public Expression createStaticFieldUse(Declaration _declaration, Expression _exp)
+	{
+		return new StaticFieldUseImpl(_declaration, _exp);
 	}
 
 	public Expression createClasseUse(Classe _classe)

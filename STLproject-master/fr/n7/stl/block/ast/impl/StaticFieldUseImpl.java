@@ -18,6 +18,7 @@ import fr.n7.stl.tam.ast.TAMFactory;
 public class StaticFieldUseImpl implements Expression {
 
 	protected Declaration declaration;
+	protected Expression exp;
 	
 	protected Type typeReel;
 	
@@ -28,6 +29,11 @@ public class StaticFieldUseImpl implements Expression {
 	public StaticFieldUseImpl(Declaration _declaration) {
 		this.declaration = _declaration;
 	}
+	
+	public StaticFieldUseImpl(Declaration _declaration, Expression _exp) {
+		this.declaration = _declaration;
+		this.exp = _exp;
+	}
 
 
 	/* (non-Javadoc)
@@ -35,7 +41,10 @@ public class StaticFieldUseImpl implements Expression {
 	 */
 	@Override
 	public String toString() {
+		if (exp == null)
 			return ("@{" + this.declaration.getName() + "}");
+		else
+			return exp.toString();
 		
 	}
 
