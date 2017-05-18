@@ -40,7 +40,6 @@ import fr.n7.stl.block.ast.StaticField;
 import fr.n7.stl.block.ast.ElementInterface;
 import fr.n7.stl.block.ast.CharValue;
 import fr.n7.stl.block.ast.StringValue;
-import fr.n7.stl.block.ast.ObjetDeclaration;
 
 /**
  * Implementation of the factory for building Abstract Syntax Tree node for the Bloc language.
