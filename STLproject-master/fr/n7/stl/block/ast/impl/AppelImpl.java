@@ -63,7 +63,7 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 	 */
 	@Override
 	public Type getType() {
-		 throw new SemanticsUndefinedException("getType is undefined in AppelImpl.java");
+		 return ((Methode)methode).getType();
 	}
 	
 	@Override

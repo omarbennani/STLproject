@@ -1385,10 +1385,11 @@ local
 	o : Optional<Declaration>;
 	v : VariableDeclaration;
 	a : Attribut;
-	
+	s : StaticField;
 do
 	a := nil;
 	v := nil;
+    s := nil;
 	if AppelOuAcces^tds.contains(AppelOuAcces^identificateur) then
 		o := AppelOuAcces^tds.get(AppelOuAcces^identificateur);
 		d := o.get();
@@ -1399,9 +1400,15 @@ do
 	elseif AppelOuAcces^tdsAttributs.contains(AppelOuAcces^identificateur, AppelOuAcces^nomClasse) then
 		o := AppelOuAcces^tdsAttributs.get(AppelOuAcces^nomClasse + "." + AppelOuAcces^identificateur);
 		d := o.get();
-		match d with Attribut then a := d; end
+		match d
+        with Attribut then a := d;
+        with StaticField then s := d;end
 		
-		Acces^support := AppelOuAcces^factory.createAttributUse(a);
+        if a != nil then
+		    Acces^support := AppelOuAcces^factory.createAttributUse(a);
+        else
+            Acces^support := AppelOuAcces^factory.createStaticFieldUse(s);
+        end
 
 	else
 		error(NOT_DEFINED_ATTRIBUT_OR_VARIABLE, AppelOuAcces^identificateur);
@@ -1494,6 +1501,7 @@ do
 					c := t.getClasse(); 
 					s := c.getName();
 					o := Appel^tdsMethodes.getMethode(Appel^identificateur, s, Arguments^ast);
+                    
 			else 
 					error (NOT_AN_OBJECT, t.toString());
 		end

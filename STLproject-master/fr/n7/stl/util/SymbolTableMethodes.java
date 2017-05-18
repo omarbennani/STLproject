@@ -112,12 +112,16 @@ public class SymbolTableMethodes  {
 				List<Type> t = _arguments.getListType();
 				if(p.size() == t.size())
 				{
-					for(int i = 0; i< p.size(); i++)
-					{
-						if(!p.get(i).getType().compatibleWith(t.get(i)))
-							break;
-						if(i == p.size()-1)
-							resultat.add(m);
+					if (p.size() == 0) {
+						resultat.add(m);
+					} else {
+						for(int i = 0; i< p.size(); i++)
+						{
+							if(!p.get(i).getType().compatibleWith(t.get(i)))
+								break;
+							if(i == p.size()-1)
+								resultat.add(m);
+						}
 					}
 				}
 			}
@@ -125,10 +129,12 @@ public class SymbolTableMethodes  {
 	
 		if(resultat.size() == 1)
 		{
+			System.out.println("getMethode " + _name + " OK");
 			return Optional.of(resultat.get(0));
 		}
 		else if (resultat.size() == 0)
 		{
+			System.out.println("getMethode " + _name + " PAS OK 0");
 			return Optional.empty();
 		}
 		else
@@ -150,12 +156,16 @@ public class SymbolTableMethodes  {
 				List<Type> t = _arguments.getListType();
 				if(p.size() == t.size())
 				{
-					for(int i = 0; i< p.size(); i++)
-					{
-						if(!p.get(i).getType().compatibleWith(t.get(i)))
-							break;
-						if(i == p.size()-1)
-							resultat.add(s);
+					if (p.size() == 0) {
+						resultat.add(s);
+					} else {
+						for(int i = 0; i< p.size(); i++)
+						{
+							if(!p.get(i).getType().compatibleWith(t.get(i)))
+								break;
+							if(i == p.size()-1)
+								resultat.add(s);
+						}
 					}
 				}
 			}
@@ -189,12 +199,16 @@ public class SymbolTableMethodes  {
 				List<Type> t = _arguments.getListType();
 				if(p.size() == t.size())
 				{
-					for(int i = 0; i< p.size(); i++)
-					{
-						if(!p.get(i).getType().compatibleWith(t.get(i)))
-							break;
-						if(i == p.size()-1)
-							resultat.add(c);
+					if (p.size() == 0) {
+						resultat.add(c);
+					} else {
+						for(int i = 0; i< p.size(); i++)
+						{
+							if(!p.get(i).getType().compatibleWith(t.get(i)))
+								break;
+							if(i == p.size()-1)
+								resultat.add(c);
+						}
 					}
 				}
 			}
