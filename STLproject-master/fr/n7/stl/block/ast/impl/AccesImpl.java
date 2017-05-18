@@ -23,145 +23,22 @@ import fr.n7.stl.block.ast.Interface;
  */
 public class AccesImpl implements AppelOuAcces {
 
-	protected boolean statiC;
-	protected Declaration decl; //declaration
-	protected Declaration decl1;
-	protected Interface i;
-	protected Classe c;
 	protected Expression exp;
+	protected String ident;
 
-	public AccesImpl() 
-	{
-		this.exp = null;
-		this.statiC = false;
-		this.decl = null;
-		this.decl1 = null;
-		this.i = null;
-		this.c = null;
-	}
-
-	public AccesImpl(Declaration _decl) 
-	{
-		this.exp = null;
-		this.statiC = false;
-		this.decl = _decl;
-		this.decl1 = null;
-		this.i = null;
-		this.c = null;
-	}
-
-
-
-	public AccesImpl(Interface _i) 
-	{
-		this.exp = null;
-		this.statiC = false;
-		this.decl = null;
-		this.decl1 = null;
-		this.i = _i;
-		this.c = null;
-	}
-
-	public AccesImpl(Expression _exp) // Ici Expression est potentiellement un AccesImpl
+	public AccesImpl(Expression _exp, String _ident) // Ici Expression est potentiellement un AccesImpl
 	{
 		this.exp = _exp;
-		this.statiC = false;
-		this.decl = null;
-		this.decl1 = null;
-		this.i = null;
-		this.c = null;
+		this.ident = _ident;
 	}
 
-	public AccesImpl(Expression _exp, Declaration _decl) // Ici Expression est potentiellement un AccesImpl
-	{
-		//System.out.println(_exp.toString() + " " + _decl.toString());
-		this.exp = _exp;
-		this.statiC = false;
-		this.decl = _decl;
-		this.decl1 = null;
-		this.i = null;
-		this.c = null;
-	}
-
-	public AccesImpl(Declaration _decl, Declaration _decl1)
-	{
-		//System.out.println(_exp.toString() + " " + _decl.toString());
-		this.exp = null;
-		this.statiC = false;
-		this.decl1 = _decl1;
-		this.decl = _decl;
-		this.i = null;
-		this.c = null;
-	}
-
-	public AccesImpl(Classe _c) // Ici Expression est potentiellement un AccesImpl
-	{
-		this.c = _c;
-	
-		this.statiC = false;
-		this.decl = null;
-		this.decl1 = null;
-		this.i = null;
-		this.exp = null;
-	}
-
-	@Override
-	public void setStatic(boolean _b)
-	{
-		this.statiC = _b;
-	}
-	
-	@Override
-	public void setDeclaration(Declaration _d)
-	{
-		this.decl = _d;
-	}
-	
-	@Override
-	public void setInterface(Interface _i)
-	{
-		this.i = _i;
-	}
-
-	@Override
-	public void setClasse(Classe _c)
-	{
-		this.c = _c;
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
-	public String toString() {
-		String res = "";
-
-		if(this.statiC)
-			res+=" static ";
-
-		if(this.i != null)
-			res+= this.i.toString() +".";
-
-		if(this.c != null)
-			res+= this.c.toString() +".";
-
-		if( this.exp != null)
-			res+= this.exp.toString() +".";
-
-		if(this.decl != null)
-			res+= this.decl.getName() +" ";
-		else
-			res+="decl is null ";
-
-		if(this.decl1 != null)
-			res+= this.decl1.getName() +" ";
-
-
-		
-		//else
-			//res+="exp is null for "+this.decl.getName() + " " ;
-		
-		return res;
+	public String toString() {		
+		return this.exp.toString() + "." + this.ident;
 	}
 	
 	/* (non-Javadoc)
@@ -171,6 +48,11 @@ public class AccesImpl implements AppelOuAcces {
 	public Type getType() {
 		 throw new SemanticsUndefinedException("getType is undefined in AccesImpl.java");
 	}
+	
+	 @Override
+	 public Type getTypeReel() {
+		 return this.getType();
+	 }
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
