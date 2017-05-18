@@ -513,9 +513,9 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 
 	@Override
-	public ObjetDeclaration createObjet(Type _type, Arguments _args)
+	public Expression createObjetAllocation(Type _type, Arguments _args)
 	{
-		return new ObjetDeclarationImpl(_type, _args);
+		return new ObjetAllocationImpl(_type, _args);
 	}
 
 	@Override

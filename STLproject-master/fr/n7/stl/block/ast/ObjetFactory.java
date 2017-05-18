@@ -28,7 +28,8 @@ public interface ObjetFactory {
 
 	public Arguments createArguments(Expressions _exp);
 
-	public ObjetDeclaration createObjet(Type _type, Arguments _args);
+	public Expression createObjetAllocation(Type _type, Arguments _args);
+	
 	public Parametre createParametre(Type _type,String _name);
 	
 	public Classe createClasse(String _name, LinkedList<Classe> _heritageClasse, LinkedList<Interface> _implantationInterface, LinkedList<ElementClasse> _elementsClasse);
