@@ -27,59 +27,17 @@ import fr.n7.stl.tam.ast.Register;
  */
 public class AppelImpl implements AppelOuAcces, Instruction {
 
-	protected boolean statiC;
-	protected Declaration decl;
-	protected Interface i;
-	protected Classe c;
+	protected Declaration methode;
 	protected Arguments args;
 	protected Expression exp;
-	//protected String nomMethode;
 
-	public AppelImpl(Declaration _decl, Arguments _args)//, String _nomMethode) 
+	public AppelImpl(Expression _exp, Declaration _meth, Arguments _args)
 	{
 		this.args = _args;
-		//this.nomMethode = _nomMethode;
-		this.statiC = false;
-		this.decl = _decl;
-		this.i = null;
-		this.c = null;
-		this.exp = null;
-	}
-
-	public AppelImpl(Expression _exp, Arguments _args)//, String _nomMethode) 
-	{
-		this.args = _args;
+		this.methode = _meth;
 		this.exp = _exp;
-		//this.nomMethode = _nomMethode;
-		this.statiC = false;
-		this.decl = null;
-		this.i = null;
-		this.c = null;
 	}
 
-	@Override
-	public void setStatic(boolean _b)
-	{
-		this.statiC = _b;
-	}
-	
-	@Override
-	public void setDeclaration(Declaration _d)
-	{
-		this.decl = _d;
-	}
-	
-	@Override
-	public void setInterface(Interface _i)
-	{
-		this.i = _i;
-	}
-
-	@Override
-	public void setClasse(Classe _c)
-	{
-		this.c = _c;
-	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -88,25 +46,11 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 	public String toString() {
 		String res = "";
 
-		if(this.statiC)
-			res+=" static ";
-
-		if(this.i != null)
-			res+= this.i.getName() +".";
-
-		if(this.c != null)
-			res+= this.c.getName() +".";
-
 		if(this.exp != null)
 			res+= this.exp.toString();
 
-		if(this.decl != null)
-			res+= this.decl.getName();
-
-
-	//	res+= this.ident +" ";
-		//if(this.nomMethode!=null)
-			//res+=this.nomMethode+ " ";
+		if(this.methode != null)
+			res+= this.methode.getName();
 
 		res+= this.args.toString() +" ";
 		
@@ -120,6 +64,11 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 	@Override
 	public Type getType() {
 		 throw new SemanticsUndefinedException("getType is undefined in AppelImpl.java");
+	}
+	
+	@Override
+	public Type getTypeReel() {
+		return this.getType();
 	}
 
 	@Override
