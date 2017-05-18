@@ -106,4 +106,10 @@ public class UnaryExpressionImpl implements Expression {
 		return _code;
 	}
 
+	@Override
+	public Type getTypeReel() 
+	{
+		return this.getType();
+	}
+
 }

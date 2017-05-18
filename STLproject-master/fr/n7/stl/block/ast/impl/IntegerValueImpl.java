@@ -52,4 +52,10 @@ public class IntegerValueImpl implements IntegerValue {
 		return _fragment;
 	}
 
+	@Override
+	public Type getTypeReel() 
+	{
+		return this.getType();
+	}
+
 }

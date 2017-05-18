@@ -58,6 +58,23 @@ public class ArrayAccessImpl implements Expression {
 		}
 	}
 
+	@Override
+	public Type getTypeReel() {
+		Type tab = this.array.getTypeReel();
+		Type idx = this.index.getTypeReel();
+		if (!idx.equalsTo(AtomicType.IntegerType)) {
+			System.err.println("L'index doit être un entier");
+			return AtomicType.ErrorType;
+		} else {
+			if (tab instanceof ArrayTypeImpl) {
+				return ((ArrayTypeImpl) tab).getType();
+			} else {
+				System.err.println("Vous devez fournir un tableau");
+				return AtomicType.ErrorType;
+			}
+		}
+	}
+
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */

@@ -42,6 +42,11 @@ public class ArrayAllocationImpl implements Expression {
 		return new ArrayTypeImpl(type);
 	}
 
+	@Override
+	public Type getTypeReel() {
+		return this.getType();
+	}
+
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */

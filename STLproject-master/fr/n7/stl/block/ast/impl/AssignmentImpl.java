@@ -99,4 +99,10 @@ return ((this.declaration != null)?this.declaration.getName():((this.assignable 
 	{
 		return this.assignable.getType();
 	}
+
+	@Override
+	public Type getTypeReel()
+	{
+		return this.assignable.getTypeReel();
+	}
 }

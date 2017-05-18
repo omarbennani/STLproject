@@ -55,4 +55,8 @@ public class CoupleImpl implements Expression {
         return _code;
 	}
 
+	@Override
+	public Type getTypeReel() {
+		return new CoupleTypeImpl( this.first.getTypeReel(), this.second.getTypeReel());
+	}
 }

@@ -68,6 +68,15 @@ public class SequenceImpl implements Sequence {
 		return _result;
 	}
 
+	@Override
+	public Type getTypeReel() {
+		SequenceTypeImpl _result = new SequenceTypeImpl();
+		for (Expression _value : this.values) {
+			_result.add(_value.getTypeReel());
+		}
+		return _result;
+	}
+
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */

@@ -24,6 +24,11 @@ public class CharValueImpl implements CharValue {
 	}
 
 	@Override
+	public Type getTypeReel() {
+		return this.getType();
+	}
+
+	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		// TODO Auto-generated method stub
 		return null;

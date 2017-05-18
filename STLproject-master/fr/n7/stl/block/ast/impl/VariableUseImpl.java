@@ -62,4 +62,10 @@ public class VariableUseImpl implements Expression {
 		return _code;
 	}
 
+
+	@Override
+	public Type getTypeReel() 
+	{
+		return this.declaration.getTypeReel();
+	}
 }

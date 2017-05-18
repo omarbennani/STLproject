@@ -10,6 +10,7 @@ public class Attribut implements ElementClasse {
 	protected Type typeAtt; 
 	protected String nom;
 	protected boolean finaL, statiC;
+	protected Type typeReel;
 	
 	public Attribut(DroitAcces _droit, Type _type, String _name) 		{
 		this.droitAcces=_droit;
@@ -53,6 +54,18 @@ public class Attribut implements ElementClasse {
 	{
 		System.out.println(this.typeAtt.toString() + " "+ this.nom);
 		return this.typeAtt;
+	}
+
+
+	public Type getTypeReel()
+	{
+		return this.typeReel;
+	}
+
+	@Override
+	public String getClassName()
+	{
+		return this.typeAtt.toString();
 	}
 
 }

@@ -39,6 +39,11 @@ public class AddressAccessImpl implements Expression {
 		return new PointerTypeImpl(this.assignable.getType());
 	}
 
+	@Override
+	public Type getTypeReel() {
+		return new PointerTypeImpl(this.assignable.getTypeReel());
+	}
+
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */

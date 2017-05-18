@@ -60,6 +60,15 @@ public class FunctionCallImpl implements FunctionCall {
 		return new FunctionTypeImpl(this.function.getType(), lres);
 	}
 
+	@Override
+	public Type getTypeReel() {
+		List<Type> lres=new ArrayList<Type>();
+		for(Expression t:this.parameters){
+			lres.add(t.getTypeReel());
+		}
+		return new FunctionTypeImpl(this.function.getType(), lres);
+	}
+
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */

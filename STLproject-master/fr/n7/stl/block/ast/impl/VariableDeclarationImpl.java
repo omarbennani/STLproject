@@ -105,4 +105,9 @@ public class VariableDeclarationImpl implements VariableDeclaration {
         return _code;
 	}
 
+	public Type getTypeReel() 
+	{
+		return this.value.getTypeReel();
+	}
+
 }

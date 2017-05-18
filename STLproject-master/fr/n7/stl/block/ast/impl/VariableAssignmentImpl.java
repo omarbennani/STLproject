@@ -36,4 +36,10 @@ public class VariableAssignmentImpl extends VariableUseImpl implements Assignabl
 		return _code;
 	}
 
+	/*@Override
+	public Type getTypeReel() 
+	{
+		return this
+	}*/
+
 }
