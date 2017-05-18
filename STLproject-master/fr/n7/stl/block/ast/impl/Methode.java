@@ -105,6 +105,7 @@ public class Methode implements ElementClasse,Expression {
 			_res.add(_factory.createLoadI(p.getType().length()));
 		_res.append(exp.getCode());
 		_res.add(_factory.createReturn(typeRet.getType().length(), typeRet.getType().length()));
+		return _res;
 	}
 
 }

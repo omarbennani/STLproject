@@ -75,6 +75,9 @@ public class FunctionCallImpl implements FunctionCall {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
+		for(Expression e:this.parameters)
+			_res.append(e.getCode());
+		_res.add(_factory.createJump(e.getNom()));
 		return _code;
 	}
 
