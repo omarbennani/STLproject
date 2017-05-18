@@ -50,17 +50,9 @@ public interface ObjetFactory {
 
 	public Type createInterfaceType(Interface _interface);
 
-	public AppelOuAcces createAppel(Declaration _decl, Arguments _args);
-
-	public AppelOuAcces createAppel(Expression _exp, Arguments _args);
+	public AppelOuAcces createAppel(Expression _exp, Declaration _meth, Arguments _args);
 	
-	public AppelOuAcces createAcces(Expression _expr, Declaration _decl);
-
-	public AppelOuAcces createAcces(Declaration _decl);
-	
-	public AppelOuAcces createAcces(Declaration _decl, Declaration _decl1);
-
-	public AppelOuAcces createAcces();
+	public AppelOuAcces createAcces(Expression _expr, String _ident);
 
 	public Expression createAttributUse(ElementClasse _declaration);
 
