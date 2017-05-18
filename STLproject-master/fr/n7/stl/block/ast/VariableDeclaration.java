@@ -16,6 +16,8 @@ public interface VariableDeclaration extends Declaration, Instruction {
 	 * @return Type of the declared variable.
 	 */
 	public Type getType();
+
+	public Type getTypeReel();
 	
 	/**
 	 * Synthesized semantics attribute for the register used to compute the address of the variable.

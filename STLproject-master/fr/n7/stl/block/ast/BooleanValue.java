@@ -59,5 +59,10 @@ public enum BooleanValue implements Value {
 		}
 		return _code;
 	}
+
+	public Type getTypeReel()
+	{
+		return this.getType();
+	}
 	
 }
