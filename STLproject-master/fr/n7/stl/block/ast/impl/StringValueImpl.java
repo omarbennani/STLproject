@@ -5,6 +5,7 @@ import fr.n7.stl.block.ast.StringValue;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
+import jdk.nashorn.internal.runtime.regexp.JoniRegExp.Factory;
 
 public class StringValueImpl implements StringValue{
 	
@@ -30,8 +31,9 @@ public class StringValueImpl implements StringValue{
 
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		// TODO Auto-generated method stub
-		return null;
+		Fragment _code = _factory.createFragment();
+		_code.add(_factory.createStoreI(value.length()));
+		return _code;
 	}
 
 }
