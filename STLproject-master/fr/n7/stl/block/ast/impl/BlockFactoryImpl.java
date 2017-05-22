@@ -523,7 +523,7 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 
 	@Override
-	public Classe createClasse(String _name, LinkedList<Classe> _heritageClasse, LinkedList<Interface> _implantationInterface, LinkedList<ElementClasse> _elementsClasse){
+	public Classe createClasse(String _name, Classe _heritageClasse, LinkedList<Interface> _implantationInterface, LinkedList<ElementClasse> _elementsClasse){
 		return new ClasseImpl(_name, _heritageClasse, _implantationInterface, _elementsClasse);
 	}
 

@@ -32,7 +32,7 @@ public interface ObjetFactory {
 	
 	public Parametre createParametre(Type _type,String _name);
 	
-	public Classe createClasse(String _name, LinkedList<Classe> _heritageClasse, LinkedList<Interface> _implantationInterface, LinkedList<ElementClasse> _elementsClasse);
+	public Classe createClasse(String _name, Classe _heritageClasse, LinkedList<Interface> _implantationInterface, LinkedList<ElementClasse> _elementsClasse);
 
 	public DroitAcces createDroitAcces(int i );
 
