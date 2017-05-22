@@ -78,6 +78,7 @@ public class ClasseImpl implements Classe
 		for (Methode m : this.getMethodes()) {
 			result = result && m.checkType();
 		}
+		return result;
 	}
 	
 	@Override
