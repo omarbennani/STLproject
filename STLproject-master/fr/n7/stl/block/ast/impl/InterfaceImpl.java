@@ -6,13 +6,15 @@ package fr.n7.stl.block.ast.impl;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Set;
 
 import fr.n7.stl.block.ast.ElementInterface;
 import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.block.ast.Signature;
 import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
+import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a pointer access expression.
@@ -84,6 +86,21 @@ public class InterfaceImpl implements Interface {
 
 
 		return new String("interface " + this.identificateurType + heritages +"{\n"+elts+"} \n");
+	}
+	@Override
+	public Fragment getCode(TAMFactory _factory) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public boolean checkType() {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	@Override
+	public int allocateMemory(Register _register, int _offset) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

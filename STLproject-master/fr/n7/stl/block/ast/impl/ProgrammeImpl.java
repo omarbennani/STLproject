@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.Iterator;
 
 import fr.n7.stl.block.ast.Classe;
+import fr.n7.stl.block.ast.Instruction;
 import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.block.ast.Programme;
 import fr.n7.stl.tam.ast.Fragment;
@@ -19,6 +20,9 @@ public class ProgrammeImpl implements Programme {
 	protected LinkedList<Interface> interfaces;
 	protected LinkedList<Classe> classes;
 	protected MethodePrincipale princ;
+	
+    private int offset;
+
 	
 	public ProgrammeImpl(LinkedList<Interface> _interfaces,LinkedList<Classe> _classes, MethodePrincipale _princ) 
 	{
@@ -59,12 +63,28 @@ public class ProgrammeImpl implements Programme {
 	
 	@Override
 	public boolean checkType() {
-		return false;
+		boolean result = true;
+		for (Interface i : this.interfaces)
+			result = result && i.checkType();
+		for (Classe c : this.classes)
+			result = result && c.checkType();
+		result = result && princ.checkType();
+		return princ.checkType();
 	}
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
+		int _local = _offset;
+		for (Interface i : this.interfaces) {
+			_local += i.allocateMemory(_register, _local);
+		}
+		for (Classe c : this.classes) {
+			_local += c.allocateMemory(_register, _local);
+		}
+		_local += this.princ.allocateMemory(_register, _local);
+		this.offset = _local - _offset;
 		return 0;
 	}
+	
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment code = _factory.createFragment();

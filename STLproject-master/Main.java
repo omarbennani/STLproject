@@ -28,7 +28,7 @@ public class Main{
       System.out.println("AST :\n"+bloc.get_ast());
       if (bloc.get_ast().checkType()) {
 	      System.out.println( "Correctement typé." );
-          //bloc.get_ast().allocateMemory(Register.SB, 0);
+          bloc.get_ast().allocateMemory(Register.SB, 0);
           TAMFactory factory = new TAMFactoryImpl();
           Fragment code = bloc.get_ast().getCode(factory);
           code.add(factory.createHalt());

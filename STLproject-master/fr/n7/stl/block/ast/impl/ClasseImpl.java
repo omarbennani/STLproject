@@ -11,6 +11,9 @@ import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.block.ast.Signature;
 import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
+import fr.n7.stl.tam.ast.TAMFactory;
 
 public class ClasseImpl implements Classe
 {
@@ -121,6 +124,18 @@ public class ClasseImpl implements Classe
 		local += "}";
 
 		return local;
+	}
+
+	@Override
+	public Fragment getCode(TAMFactory _factory) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public int allocateMemory(Register _register, int _offset) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 	
 }
