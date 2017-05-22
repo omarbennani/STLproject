@@ -90,7 +90,7 @@ public class FunctionTypeImpl implements Type {
 				_result += " ," + _iter.next();
 			}
 		}
-		return ") -> " + this.result;
+		return _result + ") -> ";
 	}
 
 }
