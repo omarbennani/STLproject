@@ -103,12 +103,15 @@ public class Methode implements ElementClasse {
 	}
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-//		Fragment _res=_factory.createFragment();
-//		_res.add(_factory.createLoadA(this.nom));
-//		for (Parametre p:this.param)
-//			_res.add(_factory.createLoadI(p.getType().length()));
-//		_res.append(exp.getCode());
-//		_res.add(_factory.createReturn(typeRet.getType().length(), typeRet.getType().length()));
+		Fragment _res=_factory.createFragment();
+		int tailleDesArguments=0;
+		_res.add(_factory.createLoadA(this.nom));
+		for (Parametre p:this.param){
+			_res.add(_factory.createLoadI(p.getType().length()));
+			tailleDesArguments+=p.getType().length();
+		}
+		_res.append(exp.getCode(_factory));
+		_res.add(_factory.createReturn(typeRet.length(),tailleDesArguments ));
 		return null;
 	}
 
