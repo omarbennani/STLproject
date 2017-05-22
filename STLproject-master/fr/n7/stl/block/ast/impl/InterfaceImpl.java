@@ -3,17 +3,16 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Assignable;
-import fr.n7.stl.block.ast.Interface;
-import fr.n7.stl.block.ast.ElementInterface;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.TAMFactory;
-
-import java.util.LinkedList;
+import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
+import fr.n7.stl.block.ast.ElementInterface;
+import fr.n7.stl.block.ast.Interface;
+import fr.n7.stl.block.ast.Signature;
+import fr.n7.stl.block.ast.Type;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a pointer access expression.
@@ -44,7 +43,24 @@ public class InterfaceImpl implements Interface {
 	public Type getType()
 	{
 		return new InterfaceTypeImpl(this);
-	}	
+	}
+	
+	public Set<Signature> getAllSignatures() {
+		Set<Signature> signatures = this.getSignatures();
+		for (Interface i : this.heritageInterface) {
+			signatures.addAll(i.getAllSignatures());
+		}
+		return signatures;
+	}
+	
+	public Set<Signature> getSignatures() {
+		Set<Signature> signatures = new HashSet<Signature>();
+		for (ElementInterface e : this.elements) {
+			if (e instanceof Signature)
+				signatures.add((Signature)e);				
+		}
+		return signatures;
+	}
 
 	@Override
 	public String toString()

@@ -27,7 +27,8 @@ public class ClassTypeImpl implements Type {
 
 	public Classe getClasse()
 	{
-		return this.classe;}
+		return this.classe;
+	}
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Type#equalsTo(fr.n7.stl.block.ast.Type)

@@ -4,17 +4,11 @@
 package fr.n7.stl.block.ast.impl;
 
 import fr.n7.stl.block.ast.AppelOuAcces;
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.BinaryOperator;
+import fr.n7.stl.block.ast.Classe;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
-import fr.n7.stl.util.Logger;
-
-import fr.n7.stl.block.ast.Declaration;
-import fr.n7.stl.block.ast.Classe;
-import fr.n7.stl.block.ast.Interface;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a binary expression.
@@ -46,12 +40,24 @@ public class AccesImpl implements AppelOuAcces {
 	 */
 	@Override
 	public Type getType() {
-		 return this.exp.getType();
+		 Type expType = this.exp.getType();
+		 Attribut a = null;
+		 if (expType instanceof ClassTypeImpl) {
+			 ClasseImpl c = (ClasseImpl)((ClassTypeImpl)expType).getClasse();
+			 a = c.getAttribut(this.ident);
+		 }
+		 return a.getType();
 	}
 	
 	 @Override
 	 public Type getTypeReel() {
-		 return this.getType();
+		 Type expType = this.exp.getType();
+		 Attribut a = null;
+		 if (expType instanceof ClassTypeImpl) {
+			 ClasseImpl c = (ClasseImpl)((ClassTypeImpl)expType).getClasse();
+			 a = c.getAttribut(this.ident);
+		 }
+		 return a.getTypeReel();
 	 }
 
 	/* (non-Javadoc)
