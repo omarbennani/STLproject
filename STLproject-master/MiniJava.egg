@@ -62,7 +62,7 @@ inh gauche 	: Expression for SuiteAffectation, SuiteCondition, SuiteFacteur, Sui
 inh type 	: Type for SuiteNouveau;
 
 syn ast 	: Classe for Classe;
-syn ast 	: LinkedList<Classe> for HeritageClasse;
+syn ast 	: Classe for HeritageClasse;
 syn ast 	: LinkedList<Interface> for ImplantationInterface;
 syn ast 	: LinkedList<ElementClasse> for ElementsClasse;
 syn ast 	: LinkedList<Classe> for Classes;
@@ -485,17 +485,17 @@ HeritageClasse -> extension identificateur_type #ast;
 local
     f : Optional<Declaration>;
     d : Declaration;
-	l : LinkedList<Classe>;
+	h : Classe;
 do
-	l := new LinkedList<Classe>();
+	h := nil;
 	if HeritageClasse^tdsClasses.contains(identificateur_type^txt) then
         f := HeritageClasse^tdsClasses.get(identificateur_type^txt);
         d := f.get();
 		match d
 		with Classe then
-            l.add(d);
+            h := d;
 		end
-		HeritageClasse^ast := l;
+		HeritageClasse^ast := h;
 	else
 		error(CLASS_undefined_ident, identificateur_type^txt);
 	end
@@ -505,7 +505,7 @@ end
 HeritageClasse -> #ast;
 #ast{
 do
-	HeritageClasse^ast := new LinkedList<Classe>();
+	HeritageClasse^ast := nil;
 end
 }
 
