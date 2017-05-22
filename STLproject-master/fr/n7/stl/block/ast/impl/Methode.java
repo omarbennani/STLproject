@@ -89,6 +89,9 @@ public class Methode implements ElementClasse {
 		return this.typeRet;
 	}
 	
+	public boolean checkType() {
+		return this.exp.checkType();
+	}
 	public Type getTypeReel() {
 		return this.getType();
 	}
