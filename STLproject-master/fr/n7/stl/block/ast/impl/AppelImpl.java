@@ -84,7 +84,10 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		 throw new SemanticsUndefinedException("getCode is undefined in AppelImpl.java");
+		Fragment _code = _factory.createFragment();
+		_code.append(this.args.getCode(_factory));
+		_code.add(_factory.createJump(this.methode.getName()));
+		return _code;
 	}
 
 }
