@@ -58,6 +58,7 @@ public class ClasseImpl implements Classe
 	}
 	
 	public boolean checkType() {
+		boolean result = true;
 		Set<Signature> methodesAImplementer = new HashSet<Signature>(); 
 		if (this.implantationInterface.size() > 0) {
 			for (Interface i : this.implantationInterface) {
@@ -65,9 +66,17 @@ public class ClasseImpl implements Classe
 			}
 		}
 		for(Signature s : methodesAImplementer) {
+			boolean signatureImplementee = false;
 			for (Methode m : this.getMethodes()) {
-				
+				if (m.signatureEquals(s))
+					signatureImplementee = true;
+					break;
 			}
+			if (!signatureImplementee)
+				return false;
+		}
+		for (Methode m : this.getMethodes()) {
+			result = result && m.checkType();
 		}
 	}
 	

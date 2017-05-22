@@ -4,6 +4,6 @@ import java.util.List;
 
 public interface Signature extends ElementInterface {
 	
-	public List<Parametre> getParametres();
+	List<Parametre> getParametres();
 
 }
