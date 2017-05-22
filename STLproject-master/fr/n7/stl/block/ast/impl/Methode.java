@@ -6,8 +6,8 @@ import java.util.List;
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.DroitAcces;
 import fr.n7.stl.block.ast.ElementClasse;
-import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Parametre;
+import fr.n7.stl.block.ast.Signature;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -97,10 +97,31 @@ public class Methode implements ElementClasse {
 	{
 		return this.param;
 	}
+	
 	public String getClassName()
 	{
 		return this.nomClasse;
 	}
+	
+	public boolean signatureEquals(Signature s) {
+		boolean result = true;
+		if (s.equals(nom)) {
+			List<Parametre> parametresS = s.getParametres();
+			int size = parametresS.size();
+			if (size == this.param.size()) {
+				for (int i = 0; i < size && result; i++) {
+					if (!parametresS.get(i).getType().equals(this.param.get(i)))
+						result = false;
+				}
+			} else {
+				result = false;
+			}
+		} else {
+			result = false;
+		}
+		return result;
+	}
+	
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _res=_factory.createFragment();
