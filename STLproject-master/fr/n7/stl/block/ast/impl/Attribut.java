@@ -72,7 +72,10 @@ public class Attribut implements ElementClasse {
 	
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		return null;
+		Fragment _code= _factory.createFragment();
+		// On push pour placer le resultat de l'acces
+		_code.add(_factory.createPush(this.typeReel.length()));
+		return _code;
 	}
 
 }

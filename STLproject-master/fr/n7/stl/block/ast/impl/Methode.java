@@ -133,7 +133,7 @@ public class Methode implements ElementClasse {
 		}
 		_res.append(exp.getCode(_factory));
 		_res.add(_factory.createReturn(typeRet.length(),tailleDesArguments ));
-		return null;
+		return _res;
 	}
 
 }
