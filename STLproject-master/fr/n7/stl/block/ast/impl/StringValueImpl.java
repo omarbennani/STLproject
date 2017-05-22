@@ -5,7 +5,6 @@ import fr.n7.stl.block.ast.StringValue;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
-import jdk.nashorn.internal.runtime.regexp.JoniRegExp.Factory;
 
 public class StringValueImpl implements StringValue{
 	
