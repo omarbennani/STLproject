@@ -1,0 +1,13 @@
+public class Main {
+
+	public static void main( String [] args)
+	{
+        int n = 3;
+        int m = n;
+        int j = 5;
+        print(n);
+        print(m);
+        m = 4;
+        print(m);
+	}
+}
