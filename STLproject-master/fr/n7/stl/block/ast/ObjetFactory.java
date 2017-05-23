@@ -42,7 +42,7 @@ public interface ObjetFactory {
 
 	public ElementClasse createMethode(DroitAcces _droit,Type _type,String _name,LinkedList<Parametre> _param, Block _exp , String _nomClasse);
 
-	public ElementClasse createConstructeur(String _name,LinkedList<Parametre> _param,Block _exp,TypeClasse _typeClasse);
+	public ElementClasse createConstructeur(String _name,LinkedList<Parametre> _param,Block _exp);
 
 	public Instruction createReturnInstruction(Expression _exp);
 

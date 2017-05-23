@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import fr.n7.stl.block.ast.Block;
+import fr.n7.stl.block.ast.Classe;
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.block.ast.TypeClasse;
@@ -18,16 +19,15 @@ public class Constructeur implements ElementClasse{
 	protected List<Parametre> param;
 	protected Block exp;
 	protected boolean finaL, statiC;
-	protected TypeClasse classeType;
+	protected Classe classeType;
 
-	public Constructeur(String _name, List<Parametre> _param2, Block _exp2,TypeClasse _typeClasse) 
+	public Constructeur(String _name, List<Parametre> _param2, Block _exp2) 
 	{
 		this.nom=_name;
 		this.param=_param2;
 		this.exp=_exp2;
 		this.finaL = false;
 		this.statiC = false;
-		this.classeType=_typeClasse;
 	}
 
 	@Override
@@ -88,7 +88,7 @@ public class Constructeur implements ElementClasse{
 			tailleDesArguments+=p.getType().length();
 		}
 		_code.append(exp.getCode(_factory));
-		_code.add(_factory.createReturn(this.classeType.length(), tailleDesArguments));
+		_code.add(_factory.createReturn(this.classeType.getType().length(), tailleDesArguments));
 		return _code;
 	}
 }

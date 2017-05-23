@@ -550,8 +550,8 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new Methode(_droit,_type,_param,_name,_exp, _nomClasse);
 	}
 	
-	public ElementClasse createConstructeur(String _name,LinkedList<Parametre> _param,Block _exp,TypeClasse _typeClasse) {
-		return new Constructeur(_name,_param,_exp,_typeClasse);
+	public ElementClasse createConstructeur(String _name,LinkedList<Parametre> _param,Block _exp) {
+		return new Constructeur(_name,_param,_exp);
 	}
 
 	public Instruction createReturnInstruction(Expression _exp)

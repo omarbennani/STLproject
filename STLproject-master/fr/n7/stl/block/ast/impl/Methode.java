@@ -21,6 +21,8 @@ public class Methode implements ElementClasse {
 	protected Block exp;
 	protected Type typeRet;
 	protected boolean finaL, statiC;
+	public static int id=0;
+	protected String etiquette;
 	
 	public Methode(DroitAcces _droit, String _name, LinkedList<Parametre> _param2, Block _exp2, String _nomClasse) {
 		this.droitAcces=_droit;
@@ -30,6 +32,8 @@ public class Methode implements ElementClasse {
 		this.finaL = false;
 		this.statiC = false;
 		this.nomClasse = _nomClasse;
+		id++ ;
+		etiquette = this.nom+id;
 	}
 	
 	public Methode(DroitAcces _droit, Type _type, LinkedList<Parametre> _param2, String _name, Block _exp2, String _nomClasse) {
@@ -41,6 +45,8 @@ public class Methode implements ElementClasse {
 		this.finaL = false;
 		this.statiC = false;
 		this.nomClasse = _nomClasse;
+		id++ ;
+		etiquette = this.nom+id;
 	}
 
 	@Override
@@ -125,12 +131,15 @@ public class Methode implements ElementClasse {
 		}
 		return result;
 	}
+	public String getEtiquette(){
+		return this.etiquette;
+	}
 	
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _res=_factory.createFragment();
 		int tailleDesArguments=0;
-		_res.add(_factory.createLoadA(this.nom));
+		_res.add(_factory.createLoadA(this.etiquette));
 		for (Parametre p:this.param){
 			_res.add(_factory.createLoadI(p.getType().length()));
 			tailleDesArguments+=p.getType().length();
