@@ -962,10 +962,19 @@ end
 }
 
 
-Instruction -> Type identificateur affectation #tds Expression point_virgule #ast #tds1;
+Instruction -> Type identificateur affectation #tds Expression point_virgule #ast;
 #ast {
+local
+    v : VariableDeclaration;
 do
-    Instruction^ast := Instruction^factory.createVariableDeclaration(identificateur^txt, Type^ast, Expression^ast);
+    if Instruction^tds.knows(identificateur^txt) then
+        error(variable_already_defined,identificateur^txt);
+    else
+        v := Instruction^factory.createVariableDeclaration(identificateur^txt, Type^ast, Expression^ast);
+        Instruction^tds.register(v);
+        Instruction^ast := v;
+    end
+    
 end
 }
 #tds {
@@ -973,20 +982,6 @@ do
     Expression^tds := Instruction^tds;
 end
 }
-#tds1 {
-local
-    d : Declaration;
-do
-    if Instruction^tds.knows(identificateur^txt) then
-        error(variable_already_defined,identificateur^txt);
-    else
-        d := Instruction^factory.createVariableDeclaration(identificateur^txt, Type^ast, Expression^ast);
-        Instruction^tds.register(d);
-    end
-end
-}
-
-
 
 
 
@@ -1147,8 +1142,22 @@ end
 
 SuiteAffectation -> affectation Expression #ast;
 #ast{
+local
+    vd : VariableDeclaration;
+    va : Assignable;
+    ad : Attribut;
+    aa : Assignable;
 do
-	SuiteAffectation^ast := SuiteAffectation^factory.createAssignment(SuiteAffectation^gauche, Expression^ast);
+    match SuiteAffectation^gauche
+        with VariableUseImpl then
+            vd := SuiteAffectation^gauche.getVariableDeclaration();
+            va := SuiteAffectation^factory.createVariableAssignment(vd);
+	        SuiteAffectation^ast := SuiteAffectation^factory.createAssignment(va, Expression^ast);
+        with AttributUseImpl then
+            ad := SuiteAffectation^gauche.getAttribut();
+            aa := SuiteAffectation^factory.createAttributAssignment(ad);
+	        SuiteAffectation^ast := SuiteAffectation^factory.createAssignment(aa, Expression^ast);
+    end
 end
 }
 

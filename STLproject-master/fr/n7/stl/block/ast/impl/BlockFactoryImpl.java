@@ -198,13 +198,9 @@ public class BlockFactoryImpl implements BlockFactory {
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.InstructionFactory#createAssignment(fr.n7.stl.block.ast.VariableDeclaration, fr.n7.stl.block.ast.Expression)
 	 */
-	@Override
-	public Instruction createAssignment(Assignable _assignable, Expression _value) {
-		return new AssignmentImpl(_assignable,_value);
-	}
 
 	@Override
-	public Assignable createAssignment(Expression _assignable, Expression _value) {
+	public Assignable createAssignment(Assignable _assignable, Expression _value) {
 		return new AssignmentImpl(_assignable,_value);
 	}
 
@@ -608,6 +604,10 @@ public class BlockFactoryImpl implements BlockFactory {
 	public Expression createInterfaceUse(Interface _interface)
 	{
 		return new InterfaceUseImpl(_interface);
+	}
+	
+	public Assignable createAttributAssignment(ElementClasse _attribut) {
+		return new AttributAssignmentImpl((Attribut)_attribut);
 	}
 
 }

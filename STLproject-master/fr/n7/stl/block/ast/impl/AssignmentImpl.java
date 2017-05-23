@@ -23,7 +23,6 @@ public class AssignmentImpl implements Instruction , Assignable{
 
 	protected VariableDeclaration declaration;
 	protected Expression value;
-	protected Expression assignable1;
 	protected Assignable assignable;
 
 	/**
@@ -48,18 +47,13 @@ public class AssignmentImpl implements Instruction , Assignable{
 		this.value = _value;
 	}
 
-	public AssignmentImpl(Expression _assignable, Expression _value) {
-		this.assignable1 = _assignable;
-		this.value = _value;
-	}
-
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
 		//return ((this.declaration != null)?this.declaration.getName():this.assignable) + " = " + this.value.toString() + ";\n";
-return ((this.declaration != null)?this.declaration.getName():((this.assignable != null)?this.assignable:this.assignable1)) + " = " + this.value.toString() + ";\n";	
+		return ((this.declaration != null)?this.declaration.getName():this.assignable) + " = " + this.value.toString() + ";\n";	
 	}
 
 	/* (non-Javadoc)
@@ -67,7 +61,7 @@ return ((this.declaration != null)?this.declaration.getName():((this.assignable 
 	 */
 	@Override
 	public boolean checkType() {
-        if (this.declaration == null) {
+        if (this.assignable != null) {
             return this.value.getType().compatibleWith(assignable.getType());
         } else {
 		    return this.value.getType().compatibleWith(declaration.getType());

@@ -84,7 +84,7 @@ public interface InstructionFactory {
 	 * @param _value Abstract Syntax Tree for the expression whose value is assigned to the assignable part.
 	 * @return An Assignment node in the Abstract Syntax Tree.
 	 */
-	public Instruction createAssignment(Assignable _assignable, Expression _value);
+	public Assignable createAssignment(Assignable _assignable, Expression _value);
 	
 	/**
 	 * Create a conditional node in the Abstract Syntax Tree.

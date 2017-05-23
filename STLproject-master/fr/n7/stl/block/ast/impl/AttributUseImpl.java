@@ -27,12 +27,16 @@ public class AttributUseImpl implements Expression {
 	public AttributUseImpl(ElementClasse _declaration) {
 		this.declaration = _declaration;
 	}
+	
 	public AttributUseImpl(ElementClasse _declaration, Expression _exp) {
 		this.declaration = _declaration;
 		this.exp = _exp;
 	}
 
-
+	public Attribut getAttribut() {
+		return (Attribut)this.declaration;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */

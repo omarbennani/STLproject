@@ -30,6 +30,7 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 	 * @param _value Value of the declared variable.
 	 */
 	public VariableDeclarationImpl(String _name, Type _type, Expression _value) {
+		System.out.println("CREATION VARIABLE DECLARATION " + _name);
 		this.name = _name;
 		this.type = _type;
 		this.value = _value;
@@ -64,6 +65,7 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 	 */
 	@Override
 	public Register getRegister() {
+		System.out.println("2. REGISTER " + this.name + " " + this.register);
 		return this.register;
 	}
 	
@@ -89,7 +91,7 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
 		this.register = _register;
-		System.out.println("REGISTER " + this.register);
+		System.out.println("1. REGISTER " + this.name + " " + this.register);
         this.offset = _offset;
         return this.type.length();
 	}

@@ -155,8 +155,6 @@ public interface ExpressionFactory {
 	 * @return Abstract Syntax Tree node for the access of the content of the _pointer.
 	 */
 	public Assignable createPointerAssignment(Assignable _pointer);
-
-	public Assignable createAssignment(Expression _assignable, Expression _value) ;
 		
 	/**
 	 * Create a node for a type conversion of an expression in the Abstract Syntax Tree.
