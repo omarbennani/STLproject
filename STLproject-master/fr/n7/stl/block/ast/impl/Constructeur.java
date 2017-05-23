@@ -19,7 +19,7 @@ public class Constructeur implements ElementClasse{
 	protected List<Parametre> param;
 	protected Block exp;
 	protected boolean finaL, statiC;
-	protected Classe classeType;
+	protected Classe classe;
 
 	public Constructeur(String _name, List<Parametre> _param2, Block _exp2) 
 	{
@@ -88,7 +88,7 @@ public class Constructeur implements ElementClasse{
 			tailleDesArguments+=p.getType().length();
 		}
 		_code.append(exp.getCode(_factory));
-		_code.add(_factory.createReturn(this.classeType.getType().length(), tailleDesArguments));
+		_code.add(_factory.createReturn(this.classe.getType().length(), tailleDesArguments));
 		return _code;
 	}
 }
