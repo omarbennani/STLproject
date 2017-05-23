@@ -206,9 +206,8 @@ public enum Library implements TAMInstruction {
 	 * Pops an Integer value from the stack which is a String slot in the TAM virtual machine, converts the
 	 * content of that String to an Integer and pushes that one on the stack.
 	 */
-	S2I,
+	S2I;
 	
-	Ln;
 	/**
 	 * Each TAM instruction can have prefix comments used for relating this instruction 
 	 * to the block source code.

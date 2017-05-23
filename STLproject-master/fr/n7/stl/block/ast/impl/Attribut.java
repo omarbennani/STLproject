@@ -12,7 +12,6 @@ public class Attribut implements ElementClasse {
 	protected Type typeAtt; 
 	protected String nom;
 	protected boolean finaL, statiC;
-	protected Type typeReel;
 	
 	public Attribut(DroitAcces _droit, Type _type, String _name) 		{
 		this.droitAcces=_droit;
@@ -61,7 +60,7 @@ public class Attribut implements ElementClasse {
 
 	public Type getTypeReel()
 	{
-		return this.typeReel;
+		return this.typeAtt;
 	}
 
 	@Override
@@ -74,7 +73,7 @@ public class Attribut implements ElementClasse {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code= _factory.createFragment();
 		// On push pour placer le resultat de l'acces
-		_code.add(_factory.createPush(this.typeReel.length()));
+		_code.add(_factory.createPush(this.typeAtt.length()));
 		return _code;
 	}
 
