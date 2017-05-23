@@ -30,6 +30,7 @@ import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.block.ast.Objet;
 import fr.n7.stl.block.ast.RecordType;
 import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.block.ast.TypeClasse;
 import fr.n7.stl.block.ast.TypeDeclaration;
 import fr.n7.stl.block.ast.UnaryOperator;
 import fr.n7.stl.block.ast.Value;
@@ -549,8 +550,8 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new Methode(_droit,_type,_param,_name,_exp, _nomClasse);
 	}
 	
-	public ElementClasse createConstructeur(String _name,LinkedList<Parametre> _param,Block _exp) {
-		return new Constructeur(_name,_param,_exp);
+	public ElementClasse createConstructeur(String _name,LinkedList<Parametre> _param,Block _exp,TypeClasse _typeClasse) {
+		return new Constructeur(_name,_param,_exp,_typeClasse);
 	}
 
 	public Instruction createReturnInstruction(Expression _exp)

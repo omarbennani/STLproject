@@ -7,18 +7,18 @@ import fr.n7.stl.block.ast.ParametreGenericite;
 
 public class ParametreGenericiteImpl implements ParametreGenericite{
 
-	protected String _name;
-	protected List<Objet> _param;
+	protected String name;
+	protected List<Objet> param;
 	public ParametreGenericiteImpl(String _name, List<Objet> _param) {
-		this._name=_name;
-		this._param=_param;
+		this.name=_name;
+		this.param=_param;
 	}
 	public ParametreGenericiteImpl(List<Objet> _param2) {
-		this._param=_param2;
+		this.param=_param2;
 	}
 	@Override
 	public String getName() {
-		return _name;
+		return name;
 	}
 
 	@Override
@@ -27,7 +27,7 @@ public class ParametreGenericiteImpl implements ParametreGenericite{
 		if (o instanceof ParametreGenericiteImpl)
 		{
 			ParametreGenericiteImpl p = (ParametreGenericiteImpl) o;
-			if(this.name.equals(p.getName))
+			if(this.name.equals(p.getName()))
 			{
 				//On pourrait ici vérifier si ils étendent les même objets mais cette méthode a été redéfinie au départ pour pouvoir vérifier que dans une regle généricité, un identifiant de paramètres ne soit pas défini deux fois. cad pour interdire 
 //Class Voiture <T, S, T> 2 X T
@@ -41,8 +41,8 @@ public class ParametreGenericiteImpl implements ParametreGenericite{
 	}
 
 	public String toString() {
-		String res= this._name+" ";
-		for (Objet o:this._param){
+		String res= this.name+" ";
+		for (Objet o:this.param){
 			res+=o.toString()+" ";
 		}
 		return res;

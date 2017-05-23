@@ -128,13 +128,14 @@ public class ClasseImpl implements Classe
 
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		// TODO Auto-generated method stub
-		return null;
+		Fragment _code = _factory.createFragment();
+		for (ElementClasse e:this.elementsClasse)
+			_code.append(e.getCode(_factory));
+		return _code;
 	}
 
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	

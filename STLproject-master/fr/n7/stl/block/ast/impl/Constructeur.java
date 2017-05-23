@@ -6,6 +6,7 @@ import java.util.List;
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.block.ast.TypeClasse;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.block.ast.Expression;
@@ -17,14 +18,16 @@ public class Constructeur implements ElementClasse{
 	protected List<Parametre> param;
 	protected Block exp;
 	protected boolean finaL, statiC;
+	protected TypeClasse classeType;
 
-	public Constructeur(String _name, List<Parametre> _param2, Block _exp2) 
+	public Constructeur(String _name, List<Parametre> _param2, Block _exp2,TypeClasse _typeClasse) 
 	{
 		this.nom=_name;
 		this.param=_param2;
 		this.exp=_exp2;
 		this.finaL = false;
 		this.statiC = false;
+		this.classeType=_typeClasse;
 	}
 
 	@Override
@@ -77,6 +80,15 @@ public class Constructeur implements ElementClasse{
 	
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		return null;
+		Fragment _code= _factory.createFragment();
+		int tailleDesArguments=0;
+		_code.add(_factory.createLoadA(this.nom));
+		for (Parametre p:this.param){
+			_code.add(_factory.createLoadI(p.getType().length()));
+			tailleDesArguments+=p.getType().length();
+		}
+		_code.append(exp.getCode(_factory));
+		_code.add(_factory.createReturn(this.classeType.length(), tailleDesArguments));
+		return _code;
 	}
 }
