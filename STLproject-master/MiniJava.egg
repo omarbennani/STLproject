@@ -699,10 +699,14 @@ end
 }
 
 
-AttributOuMethode -> #factory vide identificateur parenthese_ouvrante Parametres parenthese_fermante Bloc #ast;
+AttributOuMethode -> #factory vide identificateur parenthese_ouvrante Parametres parenthese_fermante #inh Bloc #ast;
+global
+    t : SymbolTable;
+
 #factory{
 do
-	Parametres^tds_Params := new SymbolTable();
+    t := new SymbolTable();    
+	Parametres^tds_Params := t;
 end
 }
 #ast {
@@ -721,7 +725,11 @@ do
 	AttributOuMethode^typeElementClasse := 1;
 end
 }
-
+#inh {
+do
+    Bloc^tds := t;
+end
+}
 
 
 SuiteAttributOuMethode -> point_virgule #ast;
@@ -741,10 +749,20 @@ end
 }
 
 
-SuiteAttributOuMethode -> #factory parenthese_ouvrante Parametres parenthese_fermante Bloc #ast;
+SuiteAttributOuMethode -> #factory parenthese_ouvrante Parametres parenthese_fermante #inh Bloc #ast;
+global
+    t : SymbolTable;
+
 #factory{
 do
-	Parametres^tds_Params := new SymbolTable();
+    t := new SymbolTable();
+    Parametres^tds_Params := t;
+end
+}
+
+#inh {
+do
+    Bloc^tds := t;
 end
 }
 
@@ -764,13 +782,22 @@ do
 end
 }
 
-Constructeur -> #factory identificateur_type parenthese_ouvrante Parametres parenthese_fermante Bloc #ast;
+Constructeur -> #factory identificateur_type parenthese_ouvrante Parametres parenthese_fermante #inh Bloc #ast;
+global
+    t : SymbolTable;
 #factory{
 do
-	Parametres^tds_Params := new SymbolTable();
+    t := new SymbolTable();
+	Parametres^tds_Params := t;
 end
 }
- 
+
+#inh {
+do
+    Bloc^tds := t;
+end
+}
+
 #ast {
 do
     if Constructeur^nomClasse.equals(identificateur_type^txt) then
@@ -1382,23 +1409,30 @@ local
     d : Declaration;
 	o : Optional<Declaration>;
 	v : VariableDeclaration;
+    p : Parametre;
 	a : Attribut;
 	s : StaticField;
 do
     a := nil;
 	v := nil;
+    p := nil;
     s := nil;
     AppelOuAcces^fromFacteur := true;
     AppelOuAcces^fromAcces := false;
 	AppelOuAcces^support := nil;
 	AppelOuAcces^identificateur_type := nil;
 	AppelOuAcces^identificateur := identificateur^txt;
-    if Facteur^tds.contains(identificateur^txt) then
+    if Facteur^tds.knows(identificateur^txt) then
 		o := Facteur^tds.get(identificateur^txt);
 		d := o.get();
-		match d with VariableDeclaration then v := d; end
+		match d with VariableDeclaration then v := d
+        match d with Parametre then p := d; end
 		
-		AppelOuAcces^support := Facteur^factory.createVariableUse(v);
+        if p = nil then
+		    AppelOuAcces^support := Facteur^factory.createVariableUse(v);
+        else
+            AppelOuAcces^support := Facteur^factory.createParametreUse(p);
+        end
 
 	elseif Facteur^tdsAttributs.contains(identificateur^txt, Facteur^nomClasse) then
 		o := Facteur^tdsAttributs.get(Facteur^nomClasse + "." + identificateur^txt);
