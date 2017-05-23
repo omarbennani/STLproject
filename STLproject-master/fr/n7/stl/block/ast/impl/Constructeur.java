@@ -78,6 +78,10 @@ public class Constructeur implements ElementClasse{
 		return this.param;
 	}
 	
+	public void setClasse(Classe _classe) {
+		this.classe = _classe;
+	}
+	
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code= _factory.createFragment();

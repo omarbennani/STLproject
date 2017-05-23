@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 import fr.n7.stl.block.ast.Arguments;
+import fr.n7.stl.block.ast.Classe;
+import fr.n7.stl.block.ast.Declaration;
 import fr.n7.stl.block.ast.ForbiddenDeclarationException;
 import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.Signature;
@@ -274,4 +276,11 @@ public class SymbolTableMethodes  {
 		}
 	}
 
+	public void setClasseConstructeur(SymbolTable stClasse) {
+		for (Constructeur c : this.constructeurs) {
+			Optional<Declaration> ocl = stClasse.get(c.getName());
+			Classe cl = (Classe)ocl.get();
+			c.setClasse(cl);
+		}
+	}
 }

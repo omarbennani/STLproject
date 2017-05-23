@@ -209,6 +209,7 @@ do
     Principale^tds := new SymbolTable();
 
     Principale^factory := new BlockFactoryImpl();
+    s_meth.setClasseConstructeur(s_clas);
 end
 }
 
@@ -1425,8 +1426,10 @@ do
     if Facteur^tds.knows(identificateur^txt) then
 		o := Facteur^tds.get(identificateur^txt);
 		d := o.get();
-		match d with VariableDeclaration then v := d
-        match d with Parametre then p := d; end
+		match d
+            with VariableDeclaration then v := d;
+            with Parametre then p := d;
+        end
 		
         if p = nil then
 		    AppelOuAcces^support := Facteur^factory.createVariableUse(v);
@@ -1439,7 +1442,8 @@ do
 		d := o.get();
 		match d
         with Attribut then a := d;
-        with StaticField then s := d;end
+        with StaticField then s := d;
+        end
         if a != nil then
 		    AppelOuAcces^support := Facteur^factory.createAttributUse(a);
         else
