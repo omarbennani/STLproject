@@ -611,4 +611,9 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new AttributAssignmentImpl((Attribut)_attribut);
 	}
 
+	@Override
+	public Expression createParametreUse(Parametre _parametre) {
+		return new ParametreUseImpl(_parametre);
+	}
+
 }

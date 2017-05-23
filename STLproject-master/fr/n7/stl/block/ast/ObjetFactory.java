@@ -69,5 +69,7 @@ public interface ObjetFactory {
 	
 	public Assignable createAttributAssignment(ElementClasse _attribut);
 	
+	public Expression createParametreUse(Parametre _parametre);
+	
 
 }
