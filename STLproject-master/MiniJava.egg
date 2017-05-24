@@ -713,7 +713,6 @@ end
 #ast {
 local
     m : ElementClasse;
-    --clClasse
 do
     m := AttributOuMethode^factory.createMethode(AttributOuMethode^droit, identificateur^txt, Parametres^ast, Bloc^ast, AttributOuMethode^nomClasse);
     AttributOuMethode^ast := m;
@@ -760,13 +759,11 @@ do
     Parametres^tds_Params := t;
 end
 }
-
 #inh {
 do
     Bloc^tds := t;
 end
 }
-
 #ast {
 local
     m : ElementClasse;
@@ -792,13 +789,11 @@ do
 	Parametres^tds_Params := t;
 end
 }
-
 #inh {
 do
     Bloc^tds := t;
 end
 }
-
 #ast {
 do
     if Constructeur^nomClasse.equals(identificateur_type^txt) then
@@ -1175,6 +1170,7 @@ local
     va : Assignable;
     ad : Attribut;
     aa : Assignable;
+    ae : Expression;
 do
     match SuiteAffectation^gauche
         with VariableUseImpl then
@@ -1183,7 +1179,8 @@ do
 	        SuiteAffectation^ast := SuiteAffectation^factory.createAssignment(va, Expression^ast);
         with AttributUseImpl then
             ad := SuiteAffectation^gauche.getAttribut();
-            aa := SuiteAffectation^factory.createAttributAssignment(ad);
+            ae := SuiteAffectation^gauche.getExpression();
+            aa := SuiteAffectation^factory.createAttributAssignment(ad, ae);
 	        SuiteAffectation^ast := SuiteAffectation^factory.createAssignment(aa, Expression^ast);
     end
 end
@@ -1449,8 +1446,6 @@ do
         else
             AppelOuAcces^support := Facteur^factory.createStaticFieldUse(s);
         end
-	else
-		error(NOT_DEFINED_ATTRIBUT_OR_VARIABLE, identificateur^txt);
 	end
 end
 }
@@ -1463,10 +1458,30 @@ end
 
 AppelOuAcces -> #inh Acces #ast;
 #inh{
+local
+    d : Declaration;
+    o : Optional<Declaration>;
+    a : Attribut;
+    sf : StaticField;
 do
+    a := nil;
+    sf := nil;
     Acces^fromFacteur := false;
     if AppelOuAcces^fromAcces then
-        Acces^support := AppelOuAcces^factory.createAcces(AppelOuAcces^support, AppelOuAcces^identificateur);
+        if AppelOuAcces^tdsAttributs.contains(AppelOuAcces^identificateur, AppelOuAcces^nomClasse) then
+		    o := AppelOuAcces^tdsAttributs.get(AppelOuAcces^nomClasse + "." + AppelOuAcces^identificateur);
+		    d := o.get();
+		    match d
+                with Attribut then a := d;
+                with StaticField then sf := d;
+            end
+            if a != nil then
+		        Acces^support := AppelOuAcces^factory.createAttributUse(a, AppelOuAcces^support);
+            else
+                Acces^support := AppelOuAcces^factory.createStaticFieldUse(sf, AppelOuAcces^support);
+            end
+	    end
+
         Acces^fromAcces := false;
     else
         Acces^support := AppelOuAcces^support;
@@ -1517,22 +1532,8 @@ do
     else
         error(Acces_idend_ap0ac, "s bad initialized");
     end
+    AppelOuAcces^support := Acces^support;
     AppelOuAcces^nomClasse := s;
-	if Acces^tdsAttributs.contains(identificateur^txt, s) then
-		o := Acces^tdsAttributs.get(s + "." + identificateur^txt);
-		d := o.get();
-		match d
-            with Attribut then a := d;
-            with StaticField then sf := d;
-        end
-        if a != nil then
-		    AppelOuAcces^support := Acces^factory.createAttributUse(a, Acces^support);
-        else
-            AppelOuAcces^support := Acces^factory.createStaticFieldUse(sf, Acces^support);
-        end
-	else
-        AppelOuAcces^support := Acces^support;
-    end
 end
 }
 #ast{

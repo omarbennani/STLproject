@@ -54,7 +54,6 @@ public class Attribut implements ElementClasse {
 	@Override
 	public Type getType()
 	{
-		System.out.println(this.typeAtt.toString() + " "+ this.nom);
 		return this.typeAtt;
 	}
 

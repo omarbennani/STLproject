@@ -1,13 +1,16 @@
 package fr.n7.stl.block.ast.impl;
 
+import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.tam.ast.Register;
 
 public class ParametreImpl implements Parametre {
 
 	protected Type type;
 	protected String nom;
-	protected Methode methode;
+	private Register register;
+	private int offset;
 	
 	public ParametreImpl(Type _type, String _name) {
 		this.type = _type;
@@ -28,9 +31,12 @@ public class ParametreImpl implements Parametre {
 	public String toString() {
 		return this.type.toString() + " " + this.nom;
 	}
-	
-	public Methode getMethode() {
-		return this.methode;
+
+	@Override
+	public int allocateMemory(Register _register, int _offset) {
+		this.offset = _offset;
+		this.register = _register;
+		return this.type.length();
 	}
 
 }

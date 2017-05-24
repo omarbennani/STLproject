@@ -4,6 +4,7 @@
 package fr.n7.stl.block.ast.impl;
 
 import fr.n7.stl.block.ast.Expression;
+import fr.n7.stl.block.ast.Instruction;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.block.ast.VariableDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
@@ -30,7 +31,6 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 	 * @param _value Value of the declared variable.
 	 */
 	public VariableDeclarationImpl(String _name, Type _type, Expression _value) {
-		System.out.println("CREATION VARIABLE DECLARATION " + _name);
 		this.name = _name;
 		this.type = _type;
 		this.value = _value;

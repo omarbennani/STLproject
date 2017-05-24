@@ -5,6 +5,7 @@ package fr.n7.stl.block.ast.impl;
 
 import fr.n7.stl.block.ast.Assignable;
 import fr.n7.stl.block.ast.ElementClasse;
+import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -18,8 +19,9 @@ public class AttributAssignmentImpl extends AttributUseImpl implements Assignabl
 	 * Creates a variable assignment expression Abstract Syntax Tree node.
 	 * @param _declaration Declaration of the assigned variable.
 	 */
-	public AttributAssignmentImpl(ElementClasse _declaration) {
+	public AttributAssignmentImpl(ElementClasse _declaration, Expression _expression) {
 		super(_declaration);
+		this.exp = _expression;
 	}
 
 	/* (non-Javadoc)

@@ -9,6 +9,7 @@ import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.block.ast.TypeClasse;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Parametre;
@@ -94,5 +95,11 @@ public class Constructeur implements ElementClasse{
 		_code.append(exp.getCode(_factory));
 		_code.add(_factory.createReturn(this.classe.getType().length(), tailleDesArguments));
 		return _code;
+	}
+
+	@Override
+	public int allocateMemory(Register _register, int _offset) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 }

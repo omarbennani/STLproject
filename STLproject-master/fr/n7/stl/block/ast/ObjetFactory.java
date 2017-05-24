@@ -30,7 +30,7 @@ public interface ObjetFactory {
 
 	public Expression createObjetAllocation(Type _type, Arguments _args);
 	
-	public Parametre createParametre(Type _type,String _name);
+	public Parametre createParametre(Type _type, String _name);
 	
 	public Classe createClasse(String _name, Classe _heritageClasse, LinkedList<Interface> _implantationInterface, LinkedList<ElementClasse> _elementsClasse);
 
@@ -67,7 +67,7 @@ public interface ObjetFactory {
 
 	public Expression createInterfaceUse(Interface _interface);
 	
-	public Assignable createAttributAssignment(ElementClasse _attribut);
+	public Assignable createAttributAssignment(ElementClasse _attribut, Expression _expression);
 	
 	public Expression createParametreUse(Parametre _parametre);
 	

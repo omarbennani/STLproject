@@ -1,10 +1,11 @@
 package fr.n7.stl.block.ast;
 
-import fr.n7.stl.block.ast.impl.Methode;
+import fr.n7.stl.tam.ast.Register;
 
 public interface Parametre extends Declaration{
 
 	public Type getType();
 	
-	public Methode getMethode();
+	public int allocateMemory(Register _register, int _offset);
+
 }

@@ -2,7 +2,7 @@ interface Voiture
 {
 	final static int var = 52;
 	void laver();
-    void laver(int i);
+    //void laver(int i);
 }
 
 interface Camion
@@ -63,7 +63,6 @@ public class Main {
 		int var2 = v.getVi().serie.t;
 		v.vi = new Honda();
 
-        new Honda() = new Honda();
 	
 	}
 }

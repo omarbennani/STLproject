@@ -3,7 +3,6 @@ package fr.n7.stl.block.ast.impl;
 import java.util.LinkedList;
 import java.util.List;
 
-import com.sun.xml.internal.ws.org.objectweb.asm.Label;
 
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.DroitAcces;
@@ -20,7 +19,7 @@ public class Methode implements ElementClasse {
 	protected DroitAcces droitAcces;
 	protected String nom;
 	protected String nomClasse;
-	protected LinkedList<Parametre> param;
+	protected List<Parametre> param;
 	protected Block exp;
 	protected Type typeRet;
 	protected boolean finaL, statiC;
@@ -140,12 +139,12 @@ public class Methode implements ElementClasse {
 		this.etiquette = this.nom + _labelNumber;
 		Fragment _res=_factory.createFragment();
 		int tailleDesArguments = 0;
-		_res.addPrefix(this.etiquette + ":");
 		for (Parametre p : this.param) {
 			tailleDesArguments += p.getType().length();
 		}
 		_res.append(exp.getCode(_factory));
 		_res.add(_factory.createReturn(typeRet.length(), tailleDesArguments));
+		_res.addPrefix(this.etiquette + ":");
 		return _res;
 	}
 

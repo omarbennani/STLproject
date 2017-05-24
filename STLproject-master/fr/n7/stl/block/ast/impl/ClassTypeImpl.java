@@ -36,7 +36,11 @@ public class ClassTypeImpl implements Type {
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
-           throw new SemanticsUndefinedException("equalsTo is undefined in ObjetTypeImpl.java");
+		if (_other instanceof ClassTypeImpl) {
+			return this.classe.getName().equals(((ClassTypeImpl)_other).getClasse().getName());
+		} else {
+			return false;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -44,7 +48,8 @@ public class ClassTypeImpl implements Type {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-		throw new SemanticsUndefinedException("equalsTo is undefined in ObjetTypeImpl.java");
+		return true;
+		//throw new SemanticsUndefinedException("compatibleWith is undefined in ObjetTypeImpl.java");
 	}
 
 	/* (non-Javadoc)
@@ -52,7 +57,8 @@ public class ClassTypeImpl implements Type {
 	 */
 	@Override
 	public Type merge(Type _other) {
-	    throw new SemanticsUndefinedException("equalsTo is undefined in ObjetTypeImpl.java");
+	    return this;
+	    //throw new SemanticsUndefinedException("merge is undefined in ObjetTypeImpl.java");
 	}
 
 	/* (non-Javadoc)

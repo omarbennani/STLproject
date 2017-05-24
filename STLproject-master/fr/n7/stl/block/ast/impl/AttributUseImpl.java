@@ -37,16 +37,21 @@ public class AttributUseImpl implements Expression {
 		return (Attribut)this.declaration;
 	}
 	
+	public Expression getExpression() {
+		return this.exp;
+	}
+	
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-		if (exp == null)
-			return ("@{" + this.declaration.getName() + "}");
+		if (this.exp == null) {
+			System.out.println("EXP NULL " + this.declaration.getName());
+			return this.declaration.getName();
+		}
 		else
-			return exp.toString();
-		
+			return this.exp.toString() + "." + this.declaration.getName();		
 	}
 
 	/* (non-Javadoc)

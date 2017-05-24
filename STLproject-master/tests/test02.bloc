@@ -1,7 +1,9 @@
 class Voiture {
     public int serie;
     public Voiture(int t) {
-        serie = t;
+    }
+    public int calcul(int x, int y) {
+        return x + y;
     }
 }
 
@@ -15,5 +17,7 @@ public class Main {
         print(m);
         m = 4;
         print(m);
+        Voiture v = new Voiture(1);
+        int c = v.calcul(1, 2);
 	}
 }

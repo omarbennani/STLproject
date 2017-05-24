@@ -24,6 +24,7 @@ public class AccesImpl implements AppelOuAcces {
 	{
 		this.exp = _exp;
 		this.ident = _ident;
+		System.out.println("Creation acces : exp : " + this.exp + ", ident : " + this.ident);
 	}
 
 

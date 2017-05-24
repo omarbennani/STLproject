@@ -3,22 +3,20 @@
  */
 package fr.n7.stl.block.ast.impl;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import fr.n7.stl.block.ast.AppelOuAcces;
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.BinaryOperator;
+import fr.n7.stl.block.ast.Arguments;
+import fr.n7.stl.block.ast.Declaration;
 import fr.n7.stl.block.ast.Expression;
+import fr.n7.stl.block.ast.Instruction;
+import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.TAMFactory;
-import fr.n7.stl.util.Logger;
-
-import fr.n7.stl.block.ast.Declaration;
-import fr.n7.stl.block.ast.Instruction;
-import fr.n7.stl.block.ast.Classe;
-import fr.n7.stl.block.ast.Interface;
-import fr.n7.stl.block.ast.Arguments;
-
 import fr.n7.stl.tam.ast.Register;
+import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a binary expression.
@@ -83,7 +81,13 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		 throw new SemanticsUndefinedException("allocateMemory is undefined in AppelImpl.java");
+		int _local = -1;
+		List<Parametre> parametres = new LinkedList<Parametre>(((Methode)this.methode).getParametres());
+		Collections.reverse(parametres);
+		for (Parametre p : parametres) {
+			_local -= p.allocateMemory(_register, _local);
+		}
+		return 0;
 	}
 
 	/* (non-Javadoc)

@@ -516,7 +516,7 @@ public class BlockFactoryImpl implements BlockFactory {
 
 	@Override
 	public Parametre createParametre(Type _type,String _name){
-		return new ParametreImpl(_type,_name);
+		return new ParametreImpl(_type, _name);
 	}
 
 	@Override
@@ -607,8 +607,8 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new InterfaceUseImpl(_interface);
 	}
 	
-	public Assignable createAttributAssignment(ElementClasse _attribut) {
-		return new AttributAssignmentImpl((Attribut)_attribut);
+	public Assignable createAttributAssignment(ElementClasse _attribut, Expression _expression) {
+		return new AttributAssignmentImpl((Attribut)_attribut, _expression);
 	}
 
 	@Override
