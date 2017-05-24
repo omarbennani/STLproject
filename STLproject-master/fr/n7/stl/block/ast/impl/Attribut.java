@@ -75,6 +75,7 @@ public class Attribut implements ElementClasse {
 		Fragment _code= _factory.createFragment();
 		// On push pour placer le resultat de l'acces
 		_code.add(_factory.createPush(this.typeAtt.length()));
+		// Creer un label pour acceder à l'attribut appres avec nomClasse+nomAttribut?
 		return _code;
 	}
 
