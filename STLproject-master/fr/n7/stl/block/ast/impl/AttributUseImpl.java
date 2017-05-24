@@ -5,6 +5,7 @@ package fr.n7.stl.block.ast.impl;
 
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Expression;
+import fr.n7.stl.block.ast.FieldDeclaration;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.block.ast.VariableDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
@@ -73,13 +74,23 @@ public class AttributUseImpl implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		/*Fragment _code = _factory.createFragment();
-		_code.add(_factory.createLoad(this.declaration.getRegister(),
-				this.declaration.getOffset(),
-				this.declaration.getType().length()));
-		return _code;*/
-
-		throw new SemanticsUndefinedException("getCode is undefined in AttributUseImpl");
+		Fragment _code = _factory.createFragment();
+		int position = 0;
+		Expression e = this;
+		while (e instanceof AttributUseImpl) {
+			for (Attribut a : ((ClassTypeImpl)((AttributUseImpl)e).exp.getType()).getClasse().getAttributs()) {
+				if (a.getName().equals(((AttributUseImpl)e).declaration.getName())) {
+					break;
+				} else {
+					position += a.getType().length();
+				}
+			}
+			e = ((AttributUseImpl)e).exp;
+		}
+		_code.add(_factory.createLoad(((VariableUseImpl)e).declaration.getRegister(),
+									  ((VariableUseImpl)e).declaration.getOffset() + position,
+									   this.declaration.getType().length()));
+		return _code;
 	}
 
 }

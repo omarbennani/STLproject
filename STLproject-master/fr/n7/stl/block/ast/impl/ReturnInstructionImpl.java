@@ -55,8 +55,9 @@ public class ReturnInstructionImpl implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		System.out.println("RETURN " + this.ret);
-		return _factory.createFragment();
+		Fragment _code = _factory.createFragment();
+		_code.append(this.ret.getCode(_factory));
+		return _code;
 	}
 
 }

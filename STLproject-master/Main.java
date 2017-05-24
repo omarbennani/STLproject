@@ -26,7 +26,7 @@ public class Main{
       	prq.acceptProblem(problem );
       prq.endReporting();
       System.out.println("AST :\n"+bloc.get_ast());
-      /*if (bloc.get_ast().checkType()) {
+      if (bloc.get_ast().checkType()) {
 	      System.out.println( "Correctement typé." );
           bloc.get_ast().allocateMemory(Register.SB, 0);
           TAMFactory factory = new TAMFactoryImpl();
@@ -35,7 +35,7 @@ public class Main{
           System.out.println(code);
       } else {
 	      System.out.println( "Mal typé." );
-      }*/
+      }
       System.exit(0);
       }
     catch(Exception e){

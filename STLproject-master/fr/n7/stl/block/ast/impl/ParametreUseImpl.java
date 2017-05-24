@@ -52,11 +52,12 @@ public class ParametreUseImpl implements Expression {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-//		Fragment _code = _factory.createFragment();
-//		_code.add(_factory.createLoad(this.declaration.getRegister(),
-//				this.declaration.getOffset(),
-//				this.declaration.getType().length()));
-		return null;
+		Fragment _code = _factory.createFragment();
+		System.out.println("PARAMETRE USE " + this.parametre.getRegister());
+		_code.add(_factory.createLoad(this.parametre.getRegister(),
+				this.parametre.getOffset(),
+				this.parametre.getType().length()));
+		return _code;
 	}
 
 

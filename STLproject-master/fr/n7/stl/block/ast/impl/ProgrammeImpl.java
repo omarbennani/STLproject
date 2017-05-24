@@ -89,13 +89,13 @@ public class ProgrammeImpl implements Programme {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment code = _factory.createFragment();
+		code.append(princ.getCode(_factory));
 		for (Interface i : this.interfaces) {
 			code.append(i.getCode(_factory));
 		}
 		for (Classe c : this.classes) {
 			code.append(c.getCode(_factory));
 		}
-		code.append(princ.getCode(_factory));
 		return code;
 	}
 

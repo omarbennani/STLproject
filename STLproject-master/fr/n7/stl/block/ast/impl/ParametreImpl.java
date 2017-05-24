@@ -39,4 +39,14 @@ public class ParametreImpl implements Parametre {
 		return this.type.length();
 	}
 
+	@Override
+	public Register getRegister() {
+		return this.register;
+	}
+
+	@Override
+	public int getOffset() {
+		return this.offset;
+	}
+
 }

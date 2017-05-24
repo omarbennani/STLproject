@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
+import fr.n7.stl.block.ast.Arguments;
 import fr.n7.stl.block.ast.Classe;
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Instruction;
@@ -22,8 +23,6 @@ public class ClasseImpl implements Classe
 	protected Classe heritageClasse;
 	protected LinkedList<Interface> implantationInterface;
 	protected LinkedList<ElementClasse> elementsClasse;
-	protected Register register;
-	protected int offset;
 
 	public ClasseImpl(String _name, Classe _heritageClasse, LinkedList<Interface> _implantationInterface, LinkedList<ElementClasse> _elementsClasse)
 	{
@@ -157,9 +156,17 @@ public class ClasseImpl implements Classe
         for (ElementClasse ec : this.elementsClasse) {
             _local += ec.allocateMemory(_register, _local);
         }
-        this.offset = _local - _offset;
-        this.register = _register;
 		return _local;
+	}
+	
+	@Override
+	public List<Constructeur> getConstructeurs() {
+		List<Constructeur> constructeurs = new LinkedList<Constructeur>();
+		for (ElementClasse e : this.elementsClasse) {
+			if (e instanceof Constructeur)
+				constructeurs.add((Constructeur)e);
+		}
+		return constructeurs;
 	}
 	
 }

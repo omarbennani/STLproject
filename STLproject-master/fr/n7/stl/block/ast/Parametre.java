@@ -8,4 +8,8 @@ public interface Parametre extends Declaration{
 	
 	public int allocateMemory(Register _register, int _offset);
 
+	public Register getRegister();
+
+	public int getOffset();
+
 }

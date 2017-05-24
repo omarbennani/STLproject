@@ -81,12 +81,6 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		int _local = -1;
-		List<Parametre> parametres = new LinkedList<Parametre>(((Methode)this.methode).getParametres());
-		Collections.reverse(parametres);
-		for (Parametre p : parametres) {
-			_local -= p.allocateMemory(_register, _local);
-		}
 		return 0;
 	}
 

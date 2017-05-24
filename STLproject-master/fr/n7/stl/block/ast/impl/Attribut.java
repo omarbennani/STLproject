@@ -71,16 +71,11 @@ public class Attribut implements ElementClasse {
 	
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		Fragment _code= _factory.createFragment();
-		// On push pour placer le resultat de l'acces
-		_code.add(_factory.createPush(this.typeAtt.length()));
-		// Creer un label pour acceder à l'attribut appres avec nomClasse+nomAttribut?
-		return _code;
+		return _factory.createFragment();
 	}
 
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

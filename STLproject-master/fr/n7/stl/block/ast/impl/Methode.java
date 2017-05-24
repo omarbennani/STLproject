@@ -1,5 +1,6 @@
 package fr.n7.stl.block.ast.impl;
 
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
+import fr.n7.stl.tam.ast.impl.TAMFactoryImpl;
 
 public class Methode implements ElementClasse {
 
@@ -33,6 +35,10 @@ public class Methode implements ElementClasse {
 		this.finaL = false;
 		this.statiC = false;
 		this.nomClasse = _nomClasse;
+		TAMFactory _factory = new TAMFactoryImpl();
+		int _labelNumber = _factory.createLabelNumber();
+		this.etiquette = this.nom + _labelNumber;
+		_factory = null;
 	}
 	
 	public Methode(DroitAcces _droit, Type _type, LinkedList<Parametre> _param2, String _name, Block _exp2, String _nomClasse) {
@@ -44,6 +50,10 @@ public class Methode implements ElementClasse {
 		this.finaL = false;
 		this.statiC = false;
 		this.nomClasse = _nomClasse;
+		TAMFactory _factory = new TAMFactoryImpl();
+		int _labelNumber = _factory.createLabelNumber();
+		this.etiquette = this.nom + _labelNumber;
+		_factory = null;
 	}
 
 	@Override
@@ -135,8 +145,6 @@ public class Methode implements ElementClasse {
 	
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		int _labelNumber = _factory.createLabelNumber();
-		this.etiquette = this.nom + _labelNumber;
 		Fragment _res=_factory.createFragment();
 		int tailleDesArguments = 0;
 		for (Parametre p : this.param) {
@@ -150,6 +158,12 @@ public class Methode implements ElementClasse {
 
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
+		int _local = -1;
+		List<Parametre> parametres = new LinkedList<Parametre>(this.param);
+		Collections.reverse(parametres);
+		for (Parametre p : parametres) {
+			_local -= p.allocateMemory(Register.LB, _local);
+		}
 		this.exp.allocateMemory(_register, _offset);
         return 0;
 	}

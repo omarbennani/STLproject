@@ -4,11 +4,11 @@
 package fr.n7.stl.block.ast.impl;
 
 import fr.n7.stl.block.ast.Arguments;
-import fr.n7.stl.block.ast.Declaration;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Library;
+import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
@@ -46,18 +46,37 @@ public class ObjetAllocationImpl implements Expression {
 	public Type getTypeReel() {
 		return this.type;
 	}
+	
+	public String findEtiquette() {
+		String res = null;
+		boolean find;
+		for (Constructeur c : ((ClassTypeImpl)this.type).getClasse().getConstructeurs()){
+			find = true;
+			if (c.getParametres().size() == this.arguments.getListType().size()) {
+				for (int i = 0; i < c.param.size(); i++){
+					find = find && c.param.get(i).getType().compatibleWith(this.arguments.getListType().get(i));
+				}
+			} else {
+				find = false;
+			}
+			if (find)
+				res = c.getEtiquette();
+			break;
+		}
+		return res;
+		
+	}
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-//		throw new SemanticsUndefinedException("getCode() not defined in ObjetAllocationImpl");
 		Fragment _code = _factory.createFragment();
-		_code.append(this.arguments.getCode(_factory));
-		//_code.add(_factory.createJump(this));
 		_code.add(_factory.createLoadL(this.type.length()));
 		_code.add(Library.MAlloc);
+		_code.append(this.arguments.getCode(_factory));
+		_code.add(_factory.createCall(this.findEtiquette(), Register.LB));
 		return _code;
 	}
 }
