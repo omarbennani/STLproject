@@ -12,7 +12,7 @@ public interface ObjetFactory {
 	Create a node for the declaration of an interface in the Abstract Syntax Tree.
 	@param _identificateurType name of the interface created.
 	*/
-	public Interface createInterface(String _identificateurType, LinkedList<Interface> _heritageInterface, LinkedList<ElementInterface> _elements);
+	public Interface createInterface(String _identificateurType,LinkedList<ParametreGenericite> _genericite, LinkedList<ObjetUse> _heritageInterface, LinkedList<ElementInterface> _elements);
 
 	public Signature createSignature(String _identificateur,LinkedList<Parametre> _param, String _interfaceName);
 
@@ -32,7 +32,7 @@ public interface ObjetFactory {
 	
 	public Parametre createParametre(Type _type, String _name);
 	
-	public Classe createClasse(String _name, Classe _heritageClasse, LinkedList<Interface> _implantationInterface, LinkedList<ElementClasse> _elementsClasse);
+	public Classe createClasse(String _name, LinkedList<ParametreGenericite> _genericite, ObjetUse _heritageClasse, LinkedList<ObjetUse> _implantationInterface, LinkedList<ElementClasse> _elementsClasse);
 
 	public DroitAcces createDroitAcces(int i );
 
@@ -49,7 +49,11 @@ public interface ObjetFactory {
 
 	public Type createClassType(Classe _class);
 
+	public Type createClassType(Classe _class, LinkedList<ObjetUse> _instanceGenericite);
+
 	public Type createInterfaceType(Interface _interface);
+
+	public Type createInterfaceType(Interface _interface, LinkedList<ObjetUse> _instanceGenericite);
 
 	public AppelOuAcces createAppel(Expression _exp, Declaration _meth, Arguments _args);
 	
@@ -63,13 +67,24 @@ public interface ObjetFactory {
 
 	public Expression createStaticFieldUse(Declaration _declaration, Expression _exp);
 
-	public Expression createClasseUse(Classe _classe);
+	public ObjetUse createClasseUse(Classe _classe);
 
-	public Expression createInterfaceUse(Interface _interface);
+	public ObjetUse createClasseUse(Classe _classe, LinkedList<ObjetUse> _instanceGenericite);
+
+	public ObjetUse createInterfaceUse(Interface _interface);
+
+	public ObjetUse createInterfaceUse(Interface _interface, LinkedList<ObjetUse> _instanceGenericite);
 	
 	public Assignable createAttributAssignment(ElementClasse _attribut, Expression _expression);
 	
 	public Expression createParametreUse(Parametre _parametre);
 	
+	/*public ArgumentGenericite createArgumentGenericite(String _name);
+
+	public ArgumentGenericite createArgumentGenericite(Objet _obj, List<ArgumentGenericite> _inst);*/
+
+	public ParametreGenericite createParametreGenericite(String _name, LinkedList<Type> _param );
+
+	public ParametreGenericite createParametreGenericite(LinkedList<Type> _param );
 
 }

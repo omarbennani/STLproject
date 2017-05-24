@@ -3,7 +3,10 @@
  */
 package fr.n7.stl.block.ast.impl;
 
+import java.util.LinkedList;
+
 import fr.n7.stl.block.ast.Interface;
+import fr.n7.stl.block.ast.ObjetUse;
 import fr.n7.stl.block.ast.AtomicType;
 import fr.n7.stl.block.ast.Type;
 
@@ -15,9 +18,15 @@ import fr.n7.stl.block.ast.Type;
 public class InterfaceTypeImpl implements Type {
 
 	private Interface interface_;
+	private LinkedList<ObjetUse> instanceGenericite;
 
 	public InterfaceTypeImpl(Interface _interface_) {
 		this.interface_= _interface_;
+	}
+
+	public InterfaceTypeImpl(Interface _interface_, LinkedList<ObjetUse> _instanceGenericite) {
+		this.interface_= _interface_;
+		this.instanceGenericite = _instanceGenericite;
 	}
 	
 	public Type getType() {
@@ -66,6 +75,18 @@ public class InterfaceTypeImpl implements Type {
 	 */
 	@Override
 	public String toString() {
-		return new String("Interface Type " + this.interface_.toString());
+		//return this.interface_.getName();
+
+		String resultat = this.interface_.getName() +" ";
+		if(this.instanceGenericite != null)
+		{
+			resultat +="<";
+			for(ObjetUse o : this.instanceGenericite)
+			{
+				resultat += o.getObjet().getName()+",";
+			}
+			resultat +="> ";
+		}
+		return resultat;
 	}
 }

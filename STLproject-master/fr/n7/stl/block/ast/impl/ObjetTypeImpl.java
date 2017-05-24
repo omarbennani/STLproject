@@ -62,7 +62,7 @@ public class ObjetTypeImpl implements Type {
 	 */
 	@Override
 	public int length() {
-		           throw new SemanticsUndefinedException("equalsTo is undefined in ObjetTypeImpl.java");
+		          throw new SemanticsUndefinedException("length is undefined in ObjetTypeImpl.java");
 	}
 
 	/* (non-Javadoc)

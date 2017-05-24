@@ -3,10 +3,12 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-
+import java.util.LinkedList;
 import java.util.List;
 
 import fr.n7.stl.block.ast.Classe;
+import fr.n7.stl.block.ast.ObjetUse;
+import fr.n7.stl.block.ast.AtomicType;
 import fr.n7.stl.block.ast.Type;
 
 /**
@@ -17,9 +19,15 @@ import fr.n7.stl.block.ast.Type;
 public class ClassTypeImpl implements Type {
 
 	private Classe classe;
+	private LinkedList<ObjetUse> instanceGenericite;
 
 	public ClassTypeImpl(Classe _classe) {
 		this.classe = _classe;
+	}
+
+	public ClassTypeImpl(Classe _classe, LinkedList<ObjetUse> _instanceGenericite) {
+		this.classe = _classe;
+		this.instanceGenericite = _instanceGenericite;
 	}
 	
 	public Type getType() {
@@ -40,7 +48,7 @@ public class ClassTypeImpl implements Type {
 			return this.classe.getName().equals(((ClassTypeImpl)_other).getClasse().getName());
 		} else {
 			return false;
-		}
+}
 	}
 
 	/* (non-Javadoc)
@@ -48,8 +56,8 @@ public class ClassTypeImpl implements Type {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
+		System.out.println("CompatibleWith INCOMPLETE in ClassTypeImpl.java");
 		return true;
-		//throw new SemanticsUndefinedException("compatibleWith is undefined in ObjetTypeImpl.java");
 	}
 
 	/* (non-Javadoc)
@@ -57,8 +65,7 @@ public class ClassTypeImpl implements Type {
 	 */
 	@Override
 	public Type merge(Type _other) {
-	    return this;
-	    //throw new SemanticsUndefinedException("merge is undefined in ObjetTypeImpl.java");
+		throw new SemanticsUndefinedException("merge is undefined in ClassTypeImpl.java");
 	}
 
 	/* (non-Javadoc)
@@ -79,6 +86,17 @@ public class ClassTypeImpl implements Type {
 	 */
 	@Override
 	public String toString() {
-		return new String( this.classe.getName());
+	//	private LinkedList<ObjetUse> instanceGenericite;
+		String resultat = this.classe.getName() +" ";
+		if(this.instanceGenericite != null)
+		{
+			resultat +="<";
+			for(ObjetUse o : this.instanceGenericite)
+			{
+				resultat += o.getObjet().getName()+",";
+			}
+			resultat +="> ";
+		}
+		return resultat;
 	}
 }

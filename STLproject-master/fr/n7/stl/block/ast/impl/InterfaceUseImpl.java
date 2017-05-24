@@ -3,7 +3,12 @@
  */
 package fr.n7.stl.block.ast.impl;
 
+import java.util.List;
+import java.util.LinkedList;
+
 import fr.n7.stl.block.ast.Expression;
+import fr.n7.stl.block.ast.ObjetUse;
+import fr.n7.stl.block.ast.Objet;
 import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.block.ast.VariableDeclaration;
@@ -15,9 +20,11 @@ import fr.n7.stl.tam.ast.TAMFactory;
  * @author Marc Pantel
  *
  */
-public class InterfaceUseImpl implements Expression {
+public class InterfaceUseImpl implements ObjetUse {
 
 	protected Interface interface_;
+	protected LinkedList<ObjetUse> instanceGenericite;
+
 	
 	/**
 	 * Creates a variable use expression Abstract Syntax Tree node.
@@ -27,13 +34,35 @@ public class InterfaceUseImpl implements Expression {
 		this.interface_ = _interface_;
 	}
 
+	public InterfaceUseImpl(Interface _interface_, LinkedList<ObjetUse> _instanceGenericite) {
+		this.interface_ = _interface_;
+		this.instanceGenericite = _instanceGenericite;
+	}
+
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
 	public String toString() {
-			return ("@{" + this.interface_.getName() + "}");
+			if (this.instanceGenericite == null)
+				return ("@{" + this.interface_.getName() + "}");
+			else
+			{
+				String result = "@{" + this.interface_.getName()+"<";
+				for (ObjetUse o : this.instanceGenericite)
+				{
+					result += o.toString()+",";
+				}
+				result += ">}";
+				return result;
+			}
+	}
+
+	@Override
+	public Objet getObjet()
+	{
+		return this.interface_;
 	}
 
 	/* (non-Javadoc)

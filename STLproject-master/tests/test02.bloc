@@ -1,4 +1,4 @@
-class Voiture {
+class Voiture <T, D>{
     public int serie;
     private int titi;
     private int toto;

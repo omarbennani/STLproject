@@ -12,13 +12,17 @@ option k=2;
 
 
 
-inh tdsClasses		: SymbolTable for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Type, TypeAtomique , SuiteTypeAtomique , Affectation, SuiteAffectation, Expression, Expressions, SuiteExpressions, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Arguments, Acces, Appel,AppelOuAcces, Parametre, SuiteParametres, Parametres, Classe, HeritageClasse, ImplantationInterface, ElementsClasse, Classes, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, Constructeur, Principale, MethodePrincipale, Instruction, Instructions, SuiteConditionnelle , Bloc;
+inh tdsClasses		: SymbolTable for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Type, TypeAtomique , SuiteTypeAtomique , Affectation, SuiteAffectation, Expression, Expressions, SuiteExpressions, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Arguments, Acces, Appel,AppelOuAcces, Parametre, SuiteParametres, Parametres, Classe, HeritageClasse, ImplantationInterface, ElementsClasse, Classes, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, Constructeur, Principale, MethodePrincipale, Instruction, Instructions, SuiteConditionnelle , Bloc, Genericite, ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ArgumentGenericite;
+
+--inh tdsClassesDeGenericite : SymbolTable for Type, TypeAtomique, ElementsClasse, ElementClasse 
 
 
-inh tdsInterface	: SymbolTable for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Type, TypeAtomique , SuiteTypeAtomique , Affectation, SuiteAffectation, Expression, Expressions, SuiteExpressions, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Arguments, Acces, Appel, AppelOuAcces, Parametre, SuiteParametres, Parametres, Classe, HeritageClasse, ImplantationInterface, ElementsClasse, Classes, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, Constructeur, Principale, MethodePrincipale, Instruction, Instructions, SuiteConditionnelle , Bloc;
+
+inh tdsInterface	: SymbolTable for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Type, TypeAtomique , SuiteTypeAtomique , Affectation, SuiteAffectation, Expression, Expressions, SuiteExpressions, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Arguments, Acces, Appel, AppelOuAcces, Parametre, SuiteParametres, Parametres, Classe, HeritageClasse, ImplantationInterface, ElementsClasse, Classes, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, Constructeur, Principale, MethodePrincipale, Instruction, Instructions, SuiteConditionnelle , Bloc , Genericite, ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ArgumentGenericite;
 
 
-inh tdsMethodes		: SymbolTableMethodes for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Type, TypeAtomique , SuiteTypeAtomique , Affectation, SuiteAffectation, Expression, Expressions, SuiteExpressions, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Arguments, Acces, Appel, AppelOuAcces, Parametre, SuiteParametres, Parametres, Classe, HeritageClasse, ImplantationInterface, ElementsClasse, Classes, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, Constructeur, Principale, MethodePrincipale, Instruction, Instructions, SuiteConditionnelle , Bloc; -- Methodes statiques
+
+inh tdsMethodes		: SymbolTableMethodes for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Type, TypeAtomique , SuiteTypeAtomique , Affectation, SuiteAffectation, Expression, Expressions, SuiteExpressions, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Arguments, Acces, Appel, AppelOuAcces, Parametre, SuiteParametres, Parametres, Classe, HeritageClasse, ImplantationInterface, ElementsClasse, Classes, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, Constructeur, Principale, MethodePrincipale, Instruction, Instructions, SuiteConditionnelle , Bloc, Genericite, ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ArgumentGenericite; -- Methodes statiques
 
 
 
@@ -26,7 +30,7 @@ inh tdsAttributs	: SymbolTable for Interfaces, Interface, HeritageInterface, Sui
 
 
 
-inh tds		: SymbolTable for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Type, TypeAtomique , SuiteTypeAtomique , Affectation, SuiteAffectation, Expression, Expressions, SuiteExpressions, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Arguments, Acces, Appel, AppelOuAcces, Parametre, SuiteParametres, Parametres, Classe, HeritageClasse, ImplantationInterface, ElementsClasse, Classes, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, Constructeur, Principale, MethodePrincipale, Instruction, Instructions, SuiteConditionnelle , Bloc; -- table des symboles 
+inh tds		: SymbolTable for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Type, TypeAtomique , SuiteTypeAtomique , Affectation, SuiteAffectation, Expression, Expressions, SuiteExpressions, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Arguments, Acces, Appel, AppelOuAcces, Parametre, SuiteParametres, Parametres, Classe, HeritageClasse, ImplantationInterface, ElementsClasse, Classes, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, Constructeur, Principale, MethodePrincipale, Instruction, Instructions, SuiteConditionnelle , Bloc, ParametresGenericite, SuiteParametresGenericite; -- table des symboles -- table des symboles 
 
 inh tds_Params 	: SymbolTable for Parametre, Parametres, SuiteParametres;
 
@@ -34,14 +38,15 @@ inh tdsMeth     : SymbolTableMethodes for Classe, ElementClasse, AttributOuMetho
 
 inh tdsAtt      : SymbolTable for Classe, ElementClasse, ElementsClasse, Bloc, Facteur, SuiteAttributOuMethode, AttributOuMethode, Constructeur, Instruction, Instructions, SuiteConditionnelle, SuiteFacteur, Expression, Affectation, SuiteAffectation,Expressions, SuiteExpressions, SuiteNouveau, AppelOuAcces, Appel, Acces, Arguments, Terme, SuiteTerme, Condition, SuiteCondition;
 
-inh factory	: BlockFactory for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Type, TypeAtomique , SuiteTypeAtomique , Affectation, SuiteAffectation, Expression, Expressions, SuiteExpressions, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Arguments,Appel, Acces, AppelOuAcces, Parametre, SuiteParametres, Parametres, Classe, HeritageClasse, ImplantationInterface, ElementsClasse, Classes, DroitAcces, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, Constructeur, Principale, MethodePrincipale, Instruction, Instructions, SuiteConditionnelle, Bloc;
+inh factory	: BlockFactory for Interfaces, Interface, HeritageInterface, SuiteHeritageInterface, ElementsInterface, ElementInterface, Signature, Type, TypeAtomique , SuiteTypeAtomique , Affectation, SuiteAffectation, Expression, Expressions, SuiteExpressions, Condition, SuiteCondition, Terme, SuiteTerme, Facteur, SuiteFacteur, Valeur, SuiteNouveau, Arguments,Appel, Acces, AppelOuAcces, Parametre, SuiteParametres, Parametres, Classe, HeritageClasse, ImplantationInterface, ElementsClasse, Classes, DroitAcces, AttributOuMethode, SuiteAttributOuMethode, ElementClasse, Constructeur, Principale, MethodePrincipale, Instruction, Instructions, SuiteConditionnelle, Bloc, Genericite, ParametresGenericite, SuiteParametresGenericite, ParametreGenericite, HeritageGenericite, SuiteHeritageGenericite, InstanceGenericite, ArgumentsGenericite, SuiteArgumentsGenericite, ArgumentGenericite;
 
 inh listHeritage: List<String> for SuiteHeritageInterface;
 inh type	: Type for SuiteTypeAtomique ;
 
 ---------------------------------------------------------------------------------------------------------------
 syn ast		: Programme for Programme ; 
-syn ast		: LinkedList<Interface> for Interfaces, HeritageInterface, SuiteHeritageInterface;
+syn ast		: LinkedList<Interface> for Interfaces;
+syn ast		: LinkedList<ObjetUse> for HeritageInterface, SuiteHeritageInterface;
 syn ast		: Interface for Interface;
 syn ast		: LinkedList<ElementInterface> for ElementsInterface;
 syn ast 	: ElementInterface for ElementInterface;
@@ -62,8 +67,8 @@ inh gauche 	: Expression for SuiteAffectation, SuiteCondition, SuiteFacteur, Sui
 inh type 	: Type for SuiteNouveau;
 
 syn ast 	: Classe for Classe;
-syn ast 	: Classe for HeritageClasse;
-syn ast 	: LinkedList<Interface> for ImplantationInterface;
+syn ast 	: ObjetUse for HeritageClasse;
+syn ast 	: LinkedList<ObjetUse> for ImplantationInterface;
 syn ast 	: LinkedList<ElementClasse> for ElementsClasse;
 syn ast 	: LinkedList<Classe> for Classes;
 
@@ -101,6 +106,16 @@ inh support 	:Expression for Appel, Acces, AppelOuAcces;
 inh identObjetCourant 	: String for ElementsInterface, ElementInterface, Signature;
 --inh decl		:Declaration for Acces, Appel, AppelOuAcces;
 inh nomClasse		:String for Facteur, SuiteFacteur, Terme, SuiteTerme, Condition, SuiteCondition, Affectation, SuiteAffectation , Expression, SuiteNouveau, Acces, Instruction, Instructions,SuiteExpressions, Expressions, Arguments, Bloc, SuiteConditionnelle, AppelOuAcces, Appel;
+
+syn ast         : ObjetUse for ArgumentGenericite;
+
+--syn ast         : LinkedList<ArgumentGenericite> for ArgumentsGenericite, SuiteArgumentsGenericite, InstanceGenericite;
+syn ast         : LinkedList<ObjetUse> for ArgumentsGenericite, SuiteArgumentsGenericite, InstanceGenericite;
+syn ast		: LinkedList<Type> for HeritageGenericite, SuiteHeritageGenericite;
+
+syn ast         : ParametreGenericite for ParametreGenericite;
+
+syn ast         : LinkedList<ParametreGenericite> for ParametresGenericite, SuiteParametresGenericite, Genericite;
 
 
 space  separateur				is    "[\n\r\t ]+";
@@ -171,6 +186,8 @@ global
 	s_meth: SymbolTableMethodes;
     s_att : SymbolTable;
 #inter {
+local
+	c : Classe;
 do
 	s_intr := new SymbolTable();
     s_clas := new SymbolTable();
@@ -181,6 +198,9 @@ do
     Interfaces^tdsClasses := s_clas;
 	Interfaces^tdsMethodes := s_meth;
 	Interfaces^tdsAttributs := s_att;
+
+	c := new ClasseImpl("String", new LinkedList<ParametreGenericite>(), null, new LinkedList<ObjetUse>(), new 	LinkedList<ElementClasse>()  );
+	s_clas.register(c);
 
 	Interfaces^tds := new SymbolTable();
 
@@ -246,7 +266,7 @@ do
 end
 }
 
-Interface -> interface identificateur_type HeritageInterface accolade_ouvrante #tds ElementsInterface accolade_fermante #ast;
+Interface -> interface identificateur_type Genericite HeritageInterface accolade_ouvrante #tds ElementsInterface accolade_fermante #ast;
 #tds{
 do
 		ElementsInterface^tds := new SymbolTable();
@@ -256,12 +276,12 @@ end
 
 #ast{
 do
-	Interface^ast := Interface^factory.createInterface(identificateur_type^txt, HeritageInterface^ast, ElementsInterface^ast);
+	Interface^ast := Interface^factory.createInterface(identificateur_type^txt,Genericite^ast, HeritageInterface^ast, ElementsInterface^ast);
 end
 }
 
 
-HeritageInterface -> extension identificateur_type #tds SuiteHeritageInterface #ast;
+HeritageInterface -> extension identificateur_type InstanceGenericite #tds SuiteHeritageInterface #ast;
 #tds{
 local
    l : List<String>;
@@ -281,13 +301,15 @@ end
 local
    f : Optional<Declaration>;
    d : Declaration;
+   o : ObjetUse;
 do
 	f := HeritageInterface^tdsInterface.get(identificateur_type^txt);
 	d := f.get();
 	match d
-      		with Interface then SuiteHeritageInterface^ast.addFirst(d);
+      		with Interface then 
+				o := HeritageInterface^factory.createInterfaceUse(d, InstanceGenericite^ast);
+				SuiteHeritageInterface^ast.addFirst(o);
       	end
-	--SuiteHeritageInterface^ast.addFirst(d);
 	HeritageInterface^ast := SuiteHeritageInterface^ast;
 
 end
@@ -297,11 +319,11 @@ end
 HeritageInterface -> #ast;
 #ast{
 do
-	HeritageInterface^ast := new LinkedList<Interface>();
+	HeritageInterface^ast := new LinkedList<ObjetUse>();
 end
 }
 
-SuiteHeritageInterface -> virgule identificateur_type #tds SuiteHeritageInterface #ast;
+SuiteHeritageInterface -> virgule identificateur_type InstanceGenericite #tds SuiteHeritageInterface #ast;
 #tds{
 do
 	if (SuiteHeritageInterface^tdsInterface.contains(identificateur_type^txt)) then
@@ -318,13 +340,15 @@ end
 local
    f : Optional<Declaration>;
    d : Declaration;
+   o : ObjetUse;
 do
 	f := SuiteHeritageInterface^tdsInterface.get(identificateur_type^txt);
 	d := f.get();
 	match d
-      		with Interface then SuiteHeritageInterface1^ast.addFirst(d);
+      		with Interface then 
+				o := SuiteHeritageInterface^factory.createInterfaceUse(d, InstanceGenericite^ast);
+				SuiteHeritageInterface1^ast.addFirst(o);
       	end
-	--SuiteHeritageInterface1^ast.addFirst(d);
 	SuiteHeritageInterface^ast := SuiteHeritageInterface1^ast;
 
 end
@@ -334,7 +358,7 @@ end
 SuiteHeritageInterface -> #ast;
 #ast{
 do
-	SuiteHeritageInterface^ast := new LinkedList<Interface>();
+	SuiteHeritageInterface^ast := new LinkedList<ObjetUse>();
 end
 }
 
@@ -342,7 +366,7 @@ end
 ElementsInterface -> ElementInterface #tds ElementsInterface #ast;
 #tds{
 do
-	ElementsInterface^tds.register(ElementInterface^ast);
+	--ElementsInterface^tds.register(ElementInterface^ast);
 	ElementsInterface1^tds := ElementsInterface^tds;
 end
 }
@@ -404,11 +428,11 @@ end
 
 #ast{
 do
-	if (Signature^tds.knows(identificateur^txt)) then
-		error(Signature_ident_already_defined, identificateur^txt);
-	else
+	--if (Signature^tds.knows(identificateur^txt)) then
+	--	error(Signature_ident_already_defined, identificateur^txt);
+	--else
 		Signature^ast := Signature^factory.createSignature(identificateur^txt, Parametres^ast, Signature^identObjetCourant);
-	end
+	--end
 end
 }
 
@@ -422,11 +446,11 @@ end
 
 #ast{
 do
-	if (Signature^tds.knows(identificateur^txt)) then
-		error(Signature_ident_already_defined, identificateur^txt);
-	else
+	--if (Signature^tds.knows(identificateur^txt)) then
+	--	error(Signature_ident_already_defined, identificateur^txt);
+	--else
 		Signature^ast := Signature^factory.createSignature(Type^ast, identificateur^txt, Parametres^ast, Signature^identObjetCourant);
-	end
+	--end
 end
 }
 
@@ -463,7 +487,16 @@ end
 }
 
 
-Classe -> classe  identificateur_type HeritageClasse ImplantationInterface accolade_ouvrante #inh ElementsClasse accolade_fermante #ast;
+Classe -> classe  identificateur_type Genericite HeritageClasse ImplantationInterface accolade_ouvrante #inh ElementsClasse accolade_fermante #ast;
+--global
+--    s_clas_Gen : SymbolTable;
+
+--#clasGen{
+--do
+--	s_clas_Gen = new SymbolTable();
+--end
+--}
+
 #ast{
 do
 	if Classe^tdsClasses.contains(identificateur_type^txt) then
@@ -471,7 +504,7 @@ do
 	elseif Classe^tdsInterface.contains(identificateur_type^txt) then
 		error(Class_Interface_ident_conflict, identificateur_type^txt);
 	else
-		Classe^ast := Classe^factory.createClasse(identificateur_type^txt, HeritageClasse^ast, ImplantationInterface^ast, ElementsClasse^ast);
+		Classe^ast := Classe^factory.createClasse(identificateur_type^txt,Genericite^ast, HeritageClasse^ast, ImplantationInterface^ast, ElementsClasse^ast);
 	end
 end
 }
@@ -481,22 +514,24 @@ do
 end
 }
 
-HeritageClasse -> extension identificateur_type #ast;
+HeritageClasse -> extension identificateur_type InstanceGenericite #ast;
 #ast{
 local
     f : Optional<Declaration>;
     d : Declaration;
 	h : Classe;
+	o : ObjetUse;
 do
 	h := nil;
+	o := nil;
 	if HeritageClasse^tdsClasses.contains(identificateur_type^txt) then
         f := HeritageClasse^tdsClasses.get(identificateur_type^txt);
         d := f.get();
 		match d
 		with Classe then
-            h := d;
+			o := HeritageClasse^factory.createClasseUse(d, InstanceGenericite^ast);
 		end
-		HeritageClasse^ast := h;
+		HeritageClasse^ast := o;
 	else
 		error(CLASS_undefined_ident, identificateur_type^txt);
 	end
@@ -510,7 +545,7 @@ do
 end
 }
 
-ImplantationInterface -> implantation identificateur_type #tds SuiteHeritageInterface #ast;
+ImplantationInterface -> implantation identificateur_type InstanceGenericite #tds SuiteHeritageInterface #ast;
 #tds{
 local
    l : List<String>;
@@ -530,11 +565,14 @@ end
 local
    f : Optional<Declaration>;
    d : Declaration;
+   o : ObjetUse;
 do
 	f := ImplantationInterface^tdsInterface.get(identificateur_type^txt);
 	d := f.get();
 	match d
-      		with Interface then SuiteHeritageInterface^ast.addFirst(d);
+      		with Interface then 
+				o := ImplantationInterface^factory.createInterfaceUse(d, InstanceGenericite^ast);
+				SuiteHeritageInterface^ast.addFirst(o);
       	end
 	ImplantationInterface^ast := SuiteHeritageInterface^ast;
 
@@ -546,7 +584,7 @@ end
 ImplantationInterface -> #ast;
 #ast{
 do
-	ImplantationInterface^ast := new LinkedList<Interface>();
+	ImplantationInterface^ast := new LinkedList<ObjetUse>();
 end
 }
 
@@ -901,7 +939,7 @@ end
 }
 
 
-TypeAtomique -> identificateur_type #ast;
+TypeAtomique -> identificateur_type InstanceGenericite #ast;
 #ast{
 local
 	f : Optional<Declaration>;
@@ -912,20 +950,21 @@ do
 		d:= f.get();
 		match d 
 			with Interface then
-				TypeAtomique^ast:=TypeAtomique^factory.createInterfaceType(d);
+				TypeAtomique^ast:=TypeAtomique^factory.createInterfaceType(d, InstanceGenericite^ast);
 			end
 	elseif TypeAtomique^tdsClasses.contains(identificateur_type^txt) then
 		f:= TypeAtomique^tdsClasses.get(identificateur_type^txt);
 		d:= f.get();
 		match d 
 			with Classe then
-				TypeAtomique^ast:=TypeAtomique^factory.createClassType(d);
+				TypeAtomique^ast:=TypeAtomique^factory.createClassType(d, InstanceGenericite^ast);
 			end
 	else
 		error(Identificateur_Type_undefined,identificateur_type^txt);
 	end
 end
 }
+
 
 
 SuiteTypeAtomique -> crochet_ouvrant crochet_fermant #inh SuiteTypeAtomique #ast;
@@ -1753,4 +1792,255 @@ end
 }
 
  
+
+---------------------------------------------------------------------------------
+
+Genericite -> inferieur #inh ParametresGenericite superieur  #ast ;
+#inh{
+do
+	ParametresGenericite^tds := new SymbolTable();
+end
+}
+#ast {
+do
+    Genericite^ast := ParametresGenericite^ast;
+end
+}
+
+Genericite -> #ast;
+#ast {
+do
+    Genericite^ast := nil;
+end
+}
+
+
+ParametresGenericite -> ParametreGenericite SuiteParametresGenericite #ast;
+#ast {
+do
+	if ParametresGenericite^tds.contains(ParametreGenericite^ast.getName()) then
+    	error(ParametreGenericite_aready_declared,ParametreGenericite^ast.getName());
+	else
+    	SuiteParametresGenericite^ast.addFirst(ParametreGenericite^ast);
+    	ParametresGenericite^ast := SuiteParametresGenericite^ast;
+    	ParametresGenericite^tds.register(ParametreGenericite^ast);
+	end
+end
+}
+
+SuiteParametresGenericite -> virgule ParametreGenericite SuiteParametresGenericite #ast;
+#ast {
+do
+	if SuiteParametresGenericite^tds.contains(ParametreGenericite^ast.getName()) then
+    	error(ParametreGenericite_aready_declared,ParametreGenericite^ast.getName());
+	else
+		SuiteParametresGenericite1^ast.addFirst(ParametreGenericite^ast);
+    	SuiteParametresGenericite^ast := SuiteParametresGenericite1^ast;
+    	SuiteParametresGenericite^tds.register(ParametreGenericite^ast);
+	end
+end
+}
+
+
+SuiteParametresGenericite -> #ast;
+#ast {
+do
+    SuiteParametresGenericite^ast := new LinkedList<ParametreGenericite>();
+end
+}
+
+
+ParametreGenericite -> identificateur_type HeritageGenericite #ast;
+#ast{
+do
+	ParametreGenericite^ast := ParametreGenericite^factory.createParametreGenericite(identificateur_type^txt, HeritageGenericite^ast);
+end
+}
+
+ 
+ParametreGenericite -> choix HeritageGenericite #ast;
+#ast{
+do
+	ParametreGenericite^ast := ParametreGenericite^factory.createParametreGenericite(HeritageGenericite^ast);
+end
+}
+
+
+HeritageGenericite -> extension identificateur_type InstanceGenericite SuiteHeritageGenericite #ast;
+#ast{
+local
+    f : Optional<Declaration>;
+    d : Declaration;
+do
+	if HeritageGenericite^tdsClasses.contains(identificateur_type^txt) then
+		f := HeritageGenericite^tdsClasses.get(identificateur_type^txt);
+        d := f.get();
+		match d
+            with Classe then
+                SuiteHeritageGenericite^ast.addFirst(d.getType());
+                HeritageGenericite^ast := SuiteHeritageGenericite^ast;
+            else
+                error(BLOC_not_an_object, identificateur_type^txt);
+            end
+	elseif HeritageGenericite^tdsInterface.contains(identificateur_type^txt) then
+		f := HeritageGenericite^tdsInterface.get(identificateur_type^txt);
+        d := f.get();
+		match d
+            with Interface then
+                SuiteHeritageGenericite^ast.addFirst(d.getType());
+                HeritageGenericite^ast := SuiteHeritageGenericite^ast;
+            else
+                error(BLOC_not_an_object, identificateur_type^txt);
+            end
+	else
+		error(CLASS_undefined_ident, identificateur_type^txt);
+	end
+end
+}
+
+HeritageGenericite ->  #ast;
+#ast {
+do
+    HeritageGenericite^ast := nil;
+end
+}
+
+SuiteHeritageGenericite -> adresse identificateur_type SuiteHeritageGenericite #ast;
+#ast{
+local
+	f : Optional<Declaration>;
+	d : Declaration;
+do
+	if SuiteHeritageGenericite^tdsClasses.contains(identificateur_type^txt) then
+		f := SuiteHeritageGenericite^tdsClasses.get(identificateur_type^txt);
+        d := f.get();
+		match d
+            with Classe then
+                SuiteHeritageGenericite1^ast.addFirst(d.getType());
+                SuiteHeritageGenericite^ast := SuiteHeritageGenericite1^ast;
+            else
+                error(BLOC_not_an_object, identificateur_type^txt);
+            end
+	elseif SuiteHeritageGenericite^tdsInterface.contains(identificateur_type^txt) then
+		f := SuiteHeritageGenericite^tdsInterface.get(identificateur_type^txt);
+        d := f.get();
+		match d
+            with Interface then
+                SuiteHeritageGenericite1^ast.addFirst(d.getType());
+                SuiteHeritageGenericite^ast := SuiteHeritageGenericite1^ast;
+            else
+                error(BLOC_not_an_object, identificateur_type^txt);
+            end
+	else
+		error(CLASS_undefined_ident, identificateur_type^txt);
+	end
+end
+}
+
+SuiteHeritageGenericite -> #ast;
+#ast {
+do
+    SuiteHeritageGenericite^ast := new LinkedList<Type>();
+end
+}
+
+InstanceGenericite -> #ast;
+#ast {
+do
+    InstanceGenericite^ast := nil;
+end
+}
+
+InstanceGenericite -> inferieur ArgumentsGenericite superieur #ast;
+#ast {
+do
+    InstanceGenericite^ast := ArgumentsGenericite^ast;
+end
+}
+
+
+ArgumentsGenericite -> ArgumentGenericite SuiteArgumentsGenericite #ast;
+#ast {
+do
+    SuiteArgumentsGenericite^ast.addFirst(ArgumentGenericite^ast);
+    ArgumentsGenericite^ast := SuiteArgumentsGenericite^ast;
+end
+}
+
+
+SuiteArgumentsGenericite -> virgule ArgumentGenericite SuiteArgumentsGenericite #ast;
+#ast {
+do
+    SuiteArgumentsGenericite1^ast.addFirst(ArgumentGenericite^ast);
+    SuiteArgumentsGenericite^ast := SuiteArgumentsGenericite1^ast;
+end
+}
+
+SuiteArgumentsGenericite -> #ast;
+#ast {
+do
+    SuiteArgumentsGenericite^ast := new LinkedList<ObjetUse>();
+end
+}
+
+
+ArgumentGenericite -> identificateur_type InstanceGenericite #ast;
+#ast{
+local
+	f : Optional<Declaration>;
+	d : Declaration;
+do
+	if ArgumentGenericite^tdsClasses.contains(identificateur_type^txt) then
+		f := ArgumentGenericite^tdsClasses.get(identificateur_type^txt);
+        d := f.get();
+		match d
+            with Classe then
+				if InstanceGenericite^ast = nil then
+                	ArgumentGenericite^ast := ArgumentGenericite^factory.createClasseUse(d);
+            	else
+                	ArgumentGenericite^ast := ArgumentGenericite^factory.createClasseUse(d, InstanceGenericite^ast);
+				end
+            else
+                error(BLOC_not_an_object, identificateur_type^txt);
+            end
+	elseif ArgumentGenericite^tdsInterface.contains(identificateur_type^txt) then
+		f := ArgumentGenericite^tdsInterface.get(identificateur_type^txt);
+        d := f.get();
+		match d
+            with Interface then
+                if InstanceGenericite^ast = nil then
+                	ArgumentGenericite^ast := ArgumentGenericite^factory.createInterfaceUse(d);
+            	else
+                	ArgumentGenericite^ast := ArgumentGenericite^factory.createInterfaceUse(d, InstanceGenericite^ast);
+				end
+            else
+                error(BLOC_not_an_object, identificateur_type^txt);
+            end
+	else
+		error(CLASS_undefined_ident, identificateur_type^txt);
+	end
+end
+}
+
+ArgumentGenericite -> type_String #ast;
+#ast{
+local
+	f : Optional<Declaration>;
+	d : Declaration;
+do
+	if ArgumentGenericite^tdsClasses.contains("String") then
+		f := ArgumentGenericite^tdsClasses.get("String");
+        d := f.get();
+		match d
+            with Classe then
+                ArgumentGenericite^ast := ArgumentGenericite^factory.createClasseUse(d);
+            else
+                error(CLASS_not_an_object, " String");
+            end
+	else
+		error(CLASS_undefined_ident, " String");
+	end
+end
+}
+
 end

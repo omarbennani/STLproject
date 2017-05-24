@@ -5,7 +5,7 @@ interface Voiture
     //void laver(int i);
 }
 
-interface Camion
+interface Camion <T extends Voiture, D>
 {
 	void laver(int val, int par);
 }
@@ -17,8 +17,10 @@ class Test
 	public int t;
 }
 
-class Hyundai implements Voiture
+class Hyundai<T extends Voiture, D> implements Voiture
 {
+	//private T exempleVoiture;
+	private int matricule;
 	public Test serie;
 }
 
@@ -60,8 +62,12 @@ public class Main {
 		String az = v.toString();
 		v.toString();
 
+
+
 		int var2 = v.getVi().serie.t;
 		v.vi = new Honda();
+
+		Camion<Hyundai, Honda> c = new Camion <Hyundai, Honda>();
 
 	
 	}

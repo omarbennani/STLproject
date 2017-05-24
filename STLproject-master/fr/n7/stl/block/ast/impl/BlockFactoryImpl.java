@@ -6,6 +6,9 @@ import java.net.InterfaceAddress;
 import java.util.List;
 import java.util.LinkedList;
 
+import fr.n7.stl.block.ast.ObjetUse;
+import fr.n7.stl.block.ast.ParametreGenericite;
+import fr.n7.stl.block.ast.ArgumentGenericite;
 import fr.n7.stl.block.ast.Declaration;
 import fr.n7.stl.block.ast.AppelOuAcces;
 import fr.n7.stl.block.ast.DroitAcces;
@@ -466,9 +469,9 @@ public class BlockFactoryImpl implements BlockFactory {
 
 
 	//ObjetFactory
-	public Interface createInterface(String _identificateurType, LinkedList<Interface> _heritageInterface, LinkedList<ElementInterface> _elements)
+	public Interface createInterface(String _identificateurType,LinkedList<ParametreGenericite> _genericite, LinkedList<ObjetUse> _heritageInterface, LinkedList<ElementInterface> _elements)
 	{
-		return new InterfaceImpl(_identificateurType, _heritageInterface, _elements);
+		return new InterfaceImpl(_identificateurType,_genericite, _heritageInterface, _elements);
 	}
 
 	public Signature createSignature(String _identificateur,LinkedList<Parametre> _param, String _interfaceName)	
@@ -520,8 +523,8 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 
 	@Override
-	public Classe createClasse(String _name, Classe _heritageClasse, LinkedList<Interface> _implantationInterface, LinkedList<ElementClasse> _elementsClasse){
-		return new ClasseImpl(_name, _heritageClasse, _implantationInterface, _elementsClasse);
+	public Classe createClasse(String _name, LinkedList<ParametreGenericite> _genericite, ObjetUse _heritageClasse, LinkedList<ObjetUse> _implantationInterface, LinkedList<ElementClasse> _elementsClasse){
+		return new ClasseImpl(_name,_genericite, _heritageClasse, _implantationInterface, _elementsClasse);
 	}
 
 	@Override
@@ -563,9 +566,20 @@ public class BlockFactoryImpl implements BlockFactory {
 	{
 		return new ClassTypeImpl(_class);
 	}
+
+	public Type createClassType(Classe _class, LinkedList<ObjetUse> _instanceGenericite)
+	{
+		return new ClassTypeImpl(_class, _instanceGenericite);
+	}
+
 	public Type createInterfaceType(Interface _interface)
 	{
 		return new InterfaceTypeImpl(_interface);
+	}
+
+	public Type createInterfaceType(Interface _interface, LinkedList<ObjetUse> _instanceGenericite)
+	{
+		return new InterfaceTypeImpl(_interface, _instanceGenericite);
 	}
 
 	public AppelOuAcces createAppel(Expression _exp, Declaration _meth, Arguments _args)
@@ -598,13 +612,24 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new StaticFieldUseImpl(_declaration, _exp);
 	}
 
-	public Expression createClasseUse(Classe _classe)
+	public ObjetUse createClasseUse(Classe _classe)
 	{
 		return new ClasseUseImpl(_classe);
 	}
-	public Expression createInterfaceUse(Interface _interface)
+
+	public ObjetUse createClasseUse(Classe _classe, LinkedList<ObjetUse> _instanceGenericite)
+	{
+		return new ClasseUseImpl(_classe, _instanceGenericite);
+	}
+
+	public ObjetUse createInterfaceUse(Interface _interface)
 	{
 		return new InterfaceUseImpl(_interface);
+	}
+
+	public ObjetUse createInterfaceUse(Interface _interface, LinkedList<ObjetUse> _instanceGenericite)
+	{
+		return new InterfaceUseImpl(_interface, _instanceGenericite);
 	}
 	
 	public Assignable createAttributAssignment(ElementClasse _attribut, Expression _expression) {
@@ -614,6 +639,24 @@ public class BlockFactoryImpl implements BlockFactory {
 	@Override
 	public Expression createParametreUse(Parametre _parametre) {
 		return new ParametreUseImpl(_parametre);
+	}
+
+	/*public ArgumentGenericite createArgumentGenericite(String _name){
+		return new ArgumentGenericiteImpl(_name);
+	}
+
+	public ArgumentGenericite createArgumentGenericite(Objet _obj, List<ArgumentGenericite> _inst){
+		return new ArgumentGenericiteImpl(_obj,_inst);
+	}*/
+
+	public ParametreGenericite createParametreGenericite(String _name, LinkedList<Type> _param )
+	{
+		return new ParametreGenericiteImpl(_name,_param);
+	}
+
+	public ParametreGenericite createParametreGenericite( LinkedList<Type> _param )
+	{
+		return new ParametreGenericiteImpl(_param);
 	}
 
 }
