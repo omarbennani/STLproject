@@ -60,7 +60,12 @@ public class ArgumentsImpl implements Arguments {
 	
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("getCode() not defined in ArgumentsImpl");
+		Fragment _code = _factory.createFragment();
+		List<Expression> expressions = this.exp.getExpressions();
+		for (Expression e : expressions) {
+			_code.append(e.getCode(_factory));
+		}
+		return _code;
 	}
 
 	public List<Type> getListType()

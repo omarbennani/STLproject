@@ -5,27 +5,32 @@ import fr.n7.stl.block.ast.Type;
 
 public class ParametreImpl implements Parametre {
 
-	protected Type _type;
-	protected String _nom;
+	protected Type type;
+	protected String nom;
+	protected Methode methode;
 	
-	public ParametreImpl(Type _type2, String _name) {
-		this._type=_type2;
-		this._nom=_name;
+	public ParametreImpl(Type _type, String _name) {
+		this.type = _type;
+		this.nom = _name;
 	}
 
 	@Override
 	public String getName() {
-		return this._nom;
+		return this.nom;
 	}
 
 	@Override
 	public Type getType() {
-		return this._type;
+		return this.type;
 	}
 
 	@Override
 	public String toString() {
-		return _type.toString() + " " + this._nom;
+		return this.type.toString() + " " + this.nom;
+	}
+	
+	public Methode getMethode() {
+		return this.methode;
 	}
 
 }

@@ -29,6 +29,7 @@ public class ProgrammeImpl implements Programme {
 			this.interfaces=_interfaces;
 			this.classes=_classes;
 			this.princ = _princ;
+			ParametreImpl p;
 	}
 	
 	public void addClasse(Classe _classe){

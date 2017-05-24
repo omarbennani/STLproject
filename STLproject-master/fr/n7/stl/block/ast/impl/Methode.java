@@ -3,6 +3,8 @@ package fr.n7.stl.block.ast.impl;
 import java.util.LinkedList;
 import java.util.List;
 
+import com.sun.xml.internal.ws.org.objectweb.asm.Label;
+
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.DroitAcces;
 import fr.n7.stl.block.ast.ElementClasse;
@@ -10,6 +12,7 @@ import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.Signature;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 public class Methode implements ElementClasse {
@@ -126,6 +129,7 @@ public class Methode implements ElementClasse {
 		}
 		return result;
 	}
+	
 	public String getEtiquette(){
 		return this.etiquette;
 	}
@@ -133,16 +137,22 @@ public class Methode implements ElementClasse {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		int _labelNumber = _factory.createLabelNumber();
+		this.etiquette = this.nom + _labelNumber;
 		Fragment _res=_factory.createFragment();
-		int tailleDesArguments=0;
-		_res.add(_factory.createLoadA(this.etiquette));
-		for (Parametre p:this.param){
-			_res.add(_factory.createLoadI(p.getType().length()));
-			tailleDesArguments+=p.getType().length();
+		int tailleDesArguments = 0;
+		_res.addPrefix(this.etiquette + ":");
+		for (Parametre p : this.param) {
+			tailleDesArguments += p.getType().length();
 		}
 		_res.append(exp.getCode(_factory));
-		_res.add(_factory.createReturn(typeRet.length(),tailleDesArguments ));
+		_res.add(_factory.createReturn(typeRet.length(), tailleDesArguments));
 		return _res;
+	}
+
+	@Override
+	public int allocateMemory(Register _register, int _offset) {
+		this.exp.allocateMemory(_register, _offset);
+        return 0;
 	}
 
 }

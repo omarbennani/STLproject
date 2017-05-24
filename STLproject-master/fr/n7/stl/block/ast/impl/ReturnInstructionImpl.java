@@ -47,7 +47,7 @@ public class ReturnInstructionImpl implements Instruction {
 	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		throw new SemanticsUndefinedException ("allocateMemory() is undefined in ReturnInstructionImpl.java");
+		return 0;
 	}
 
 	/* (non-Javadoc)
@@ -55,7 +55,7 @@ public class ReturnInstructionImpl implements Instruction {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException ("getCode() is undefined in ReturnInstructionImpl.java");
+		return _factory.createFragment();
 	}
 
 }
