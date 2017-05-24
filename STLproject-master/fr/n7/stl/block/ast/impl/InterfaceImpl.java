@@ -89,8 +89,7 @@ public class InterfaceImpl implements Interface {
 	}
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		// TODO Auto-generated method stub
-		return null;
+		return _factory.createFragment();
 	}
 	@Override
 	public boolean checkType() {
@@ -99,7 +98,6 @@ public class InterfaceImpl implements Interface {
 	}
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

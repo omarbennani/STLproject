@@ -4,8 +4,9 @@
 package fr.n7.stl.block.ast.impl;
 
 
+import java.util.List;
+
 import fr.n7.stl.block.ast.Classe;
-import fr.n7.stl.block.ast.AtomicType;
 import fr.n7.stl.block.ast.Type;
 
 /**
@@ -51,7 +52,7 @@ public class ClassTypeImpl implements Type {
 	 */
 	@Override
 	public Type merge(Type _other) {
-	               throw new SemanticsUndefinedException("equalsTo is undefined in ObjetTypeImpl.java");
+	    throw new SemanticsUndefinedException("equalsTo is undefined in ObjetTypeImpl.java");
 	}
 
 	/* (non-Javadoc)
@@ -59,7 +60,12 @@ public class ClassTypeImpl implements Type {
 	 */
 	@Override
 	public int length() {
-		           throw new SemanticsUndefinedException("equalsTo is undefined in ObjetTypeImpl.java");
+		int taille = 0;
+		List<Attribut> attributs = this.classe.getAttributs();
+		for (Attribut a : attributs) {
+			taille += a.getType().length();
+		}
+		return taille;
 	}
 
 	/* (non-Javadoc)

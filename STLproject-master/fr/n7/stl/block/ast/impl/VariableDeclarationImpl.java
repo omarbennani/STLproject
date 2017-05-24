@@ -65,7 +65,6 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 	 */
 	@Override
 	public Register getRegister() {
-		System.out.println("2. REGISTER " + this.name + " " + this.register);
 		return this.register;
 	}
 	
@@ -91,7 +90,6 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
 		this.register = _register;
-		System.out.println("1. REGISTER " + this.name + " " + this.register);
         this.offset = _offset;
         return this.type.length();
 	}

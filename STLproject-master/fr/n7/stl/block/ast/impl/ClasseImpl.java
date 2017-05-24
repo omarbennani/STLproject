@@ -8,6 +8,7 @@ import java.util.Set;
 
 import fr.n7.stl.block.ast.Classe;
 import fr.n7.stl.block.ast.ElementClasse;
+import fr.n7.stl.block.ast.Instruction;
 import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.block.ast.Signature;
 import fr.n7.stl.block.ast.Type;
@@ -21,6 +22,8 @@ public class ClasseImpl implements Classe
 	protected Classe heritageClasse;
 	protected LinkedList<Interface> implantationInterface;
 	protected LinkedList<ElementClasse> elementsClasse;
+	protected Register register;
+	protected int offset;
 
 	public ClasseImpl(String _name, Classe _heritageClasse, LinkedList<Interface> _implantationInterface, LinkedList<ElementClasse> _elementsClasse)
 	{
@@ -30,11 +33,13 @@ public class ClasseImpl implements Classe
 		this.elementsClasse = _elementsClasse;
 	}
 
+	@Override
 	public String getName()
 	{
 		return this.name;
 	}
 	
+	@Override
 	public Attribut getAttribut(String name) {
 		for (ElementClasse e : this.elementsClasse) {
 			if (e instanceof Attribut) {
@@ -45,6 +50,7 @@ public class ClasseImpl implements Classe
 		throw new AttributUndefinedException("L'attribut " + name + " n'existe pas dans la classe " + this.name);
 	}
 	
+	@Override
 	public List<Methode> getMethodes() {
 		List<Methode> methodes = new LinkedList<Methode>();
 		for (ElementClasse e : this.elementsClasse) {
@@ -55,11 +61,22 @@ public class ClasseImpl implements Classe
 	}
 	
 	@Override
+	public List<Attribut> getAttributs() {
+		List<Attribut> attributs = new LinkedList<Attribut>();
+		for (ElementClasse e : this.elementsClasse) {
+			if (e instanceof Attribut)
+				attributs.add((Attribut)e);
+		}
+		return attributs;
+	}
+	
+	@Override
 	public Type getType()
 	{
 		return new ClassTypeImpl(this);
 	}
 	
+	@Override
 	public boolean checkType() {
 		boolean result = true;
 		Set<Signature> methodesAImplementer = new HashSet<Signature>(); 
@@ -136,7 +153,13 @@ public class ClasseImpl implements Classe
 
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		return 0;
+		int _local = _offset;
+        for (ElementClasse ec : this.elementsClasse) {
+            _local += ec.allocateMemory(_register, _local);
+        }
+        this.offset = _local - _offset;
+        this.register = _register;
+		return _local;
 	}
 	
 }

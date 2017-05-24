@@ -1,6 +1,7 @@
 package fr.n7.stl.block.ast;
 
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 public interface ElementClasse extends Declaration {
@@ -14,4 +15,6 @@ public interface ElementClasse extends Declaration {
 	public String getClassName();
 	
 	public Fragment getCode(TAMFactory _factory);
+	
+	public int allocateMemory(Register _register, int _offset);
 }
