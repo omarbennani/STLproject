@@ -1,0 +1,14 @@
+//Erreur mauvais type argument Ligne 12 
+class Voiture {
+    public int serie;
+    public Voiture(int t) {
+        serie = t;
+    }
+   }
+
+public class Main {
+	public static void main( String [] args)
+	{
+	Voiture v=new Voiture(true);
+	}
+}

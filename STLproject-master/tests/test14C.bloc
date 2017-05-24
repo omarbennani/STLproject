@@ -1,0 +1,21 @@
+Interface Vehicule {
+  void laver();
+}
+
+Classe Voiture implements Vehicule{
+  int serie;
+  public Voiture(int s){
+  	serie=s;
+  }
+  public void laver(){
+  	serie=0;
+  }
+}
+
+public class Main {
+	public static void main( String [] args)
+	{
+	Vehicule v=new Voiture(2);
+	v.laver();
+	}
+}
