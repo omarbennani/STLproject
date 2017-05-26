@@ -86,5 +86,7 @@ public interface ObjetFactory {
 	public ParametreGenericite createParametreGenericite(String _name, LinkedList<Type> _param );
 
 	public ParametreGenericite createParametreGenericite(LinkedList<Type> _param );
+	
+	public VariableDeclaration createVariableDeclaration(String _name);
 
 }

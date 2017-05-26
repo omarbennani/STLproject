@@ -17,4 +17,6 @@ public interface ElementClasse extends Declaration {
 	public Fragment getCode(TAMFactory _factory);
 	
 	public int allocateMemory(Register _register, int _offset);
+	
+	public void setThis(VariableDeclaration _this);
 }

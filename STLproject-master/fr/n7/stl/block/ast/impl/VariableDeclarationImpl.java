@@ -36,6 +36,10 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 		this.type = _type;
 		this.value = _value;
 	}
+	
+	public VariableDeclarationImpl(String _name) {
+		this.name = _name;
+	}
 
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
@@ -59,6 +63,21 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 	@Override
 	public String getName() {
 		return this.name;
+	}
+	
+	@Override
+	public void setValue(Expression _value) {
+		this.value = _value;
+	}
+	
+	@Override
+	public Expression getValue() {
+		return this.value;
+	}
+	
+	@Override
+	public void setType(Type _type) {
+		this.type = _type;
 	}
 
 	/* (non-Javadoc)

@@ -741,11 +741,13 @@ end
 AttributOuMethode -> #factory vide identificateur parenthese_ouvrante Parametres parenthese_fermante #inh Bloc #ast;
 global
     t : SymbolTable;
+    this : VariableDeclaration;
 
 #factory{
 do
     t := new SymbolTable();    
 	Parametres^tds_Params := t;
+    this := AttributOuMethode^factory.createVariableDeclaration("this");    
 end
 }
 #ast {
@@ -753,6 +755,7 @@ local
     m : ElementClasse;
 do
     m := AttributOuMethode^factory.createMethode(AttributOuMethode^droit, identificateur^txt, Parametres^ast, Bloc^ast, AttributOuMethode^nomClasse);
+    m.setThis(this);
     AttributOuMethode^ast := m;
 	
 	match m with Methode then 
@@ -766,6 +769,7 @@ end
 #inh {
 do
     Bloc^tds := t;
+    Bloc^tds.register(this);
 end
 }
 
@@ -790,6 +794,7 @@ end
 SuiteAttributOuMethode -> #factory parenthese_ouvrante Parametres parenthese_fermante #inh Bloc #ast;
 global
     t : SymbolTable;
+    this : VariableDeclaration;
 
 #factory{
 do
@@ -800,6 +805,8 @@ end
 #inh {
 do
     Bloc^tds := t;
+    this := SuiteAttributOuMethode^factory.createVariableDeclaration("this");
+    Bloc^tds.register(this);
 end
 }
 #ast {
@@ -807,6 +814,7 @@ local
     m : ElementClasse;
 do
     m := SuiteAttributOuMethode^factory.createMethode(SuiteAttributOuMethode^droit, SuiteAttributOuMethode^typeAtt, SuiteAttributOuMethode^nomAtt, Parametres^ast, Bloc^ast, SuiteAttributOuMethode^nomClasse);
+    m.setThis(this);
     SuiteAttributOuMethode^ast := m;
 
 	match m with Methode then
@@ -1552,7 +1560,7 @@ local
 	o : Optional<Declaration>;
 	a : Attribut;
 	sf : StaticField;
-
+    vd : VariableDeclaration;
 do
     s := nil;
     a := nil;
@@ -1560,16 +1568,25 @@ do
     AppelOuAcces^fromAcces := true;
 	AppelOuAcces^identificateur_type := nil;
 	AppelOuAcces^identificateur := identificateur^txt;
-    t := Acces^support.getType();
-    match t
-    with ClassTypeImpl then
-        c := t.getClasse();
-        s := c.getName();
-    with InterfaceTypeImpl then
-        i := t.getInterface();
-        s := i.getName();
-    else
-        error(Acces_idend_ap0ac, "s bad initialized");
+    match Acces^support
+    with VariableUseImpl then
+        vd := Acces^support.getVariableDeclaration();
+        if vd.getName() = "this" then
+            s := Acces^nomClasse;
+        end
+    end
+    if s = nil then
+        t := Acces^support.getType();
+        match t
+        with ClassTypeImpl then
+            c := t.getClasse();
+            s := c.getName();
+        with InterfaceTypeImpl then
+            i := t.getInterface();
+            s := i.getName();
+        else
+            error(Acces_idend_ap0ac, "s bad initialized");
+        end
     end
     AppelOuAcces^support := Acces^support;
     AppelOuAcces^nomClasse := s;
@@ -1610,6 +1627,7 @@ local
 	c : Classe;
 	i : Interface;
 	s : String;
+    vd : VariableDeclaration;
 do
 	o := nil;
 	if Appel^fromFacteur then
@@ -1634,8 +1652,11 @@ do
 
 	if o.isPresent() then
 		m := o.get();
-        if !Appel^fromFacteur then 
-             Acces^support := Appel^factory.createAppel(Appel^support, m, Arguments^ast);
+        if !Appel^fromFacteur then
+            vd := m.getThis();
+            vd.setType(Appel^support.getType());
+            vd.setValue(Appel^support);    
+            Acces^support := Appel^factory.createAppel(Appel^support, m, Arguments^ast);
         else
             Acces^support := Appel^factory.createAppel(nil, m, Arguments^ast);
         end

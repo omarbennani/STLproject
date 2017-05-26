@@ -60,15 +60,19 @@ public class VariableUseImpl implements Expression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
-		
-		if (this.declaration.getType() instanceof ClassTypeImpl)
-			_code.add(_factory.createLoad(this.declaration.getRegister(),
-					this.declaration.getOffset(),
-					1));
-		else
-			_code.add(_factory.createLoad(this.declaration.getRegister(),
-					this.declaration.getOffset(),
-					this.declaration.getType().length()));
+		if (this.declaration.getName().equals("this")) {
+			Expression _value = this.declaration.getValue();
+			_code.append(_value.getCode(_factory));
+		} else {
+			if (this.declaration.getType() instanceof ClassTypeImpl)
+				_code.add(_factory.createLoad(this.declaration.getRegister(),
+						this.declaration.getOffset(),
+						1));
+			else
+				_code.add(_factory.createLoad(this.declaration.getRegister(),
+						this.declaration.getOffset(),
+						this.declaration.getType().length()));
+		}
 		return _code;
 	}
 

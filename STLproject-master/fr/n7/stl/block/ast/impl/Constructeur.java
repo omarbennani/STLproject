@@ -7,8 +7,10 @@ import java.util.List;
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.Classe;
 import fr.n7.stl.block.ast.ElementClasse;
+import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.block.ast.VariableDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -22,6 +24,7 @@ public class Constructeur implements ElementClasse {
 	protected boolean finaL, statiC;
 	protected Classe classe;
 	private String etiquette;
+	private VariableDeclaration thiS;
 
 	public Constructeur(String _name, List<Parametre> _param2, Block _exp2) 
 	{
@@ -114,5 +117,10 @@ public class Constructeur implements ElementClasse {
 		}
 		this.exp.allocateMemory(_register, _offset);
 		return 0;
+	}
+
+	@Override
+	public void setThis(VariableDeclaration _this) {
+		this.thiS = _this;
 	}
 }

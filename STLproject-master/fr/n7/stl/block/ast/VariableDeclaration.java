@@ -19,6 +19,13 @@ public interface VariableDeclaration extends Declaration, Instruction {
 
 	public Type getTypeReel();
 	
+	public void setValue(Expression _value);
+	
+	public Expression getValue();
+
+	public void setType(Type _type);
+
+	
 	/**
 	 * Synthesized semantics attribute for the register used to compute the address of the variable.
 	 * @return Register used to compute the address where the declared variable will be stored.

@@ -4,13 +4,14 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-
+import fr.n7.stl.block.ast.AtomicType;
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.DroitAcces;
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.Signature;
 import fr.n7.stl.block.ast.Type;
+import fr.n7.stl.block.ast.VariableDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -26,12 +27,14 @@ public class Methode implements ElementClasse {
 	protected Type typeRet;
 	protected boolean finaL, statiC;
 	protected String etiquette;
+	private VariableDeclaration thiS;
 	
 	public Methode(DroitAcces _droit, String _name, LinkedList<Parametre> _param2, Block _exp2, String _nomClasse) {
 		this.droitAcces=_droit;
 		this.nom=_name;
 		this.param=_param2;
 		this.exp=_exp2;		
+		this.typeRet = AtomicType.VoidType;
 		this.finaL = false;
 		this.statiC = false;
 		this.nomClasse = _nomClasse;
@@ -76,6 +79,15 @@ public class Methode implements ElementClasse {
 		_local+= this.exp.toString();
 		_local+="}";
 		return _local;
+	}
+	
+	@Override
+	public void setThis(VariableDeclaration _this) {
+		this.thiS = _this;
+	}
+	
+	public VariableDeclaration getThis() {
+		return this.thiS;
 	}
 
 	@Override

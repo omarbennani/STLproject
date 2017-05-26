@@ -659,4 +659,9 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new ParametreGenericiteImpl(_param);
 	}
 
+	@Override
+	public VariableDeclaration createVariableDeclaration(String _name) {
+		return new VariableDeclarationImpl(_name);
+	}
+
 }
