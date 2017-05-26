@@ -11,6 +11,7 @@ import fr.n7.stl.block.ast.Instruction;
 import fr.n7.stl.block.ast.VariableDeclaration;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -81,9 +82,18 @@ public class AssignmentImpl implements Instruction , Assignable{
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		Fragment _code = this.value.getCode(_factory);
-		_code.append(this.assignable.getCode(_factory));
-		_code.add(_factory.createStoreI(this.value.getType().length()));
+		Fragment _code = _factory.createFragment();
+		if (this.value instanceof ObjetAllocationImpl) {
+			_code.append(this.assignable.getCode(_factory));
+			_code.add(_factory.createLoadL(this.assignable.getType().length()));
+			_code.add(Library.MAlloc);
+			_code.add(_factory.createStoreI(1));
+			_code.append(this.value.getCode(_factory));
+		} else {
+			_code = this.value.getCode(_factory);
+			_code.append(this.assignable.getCode(_factory));
+			_code.add(_factory.createStoreI(this.value.getType().length()));
+		}
 		return _code;
 	}
 

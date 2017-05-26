@@ -8,6 +8,7 @@ import fr.n7.stl.block.ast.Instruction;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.block.ast.VariableDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
+import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -91,7 +92,10 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 	public int allocateMemory(Register _register, int _offset) {
 		this.register = _register;
         this.offset = _offset;
-        return this.type.length();
+        if (this.getType() instanceof ClassTypeImpl)
+        	return 1;
+        else
+        	return this.type.length();
 	}
 
 	/* (non-Javadoc)
@@ -100,9 +104,17 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
-		_code.add(_factory.createPush(type.length()));
-		_code.append(this.value.getCode(_factory));
-		_code.add(_factory.createStore(this.register, this.offset, this.type.length()));
+		if (this.value instanceof ObjetAllocationImpl) {
+			_code.add(_factory.createPush(1));
+			_code.add(_factory.createLoadL(this.type.length()));
+			_code.add(Library.MAlloc);
+			_code.add(_factory.createStore(this.register, this.offset, 1));
+			_code.append(this.value.getCode(_factory));
+		} else {
+			_code.add(_factory.createPush(type.length()));
+			_code.append(this.value.getCode(_factory));
+			_code.add(_factory.createStore(this.register, this.offset, this.type.length()));
+		}
         return _code;
 	}
 

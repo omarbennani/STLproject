@@ -3,11 +3,14 @@
  */
 package fr.n7.stl.block.ast.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.FieldDeclaration;
 import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.block.ast.VariableDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -75,22 +78,39 @@ public class AttributUseImpl implements Expression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
-		int position = 0;
-		Expression e = this;
-		while (e instanceof AttributUseImpl) {
-			for (Attribut a : ((ClassTypeImpl)((AttributUseImpl)e).exp.getType()).getClasse().getAttributs()) {
-				if (a.getName().equals(((AttributUseImpl)e).declaration.getName())) {
-					break;
-				} else {
-					position += a.getType().length();
-				}
+		int taille = this.declaration.getType().length();
+		int aPop = 0;
+		boolean attributVu = false;
+		List<Attribut> attributs = new ArrayList<Attribut>(((ClassTypeImpl)this.exp.getType()).getClasse().getAttributs());
+		Collections.reverse(attributs);
+		for (Attribut a : attributs) {
+			attributVu = attributVu | this.declaration.getName().equals(a.getName());
+			if (!attributVu) {
+				aPop += a.getType().length();
 			}
-			e = ((AttributUseImpl)e).exp;
 		}
-		_code.add(_factory.createLoad(((VariableUseImpl)e).declaration.getRegister(),
-									  ((VariableUseImpl)e).declaration.getOffset() + position,
-									   this.declaration.getType().length()));
+		_code.append(this.exp.getCode(_factory));
+		_code.add(_factory.createLoadI(this.exp.getType().length()));
+		_code.add(_factory.createPop(0, aPop));
+		_code.add(_factory.createPop(taille, this.exp.getType().length() - taille - aPop));
+		
 		return _code;
+//		int position = 0;
+//		Expression e = this;
+//		while (e instanceof AttributUseImpl) {
+//			for (Attribut a : ((ClassTypeImpl)((AttributUseImpl)e).exp.getType()).getClasse().getAttributs()) {
+//				if (a.getName().equals(((AttributUseImpl)e).declaration.getName())) {
+//					break;
+//				} else {
+//					position += a.getType().length();
+//				}
+//			}
+//			e = ((AttributUseImpl)e).exp;
+//		}
+//		_code.add(_factory.createLoad(((VariableUseImpl)e).declaration.getRegister(),
+//									  ((VariableUseImpl)e).declaration.getOffset() + position,
+//									   this.declaration.getType().length()));
+//		return _code;
 	}
 
 }

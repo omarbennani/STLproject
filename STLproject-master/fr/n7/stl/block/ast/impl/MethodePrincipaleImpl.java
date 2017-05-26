@@ -131,6 +131,7 @@ public class MethodePrincipaleImpl implements MethodePrincipale {
             _code.append(i.getCode(_factory));
         }
         _code.add(_factory.createPop(0, this.offset));
+        _code.add(_factory.createHalt());
         return _code;
 	}
 

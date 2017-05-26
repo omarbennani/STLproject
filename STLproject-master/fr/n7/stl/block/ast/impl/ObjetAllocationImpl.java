@@ -73,9 +73,8 @@ public class ObjetAllocationImpl implements Expression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
-		_code.add(_factory.createLoadL(this.type.length()));
-		_code.add(Library.MAlloc);
-		_code.append(this.arguments.getCode(_factory));
+		if (this.arguments != null)
+			_code.append(this.arguments.getCode(_factory));
 		_code.add(_factory.createCall(this.findEtiquette(), Register.LB));
 		return _code;
 	}
