@@ -1,4 +1,5 @@
 class Pneu {
+    public int ll;
     public int nb;
 
     public Pneu() {
@@ -12,35 +13,29 @@ class Pneu {
 class Voiture {
     public int serie;
     public int titi;
-    public Pneu toto;
+    public Pneu pneu;
     public Voiture() {
-        //print(t);
     }
-    //public int calcul(int x, int y) {
-    //    return x + y;
-    //}
+    public Pneu getPneu() {
+        return this.pneu;
+    }
 }
 
 public class Main {
 	public static void main( String [] args)
 	{
-        //int n = 3;
-        //int m = n;
-        //int j = 5;
-        //print(n);
-        //print(m);
-        //m = 4;
-        //print(m);
-        Voiture v = new Voiture();
-        Pneu p = new Pneu();
-        v.toto = p;
-        v.toto.setNb(6);
-        //p.setNb(6);
-        //int c = v.calcul(1, 2);
-        //print(c);
-        print(v.toto.nb);
-        //Pneu p = v.toto;
-        print(p.nb);
-       //print(p.nb);
+        Voiture v1 = new Voiture();
+        Voiture v2 = new Voiture();
+        Pneu p1 = new Pneu();
+        Pneu p2 = new Pneu();
+        v1.pneu = p1;
+        v2.pneu = p2;
+        p1.nb = 1;
+        p2.nb = 2;
+        v1.getPneu().setNb(10);
+        print(v1.getPneu().nb);
+        print(v2.getPneu().nb);
+        p1 = v1.getPneu();
+        print(p1.nb);
 	}
 }

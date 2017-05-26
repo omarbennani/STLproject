@@ -90,9 +90,9 @@ public class AttributUseImpl implements Expression {
 			}
 		}
 		_code.append(this.exp.getCode(_factory));
-		_code.add(_factory.createLoadI(this.exp.getType().length()));
+		_code.add(_factory.createLoadI(((ClassTypeImpl)this.exp.getType()).getTaillePointee()));
 		_code.add(_factory.createPop(0, aPop));
-		_code.add(_factory.createPop(taille, this.exp.getType().length() - taille - aPop));
+		_code.add(_factory.createPop(taille, ((ClassTypeImpl)this.exp.getType()).getTaillePointee() - taille - aPop));
 		
 		return _code;
 //		int position = 0;

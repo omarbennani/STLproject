@@ -85,7 +85,10 @@ public class AssignmentImpl implements Instruction , Assignable{
 		Fragment _code = _factory.createFragment();
 		if (this.value instanceof ObjetAllocationImpl) {
 			_code.append(this.assignable.getCode(_factory));
-			_code.add(_factory.createLoadL(this.assignable.getType().length()));
+			if (this.assignable.getType() instanceof ClassTypeImpl)
+				_code.add(_factory.createLoadL(((ClassTypeImpl)this.assignable.getType()).getTaillePointee()));
+			else
+				_code.add(_factory.createLoadL(this.assignable.getType().length()));
 			_code.add(Library.MAlloc);
 			_code.add(_factory.createStoreI(1));
 			_code.append(this.value.getCode(_factory));

@@ -2,8 +2,8 @@ package fr.n7.stl.block.ast.impl;
 
 import fr.n7.stl.block.ast.DroitAcces;
 import fr.n7.stl.block.ast.ElementClasse;
+import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.block.ast.VariableDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -81,7 +81,7 @@ public class Attribut implements ElementClasse {
 	}
 
 	@Override
-	public void setThis(VariableDeclaration _this) {
+	public void setThis(Parametre _this) {
 	}
 
 }

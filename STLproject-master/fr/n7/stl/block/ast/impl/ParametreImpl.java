@@ -16,6 +16,10 @@ public class ParametreImpl implements Parametre {
 		this.type = _type;
 		this.nom = _name;
 	}
+	
+	public ParametreImpl(String _name) {
+		this.nom = _name;
+	}
 
 	@Override
 	public String getName() {
@@ -36,7 +40,7 @@ public class ParametreImpl implements Parametre {
 	public int allocateMemory(Register _register, int _offset) {
 		this.offset = _offset;
 		this.register = _register;
-		return this.type.length();
+		return 1;
 	}
 
 	@Override
@@ -47,6 +51,11 @@ public class ParametreImpl implements Parametre {
 	@Override
 	public int getOffset() {
 		return this.offset;
+	}
+
+	@Override
+	public void setType(Type _type) {
+		this.type = _type;
 	}
 
 }

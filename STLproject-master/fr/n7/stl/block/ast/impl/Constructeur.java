@@ -24,7 +24,7 @@ public class Constructeur implements ElementClasse {
 	protected boolean finaL, statiC;
 	protected Classe classe;
 	private String etiquette;
-	private VariableDeclaration thiS;
+	private Parametre thiS;
 
 	public Constructeur(String _name, List<Parametre> _param2, Block _exp2) 
 	{
@@ -120,7 +120,7 @@ public class Constructeur implements ElementClasse {
 	}
 
 	@Override
-	public void setThis(VariableDeclaration _this) {
+	public void setThis(Parametre _this) {
 		this.thiS = _this;
 	}
 }

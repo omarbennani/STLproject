@@ -32,6 +32,8 @@ public interface ObjetFactory {
 	
 	public Parametre createParametre(Type _type, String _name);
 	
+	public Parametre createParametre(String _name);
+	
 	public Classe createClasse(String _name, LinkedList<ParametreGenericite> _genericite, ObjetUse _heritageClasse, LinkedList<ObjetUse> _implantationInterface, LinkedList<ElementClasse> _elementsClasse);
 
 	public DroitAcces createDroitAcces(int i );

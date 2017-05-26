@@ -73,6 +73,10 @@ public class ClassTypeImpl implements Type {
 	 */
 	@Override
 	public int length() {
+		return 1;
+	}
+	
+	public int getTaillePointee() {
 		int taille = 0;
 		List<Attribut> attributs = this.classe.getAttributs();
 		for (Attribut a : attributs) {

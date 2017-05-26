@@ -11,5 +11,6 @@ public interface Parametre extends Declaration{
 	public Register getRegister();
 
 	public int getOffset();
-
+	
+	public void setType(Type _type);
 }

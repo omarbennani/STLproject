@@ -741,13 +741,13 @@ end
 AttributOuMethode -> #factory vide identificateur parenthese_ouvrante Parametres parenthese_fermante #inh Bloc #ast;
 global
     t : SymbolTable;
-    this : VariableDeclaration;
+    this : Parametre;
 
 #factory{
 do
     t := new SymbolTable();    
 	Parametres^tds_Params := t;
-    this := AttributOuMethode^factory.createVariableDeclaration("this");    
+    this := AttributOuMethode^factory.createParametre("this");    
 end
 }
 #ast {
@@ -794,7 +794,7 @@ end
 SuiteAttributOuMethode -> #factory parenthese_ouvrante Parametres parenthese_fermante #inh Bloc #ast;
 global
     t : SymbolTable;
-    this : VariableDeclaration;
+    this : Parametre;
 
 #factory{
 do
@@ -805,7 +805,7 @@ end
 #inh {
 do
     Bloc^tds := t;
-    this := SuiteAttributOuMethode^factory.createVariableDeclaration("this");
+    this := SuiteAttributOuMethode^factory.createParametre("this");
     Bloc^tds.register(this);
 end
 }
@@ -1560,7 +1560,7 @@ local
 	o : Optional<Declaration>;
 	a : Attribut;
 	sf : StaticField;
-    vd : VariableDeclaration;
+    p : Parametre;
 do
     s := nil;
     a := nil;
@@ -1569,9 +1569,9 @@ do
 	AppelOuAcces^identificateur_type := nil;
 	AppelOuAcces^identificateur := identificateur^txt;
     match Acces^support
-    with VariableUseImpl then
-        vd := Acces^support.getVariableDeclaration();
-        if vd.getName() = "this" then
+    with ParametreUseImpl then
+        p := Acces^support.getParametre();
+        if p.getName() = "this" then
             s := Acces^nomClasse;
         end
     end
@@ -1627,7 +1627,10 @@ local
 	c : Classe;
 	i : Interface;
 	s : String;
-    vd : VariableDeclaration;
+    p : Parametre;
+    d : Declaration;
+    od : Optional<Declaration>;
+    pu : Expression;
 do
 	o := nil;
 	if Appel^fromFacteur then
@@ -1653,12 +1656,19 @@ do
 	if o.isPresent() then
 		m := o.get();
         if !Appel^fromFacteur then
-            vd := m.getThis();
-            vd.setType(Appel^support.getType());
-            vd.setValue(Appel^support);    
+            p := m.getThis(); 
+            p.setType(Appel^support.getType());
             Acces^support := Appel^factory.createAppel(Appel^support, m, Arguments^ast);
         else
-            Acces^support := Appel^factory.createAppel(nil, m, Arguments^ast);
+            pu := nil;
+            od := Appel^tds.get("this");
+            d := od.get();
+            match d
+            with Parametre then
+                m.setThis(d);
+                pu := Appel^factory.createParametreUse(d);
+            end
+            Acces^support := Appel^factory.createAppel(pu, m, Arguments^ast);
         end
 	else
 		error (UNDEFINED_METHOD_OR_SIGNATURE_OR_ATTRIBUT_OR_VARIABLE, Appel^identificateur);

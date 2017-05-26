@@ -521,6 +521,11 @@ public class BlockFactoryImpl implements BlockFactory {
 	public Parametre createParametre(Type _type,String _name){
 		return new ParametreImpl(_type, _name);
 	}
+	
+	@Override
+	public Parametre createParametre(String _name){
+		return new ParametreImpl(_name);
+	}
 
 	@Override
 	public Classe createClasse(String _name, LinkedList<ParametreGenericite> _genericite, ObjetUse _heritageClasse, LinkedList<ObjetUse> _implantationInterface, LinkedList<ElementClasse> _elementsClasse){

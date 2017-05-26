@@ -11,7 +11,6 @@ import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.Signature;
 import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.block.ast.VariableDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -27,7 +26,7 @@ public class Methode implements ElementClasse {
 	protected Type typeRet;
 	protected boolean finaL, statiC;
 	protected String etiquette;
-	private VariableDeclaration thiS;
+	private Parametre thiS;
 	
 	public Methode(DroitAcces _droit, String _name, LinkedList<Parametre> _param2, Block _exp2, String _nomClasse) {
 		this.droitAcces=_droit;
@@ -82,11 +81,11 @@ public class Methode implements ElementClasse {
 	}
 	
 	@Override
-	public void setThis(VariableDeclaration _this) {
+	public void setThis(Parametre _this) {
 		this.thiS = _this;
 	}
 	
-	public VariableDeclaration getThis() {
+	public Parametre getThis() {
 		return this.thiS;
 	}
 
@@ -162,6 +161,9 @@ public class Methode implements ElementClasse {
 		for (Parametre p : this.param) {
 			tailleDesArguments += p.getType().length();
 		}
+		if (!this.statiC) {
+			tailleDesArguments += 1;
+		}
 		_res.append(exp.getCode(_factory));
 		_res.add(_factory.createReturn(typeRet.length(), tailleDesArguments));
 		_res.addPrefix(this.etiquette + ":");
@@ -176,6 +178,7 @@ public class Methode implements ElementClasse {
 		for (Parametre p : parametres) {
 			_local -= p.allocateMemory(Register.LB, _local);
 		}
+		_local -= this.thiS.allocateMemory(Register.LB, _local);
 		this.exp.allocateMemory(_register, _offset);
         return 0;
 	}

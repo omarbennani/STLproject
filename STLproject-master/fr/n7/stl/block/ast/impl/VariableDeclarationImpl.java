@@ -125,7 +125,7 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 		Fragment _code = _factory.createFragment();
 		if (this.value instanceof ObjetAllocationImpl) {
 			_code.add(_factory.createPush(1));
-			_code.add(_factory.createLoadL(this.type.length()));
+			_code.add(_factory.createLoadL(((ClassTypeImpl)this.type).getTaillePointee()));
 			_code.add(Library.MAlloc);
 			_code.add(_factory.createStore(this.register, this.offset, 1));
 			_code.append(this.value.getCode(_factory));

@@ -43,9 +43,12 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 	@Override
 	public String toString() {
 		String res = "";
-		res+= this.exp.toString();
+		if (this.exp != null)
+			res += this.exp.toString();
+		else
+			res += "this";
 		res += ".";
-		res+= this.methode.getName();
+		res += this.methode.getName();
 		if (args != null)
 			res+= this.args.toString();
 		
@@ -90,6 +93,7 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
+		_code.append(this.exp.getCode(_factory));
 		_code.append(this.args.getCode(_factory));
 		_code.add(_factory.createCall(((Methode)this.methode).getEtiquette(), Register.LB));
 		return _code;
