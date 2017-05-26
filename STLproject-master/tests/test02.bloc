@@ -1,29 +1,41 @@
-class Voiture <T, D>{
+class Pneu {
+    public int nb;
+
+    public Pneu() {
+    }
+}
+
+class Voiture {
     public int serie;
-    private int titi;
-    private int toto;
-    public Voiture(int t) {
-        print(t);
+    public int titi;
+    public Pneu toto;
+    public Voiture() {
+        //print(t);
     }
-    public int calcul(int x, int y) {
-        return x + y;
-    }
+    //public int calcul(int x, int y) {
+    //    return x + y;
+    //}
 }
 
 public class Main {
 	public static void main( String [] args)
 	{
-        int n = 3;
-        int m = n;
-        int j = 5;
-        print(n);
-        print(m);
-        m = 4;
-        print(m);
-        Voiture v = new Voiture(666);
-        v.toto = 4;
-        int c = v.calcul(1, 2);
-        print(c);
-        print(v.toto);
+        //int n = 3;
+        //int m = n;
+        //int j = 5;
+        //print(n);
+        //print(m);
+        //m = 4;
+        //print(m);
+        Voiture v = new Voiture();
+        //Pneu p = new Pneu();
+        v.toto = new Pneu();
+        v.toto.nb = 6;
+        //int c = v.calcul(1, 2);
+        //print(c);
+        print(v.toto.nb);
+        Pneu p = v.toto;
+        print(p.nb);
+       //print(p.nb);
 	}
 }
