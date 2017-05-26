@@ -829,21 +829,28 @@ end
 Constructeur -> #factory identificateur_type parenthese_ouvrante Parametres parenthese_fermante #inh Bloc #ast;
 global
     t : SymbolTable;
+    this : Parametre;
 #factory{
 do
     t := new SymbolTable();
 	Parametres^tds_Params := t;
+    this := Constructeur^factory.createParametre("this");
 end
 }
 #inh {
 do
     Bloc^tds := t;
+    Bloc^tds.register(this);
 end
 }
 #ast {
+local
+    c : ElementClasse;
 do
     if Constructeur^nomClasse.equals(identificateur_type^txt) then
-        Constructeur^ast := Constructeur^factory.createConstructeur(identificateur_type^txt, Parametres^ast, Bloc^ast);
+        c := Constructeur^factory.createConstructeur(identificateur_type^txt, Parametres^ast, Bloc^ast);
+        c.setThis(this);
+        Constructeur^ast := c;
     else
         error(CLASS_nom_constructeur_incorrect, identificateur_type^txt);
     end
