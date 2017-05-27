@@ -6,6 +6,7 @@ import java.util.List;
 
 import fr.n7.stl.block.ast.AtomicType;
 import fr.n7.stl.block.ast.Block;
+import fr.n7.stl.block.ast.Classe;
 import fr.n7.stl.block.ast.DroitAcces;
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Parametre;
@@ -27,6 +28,7 @@ public class Methode implements ElementClasse {
 	protected boolean finaL, statiC;
 	protected String etiquette;
 	private Parametre thiS;
+	private Classe classe;
 	
 	public Methode(DroitAcces _droit, String _name, LinkedList<Parametre> _param2, Block _exp2, String _nomClasse) {
 		this.droitAcces=_droit;
@@ -181,6 +183,12 @@ public class Methode implements ElementClasse {
 		_local -= this.thiS.allocateMemory(Register.LB, _local);
 		this.exp.allocateMemory(_register, _offset);
         return 0;
+	}
+
+	@Override
+	public void setClasse(Classe _classe) {
+		this.classe = _classe;
+		this.thiS.setType(this.classe.getType());
 	}
 
 }

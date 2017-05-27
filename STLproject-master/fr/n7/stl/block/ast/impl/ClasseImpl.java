@@ -42,6 +42,11 @@ public class ClasseImpl implements Classe
 		return this.name;
 	}
 	
+	@Override
+	public void setClasseElementsClasse() {
+		for (ElementClasse e : this.elementsClasse)
+			e.setClasse(this);
+	}
 	public Attribut getAttribut(String name) {
 		System.out.println("in CLASSIMPL.GETATTRIBUT  ON CHERCHE: "+this.name+"."+ name);
 		for (ElementClasse e : this.elementsClasse) {

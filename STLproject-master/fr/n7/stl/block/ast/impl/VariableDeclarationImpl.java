@@ -128,6 +128,7 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 			_code.add(_factory.createLoadL(((ClassTypeImpl)this.type).getTaillePointee()));
 			_code.add(Library.MAlloc);
 			_code.add(_factory.createStore(this.register, this.offset, 1));
+			_code.add(_factory.createLoad(this.register, this.offset, 1));
 			_code.append(this.value.getCode(_factory));
 		} else {
 			_code.add(_factory.createPush(type.length()));

@@ -19,4 +19,6 @@ public interface ElementClasse extends Declaration {
 	public int allocateMemory(Register _register, int _offset);
 	
 	public void setThis(Parametre _this);
+	
+	public void setClasse(Classe _classe);
 }

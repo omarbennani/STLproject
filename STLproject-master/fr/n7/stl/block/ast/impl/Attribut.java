@@ -1,5 +1,6 @@
 package fr.n7.stl.block.ast.impl;
 
+import fr.n7.stl.block.ast.Classe;
 import fr.n7.stl.block.ast.DroitAcces;
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Parametre;
@@ -14,6 +15,7 @@ public class Attribut implements ElementClasse {
 	protected Type typeAtt; 
 	protected String nom;
 	protected boolean finaL, statiC;
+	protected Classe classe;
 	
 	public Attribut(DroitAcces _droit, Type _type, String _name) 		{
 		this.droitAcces=_droit;
@@ -82,6 +84,11 @@ public class Attribut implements ElementClasse {
 
 	@Override
 	public void setThis(Parametre _this) {
+	}
+
+	@Override
+	public void setClasse(Classe _classe) {
+		this.classe = _classe;
 	}
 
 }

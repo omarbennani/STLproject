@@ -472,7 +472,7 @@ end
 
 #tree {
 do
-
+    Classe^ast.setClasseElementsClasse();
 	Classes^tdsClasses.register(Classe^ast);
     --Classes^tds.register(Classe^ast);
     --Classes1^tds := Classes^tds; --PASSAGE NON NECESSAIRE
@@ -1634,7 +1634,6 @@ local
 	c : Classe;
 	i : Interface;
 	s : String;
-    p : Parametre;
     d : Declaration;
     od : Optional<Declaration>;
     pu : Expression;
@@ -1663,8 +1662,6 @@ do
 	if o.isPresent() then
 		m := o.get();
         if !Appel^fromFacteur then
-            p := m.getThis(); 
-            p.setType(Appel^support.getType());
             Acces^support := Appel^factory.createAppel(Appel^support, m, Arguments^ast);
         else
             pu := nil;
@@ -1672,7 +1669,6 @@ do
             d := od.get();
             match d
             with Parametre then
-                m.setThis(d);
                 pu := Appel^factory.createParametreUse(d);
             end
             Acces^support := Appel^factory.createAppel(pu, m, Arguments^ast);

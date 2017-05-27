@@ -2,8 +2,11 @@ class Pneu {
     public int ll;
     public int nb;
 
-    public Pneu() {
+    public Pneu(int _ll) {
+        this.ll = _ll;
     }
+
+    public Pneu() {}
 
     public void setNb(int _nb) {
         this.nb = _nb;
@@ -26,8 +29,9 @@ public class Main {
 	{
         Voiture v1 = new Voiture();
         Voiture v2 = new Voiture();
-        Pneu p1 = new Pneu();
+        Pneu p1 = new Pneu(10);
         Pneu p2 = new Pneu();
+        print(p1.ll);
         v1.pneu = p1;
         v2.pneu = p2;
         p1.nb = 1;

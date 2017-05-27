@@ -3,11 +3,12 @@
  */
 package fr.n7.stl.block.ast.impl;
 
+import java.util.List;
+
 import fr.n7.stl.block.ast.Arguments;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
@@ -50,7 +51,8 @@ public class ObjetAllocationImpl implements Expression {
 	public String findEtiquette() {
 		String res = null;
 		boolean find;
-		for (Constructeur c : ((ClassTypeImpl)this.type).getClasse().getConstructeurs()){
+		List<Constructeur> constructeurs = ((ClassTypeImpl)this.type).getClasse().getConstructeurs();
+		for (Constructeur c : constructeurs) {
 			find = true;
 			if (c.getParametres().size() == this.arguments.getListType().size()) {
 				for (int i = 0; i < c.param.size(); i++){
@@ -59,9 +61,10 @@ public class ObjetAllocationImpl implements Expression {
 			} else {
 				find = false;
 			}
-			if (find)
+			if (find) {
 				res = c.getEtiquette();
-			break;
+				break;
+			}
 		}
 		return res;
 		

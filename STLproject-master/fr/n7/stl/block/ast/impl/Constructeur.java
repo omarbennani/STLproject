@@ -36,6 +36,7 @@ public class Constructeur implements ElementClasse {
 		TAMFactory _factory = new TAMFactoryImpl();
 		int _labelNumber = _factory.createLabelNumber();
 		this.etiquette = this.nom + _labelNumber;
+		System.out.println("CREATE " + this.nom + " " + this.param.size());
 		_factory = null;
 	}
 
@@ -92,6 +93,8 @@ public class Constructeur implements ElementClasse {
 	
 	public void setClasse(Classe _classe) {
 		this.classe = _classe;
+		System.out.println("SET CLASSE " + this.etiquette);
+		this.thiS.setType(this.classe.getType());
 	}
 	
 	@Override
@@ -115,6 +118,7 @@ public class Constructeur implements ElementClasse {
 		for (Parametre p : parametres) {
 			_local -= p.allocateMemory(Register.LB, _local);
 		}
+		_local -= this.thiS.allocateMemory(Register.LB, _local);
 		this.exp.allocateMemory(_register, _offset);
 		return 0;
 	}
