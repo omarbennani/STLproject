@@ -59,6 +59,11 @@ public class Methode implements ElementClasse {
 		this.etiquette = this.nom + _labelNumber;
 		_factory = null;
 	}
+	
+	@Override
+	protected Object clone() throws CloneNotSupportedException {
+	    return super.clone();
+	}
 
 	@Override
 	public String toString()

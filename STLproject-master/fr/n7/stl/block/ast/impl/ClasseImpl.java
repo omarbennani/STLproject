@@ -41,15 +41,24 @@ public class ClasseImpl implements Classe
 	
 	@Override
 	public List<Methode> updateMethodes() {
-		Classe cm = ((Classe)this.heritageClasse.getObjet());
-		List<Methode> methodesMeres = new LinkedList<Methode>(cm.getMethodes());
-		for (Methode m : methodesMeres) {
-			m.setClasse(this);
-			if (!this.containsMethode(m)) {
-				elementsClasse.add(m);
+		List<Methode> methodes = new LinkedList<Methode>();
+		if (this.heritageClasse != null) {
+			Classe cm = ((Classe)this.heritageClasse.getObjet());
+			List<Methode> methodesMeres = cm.getMethodes();
+			for (Methode m : methodesMeres) {
+				try {
+					Methode _m = ((Methode)m.clone());
+					_m.setClasse(this);
+					if (!this.containsMethode(_m)) {
+						elementsClasse.add(_m);
+						methodes.add(_m);
+					}
+				} catch (CloneNotSupportedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
-		return methodesMeres;
+		return methodes;
 	}
 	
 	public boolean containsMethode(Methode _methode) {
