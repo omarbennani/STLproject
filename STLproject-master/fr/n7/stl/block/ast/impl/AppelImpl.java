@@ -75,7 +75,7 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 		Boolean _res=(this.args.getListType().size()== ((Methode) this.methode).getParametres().size());
 		// On verifie tous les types de la liste et leur ordre
 		for(int i=0;i<this.args.getListType().size();i++){
-			_res=_res && ((Methode) this.methode).getParametres().get(i).getType().compatibleWith(this.args.getListType().get(i));
+			_res=_res && ((Methode) this.methode).getParametres().get(i).getType().equals(this.args.getListType().get(i));
 		}
 		//Verfier que le radical (exp) contient la methode
 		return _res;

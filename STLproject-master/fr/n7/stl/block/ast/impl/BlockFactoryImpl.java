@@ -562,9 +562,9 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new Constructeur(_name,_param,_exp);
 	}
 
-	public Instruction createReturnInstruction(Expression _exp)
+	public Instruction createReturnInstruction(Expression _exp, Type _typeRetour)
 	{
-		return new ReturnInstructionImpl(_exp);
+		return new ReturnInstructionImpl(_exp, _typeRetour);
 	}
 
 	public Type createClassType(Classe _class)

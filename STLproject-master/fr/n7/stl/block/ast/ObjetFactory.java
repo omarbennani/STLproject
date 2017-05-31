@@ -46,7 +46,7 @@ public interface ObjetFactory {
 
 	public ElementClasse createConstructeur(String _name,LinkedList<Parametre> _param,Block _exp);
 
-	public Instruction createReturnInstruction(Expression _exp);
+	public Instruction createReturnInstruction(Expression _exp, Type _typeRetour);
 
 
 	public Type createClassType(Classe _class);

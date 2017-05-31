@@ -80,6 +80,7 @@ syn ast 	: DroitAcces for DroitAcces;
 syn ast 	: ElementClasse for ElementClasse, AttributOuMethode, SuiteAttributOuMethode, Constructeur; 
 syn ast 	: Block for Bloc;
 
+inh type_Retour 	: Type for Bloc,SuiteAttributOuMethode, Instruction, SuiteConditionnelle, Instructions;
 
 syn ast : MethodePrincipale for Principale, MethodePrincipale;
 
@@ -623,6 +624,7 @@ MethodePrincipale -> public statique vide principale parenthese_ouvrante type_St
 do
 	Bloc^tdsAtt := new SymbolTable();
 	Bloc^nomClasse := "Main";
+	Bloc^type_Retour := nil;
 end
 }
 
@@ -741,6 +743,7 @@ end
 do
     SuiteAttributOuMethode^nomAtt := identificateur^txt;
     SuiteAttributOuMethode^typeAtt := Type^ast;
+    SuiteAttributOuMethode^type_Retour := Type^ast;
 end
 }
 
@@ -754,7 +757,8 @@ global
 do
     t := new SymbolTable();    
 	Parametres^tds_Params := t;
-    this := AttributOuMethode^factory.createParametre("this");    
+    this := AttributOuMethode^factory.createParametre("this");
+    Bloc^type_Retour := nil; 
 end
 }
 #ast {
@@ -807,6 +811,7 @@ global
 do
     t := new SymbolTable();
     Parametres^tds_Params := t;
+	Bloc^type_Retour := SuiteAttributOuMethode^type_Retour;
 end
 }
 #inh {
@@ -842,11 +847,13 @@ do
     t := new SymbolTable();
 	Parametres^tds_Params := t;
     this := Constructeur^factory.createParametre("this");
+
 end
 }
 #inh {
 do
     Bloc^tds := t;
+	Bloc^type_Retour := nil;
     Bloc^tds.register(this);
 end
 }
@@ -1079,7 +1086,7 @@ do
 		with Instruction then
 		    Instruction^ast := Expression^ast;
 		else
-			error(instruction_expression, "dfqsjhvjhqs");
+			error(instruction_expression, "Must be an instruction");
 		end
 	end
 end
@@ -1101,6 +1108,7 @@ end
 #tds2 {
 do
     Bloc^tds := Instruction^tds;
+	Bloc^type_Retour := Instruction^type_Retour;
 end
 }
 #tds3 {
@@ -1126,6 +1134,7 @@ end
 #tds {
 do
     Bloc^tds := SuiteConditionnelle^tds;
+	Bloc^type_Retour := SuiteConditionnelle^type_Retour;
 end
 }
 
@@ -1146,6 +1155,7 @@ end
 #tds2 {
 do
     Bloc^tds := Instruction^tds;
+	Bloc^type_Retour := Instruction^type_Retour;
 end
 }
 
@@ -1164,7 +1174,7 @@ end
 Instruction -> retour Expression point_virgule #ast;
 #ast{
 do
-	Instruction^ast := Instruction^factory.createReturnInstruction(Expression^ast);
+	Instruction^ast := Instruction^factory.createReturnInstruction(Expression^ast, 	Instruction^type_Retour);
 end
 }
 

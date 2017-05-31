@@ -6,6 +6,7 @@ package fr.n7.stl.block.ast.impl;
 import java.util.Optional;
 
 import fr.n7.stl.block.ast.AtomicType;
+import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Instruction;
@@ -21,9 +22,10 @@ import fr.n7.stl.tam.ast.TAMFactory;
 public class ReturnInstructionImpl implements Instruction {
 
 	protected Expression ret;
-
-	public ReturnInstructionImpl(Expression _ret) {
+	protected Type typeRetour;
+	public ReturnInstructionImpl(Expression _ret, Type _typeRetour) {
 		this.ret = _ret;
+		this.typeRetour = _typeRetour;
 	}
 
 	/* (non-Javadoc)
@@ -39,7 +41,10 @@ public class ReturnInstructionImpl implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		return true;
+		if(this.typeRetour.equals(this.ret.getType()))
+			return true;
+		else
+			return false;
 	}
 
 	/* (non-Javadoc)
