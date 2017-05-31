@@ -42,6 +42,11 @@ public class SymbolTableMethodes  {
 				List<Parametre> p = m.getParametres();
 				if(p.size() == _parametres.size())
 				{
+					if(p.size() == 0)
+					{
+						return true;
+					}
+
 					for(int i = 0; i< p.size(); i++)
 					{
 						if(!p.get(i).getType().equals(_parametres.get(i).getType()))
@@ -65,10 +70,13 @@ public class SymbolTableMethodes  {
 					List<Parametre> p = s.getParametres();
 					if(p.size() == _parametres.size())
 					{
+						if(p.size() == 0)
+						{
+							return true;
+						}
 	
 						for(int i = 0; i< p.size(); i++)
 						{
-							
 							if(!p.get(i).getType().equals(_parametres.get(i).getType()))
 								break;
 							if(i == p.size()-1)
@@ -90,6 +98,10 @@ public class SymbolTableMethodes  {
 				List<Parametre> p = c.getParametres();
 				if(p.size() == _parametres.size())
 				{
+					if(p.size() == 0)
+					{
+						return true;
+					}
 					for(int i = 0; i< p.size(); i++)
 					{
 						if(!p.get(i).getType().equals(_parametres.get(i).getType()))
