@@ -63,14 +63,15 @@ public class ProgrammeImpl implements Programme {
 	}
 	
 	@Override
-	public boolean checkType() {
+	public boolean checkType() 
+	{
 		boolean result = true;
 		for (Interface i : this.interfaces)
 			result = result && i.checkType();
 		for (Classe c : this.classes)
 			result = result && c.checkType();
 		result = result && princ.checkType();
-		return princ.checkType();
+		return result;
 	}
 	@Override
 	public int allocateMemory(Register _register, int _offset) {

@@ -65,6 +65,7 @@ public class SymbolTableMethodes  {
 				List<Parametre> p = s.getParametres();
 				if(p.size() == _parametres.size())
 				{
+
 					for(int i = 0; i< p.size(); i++)
 					{
 						if(!p.get(i).getType().equals(_parametres.get(i).getType()))
@@ -75,7 +76,6 @@ public class SymbolTableMethodes  {
 				}}
 			}
 		}
-
 		return false;
 	}
 	
