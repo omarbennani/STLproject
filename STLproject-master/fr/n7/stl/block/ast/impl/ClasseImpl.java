@@ -82,6 +82,9 @@ public class ClasseImpl implements Classe
 					int size = paramsM1.size();
 					List<Parametre> paramsM2 = _methode.getParametres();
 					if (size == paramsM2.size()) {
+						if (size == 0) {
+							return true;
+						}
 						for (int i = 0; i < size; i++) {
 							if (paramsM1.get(i).getType().equals(paramsM2.get(i).getType())) {
 								if (i == size - 1) {

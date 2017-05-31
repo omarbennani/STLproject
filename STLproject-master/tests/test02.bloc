@@ -22,10 +22,17 @@ class Voiture {
     public Pneu getPneu() {
         return this.pneu;
     }
+
+    public void truc() {
+        print(55);
+    }
 }
 
 class Honda extends Voiture {
     public Honda() {}
+    public void truc() {
+        print(86);
+    }
 
 }
 
@@ -35,6 +42,8 @@ public class Main {
         //Voiture v1 = new Voiture();
         //Voiture v2 = new Voiture();
         Honda h = new Honda();
+        Voiture v = new Honda();
+        v.truc();
         //Pneu p1 = new Pneu(10);
         //Pneu p2 = new Pneu();
         Pneu p3 = new Pneu();
