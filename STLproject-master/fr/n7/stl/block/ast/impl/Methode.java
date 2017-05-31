@@ -30,7 +30,7 @@ public class Methode implements ElementClasse {
 	private Parametre thiS;
 	private Classe classe;
 	
-	public Methode(DroitAcces _droit, String _name, LinkedList<Parametre> _param2, Block _exp2, String _nomClasse) {
+	public Methode(DroitAcces _droit, String _name, List<Parametre> _param2, Block _exp2, String _nomClasse) {
 		this.droitAcces=_droit;
 		this.nom=_name;
 		this.param=_param2;
@@ -45,7 +45,7 @@ public class Methode implements ElementClasse {
 		_factory = null;
 	}
 	
-	public Methode(DroitAcces _droit, Type _type, LinkedList<Parametre> _param2, String _name, Block _exp2, String _nomClasse) {
+	public Methode(DroitAcces _droit, Type _type, List<Parametre> _param2, String _name, Block _exp2, String _nomClasse) {
 		this.droitAcces=_droit;
 		this.nom=_name;
 		this.param=_param2;
@@ -59,6 +59,19 @@ public class Methode implements ElementClasse {
 		this.etiquette = this.nom + _labelNumber;
 		_factory = null;
 	}
+	
+//	public Methode(Methode m) {
+//		this.droitAcces = m.droitAcces;
+//		this.nom= m.nom;
+//		this.nomClasse = m.nomClasse;
+//		this.param;
+//		protected Block exp;
+//		protected Type typeRet;
+//		protected boolean finaL, statiC;
+//		protected String etiquette;
+//		private Parametre thiS;
+//		private Classe classe;
+//	}
 	
 	@Override
 	protected Object clone() throws CloneNotSupportedException {

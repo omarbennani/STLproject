@@ -24,21 +24,32 @@ class Voiture {
     }
 }
 
+class Honda extends Voiture {
+    public Pneu pneu;
+    public Honda() {}
+
+}
+
 public class Main {
 	public static void main( String [] args)
 	{
         Voiture v1 = new Voiture();
         Voiture v2 = new Voiture();
+        Honda h = new Honda();
         Pneu p1 = new Pneu(10);
         Pneu p2 = new Pneu();
+        Pneu p3 = new Pneu();
         print(p1.ll);
         v1.pneu = p1;
         v2.pneu = p2;
+        h.pneu = p3;
         p1.nb = 1;
         p2.nb = 2;
+        p3.setNb(3);
         v1.getPneu().setNb(10);
         print(v1.getPneu().nb);
         print(v2.getPneu().nb);
+        print(h.getPneu().nb);
         p1 = v1.getPneu();
         print(p1.nb);
 	}

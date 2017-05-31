@@ -46,15 +46,13 @@ public class ClasseImpl implements Classe
 			Classe cm = ((Classe)this.heritageClasse.getObjet());
 			List<Methode> methodesMeres = cm.getMethodes();
 			for (Methode m : methodesMeres) {
-				try {
-					Methode _m = ((Methode)m.clone());
-					_m.setClasse(this);
-					if (!this.containsMethode(_m)) {
-						elementsClasse.add(_m);
-						methodes.add(_m);
-					}
-				} catch (CloneNotSupportedException e) {
-					e.printStackTrace();
+				System.out.println("POEPOPEOZIEFJZHGOeuygbeoufyfhbuoIUBHFUIZRBY VYUB ZBYRGZURGBZIUGBREIUZHGIPUEBT");
+				Methode _m = new Methode(m.droitAcces, m.typeRet, m.getParametres(), m.getName(), m.exp, this.name);
+				_m.setThis(new ParametreImpl("this"));
+				_m.setClasse(this);
+				if (!this.containsMethode(_m)) {
+					elementsClasse.add(_m);
+					methodes.add(_m);
 				}
 			}
 		}

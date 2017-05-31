@@ -29,10 +29,10 @@ public class Main{
       if (bloc.get_ast().checkType()) 
 	{
 	      System.out.println( "Correctement typé." );
-          /*bloc.get_ast().allocateMemory(Register.SB, 0);
+          bloc.get_ast().allocateMemory(Register.SB, 0);
           TAMFactory factory = new TAMFactoryImpl();
           Fragment code = bloc.get_ast().getCode(factory);
-          System.out.println(code);*/
+          System.out.println(code);
       } else {
 	      System.out.println( "Mal typé." );
       }
