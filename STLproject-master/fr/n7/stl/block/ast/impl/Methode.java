@@ -60,24 +60,6 @@ public class Methode implements ElementClasse {
 		_factory = null;
 	}
 	
-//	public Methode(Methode m) {
-//		this.droitAcces = m.droitAcces;
-//		this.nom= m.nom;
-//		this.nomClasse = m.nomClasse;
-//		this.param;
-//		protected Block exp;
-//		protected Type typeRet;
-//		protected boolean finaL, statiC;
-//		protected String etiquette;
-//		private Parametre thiS;
-//		private Classe classe;
-//	}
-	
-	@Override
-	protected Object clone() throws CloneNotSupportedException {
-	    return super.clone();
-	}
-
 	@Override
 	public String toString()
 	{
