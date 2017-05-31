@@ -57,7 +57,15 @@ public class ClassTypeImpl implements Type {
 	@Override
 	public boolean compatibleWith(Type _other) {
 		System.out.println("CompatibleWith INCOMPLETE in ClassTypeImpl.java");
-		return true;
+		if(_other instanceof ClassTypeImpl)
+		{
+			ClassTypeImpl _type = (ClassTypeImpl) _other;
+			Classe _classe = _type.getClasse();
+			if(this.classe.equals(_classe) || _classe.etends(this.classe))
+				return true;
+		}	
+		return false;	
+
 	}
 
 	/* (non-Javadoc)

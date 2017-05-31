@@ -2,6 +2,7 @@ package fr.n7.stl.block.ast.impl;
 
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import fr.n7.stl.block.ast.Classe;
@@ -155,6 +156,7 @@ public class ClasseImpl implements Classe
 		}
 		return methodes;
 	}
+
 	
 	@Override
 	public Type getType()
@@ -164,6 +166,17 @@ public class ClasseImpl implements Classe
 	
 	public boolean checkType() {
 		boolean result = true;
+
+		for(ElementClasse e : elementsClasse)
+		{
+			if(e instanceof Methode)
+			{
+				Methode m = (Methode) e;
+				result = result && m.checkType();
+			}
+
+		} 
+
 		/*Set<Signature> methodesAImplementer = new HashSet<Signature>(); 
 		if (this.implantationInterface.size() > 0) {
 			for (Interface i : this.implantationInterface) {
@@ -300,6 +313,61 @@ public class ClasseImpl implements Classe
 				constructeurs.add((Constructeur)e);
 		}
 		return constructeurs;
+	}
+
+	public boolean equals(Classe _classe)
+	{
+		boolean result = true;
+		result = result && (this.name.equals(_classe.getName()));
+		/*ClasseImpl c = (ClasseImpl) _classe;
+		//VERIFICATION QUE LES DEUX CLASSES ONT LES MEME ATTRIBUTS GENERIQUES
+		ArrayList<ParametreGenericite> arraylist = new ArrayList<>(c.getGenericite());
+		for(ParametreGenericite pg : genericite)
+		{
+			result = result && arraylist.contains(pg);
+		}
+		//VERIFICATION QUE LES DEUX CLASSES IMPLANTENT LES MEMES INTERFACES
+		ArrayList<ObjetUse> arraylistOU = new ArrayList<>(c.getImplantationInterface());
+		for(ObjetUse ou : implantationInterface)
+		{
+			result = result && arraylistOU.contains(ou);
+		}
+		//VERIFICATION QUE LES DEUX CLASSES ONT LES MEME ELEMENTS CLASSE
+		ArrayList<ElementClasse> arraylistEC = new ArrayList<>(c.getElementsClasse());
+		for(ElementClasse ec : elementsClasse)
+		{
+			result = result && arraylistEC.contains(ec);
+		}*/
+
+		return result;
+	}
+
+	//VERIFIE QUE LA CLASSE THIS EST ETENDUE PAR LA CLASSE EN PARAMETRE
+	public boolean etends(Classe _classe)
+	{
+		Classe c = (Classe)((((ClasseImpl) _classe).getHeritageClasse()).getObjet());
+		return (c.getName().equals(this.getName()));
+	}
+
+
+	public ObjetUse getHeritageClasse()
+	{
+		return this.heritageClasse;
+	}
+
+	public LinkedList<ParametreGenericite> getGenericite()
+	{
+		return this.genericite;
+	}
+	
+	public LinkedList<ObjetUse> getImplantationInterface()
+	{
+		return this.implantationInterface;
+	}
+
+	public LinkedList<ElementClasse> getElementsClasse()
+	{
+		return this.elementsClasse;
 	}
 	
 }

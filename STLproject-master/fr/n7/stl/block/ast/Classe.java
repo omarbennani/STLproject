@@ -30,4 +30,8 @@ public interface Classe extends Objet {
 	
 	public List<Attribut> getAttributsParents();
 
+	public boolean etends(Classe _classe);
+	//public boolean estEtendu(Classe _classe);
+
+
 }

@@ -114,9 +114,8 @@ public class InterfaceImpl implements Interface {
 	@Override
 	public boolean checkType() {
 		// TODO Auto-generated method stub
-		boolean result = false;
-		
-		return result;
+		//boolean result = false;
+		return true;
 	}
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
