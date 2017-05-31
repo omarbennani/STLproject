@@ -5,7 +5,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import fr.n7.stl.block.ast.Classe;
+import fr.n7.stl.block.ast.DroitAcces;
 import fr.n7.stl.block.ast.ElementClasse;
+import fr.n7.stl.block.ast.Instruction;
 import fr.n7.stl.block.ast.ObjetUse;
 import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.ParametreGenericite;
@@ -42,21 +44,35 @@ public class ClasseImpl implements Classe
 	@Override
 	public List<Methode> updateMethodes() {
 		List<Methode> methodes = new LinkedList<Methode>();
-		if (this.heritageClasse != null) {
-			Classe cm = ((Classe)this.heritageClasse.getObjet());
-			List<Methode> methodesMeres = cm.getMethodes();
-			for (Methode m : methodesMeres) {
-				System.out.println("POEPOPEOZIEFJZHGOeuygbeoufyfhbuoIUBHFUIZRBY VYUB ZBYRGZURGBZIUGBREIUZHGIPUEBT");
-				Methode _m = new Methode(m.droitAcces, m.typeRet, m.getParametres(), m.getName(), m.exp, this.name);
-				_m.setThis(new ParametreImpl("this"));
-				_m.setClasse(this);
-				if (!this.containsMethode(_m)) {
-					elementsClasse.add(_m);
-					methodes.add(_m);
-				}
+		List<Methode> methodesMeres = this.getMethodesMeres();
+		for (Methode m : methodesMeres) {
+			Methode _m = new Methode(m.droitAcces, m.typeRet, m.getParametres(), m.getName(), m.exp, this.name);
+			_m.setThis(new ParametreImpl("this"));
+			_m.setClasse(this);
+			if (!this.containsMethode(_m)) {
+				elementsClasse.add(_m);
+				methodes.add(_m);
 			}
 		}
 		return methodes;
+	}
+	
+	@Override
+	public List<Attribut> updateAttributs() {
+		List<Attribut> attributs = new LinkedList<Attribut>();
+		if (this.heritageClasse != null) {
+			Classe cm = ((Classe)this.heritageClasse.getObjet());
+			List<Attribut> attributsParents = cm.getAttributsParents();
+			for (Attribut a : attributsParents) {
+				Attribut _a = new Attribut(a.droitAcces, a.getType(), a.getName());
+				_a.setClasse(this);
+				if (!this.containsAttribut(_a.getName())) {
+					elementsClasse.add(_a);
+					attributs.add(_a);
+				}
+			}
+		}
+		return attributs;
 	}
 	
 	public boolean containsMethode(Methode _methode) {
@@ -83,12 +99,22 @@ public class ClasseImpl implements Classe
 		return false;
 	}
 	
+	public boolean containsAttribut(String _name) {
+		for (Attribut a : this.getAttributs()) {
+			if (a.getName().equals(_name)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	@Override
 	public void setClasseElementsClasse() {
 		for (ElementClasse e : this.elementsClasse)
 			e.setClasse(this);
 	}
 	
+	@Override
 	public Attribut getAttribut(String name) {
 		for (ElementClasse e : this.elementsClasse) {
 			if (e instanceof Attribut) {
@@ -97,6 +123,30 @@ public class ClasseImpl implements Classe
 			}
 		}
 		throw new AttributUndefinedException("L'attribut " + name + " n'existe pas dans la classe " + this.name);
+	}
+	
+	@Override
+	public List<Methode> getAllMethodes() {
+		List<Methode> methodes = new LinkedList<Methode>(this.getMethodes());
+		if (this.heritageClasse != null) {
+			Classe c = ((ClasseUseImpl)this.heritageClasse).classe;
+			
+			methodes.addAll(c.getAllMethodes());
+		}
+		return methodes;
+	}
+	
+	@Override
+	public List<Methode> getMethodesMeres() {
+		List<Methode> methodesMeres = new LinkedList<Methode>();
+		for (Methode m : this.getAllMethodes()) {
+			if (!m.getClassName().equals(this.name)) {
+				if (m.droitAcces != DroitAcces.prive) {
+					methodesMeres.add(m);
+				}
+			}
+		}
+		return methodesMeres;
 	}
 	
 	public List<Methode> getMethodes() {
@@ -218,6 +268,29 @@ public class ClasseImpl implements Classe
 				attributs.add((Attribut)e);
 		}
 		return attributs;
+	}
+	
+	@Override
+	public List<Attribut> getAllAttributs() {
+		List<Attribut> attributs = new LinkedList<Attribut>(this.getAttributs());
+		if (this.heritageClasse != null) {
+			Classe c = ((ClasseUseImpl)this.heritageClasse).classe;
+			attributs.addAll(c.getAllAttributs());
+		}
+		return attributs;
+	}
+	
+	@Override
+	public List<Attribut> getAttributsParents() {
+		List<Attribut> attributsParents = new LinkedList<Attribut>();
+		for (Attribut a : this.getAllAttributs()) {
+			if (!a.getClassName().equals(this.name)) {
+				if (a.droitAcces != DroitAcces.prive) {
+					attributsParents.add(a);
+				}
+			}
+		}
+		return attributsParents;
 	}
 
 	@Override

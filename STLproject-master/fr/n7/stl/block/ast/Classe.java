@@ -19,5 +19,15 @@ public interface Classe extends Objet {
 	public void setClasseElementsClasse();
 	
 	public List<Methode> updateMethodes();
+	
+	public List<Attribut> updateAttributs();
+	
+	public List<Methode> getAllMethodes();
+	
+	public List<Attribut> getAllAttributs();
+	
+	public List<Methode> getMethodesMeres();
+	
+	public List<Attribut> getAttributsParents();
 
 }
