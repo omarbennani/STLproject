@@ -51,13 +51,14 @@ public class InterfaceImpl implements Interface {
 		return new InterfaceTypeImpl(this);
 	}
 	
+	@Override
 	public Set<Signature> getAllSignatures() {
-		/*Set<Signature> signatures = this.getSignatures();
-		for (Interface i : this.heritageInterface) {
+		Set<Signature> signatures = this.getSignatures();
+		for (ObjetUse ou : this.heritageInterface) {
+			Interface i = ((InterfaceUseImpl)ou).interface_;
 			signatures.addAll(i.getAllSignatures());
 		}
-		return signatures;*/
-		throw new SemanticsUndefinedException(" method getAllSignaturesgetAllSignatures is not defined in InterfaceImpl.java  ");
+		return signatures;
 	}
 	
 	public Set<Signature> getSignatures() {
