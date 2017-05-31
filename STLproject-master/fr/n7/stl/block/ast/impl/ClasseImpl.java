@@ -1,17 +1,14 @@
 package fr.n7.stl.block.ast.impl;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Set;
 
-import fr.n7.stl.block.ast.ParametreGenericite;
 import fr.n7.stl.block.ast.Classe;
-import fr.n7.stl.block.ast.ObjetUse;
 import fr.n7.stl.block.ast.ElementClasse;
-import fr.n7.stl.block.ast.Interface;
-import fr.n7.stl.block.ast.Signature;
+import fr.n7.stl.block.ast.ObjetUse;
+import fr.n7.stl.block.ast.Parametre;
+import fr.n7.stl.block.ast.ParametreGenericite;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -43,12 +40,49 @@ public class ClasseImpl implements Classe
 	}
 	
 	@Override
+	public List<Methode> updateMethodes() {
+		Classe cm = ((Classe)this.heritageClasse.getObjet());
+		List<Methode> methodesMeres = new LinkedList<Methode>(cm.getMethodes());
+		for (Methode m : methodesMeres) {
+			m.setClasse(this);
+			if (!this.containsMethode(m)) {
+				elementsClasse.add(m);
+			}
+		}
+		return methodesMeres;
+	}
+	
+	public boolean containsMethode(Methode _methode) {
+		for (Methode m : this.getMethodes()) {
+			if (m.getName().equals(_methode.getName())) {
+				if (m.getType().equals(_methode.getType())) {
+					List<Parametre> paramsM1 = m.getParametres();
+					int size = paramsM1.size();
+					List<Parametre> paramsM2 = _methode.getParametres();
+					if (size == paramsM2.size()) {
+						for (int i = 0; i < size; i++) {
+							if (paramsM1.get(i).getType().equals(paramsM2.get(i).getType())) {
+								if (i == size - 1) {
+									return true;
+								}
+							} else {
+								break;
+							}
+						}
+					}
+				}
+			}
+		}
+		return false;
+	}
+	
+	@Override
 	public void setClasseElementsClasse() {
 		for (ElementClasse e : this.elementsClasse)
 			e.setClasse(this);
 	}
+	
 	public Attribut getAttribut(String name) {
-		System.out.println("in CLASSIMPL.GETATTRIBUT  ON CHERCHE: "+this.name+"."+ name);
 		for (ElementClasse e : this.elementsClasse) {
 			if (e instanceof Attribut) {
 				if (e.getName().equals(name))

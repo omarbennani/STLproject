@@ -62,18 +62,20 @@ public class SymbolTableMethodes  {
 			if (s.getName().equals(_name))
 			{
 				if (s.getInterfaceName().equals(_nomInterface)) {
-				List<Parametre> p = s.getParametres();
-				if(p.size() == _parametres.size())
-				{
-
-					for(int i = 0; i< p.size(); i++)
+					List<Parametre> p = s.getParametres();
+					if(p.size() == _parametres.size())
 					{
-						if(!p.get(i).getType().equals(_parametres.get(i).getType()))
-							break;
-						if(i == p.size()-1)
-							return true;
+	
+						for(int i = 0; i< p.size(); i++)
+						{
+							
+							if(!p.get(i).getType().equals(_parametres.get(i).getType()))
+								break;
+							if(i == p.size()-1)
+								return true;
+						}
 					}
-				}}
+				}
 			}
 		}
 		return false;
@@ -255,6 +257,16 @@ public class SymbolTableMethodes  {
 			this.methodes.add(_methode);
 		} else {
 			throw new ForbiddenDeclarationException();
+		}
+	}
+	
+	public void registerMethodes(List<Methode> methodes) {
+		for (Methode m : methodes) {
+			try {
+				registerMethode(m.getName(), m.getClassName(), m.getParametres(), m);
+			} catch (ForbiddenDeclarationException e) {
+				continue;
+			}
 		}
 	}
 	

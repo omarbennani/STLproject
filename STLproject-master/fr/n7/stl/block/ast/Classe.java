@@ -17,5 +17,7 @@ public interface Classe extends Objet {
 	public List<Constructeur> getConstructeurs();
 	
 	public void setClasseElementsClasse();
+	
+	public List<Methode> updateMethodes();
 
 }

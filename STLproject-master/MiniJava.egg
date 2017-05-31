@@ -471,9 +471,13 @@ end
 }
 
 #tree {
+local
+    lm : List<Methode>;
 do
     Classe^ast.setClasseElementsClasse();
 	Classes^tdsClasses.register(Classe^ast);
+    lm := Classe^ast.updateMethodes();
+    Classes^tdsMeth.registerMethodes(lm);
     --Classes^tds.register(Classe^ast);
     --Classes1^tds := Classes^tds; --PASSAGE NON NECESSAIRE
 end
