@@ -20,7 +20,7 @@ class Voiture {
     public Voiture() {
     }
     public Pneu getPneu() {
-        return this.pneu;
+        return pneu;
     }
 
     public void truc() {

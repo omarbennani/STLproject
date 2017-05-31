@@ -31,7 +31,7 @@ public class StringValueImpl implements StringValue{
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
-		_code.add(_factory.createStoreI(value.length()));
+		_code.add(_factory.createLoadL(this.value));
 		return _code;
 	}
 

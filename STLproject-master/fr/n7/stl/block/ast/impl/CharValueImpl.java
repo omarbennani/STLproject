@@ -30,8 +30,9 @@ public class CharValueImpl implements CharValue {
 
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		// TODO Auto-generated method stub
-		return null;
+		Fragment _code = _factory.createFragment();
+		_code.add(_factory.createLoadL(this.value));
+		return _code;
 	}
 
 }

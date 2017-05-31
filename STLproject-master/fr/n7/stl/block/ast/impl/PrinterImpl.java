@@ -56,7 +56,6 @@ public class PrinterImpl implements Instruction {
 		Fragment _code = this.parameter.getCode(_factory);
 		if (this.parameter.getType().compatibleWith(AtomicType.IntegerType)) {
 			_code.add(Library.IOut);
-			_code.add(Library.Ln);
 		} else if(this.parameter.getType().compatibleWith(AtomicType.BooleanType)) {
 			_code.add(Library.BOut);
 		} else if (this.parameter.getType().compatibleWith(AtomicType.StringType)) {
@@ -64,6 +63,7 @@ public class PrinterImpl implements Instruction {
 		} else if (this.parameter.getType().compatibleWith(AtomicType.CharacterType)) {
 			_code.add(Library.COut);
 		}
+		_code.add(Library.Ln);
 		return _code;
 	}
 

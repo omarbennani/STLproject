@@ -196,6 +196,9 @@ public interface TAMFactory {
 	 */
 	public Fragment createFragment(List<TAMInstruction> _instructions);
 
+	
+	public TAMInstruction createLoadL(String s);
+	
 	/**
 	 * Build a TAM binary operator instruction AST node whose execution will pop two
 	 * values from the stack, compute the result of the binary operator applied to
