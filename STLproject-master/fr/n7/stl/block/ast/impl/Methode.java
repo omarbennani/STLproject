@@ -188,7 +188,6 @@ public class Methode implements ElementClasse {
 	@Override
 	public void setClasse(Classe _classe) {
 		this.classe = _classe;
-		System.out.println("SET CLASSE " + this.classe.getName() + " " + this.nom + "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB");
 		this.thiS.setType(this.classe.getType());
 	}
 

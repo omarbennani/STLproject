@@ -69,7 +69,7 @@ public class Attribut implements ElementClasse {
 	@Override
 	public String getClassName()
 	{
-		return this.typeAtt.toString();
+		return this.classe.getName();
 	}
 	
 	@Override

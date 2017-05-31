@@ -25,7 +25,6 @@ class Voiture {
 }
 
 class Honda extends Voiture {
-    public Pneu pneu;
     public Honda() {}
 
 }

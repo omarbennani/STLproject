@@ -60,16 +60,14 @@ public class ClasseImpl implements Classe
 	@Override
 	public List<Attribut> updateAttributs() {
 		List<Attribut> attributs = new LinkedList<Attribut>();
-		if (this.heritageClasse != null) {
-			Classe cm = ((Classe)this.heritageClasse.getObjet());
-			List<Attribut> attributsParents = cm.getAttributsParents();
-			for (Attribut a : attributsParents) {
-				Attribut _a = new Attribut(a.droitAcces, a.getType(), a.getName());
-				_a.setClasse(this);
-				if (!this.containsAttribut(_a.getName())) {
-					elementsClasse.add(_a);
-					attributs.add(_a);
-				}
+		List<Attribut> attributsParents = this.getAttributsParents();
+		for (Attribut a : attributsParents) {
+			Attribut _a = new Attribut(a.droitAcces, a.getType(), a.getName());
+			_a.setClasse(this);
+			if (!this.containsAttribut(_a.getName())) {
+				System.out.println("UPDATE ATTRIBUT " + _a.getName());
+				elementsClasse.add(_a);
+				attributs.add(_a);
 			}
 		}
 		return attributs;

@@ -4,6 +4,7 @@
 package fr.n7.stl.util;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
@@ -11,6 +12,8 @@ import java.util.Optional;
 import fr.n7.stl.block.ast.Declaration;
 import fr.n7.stl.block.ast.ForbiddenDeclarationException;
 import fr.n7.stl.block.ast.HierarchicalScope;
+import fr.n7.stl.block.ast.impl.Attribut;
+import fr.n7.stl.block.ast.impl.Methode;
 
 /**
  * @author pantel2
@@ -114,7 +117,7 @@ public class SymbolTable implements HierarchicalScope<Declaration> {
 	}
 
 
-public boolean contains(String _name, String idType) {
+	public boolean contains(String _name, String idType) {
 		String key = idType+"."+_name;
 		System.out.println("Contains( " + key + " )");
 		return (this.declarations.containsKey(key));
@@ -136,6 +139,16 @@ public boolean contains(String _name, String idType) {
 			
 		}
 		*/
+	}
+	
+	public void registerAttributs(List<Attribut> attributs) {
+		for (Attribut a : attributs) {
+			try {
+				register(a, a.getClassName());
+			} catch (ForbiddenDeclarationException e) {
+				continue;
+			}
+		}
 	}
 
 }

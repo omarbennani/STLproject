@@ -473,10 +473,13 @@ end
 #tree {
 local
     lm : List<Methode>;
+    la : List<Attribut>;
 do
     Classe^ast.setClasseElementsClasse();
 	Classes^tdsClasses.register(Classe^ast);
     lm := Classe^ast.updateMethodes();
+    la := Classe^ast.updateAttributs();
+    Classes^tdsAttributs.registerAttributs(la);
     Classes^tdsMethodes.registerMethodes(lm);
     --Classes^tds.register(Classe^ast);
     --Classes1^tds := Classes^tds; --PASSAGE NON NECESSAIRE
