@@ -111,4 +111,8 @@ public class Attribut implements ElementClasse {
 		return this.statiC;
 	}
 
+	public DroitAcces getDroitAcces()
+	{
+		return this.droitAcces;
+	}
 }

@@ -1540,6 +1540,7 @@ local
     o : Optional<Declaration>;
     a : Attribut;
     sf : StaticField;
+	allAcces : boolean;
 do
     a := nil;
     sf := nil;
@@ -1553,7 +1554,16 @@ do
                 with StaticField then sf := d;
             end
             if a != nil then
-		        Acces^support := AppelOuAcces^factory.createAttributUse(a, AppelOuAcces^support);
+				match AppelOuAcces^support
+					with ParametreUseImpl then allAcces := true;
+					else allAcces := false;
+				end
+
+				if a.getDroitAcces() = DroitAcces.publique || allAcces then
+		      		Acces^support := AppelOuAcces^factory.createAttributUse(a, AppelOuAcces^support);
+				else
+					error(ACCESS_FORBIDDEN, " Acces to a private or a protected attribute is forbidden");
+				end
             else
                 Acces^support := AppelOuAcces^factory.createStaticFieldUse(sf, AppelOuAcces^support);
             end

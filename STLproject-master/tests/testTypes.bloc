@@ -61,9 +61,9 @@ public class Main {
 		GuitareBasse guitareBasse = new GuitareBasse();
 		CompositionMusicale compo = new CompositionMusicale <Guitare>();
 
-		print(g.id);
-		print(g.b);
-		print(g.name);
+		//print(g.id);
+		//print(g.b);
+		print(g.getName());
 	
 	}
 }

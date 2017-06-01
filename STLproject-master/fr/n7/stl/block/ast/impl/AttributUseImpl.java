@@ -32,7 +32,13 @@ public class AttributUseImpl implements Expression {
 		this.declaration = _declaration;
 	}
 	
-	public AttributUseImpl(ElementClasse _declaration, Expression _exp) {
+	public AttributUseImpl(ElementClasse _declaration, Expression _exp) 
+	{
+		/*if(_declaration instanceof Attribut)
+		{
+			Attribut attribut = (Attribut) _declaration;
+			if(attribut.getDroitAcces() == )
+		}*/
 		this.declaration = _declaration;
 		this.exp = _exp;
 	}
@@ -49,7 +55,8 @@ public class AttributUseImpl implements Expression {
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
-	public String toString() {
+	public String toString() 
+	{
 		if (this.exp == null) {
 			return this.declaration.getName();
 		}
