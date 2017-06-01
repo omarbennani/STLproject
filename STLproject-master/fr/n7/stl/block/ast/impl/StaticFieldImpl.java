@@ -56,6 +56,17 @@ public class StaticFieldImpl implements StaticField {
 	{
 		this._final = b;
 	}
+
+	@Override
+	public boolean isFinal()
+	{
+		return this._final;
+	}
+
+	public Type getType()
+	{
+		return this.type;
+	}
 	
 	@Override
 	public String getInterfaceName() {

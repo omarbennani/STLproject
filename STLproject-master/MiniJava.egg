@@ -1564,13 +1564,28 @@ do
 					else allAcces := false;
 				end
 
-				if a.getDroitAcces() = DroitAcces.publique || allAcces then
-		      		Acces^support := AppelOuAcces^factory.createAttributUse(a, AppelOuAcces^support);
+				if (a.getDroitAcces() = DroitAcces.publique || allAcces) && !a.isStatic() then
+					Acces^support := AppelOuAcces^factory.createAttributUse(a, AppelOuAcces^support);
+				elseif a.isStatic() then
+					match AppelOuAcces^support
+						with ClasseUseImpl then 
+							Acces^support := AppelOuAcces^factory.createAttributUse(a, AppelOuAcces^support);
+						else
+							error(ACCESS_FORBIDDEN, " You must acces a static field through The class");
+					end
 				else
 					error(ACCESS_FORBIDDEN, " Acces to a private or a protected attribute is forbidden");
 				end
             else
-                Acces^support := AppelOuAcces^factory.createStaticFieldUse(sf, AppelOuAcces^support);
+				match AppelOuAcces^support
+					with InterfaceUseImpl then 
+						Acces^support := AppelOuAcces^factory.createStaticFieldUse(sf, AppelOuAcces^support);
+					with ClasseUseImpl then 
+						Acces^support := AppelOuAcces^factory.createStaticFieldUse(sf, AppelOuAcces^support);
+					else
+						error(ACCESS_FORBIDDEN, " You must acces a static field through The class or the interface");
+				end
+                
             end
 	    end
 

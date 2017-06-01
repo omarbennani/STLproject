@@ -614,6 +614,7 @@ public class BlockFactoryImpl implements BlockFactory {
 	
 	public Expression createStaticFieldUse(Declaration _declaration, Expression _exp)
 	{
+		System.out.println("createStaticFieldUse\n");
 		return new StaticFieldUseImpl(_declaration, _exp);
 	}
 

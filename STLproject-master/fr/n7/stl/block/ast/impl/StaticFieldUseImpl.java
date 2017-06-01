@@ -44,7 +44,7 @@ public class StaticFieldUseImpl implements Expression {
 		if (exp == null)
 			return ("@{" + this.declaration.getName() + "}");
 		else
-			return exp.toString();
+			return exp.toString()+"."+this.declaration.getName();
 		
 	}
 
@@ -53,8 +53,11 @@ public class StaticFieldUseImpl implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		//return declaration.getType();
-		throw new SemanticsUndefinedException("getType is undefined in AttributUseImpl");
+		StaticFieldImpl stf = null;
+		if (this.declaration instanceof StaticFieldImpl)
+			stf = (StaticFieldImpl) this.declaration;
+		return stf.getType();
+		//throw new SemanticsUndefinedException("getType is undefined in StaticFieldUseImpl");
 	}
 	
 	public Type getTypeReel() {

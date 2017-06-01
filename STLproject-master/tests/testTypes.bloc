@@ -1,5 +1,6 @@
 interface Instrument
 {
+	final static int t = 5;
 	void jouer();
 }
 
@@ -43,8 +44,10 @@ class GuitareBasse extends Guitare
 class CompositionMusicale <T>
 {
 	private T instrument;
+	public static int tt;
 	public CompositionMusicale(T _instrument)
 	{
+		tt = 1;
 		this.instrument = _instrument;
 	}
 }
@@ -64,6 +67,8 @@ public class Main {
 		//print(g.id);
 		//print(g.b);
 		print(g.getName());
+		print(CompositionMusicale.tt);
+		print(Instrument.t);
 	
 	}
 }
