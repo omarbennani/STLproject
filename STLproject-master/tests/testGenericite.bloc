@@ -1,0 +1,28 @@
+class Solo<T>
+{
+  private T valeur;
+  public Solo(){}
+  public Solo(T val){
+    this.valeur = val;
+  }
+  public void setValeur(T val){
+    this.valeur = val;
+  }
+  public T getValeur(){
+    return this.valeur;
+  }       
+}
+
+class Anonyme
+{
+	  public Anonyme(){}
+}
+
+public class Main {
+
+	public static void main( String [] args)
+	{
+		Solo solo = new Solo<Anonyme>();
+		
+	}
+}
