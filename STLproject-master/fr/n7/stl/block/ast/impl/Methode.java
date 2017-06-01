@@ -190,5 +190,9 @@ public class Methode implements ElementClasse {
 		this.classe = _classe;
 		this.thiS.setType(this.classe.getType());
 	}
+	
+	public boolean isStatic() {
+		return this.statiC;
+	}
 
 }

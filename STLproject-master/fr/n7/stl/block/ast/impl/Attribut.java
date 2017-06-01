@@ -19,7 +19,7 @@ public class Attribut implements ElementClasse {
 	private Register register;
 	private int offset;
 	
-	public Attribut(DroitAcces _droit, Type _type, String _name) 		{
+	public Attribut(DroitAcces _droit, Type _type, String _name) {
 		this.droitAcces=_droit;
 		this.typeAtt=_type;
 		this.nom=_name;
@@ -105,6 +105,10 @@ public class Attribut implements ElementClasse {
 	@Override
 	public void setClasse(Classe _classe) {
 		this.classe = _classe;
+	}
+	
+	public boolean isStatic() {
+		return this.statiC;
 	}
 
 }

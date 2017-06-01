@@ -51,7 +51,6 @@ public class AttributUseImpl implements Expression {
 	@Override
 	public String toString() {
 		if (this.exp == null) {
-			System.out.println("EXP NULL " + this.declaration.getName());
 			return this.declaration.getName();
 		}
 		else
@@ -63,7 +62,6 @@ public class AttributUseImpl implements Expression {
 	 */
 	@Override
 	public Type getType() {
-		//return declaration.getType();
 		return declaration.getType();
 	}
 	
