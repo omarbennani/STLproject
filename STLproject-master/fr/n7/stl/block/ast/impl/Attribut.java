@@ -16,6 +16,8 @@ public class Attribut implements ElementClasse {
 	protected String nom;
 	protected boolean finaL, statiC;
 	protected Classe classe;
+	private Register register;
+	private int offset;
 	
 	public Attribut(DroitAcces _droit, Type _type, String _name) 		{
 		this.droitAcces=_droit;
@@ -74,12 +76,18 @@ public class Attribut implements ElementClasse {
 	
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
+		Fragment _code = _factory.createFragment();
+		if (this.statiC) {
+			_code.add(_factory.createPush(this.typeAtt.length()));
+		}
 		return _factory.createFragment();
 	}
 
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		return 0;
+		this.register = _register;
+		this.offset = _offset;
+		return this.typeAtt.length();
 	}
 
 	@Override

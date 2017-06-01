@@ -258,8 +258,8 @@ public class ClasseImpl implements Classe
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
-		for (ElementClasse e:this.elementsClasse)
-			_code.append(e.getCode(_factory));
+		for (Methode m : this.getMethodes())
+			_code.append(m.getCode(_factory));
 		return _code;
 	}
 
@@ -350,6 +350,17 @@ public class ClasseImpl implements Classe
 	{
 		Classe c = (Classe)((((ClasseImpl) _classe).getHeritageClasse()).getObjet());
 		return (c.getName().equals(this.getName()));
+	}
+	
+	@Override	
+	public List<Attribut> getAttributsStatiques() {
+		List<Attribut> attributsStatiques = new LinkedList<Attribut>();
+		for (Attribut a : this.getAttributs()) {
+			if (a.statiC) {
+				attributsStatiques.add(a);
+			}
+		}
+		return attributsStatiques;
 	}
 
 
