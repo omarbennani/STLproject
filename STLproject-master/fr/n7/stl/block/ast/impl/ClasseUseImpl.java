@@ -83,7 +83,9 @@ public class ClasseUseImpl implements ObjetUse {
 	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		throw new SemanticsUndefinedException("getCode is not defined in ClasseUseImpl");
+		Fragment _code = _factory.createFragment();
+		_code.add(_factory.createLoad(this.classe.getRegister(), this.classe.getOffset(), this.classe.getTailleAttributsStatiques()));
+		return _code;
 	}
 
 }

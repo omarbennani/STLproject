@@ -5,6 +5,7 @@ import java.util.List;
 import fr.n7.stl.block.ast.impl.Attribut;
 import fr.n7.stl.block.ast.impl.Constructeur;
 import fr.n7.stl.block.ast.impl.Methode;
+import fr.n7.stl.tam.ast.Register;
 
 public interface Classe extends Objet {
 	
@@ -33,6 +34,12 @@ public interface Classe extends Objet {
 	public boolean etends(Classe _classe);
 	
 	public List<Attribut> getAttributsStatiques();
+	
+	public int getTailleAttributsStatiques();
+	
+	public Register getRegister();
+	
+	public int getOffset();
 	//public boolean estEtendu(Classe _classe);
 
 

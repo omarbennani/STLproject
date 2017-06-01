@@ -256,6 +256,16 @@ public class ClasseImpl implements Classe
 	}
 
 	@Override
+	public Register getRegister() {
+		return this.register;
+	}
+	
+	@Override
+	public int getOffset() {
+		return this.offset;
+	}
+	
+	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
 		for (Methode m : this.getMethodes())
@@ -265,13 +275,13 @@ public class ClasseImpl implements Classe
 
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		int _local = _offset;
-        for (ElementClasse ec : this.elementsClasse) {
-            _local += ec.allocateMemory(_register, _local);
+		int _local = 0;
+        for (Attribut as : this.getAttributsStatiques()) {
+            _local += as.allocateMemory(_register, _local);
         }
-        this.offset = _local - _offset;
+        this.offset = _offset;
         this.register = _register;
-		return _local;
+		return this.getTailleAttributsStatiques();
 	}
 
 	@Override
@@ -361,6 +371,15 @@ public class ClasseImpl implements Classe
 			}
 		}
 		return attributsStatiques;
+	}
+	
+	@Override
+	public int getTailleAttributsStatiques() {
+		int taille = 0;
+		for (Attribut as : this.getAttributsStatiques()) {
+			taille += as.getType().length();
+		}
+		return taille;
 	}
 
 
