@@ -275,8 +275,8 @@ public class ClasseImpl implements Classe
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
 		int _local = 0;
-        for (Attribut as : this.getAttributsStatiques()) {
-            _local += as.allocateMemory(_register, _local);
+        for (ElementClasse ec : this.elementsClasse) {
+            _local += ec.allocateMemory(_register, _local);
         }
         this.offset = _offset;
         this.register = _register;

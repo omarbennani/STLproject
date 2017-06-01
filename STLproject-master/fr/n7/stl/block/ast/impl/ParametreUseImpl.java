@@ -54,16 +54,16 @@ public class ParametreUseImpl implements Expression {
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
 		if (this.parametre.getType() instanceof ClassTypeImpl) {
-			System.out.println("AAAAAAAAAAAAAAAAAAAA");
-			System.out.println(this.parametre.getOffset());
 			_code.add(_factory.createLoad(this.parametre.getRegister(),
 					this.parametre.getOffset(),
 					1));
 		}
-		else
+		else {
+			System.out.println(this.parametre.getName());
 			_code.add(_factory.createLoad(this.parametre.getRegister(),
 					this.parametre.getOffset(),
 					this.parametre.getType().length()));
+		}
 		return _code;
 	}
 

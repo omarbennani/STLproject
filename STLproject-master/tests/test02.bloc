@@ -20,7 +20,7 @@ class Voiture {
     public Voiture() {
     }
     public Pneu getPneu() {
-        return pneu;
+        return this.pneu;
     }
 
     public void truc() {
@@ -41,10 +41,10 @@ public class Main {
 	{
         //Voiture v1 = new Voiture();
         //Voiture v2 = new Voiture();
-        Honda h = new Honda();
+        //Honda h = new Honda();
         //Voiture v = new Honda();
         //v.truc();
-        //Pneu p1 = new Pneu(10);
+        Pneu p1 = new Pneu(10);
         //Pneu p2 = new Pneu();
         //Pneu p3 = new Pneu();
         //print(p1.ll);
@@ -53,7 +53,7 @@ public class Main {
         //h.pneu = p3;
         //p1.nb = 1;
         //p2.nb = 2;
-        //p3.setNb(3);
+        p1.setNb(3);
         //v1.getPneu().setNb(10);
         //print(v1.getPneu().nb);
         //print(v2.getPneu().nb);

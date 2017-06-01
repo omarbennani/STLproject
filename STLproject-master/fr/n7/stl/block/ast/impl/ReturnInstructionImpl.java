@@ -41,7 +41,7 @@ public class ReturnInstructionImpl implements Instruction {
 	 */
 	@Override
 	public boolean checkType() {
-		if(this.typeRetour.equals(this.ret.getType()))
+		if(this.typeRetour.equalsTo(this.ret.getType()))
 			return true;
 		else
 			return false;
