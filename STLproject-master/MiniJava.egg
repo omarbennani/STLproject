@@ -1606,7 +1606,7 @@ do
         end
     end
     if s = nil then
-        t := Acces^support.getType();
+        t := Acces^support.getTypeReel();
         match t
         with ClassTypeImpl then
             c := t.getClasse();
