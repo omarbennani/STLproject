@@ -31,7 +31,7 @@ public interface Classe extends Objet {
 	
 	public List<Attribut> getAttributsParents();
 
-	public boolean etends(Classe _classe);
+	public boolean estEtendue(Classe _classe);
 	
 	public List<Attribut> getAttributsStatiques();
 	
@@ -42,6 +42,8 @@ public interface Classe extends Objet {
 	public Register getRegister();
 	
 	public int getOffset();
+	
+	public boolean implemente(Interface _interface);
 	//public boolean estEtendu(Classe _classe);
 
 

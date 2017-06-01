@@ -8,4 +8,6 @@ public interface Interface extends Objet {
 	
 	public Set<Signature> getAllSignatures();
 	
+	public boolean etends(Interface _interface);
+	
 }

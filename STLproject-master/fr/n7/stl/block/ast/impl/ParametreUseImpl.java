@@ -53,14 +53,13 @@ public class ParametreUseImpl implements Expression {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
-		if (this.parametre.getName().equals("this")) {
-			System.out.println("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
-			System.out.println(((ClassTypeImpl)this.getParametre().getType()).getClasse().getName());
-		}
-		if (this.parametre.getType() instanceof ClassTypeImpl)
+		if (this.parametre.getType() instanceof ClassTypeImpl) {
+			System.out.println("AAAAAAAAAAAAAAAAAAAA");
+			System.out.println(this.parametre.getOffset());
 			_code.add(_factory.createLoad(this.parametre.getRegister(),
 					this.parametre.getOffset(),
 					1));
+		}
 		else
 			_code.add(_factory.createLoad(this.parametre.getRegister(),
 					this.parametre.getOffset(),

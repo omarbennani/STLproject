@@ -8,6 +8,7 @@ import java.util.LinkedList;
 import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.block.ast.ObjetUse;
 import fr.n7.stl.block.ast.AtomicType;
+import fr.n7.stl.block.ast.Classe;
 import fr.n7.stl.block.ast.Type;
 
 /**
@@ -43,7 +44,12 @@ public class InterfaceTypeImpl implements Type {
 	 */
 	@Override
 	public boolean equalsTo(Type _other) {
-           throw new SemanticsUndefinedException("equalsTo is undefined in ObjetTypeImpl.java");
+		if (_other instanceof InterfaceTypeImpl) {
+			InterfaceTypeImpl _type = (InterfaceTypeImpl) _other;
+			return this.interface_.getName().equals(_type.interface_.getName());
+		} else {
+			return false;
+		}
 	}
 
 	/* (non-Javadoc)
@@ -51,7 +57,14 @@ public class InterfaceTypeImpl implements Type {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-		throw new SemanticsUndefinedException("equalsTo is undefined in ObjetTypeImpl.java");
+		if(_other instanceof InterfaceTypeImpl)
+		{
+			InterfaceTypeImpl  _type = (InterfaceTypeImpl) _other;
+			Interface _interface = _type.getInterface();
+			if(this.interface_.equals(_interface) || this.interface_.etends(_interface))
+				return true;
+		}
+		return false;
 	}
 
 	/* (non-Javadoc)
@@ -67,7 +80,7 @@ public class InterfaceTypeImpl implements Type {
 	 */
 	@Override
 	public int length() {
-		           throw new SemanticsUndefinedException("equalsTo is undefined in ObjetTypeImpl.java");
+		return 0;
 	}
 
 	/* (non-Javadoc)

@@ -2,13 +2,12 @@ package fr.n7.stl.block.ast.impl;
 
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.ArrayList;
 import java.util.List;
 
 import fr.n7.stl.block.ast.Classe;
 import fr.n7.stl.block.ast.DroitAcces;
 import fr.n7.stl.block.ast.ElementClasse;
-import fr.n7.stl.block.ast.Instruction;
+import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.block.ast.ObjetUse;
 import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.ParametreGenericite;
@@ -356,10 +355,34 @@ public class ClasseImpl implements Classe
 	}
 
 	//VERIFIE QUE LA CLASSE THIS EST ETENDUE PAR LA CLASSE EN PARAMETRE
-	public boolean etends(Classe _classe)
+	public boolean estEtendue(Classe _classe)
 	{
-		Classe c = (Classe)((((ClasseImpl) _classe).getHeritageClasse()).getObjet());
-		return (c.getName().equals(this.getName()));
+		if (((ClasseImpl) _classe).getHeritageClasse() != null) {
+			Classe c = (Classe)((((ClasseImpl) _classe).getHeritageClasse()).getObjet());
+			if (c.getName().equals(this.getName()))
+				return true;
+			else
+				return c.estEtendue(_classe);
+		} else {
+			return false;
+		}
+	}
+	
+	//VERIFIE QUE LA CLASSE THIS IMPLEMENTE L'INTERFACE _interface
+	public boolean implemente(Interface _interface) {
+		for (ObjetUse ou : this.implantationInterface) {
+			Interface i = (Interface)ou.getObjet();
+			if (_interface.getName().equals(i.getName()))
+				return true;
+			else {
+				if (i.etends(_interface))
+					return true;
+			}
+		}
+		Classe c = (Classe)this.heritageClasse.getObjet();
+		if (c != null)
+			return c.implemente(_interface);
+		return false;
 	}
 	
 	@Override

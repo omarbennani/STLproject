@@ -106,20 +106,30 @@ public class InterfaceImpl implements Interface {
 
 		return new String(result + heritages +"{\n"+elts+"} \n");
 	}
+	
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
-		// TODO Auto-generated method stub
-		return null;
+		return _factory.createFragment();
 	}
+	
 	@Override
 	public boolean checkType() {
-		// TODO Auto-generated method stub
-		//boolean result = false;
 		return true;
 	}
+	
+	public boolean etends(Interface _interface) {
+		for (ObjetUse ou : this.heritageInterface) {
+			Interface i = (Interface)ou.getObjet();
+			if (i.getName().equals(this.getName()))
+				return true;
+			else
+				return i.etends(_interface);
+		}
+		return false;
+	}
+	
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

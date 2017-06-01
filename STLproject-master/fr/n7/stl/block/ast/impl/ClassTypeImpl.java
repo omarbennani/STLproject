@@ -7,8 +7,8 @@ import java.util.LinkedList;
 import java.util.List;
 
 import fr.n7.stl.block.ast.Classe;
+import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.block.ast.ObjetUse;
-import fr.n7.stl.block.ast.AtomicType;
 import fr.n7.stl.block.ast.Type;
 
 /**
@@ -56,14 +56,18 @@ public class ClassTypeImpl implements Type {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-		System.out.println("CompatibleWith INCOMPLETE in ClassTypeImpl.java");
 		if(_other instanceof ClassTypeImpl)
 		{
 			ClassTypeImpl _type = (ClassTypeImpl) _other;
 			Classe _classe = _type.getClasse();
-			if(this.classe.equals(_classe) || _classe.etends(this.classe))
+			if(this.classe.equals(_classe) || _classe.estEtendue(this.classe))
 				return true;
-		}	
+		} else if (_other instanceof InterfaceTypeImpl) {
+			InterfaceTypeImpl _type = (InterfaceTypeImpl) _other;
+			Interface _interface = _type.getInterface();
+			if (this.classe.implemente(_interface))
+				return true;
+		}
 		return false;	
 
 	}

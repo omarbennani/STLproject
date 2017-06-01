@@ -125,7 +125,7 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 		Fragment _code = _factory.createFragment();
 		if (this.value instanceof ObjetAllocationImpl) {
 			_code.add(_factory.createPush(1));
-			_code.add(_factory.createLoadL(((ClassTypeImpl)this.type).getTaillePointee()));
+			_code.add(_factory.createLoadL(((ClassTypeImpl)this.getTypeReel()).getTaillePointee()));
 			_code.add(Library.MAlloc);
 			_code.add(_factory.createStore(this.register, this.offset, 1));
 			_code.add(_factory.createLoad(this.register, this.offset, 1));
@@ -140,7 +140,6 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 
 	public Type getTypeReel() 
 	{
-		System.out.println("getTypeReelDeclaration" + this.value);
 		return this.value.getTypeReel();
 	}
 
