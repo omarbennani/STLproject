@@ -64,7 +64,7 @@ public class VariableUseImpl implements Expression {
 			Expression _value = this.declaration.getValue();
 			_code.append(_value.getCode(_factory));
 		} else {
-			if (this.declaration.getType() instanceof ClassTypeImpl)
+			if (this.declaration.getTypeReel() instanceof ClassTypeImpl)
 				_code.add(_factory.createLoad(this.declaration.getRegister(),
 						this.declaration.getOffset(),
 						1));

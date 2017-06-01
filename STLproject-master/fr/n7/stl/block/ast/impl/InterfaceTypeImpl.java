@@ -80,7 +80,7 @@ public class InterfaceTypeImpl implements Type {
 	 */
 	@Override
 	public int length() {
-		return 0;
+		return 1;
 	}
 
 	/* (non-Javadoc)

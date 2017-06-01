@@ -3,16 +3,11 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import java.util.Collections;
-import java.util.LinkedList;
-import java.util.List;
-
 import fr.n7.stl.block.ast.AppelOuAcces;
 import fr.n7.stl.block.ast.Arguments;
 import fr.n7.stl.block.ast.Declaration;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Instruction;
-import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -93,6 +88,7 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
+		System.out.println("GET CODE APPEL " + this.methode.getName() + this.exp.getType().length());
 		_code.append(this.exp.getCode(_factory));
 		_code.append(this.args.getCode(_factory));
 		_code.add(_factory.createCall(((Methode)this.methode).getEtiquette(), Register.LB));
