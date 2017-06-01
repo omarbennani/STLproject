@@ -65,7 +65,7 @@ public class ClasseImpl implements Classe
 			Attribut _a = new Attribut(a.droitAcces, a.getType(), a.getName());
 			_a.setClasse(this);
 			if (!this.containsAttribut(_a.getName())) {
-				System.out.println("UPDATE ATTRIBUT " + _a.getName());
+				System.out.println("UPDATE ATTRIBUT " + _a.getName() + this.name);
 				elementsClasse.add(_a);
 				attributs.add(_a);
 			}
@@ -267,6 +267,8 @@ public class ClasseImpl implements Classe
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
+		for (Constructeur c : this.getConstructeurs())
+			_code.append(c.getCode(_factory));
 		for (Methode m : this.getMethodes())
 			_code.append(m.getCode(_factory));
 		return _code;

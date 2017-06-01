@@ -29,7 +29,8 @@ class Voiture {
 }
 
 class Honda extends Voiture {
-    public Honda() {}
+    public Honda() {
+    }
     public void truc() {
         print(86);
     }
