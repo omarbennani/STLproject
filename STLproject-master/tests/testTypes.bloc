@@ -1,0 +1,69 @@
+interface Instrument
+{
+	void jouer();
+}
+
+class Guitare implements Instrument
+{
+	private int id;
+	public boolean b;
+	protected String name;
+
+	public Guitare(int _id, String _name)	
+	{
+		this.id = _id;
+		this.name = _name;
+		this.b = true;
+	}
+
+	public void jouer()
+	{
+		print(this.name);
+	}
+
+	public int getId()
+	{
+		return this.id;
+	}
+
+	public String getName()
+	{
+		return this.name;
+	}
+}
+
+class GuitareBasse extends Guitare
+{
+	public GuitareBasse()
+	{
+		print("GuitareBasse");
+	}
+}
+
+class CompositionMusicale <T>
+{
+	private T instrument;
+	public CompositionMusicale(T _instrument)
+	{
+		this.instrument = _instrument;
+	}
+}
+
+public class Main {
+
+	public static void main( String [] args)
+	{
+		int id = 1;
+		print(id);
+
+		Instrument ins = new Guitare(1, "Electrique"); 
+		Guitare g = new Guitare(1, "Electrique");
+		GuitareBasse guitareBasse = new GuitareBasse();
+		CompositionMusicale compo = new CompositionMusicale <Guitare>();
+
+		print(g.id);
+		print(g.b);
+		print(g.name);
+	
+	}
+}
