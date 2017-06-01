@@ -90,5 +90,6 @@ public interface ObjetFactory {
 	public ParametreGenericite createParametreGenericite(LinkedList<Type> _param );
 	
 	public VariableDeclaration createVariableDeclaration(String _name);
-
+	
+	public Type createGenericParameterType(ParametreGenericite parametreGenericite, LinkedList<ObjetUse> instanceGenericite);
 }

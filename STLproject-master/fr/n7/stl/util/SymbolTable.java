@@ -5,11 +5,13 @@ package fr.n7.stl.util;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.LinkedList;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Optional;
 
 import fr.n7.stl.block.ast.Declaration;
+import fr.n7.stl.block.ast.ParametreGenericite;
 import fr.n7.stl.block.ast.ForbiddenDeclarationException;
 import fr.n7.stl.block.ast.HierarchicalScope;
 import fr.n7.stl.block.ast.impl.Attribut;
@@ -150,5 +152,31 @@ public class SymbolTable implements HierarchicalScope<Declaration> {
 			}
 		}
 	}
+
+	public static boolean checkIfGenericParameterIsdefined(	String identificateur, LinkedList<ParametreGenericite> genericite)
+	{
+		for(ParametreGenericite p : genericite)
+		{
+			if(p.getName().equals(identificateur))
+				return true;
+		}
+		return false;
+	}
+
+	public static int getParameterIndex(String identificateur, LinkedList<ParametreGenericite> genericite)
+	{
+		int i = 0;
+		for(ParametreGenericite p : genericite)
+		{
+			if(p.getName().equals(identificateur))
+				return i;
+			i++;
+		}
+		return i;
+	}
+
+/*
+			TypeAtomique^ast:=TypeAtomique^factory.createGenericParameterType(TypeAtomique^genericite.get(i), InstanceGenericite^ast);
+*/
 
 }

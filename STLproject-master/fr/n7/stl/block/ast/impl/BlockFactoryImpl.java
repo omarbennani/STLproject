@@ -669,4 +669,9 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new VariableDeclarationImpl(_name);
 	}
 
+	@Override
+	public Type createGenericParameterType(ParametreGenericite parametreGenericite, LinkedList<ObjetUse> instanceGenericite)
+	{
+		return new GenericParameterTypeImpl(parametreGenericite, instanceGenericite);
+	}
 }

@@ -43,6 +43,8 @@ inh factory	: BlockFactory for Interfaces, Interface, HeritageInterface, SuiteHe
 inh listHeritage: List<String> for SuiteHeritageInterface;
 inh type	: Type for SuiteTypeAtomique ;
 
+inh genericite 		:LinkedList<ParametreGenericite> for ElementsInterface, ElementInterface, ElementsClasse, ElementClasse, Bloc,Type, TypeAtomique , SuiteTypeAtomique, AttributOuMethode, SuiteAttributOuMethode, Constructeur, Instruction, Instructions, SuiteConditionnelle, Signature, Parametres, SuiteParametres, Parametre, Facteur, SuiteFacteur, Terme, SuiteTerme, Condition, SuiteCondition, Affectation, SuiteAffectation, Expression, Acces, Appel, AppelOuAcces,Expressions,  SuiteExpressions, SuiteNouveau, Arguments;
+
 ---------------------------------------------------------------------------------------------------------------
 syn ast		: Programme for Programme ; 
 syn ast		: LinkedList<Interface> for Interfaces;
@@ -247,7 +249,6 @@ Interfaces ->  Interface #tds  Interfaces #ast;
 #tds{
 do
 	Interfaces^tdsInterface.register(Interface^ast);
-	--Interfaces1^tds := Interfaces^tds; --PASSAGE NON NECESSAIRE
 end
 }
 
@@ -272,6 +273,7 @@ Interface -> interface identificateur_type Genericite HeritageInterface accolade
 do
 		ElementsInterface^tds := new SymbolTable();
 		ElementsInterface^identObjetCourant := identificateur_type^txt;
+		ElementsInterface^genericite := Genericite^ast;
 end
 }
 
@@ -496,15 +498,6 @@ end
 
 
 Classe -> classe  identificateur_type Genericite HeritageClasse ImplantationInterface accolade_ouvrante #inh ElementsClasse accolade_fermante #ast;
---global
---    s_clas_Gen : SymbolTable;
-
---#clasGen{
---do
---	s_clas_Gen = new SymbolTable();
---end
---}
-
 #ast{
 do
 	if Classe^tdsClasses.contains(identificateur_type^txt) then
@@ -518,6 +511,7 @@ end
 }
 #inh {
 do
+	ElementsClasse^genericite := Genericite^ast;
     ElementsClasse^nomClasse := identificateur_type^txt;
 end
 }
@@ -625,6 +619,7 @@ do
 	Bloc^tdsAtt := new SymbolTable();
 	Bloc^nomClasse := "Main";
 	Bloc^type_Retour := nil;
+	Bloc^genericite := new LinkedList<ParametreGenericite>();
 end
 }
 
@@ -973,6 +968,7 @@ TypeAtomique -> identificateur_type InstanceGenericite #ast;
 local
 	f : Optional<Declaration>;
    	d : Declaration;
+	i : int;
 do
 	if TypeAtomique^tdsInterface.contains(identificateur_type^txt) then
 		f:= TypeAtomique^tdsInterface.get(identificateur_type^txt);
@@ -988,6 +984,9 @@ do
 			with Classe then
 				TypeAtomique^ast:=TypeAtomique^factory.createClassType(d, InstanceGenericite^ast);
 			end
+	elseif SymbolTable.checkIfGenericParameterIsdefined(identificateur_type^txt, TypeAtomique^genericite) then
+			i := SymbolTable.getParameterIndex(identificateur_type^txt, TypeAtomique^genericite);
+			TypeAtomique^ast:=TypeAtomique^factory.createGenericParameterType(TypeAtomique^genericite.get(i), InstanceGenericite^ast);
 	else
 		error(Identificateur_Type_undefined,identificateur_type^txt);
 	end
@@ -1868,7 +1867,7 @@ end
 Genericite -> #ast;
 #ast {
 do
-    Genericite^ast := nil;
+    Genericite^ast := new LinkedList<ParametreGenericite>();
 end
 }
 
@@ -1882,6 +1881,7 @@ do
     	SuiteParametresGenericite^ast.addFirst(ParametreGenericite^ast);
     	ParametresGenericite^ast := SuiteParametresGenericite^ast;
     	ParametresGenericite^tds.register(ParametreGenericite^ast);
+		--ParametresGenericite^tdsGenericite.register(ParametreGenericite^ast);
 	end
 end
 }
@@ -1895,6 +1895,7 @@ do
 		SuiteParametresGenericite1^ast.addFirst(ParametreGenericite^ast);
     	SuiteParametresGenericite^ast := SuiteParametresGenericite1^ast;
     	SuiteParametresGenericite^tds.register(ParametreGenericite^ast);
+		--SuiteParametresGenericite^tdsGenericite.register(ParametreGenericite^ast);
 	end
 end
 }
