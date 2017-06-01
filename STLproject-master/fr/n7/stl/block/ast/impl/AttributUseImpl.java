@@ -9,7 +9,6 @@ import java.util.List;
 
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.FieldDeclaration;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -57,10 +56,10 @@ public class AttributUseImpl implements Expression {
 	@Override
 	public String toString() 
 	{
-		if (this.exp == null) {
-			return this.declaration.getName();
+		if (this.exp == null && ((Attribut)this.declaration).isStatic()) {
+			this.exp = new ClasseUseImpl(((Attribut)this.declaration).classe);
 		}
-		else
+		//else
 			return this.exp.toString() + "." + this.declaration.getName();		
 	}
 
@@ -69,6 +68,9 @@ public class AttributUseImpl implements Expression {
 	 */
 	@Override
 	public Type getType() {
+		if (this.exp == null && ((Attribut)this.declaration).isStatic()) {
+			this.exp = new ClasseUseImpl(((ClassTypeImpl)this.declaration.getType()).getClasse());
+		}
 		return declaration.getType();
 	}
 	
@@ -112,9 +114,10 @@ public class AttributUseImpl implements Expression {
 				}
 				e = ((AttributUseImpl)e).exp;
 			}
+			System.out.println("ATTRIBUT USE STATIC GET CODE");
 			_code.add(_factory.createLoad(((ClasseUseImpl)e).classe.getRegister(),
 										   position,
-										   this.declaration.getType().length()));
+										   ((Attribut)this.declaration).getTypeReel().length()));
 		}
 
 	

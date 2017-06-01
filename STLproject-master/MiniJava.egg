@@ -1481,6 +1481,7 @@ local
 	a : Attribut;
 	s : StaticField;
     this : Expression;
+    cu : ObjetUse;
 do
     a := nil;
 	v := nil;
@@ -1513,12 +1514,16 @@ do
         with StaticField then s := d;
         end
         if a != nil then
-            o := Facteur^tds.get("this");
-            d := o.get();
-            match d
-            with Parametre then
-                this := Facteur^factory.createParametreUse(d);
-		        AppelOuAcces^support := Facteur^factory.createAttributUse(a, this);
+            if (a.isStatic()) then
+                AppelOuAcces^support := Facteur^factory.createAttributUse(a);
+            else
+                o := Facteur^tds.get("this");
+                d := o.get();
+                match d
+                with Parametre then
+                    this := Facteur^factory.createParametreUse(d);
+		            AppelOuAcces^support := Facteur^factory.createAttributUse(a, this);
+                end
             end
         else
             AppelOuAcces^support := Facteur^factory.createStaticFieldUse(s);

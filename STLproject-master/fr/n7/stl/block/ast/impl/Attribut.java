@@ -93,9 +93,13 @@ public class Attribut implements ElementClasse {
 	
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
-		this.register = _register;
-		this.offset = _offset;
-		return this.typeAtt.length();
+		if (this.statiC) {
+			this.register = _register;
+			this.offset = _offset;
+			return this.getTypeReel().length();
+		} else {
+			return 0;
+		}
 	}
 
 	@Override
