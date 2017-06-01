@@ -37,6 +37,8 @@ public interface Classe extends Objet {
 	
 	public int getTailleAttributsStatiques();
 	
+	public List<Attribut> getAttributsNonStatiques();
+	
 	public Register getRegister();
 	
 	public int getOffset();

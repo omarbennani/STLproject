@@ -86,7 +86,7 @@ public class ClassTypeImpl implements Type {
 	
 	public int getTaillePointee() {
 		int taille = 0;
-		List<Attribut> attributs = this.classe.getAttributs();
+		List<Attribut> attributs = this.classe.getAttributsNonStatiques();
 		for (Attribut a : attributs) {
 			taille += a.getType().length();
 		}

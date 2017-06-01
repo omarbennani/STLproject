@@ -74,15 +74,23 @@ public class Attribut implements ElementClasse {
 		return this.classe.getName();
 	}
 	
+	public int getOffset() {
+		return this.offset;
+	}
+	
+	public Register getRegister() {
+		return this.register;
+	}
+	
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
 		if (this.statiC) {
 			_code.add(_factory.createPush(this.typeAtt.length()));
 		}
-		return _factory.createFragment();
+		return _code;
 	}
-
+	
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
 		this.register = _register;

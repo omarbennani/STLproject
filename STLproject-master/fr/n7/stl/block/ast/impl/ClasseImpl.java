@@ -362,7 +362,7 @@ public class ClasseImpl implements Classe
 		return (c.getName().equals(this.getName()));
 	}
 	
-	@Override	
+	@Override
 	public List<Attribut> getAttributsStatiques() {
 		List<Attribut> attributsStatiques = new LinkedList<Attribut>();
 		for (Attribut a : this.getAttributs()) {
@@ -374,6 +374,17 @@ public class ClasseImpl implements Classe
 	}
 	
 	@Override
+	public List<Attribut> getAttributsNonStatiques() {
+		List<Attribut> attributsNonStatiques = new LinkedList<Attribut>();
+		for (Attribut a : this.getAttributs()) {
+			if (!a.statiC) {
+				attributsNonStatiques.add(a);
+			}
+		}
+		return attributsNonStatiques;
+	}
+	
+	@Override
 	public int getTailleAttributsStatiques() {
 		int taille = 0;
 		for (Attribut as : this.getAttributsStatiques()) {
@@ -381,7 +392,7 @@ public class ClasseImpl implements Classe
 		}
 		return taille;
 	}
-
+	
 
 	public ObjetUse getHeritageClasse()
 	{

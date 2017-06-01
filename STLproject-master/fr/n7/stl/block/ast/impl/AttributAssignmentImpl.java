@@ -39,32 +39,33 @@ public class AttributAssignmentImpl extends AttributUseImpl implements Assignabl
 		int taille = this.declaration.getType().length();
 		int aPop = 0;
 		boolean attributVu = false;
-		List<Attribut> attributs = ((ClassTypeImpl)this.exp.getType()).getClasse().getAttributs();
-		for (Attribut a : attributs) {
-			attributVu = attributVu | this.declaration.getName().equals(a.getName());
-			if (!attributVu) {
-				aPop += a.getType().length();
+		if (!((Attribut)this.declaration).statiC) {
+			List<Attribut> attributs = ((ClassTypeImpl)this.exp.getType()).getClasse().getAttributs();
+			for (Attribut a : attributs) {
+				attributVu = attributVu | this.declaration.getName().equals(a.getName());
+				if (!attributVu) {
+					aPop += a.getType().length();
+				}
 			}
+			_code.append(this.exp.getCode(_factory));
+			_code.add(_factory.createLoadL(aPop));
+			_code.add(Library.IAdd);
+		} else {
+			int position = 0;
+			Expression e = this;
+			while (!(e instanceof ClasseUseImpl)) {
+				for (Attribut a: ((ClassTypeImpl)((AttributUseImpl)e).exp.getType()).getClasse().getAttributsStatiques()) {
+					if (a.getName().equals(((AttributUseImpl)e).declaration.getName())) {
+						break;
+					} else {
+						position = ((Attribut)((AttributUseImpl)e).declaration).getOffset();
+					}
+				}
+				e = ((AttributUseImpl)e).exp;
+			}
+			_code.add(_factory.createLoadA(((ClasseUseImpl)e).classe.getRegister(),
+										   position));
 		}
-		_code.append(this.exp.getCode(_factory));
-		_code.add(_factory.createLoadL(aPop));
-		_code.add(Library.IAdd);
 		return _code;
-//		Fragment _code = _factory.createFragment();
-//		int position = 0;
-//		Expression e = this;
-//		while (e instanceof AttributAssignmentImpl) {
-//			for (Attribut a: ((ClassTypeImpl)((AttributAssignmentImpl)e).exp.getType()).getClasse().getAttributs()) {
-//				if (a.getName().equals(((AttributAssignmentImpl)e).declaration.getName())) {
-//					break;
-//				} else {
-//					position += a.getType().length();
-//				}
-//			}
-//			e = ((AttributAssignmentImpl)e).exp;
-//		}
-//		_code.add(_factory.createLoadA(((VariableUseImpl)e).declaration.getRegister(),
-//									   ((VariableUseImpl)e).declaration.getOffset() + position));
-//		return _code;
 	}
 }

@@ -81,36 +81,40 @@ public class AttributUseImpl implements Expression {
 		int taille = this.declaration.getType().length();
 		int aPop = 0;
 		boolean attributVu = false;
-		List<Attribut> attributs = new ArrayList<Attribut>(((ClassTypeImpl)this.exp.getType()).getClasse().getAttributs());
-		Collections.reverse(attributs);
-		for (Attribut a : attributs) {
-			attributVu = attributVu | this.declaration.getName().equals(a.getName());
-			if (!attributVu) {
-				aPop += a.getType().length();
+		if (!((Attribut)this.declaration).statiC) {
+			List<Attribut>attributs = new ArrayList<Attribut>(((ClassTypeImpl)this.exp.getType()).getClasse().getAttributsNonStatiques());
+			Collections.reverse(attributs);
+			for (Attribut a : attributs) {
+				attributVu = attributVu | this.declaration.getName().equals(a.getName());
+				if (!attributVu) {
+					aPop += a.getType().length();
+				}
 			}
+			_code.append(this.exp.getCode(_factory));
+			_code.add(_factory.createLoadI(((ClassTypeImpl)this.exp.getType()).getTaillePointee()));
+			_code.add(_factory.createPop(0, aPop));
+			_code.add(_factory.createPop(taille, ((ClassTypeImpl)this.exp.getType()).getTaillePointee() - taille - aPop));
+		} else {
+			int position = 0;
+			Expression e = this;
+			while (e instanceof AttributUseImpl) {
+				for (Attribut a : ((ClassTypeImpl)((AttributUseImpl)e).exp.getType()).getClasse().getAttributs()) {
+					if (a.getName().equals(((AttributUseImpl)e).declaration.getName())) {
+						break;
+					} else {
+						position = ((Attribut)((AttributUseImpl)e).declaration).getOffset();
+					}
+				}
+				e = ((AttributUseImpl)e).exp;
+			}
+			_code.add(_factory.createLoad(((ClasseUseImpl)e).classe.getRegister(),
+										   position,
+										   this.declaration.getType().length()));
 		}
-		_code.append(this.exp.getCode(_factory));
-		_code.add(_factory.createLoadI(((ClassTypeImpl)this.exp.getType()).getTaillePointee()));
-		_code.add(_factory.createPop(0, aPop));
-		_code.add(_factory.createPop(taille, ((ClassTypeImpl)this.exp.getType()).getTaillePointee() - taille - aPop));
-		
+
+	
 		return _code;
-//		int position = 0;
-//		Expression e = this;
-//		while (e instanceof AttributUseImpl) {
-//			for (Attribut a : ((ClassTypeImpl)((AttributUseImpl)e).exp.getType()).getClasse().getAttributs()) {
-//				if (a.getName().equals(((AttributUseImpl)e).declaration.getName())) {
-//					break;
-//				} else {
-//					position += a.getType().length();
-//				}
-//			}
-//			e = ((AttributUseImpl)e).exp;
-//		}
-//		_code.add(_factory.createLoad(((VariableUseImpl)e).declaration.getRegister(),
-//									  ((VariableUseImpl)e).declaration.getOffset() + position,
-//									   this.declaration.getType().length()));
-//		return _code;
+
 	}
 
 }
