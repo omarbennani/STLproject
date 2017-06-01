@@ -53,7 +53,6 @@ public class AssignmentImpl implements Instruction , Assignable{
 	 */
 	@Override
 	public String toString() {
-		//return ((this.declaration != null)?this.declaration.getName():this.assignable) + " = " + this.value.toString() + ";\n";
 		return ((this.declaration != null)?this.declaration.getName():this.assignable) + " = " + this.value.toString() + ";\n";	
 	}
 

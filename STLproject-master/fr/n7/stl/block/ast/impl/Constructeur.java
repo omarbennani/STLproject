@@ -36,7 +36,6 @@ public class Constructeur implements ElementClasse {
 		TAMFactory _factory = new TAMFactoryImpl();
 		int _labelNumber = _factory.createLabelNumber();
 		this.etiquette = this.nom + _labelNumber;
-		System.out.println("CREATE " + this.nom + " " + this.param.size());
 		_factory = null;
 	}
 
@@ -75,7 +74,7 @@ public class Constructeur implements ElementClasse {
 	@Override
 	public Type getType()
 	{
-		throw new SemanticsUndefinedException("getType is undefined in Methode");
+		throw new SemanticsUndefinedException("getType is undefined in Constructeur");
 	}
 
 	@Override
@@ -93,7 +92,6 @@ public class Constructeur implements ElementClasse {
 	
 	public void setClasse(Classe _classe) {
 		this.classe = _classe;
-		System.out.println("SET CLASSE " + this.etiquette);
 		this.thiS.setType(this.classe.getType());
 	}
 	

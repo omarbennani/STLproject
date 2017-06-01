@@ -88,7 +88,6 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
-		System.out.println("GET CODE APPEL " + this.methode.getName() + this.exp.getType().length());
 		_code.append(this.exp.getCode(_factory));
 		_code.append(this.args.getCode(_factory));
 		_code.add(_factory.createCall(((Methode)this.methode).getEtiquette(), Register.LB));

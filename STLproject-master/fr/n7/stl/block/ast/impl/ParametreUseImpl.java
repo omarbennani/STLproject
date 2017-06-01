@@ -59,7 +59,6 @@ public class ParametreUseImpl implements Expression {
 					1));
 		}
 		else {
-			System.out.println(this.parametre.getName());
 			_code.add(_factory.createLoad(this.parametre.getRegister(),
 					this.parametre.getOffset(),
 					this.parametre.getType().length()));

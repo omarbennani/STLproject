@@ -65,7 +65,6 @@ public class ClasseImpl implements Classe
 			Attribut _a = new Attribut(a.droitAcces, a.getType(), a.getName());
 			_a.setClasse(this);
 			if (!this.containsAttribut(_a.getName())) {
-				System.out.println("UPDATE ATTRIBUT " + _a.getName() + this.name);
 				elementsClasse.add(_a);
 				attributs.add(_a);
 			}

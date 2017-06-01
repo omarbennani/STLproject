@@ -40,7 +40,6 @@ public class ArgumentsImpl implements Arguments {
 	@Override
 	public String toString() 
 	{
-		//((this.exp != null)?this.exp.toString():new String()))
 		return  "(" + ((this.exp != null)?this.exp.toString():new String()) + ")" ;
 	}
 

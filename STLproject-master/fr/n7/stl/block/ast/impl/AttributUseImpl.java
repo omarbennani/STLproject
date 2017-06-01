@@ -114,7 +114,6 @@ public class AttributUseImpl implements Expression {
 				}
 				e = ((AttributUseImpl)e).exp;
 			}
-			System.out.println("ATTRIBUT USE STATIC GET CODE");
 			_code.add(_factory.createLoad(((ClasseUseImpl)e).classe.getRegister(),
 										   position,
 										   ((Attribut)this.declaration).getTypeReel().length()));
