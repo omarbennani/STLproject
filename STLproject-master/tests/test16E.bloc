@@ -10,8 +10,8 @@ interface Voiture extends Vehicule {
 }
 
 class Honda implements Voiture {
-    int serie;
-    public Voiture(int s){
+    private int serie;
+    public Honda(int s){
         serie = s;
     }
     public void laver() {
