@@ -1,0 +1,21 @@
+// TEST CORRECT 
+// Utilisation d'une methode statique
+
+class Voiture {
+
+    private int serie;
+
+    public Voiture(int t) {
+        serie = t;
+    }
+    public static void afficher(int _serie) {
+    	print(_serie);
+    }
+}
+
+public class Main {
+	public static void main( String [] args) {
+	    Voiture v = new Voiture(2);
+        Voiture.afficher(3);
+	}
+}

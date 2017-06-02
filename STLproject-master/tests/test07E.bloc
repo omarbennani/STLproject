@@ -1,5 +1,5 @@
 // ERREUR
-// Type mismatch (ligne 29)
+// Type mismatch (ligne 30)
 
 class Voiture {
     public int serie;
@@ -12,15 +12,16 @@ class Voiture {
 }
 
 class Camion {
-    public bool serie;
+    public boolean serie;
 
-    public Camion(bool b) {
+    public Camion(boolean b) {
         serie = b;
     }
 
-    public void setSerie(bool b) {
+    public void setSerie(boolean b) {
 	    serie = b;
     }
+}
 
 public class Main {
 	public static void main( String [] args) {
