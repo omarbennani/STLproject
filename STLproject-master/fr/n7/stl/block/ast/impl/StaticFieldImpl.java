@@ -19,24 +19,23 @@ public class StaticFieldImpl implements StaticField {
 	protected Type type;
 	protected Expression expression;
 
-	public StaticFieldImpl(){}
+	public StaticFieldImpl() {
+		
+	}
 	
-	public StaticFieldImpl(Type _type, String _identificateur, Expression _expression)
-	{
+	public StaticFieldImpl(Type _type, String _identificateur, Expression _expression) {
 		this.identificateur = _identificateur;
 		this.type = _type;
 		this.expression = _expression;
 	}
 
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return this.identificateur;
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		if (this._final)
 			return new String("final static " +this.type.toString() + " "+ this.identificateur+"; \n");
 		else
@@ -44,19 +43,16 @@ public class StaticFieldImpl implements StaticField {
 	}
 
 	@Override
-	public void setFinal(boolean b)
-	{
+	public void setFinal(boolean b) {
 		this._final = b;
 	}
 
 	@Override
-	public boolean isFinal()
-	{
+	public boolean isFinal() {
 		return this._final;
 	}
 
-	public Type getType()
-	{
+	public Type getType() {
 		return this.type;
 	}
 	

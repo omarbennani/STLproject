@@ -15,6 +15,7 @@ import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a call of a method.
+ * 
  */
 public class AppelImpl implements AppelOuAcces, Instruction {
 

@@ -53,6 +53,11 @@ public class VariableUseImpl implements Expression {
 	public Type getType() {
 		return declaration.getType();
 	}
+	
+	@Override
+	public Type getTypeReel() {
+		return this.declaration.getTypeReel();
+	}
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
@@ -75,12 +80,5 @@ public class VariableUseImpl implements Expression {
 			}
 		}
 		return _code;
-	}
-
-
-	@Override
-	public Type getTypeReel() 
-	{
-		return this.declaration.getTypeReel();
 	}
 }

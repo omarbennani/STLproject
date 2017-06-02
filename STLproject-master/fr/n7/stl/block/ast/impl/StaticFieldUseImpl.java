@@ -18,7 +18,6 @@ public class StaticFieldUseImpl implements Expression {
 
 	protected Declaration declaration;
 	protected Expression exp;
-	
 	protected Type typeReel;
 	
 	/**

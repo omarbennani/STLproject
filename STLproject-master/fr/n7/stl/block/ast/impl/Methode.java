@@ -17,6 +17,10 @@ import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.tam.ast.impl.TAMFactoryImpl;
 
+/**
+ * Implementation of the Abstract Syntax Tree node for a method declaration instruction.
+ *
+ */
 public class Methode implements ElementClasse {
 
 	protected DroitAcces droitAcces;

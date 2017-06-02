@@ -6,6 +6,10 @@ import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
+/**
+ * Implementation of the Abstract Syntax Tree node for a character value.
+ *
+ */
 public class CharValueImpl implements CharValue {
 	
 	private char value;

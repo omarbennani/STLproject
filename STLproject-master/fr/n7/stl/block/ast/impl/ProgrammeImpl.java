@@ -10,6 +10,10 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
+/**
+ * Implementation of the Abstract Syntax Tree node for program.
+ *
+ */
 public class ProgrammeImpl implements Programme {
 
 	protected LinkedList<Interface> interfaces;
@@ -17,26 +21,22 @@ public class ProgrammeImpl implements Programme {
 	protected MethodePrincipale princ;
 	private int offset;
 	
-
-	
-	public ProgrammeImpl(LinkedList<Interface> _interfaces,LinkedList<Classe> _classes, MethodePrincipale _princ) 
-	{
+	public ProgrammeImpl(LinkedList<Interface> _interfaces,LinkedList<Classe> _classes, MethodePrincipale _princ) {
 			this.interfaces=_interfaces;
 			this.classes=_classes;
 			this.princ = _princ;
 	}
 	
-	public void addClasse(Classe _classe){
+	public void addClasse(Classe _classe) {
 		this.classes.add(_classe);
 	}
 	
-	public void addInterface(Interface _interface){
+	public void addInterface(Interface _interface) {
 		this.interfaces.add(_interface);
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		String _local = "";
 		for (Interface _interface : this.interfaces) {
 			_local += _interface;
@@ -57,8 +57,7 @@ public class ProgrammeImpl implements Programme {
 	}
 	
 	@Override
-	public boolean checkType() 
-	{
+	public boolean checkType() {
 		boolean result = true;
 		for (Interface i : this.interfaces)
 			result = result && i.checkType();
@@ -67,6 +66,7 @@ public class ProgrammeImpl implements Programme {
 		result = result && princ.checkType();
 		return result;
 	}
+	
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
 		int _local = _offset;

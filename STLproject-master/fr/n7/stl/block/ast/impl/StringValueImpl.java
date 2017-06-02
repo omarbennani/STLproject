@@ -6,7 +6,11 @@ import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
-public class StringValueImpl implements StringValue{
+/**
+ * Implementation of the Abstract Syntax Tree node for a string value.
+ *
+ */
+public class StringValueImpl implements StringValue {
 	
 	private String value;
 	

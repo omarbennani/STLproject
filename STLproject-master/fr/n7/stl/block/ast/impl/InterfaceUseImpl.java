@@ -13,19 +13,17 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * Implementation of the Abstract Syntax Tree node for a variable use expression.
- * @author Marc Pantel
+ * Implementation of the Abstract Syntax Tree node for an interface use expression.
  *
  */
 public class InterfaceUseImpl implements ObjetUse {
 
 	protected Interface interface_;
 	protected LinkedList<ObjetUse> instanceGenericite;
-
 	
 	/**
-	 * Creates a variable use expression Abstract Syntax Tree node.
-	 * @param _declaration Declaration of the used variable.
+	 * Creates an interface use expression Abstract Syntax Tree node.
+	 * @param _interface Declaration of the used interface.
 	 */
 	public InterfaceUseImpl(Interface _interface_) {
 		this.interface_ = _interface_;

@@ -13,8 +13,7 @@ import fr.n7.stl.block.ast.Signature;
 import fr.n7.stl.block.ast.Type;
 
 /**
- * Implementation of the Abstract Syntax Tree node for a pointer access expression.
- * @author Marc Pantel
+ * Implementation of the Abstract Syntax Tree node for a signature declaration.
  *
  */
 public class SignatureImpl implements Signature {
@@ -25,20 +24,18 @@ public class SignatureImpl implements Signature {
 	protected List<Parametre> parametres;
 	protected String interfaceName;
 
-	public SignatureImpl()
-	{
+	public SignatureImpl() {
 		this.parametres = new LinkedList<Parametre> ();
 	}
-	public SignatureImpl(String _identificateur, LinkedList<Parametre> _parametres, String _interfaceName)
-	{
+	
+	public SignatureImpl(String _identificateur, LinkedList<Parametre> _parametres, String _interfaceName) {
 		this.identificateur = _identificateur;
 		this.type_retour = AtomicType.VoidType;
 		this.parametres = _parametres;
 		this.interfaceName = _interfaceName;
 	}
 
-	public SignatureImpl(Type _type_retour, String _identificateur, LinkedList<Parametre> _parametres, String _interfaceName)
-	{
+	public SignatureImpl(Type _type_retour, String _identificateur, LinkedList<Parametre> _parametres, String _interfaceName) {
 		this.identificateur = _identificateur;
 		this.type_retour = _type_retour;
 		this.parametres = _parametres;
@@ -46,25 +43,22 @@ public class SignatureImpl implements Signature {
 	}
 
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return this.identificateur;
 	}
 	
 	@Override
-	public String getInterfaceName()
-	{
+	public String getInterfaceName() {
 		return this.interfaceName;
 	}
 
 	@Override
-	public List<Parametre> getParametres()
-	{
+	public List<Parametre> getParametres() {
 		return this.parametres;
 	}
+	
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		String local = new String();
 		Iterator<Parametre> itr= this.parametres.iterator();
 		while(itr.hasNext())
@@ -76,8 +70,7 @@ public class SignatureImpl implements Signature {
 	}
 
 	@Override
-	public void setFinal(boolean b)
-	{
+	public void setFinal(boolean b) {
 		this._final = b;
 	}
 

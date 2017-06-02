@@ -12,6 +12,10 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.TAMFactory;
 
+/**
+ * Implementation of the Abstract Syntax Tree node for an attribute assignment expression.
+ * 
+ */
 public class AttributAssignmentImpl extends AttributUseImpl implements Assignable {
 
 	/**

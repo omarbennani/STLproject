@@ -10,8 +10,7 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * Implementation of the Abstract Syntax Tree node for a variable use expression.
- * @author Marc Pantel
+ * Implementation of the Abstract Syntax Tree node for a parameter use expression.
  *
  */
 public class ParametreUseImpl implements Expression {
@@ -19,8 +18,8 @@ public class ParametreUseImpl implements Expression {
 	protected Parametre parametre;
 	
 	/**
-	 * Creates a variable use expression Abstract Syntax Tree node.
-	 * @param _declaration Declaration of the used variable.
+	 * Creates a parameter use expression Abstract Syntax Tree node.
+	 * @param _parametre Declaration of the parameter used.
 	 */
 	public ParametreUseImpl(Parametre _parametre) {
 		this.parametre = _parametre;
@@ -47,6 +46,11 @@ public class ParametreUseImpl implements Expression {
 		return parametre.getType();
 	}
 
+	@Override
+	public Type getTypeReel() {
+		return this.parametre.getType();
+	}
+	
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
 	 */
@@ -64,12 +68,5 @@ public class ParametreUseImpl implements Expression {
 					this.parametre.getType().length()));
 		}
 		return _code;
-	}
-
-
-	@Override
-	public Type getTypeReel() 
-	{
-		return this.parametre.getType();
 	}
 }

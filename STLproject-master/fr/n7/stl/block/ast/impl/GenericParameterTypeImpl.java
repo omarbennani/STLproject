@@ -11,7 +11,6 @@ import fr.n7.stl.block.ast.Type;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a pointer type.
- * @author Marc Pantel
  *
  */
 public class GenericParameterTypeImpl implements Type {

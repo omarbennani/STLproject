@@ -11,7 +11,6 @@ import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
  * Implementation of the Abstract Syntax Tree node for an attribute declaration instruction.
- * @author Marc Pantel
  *
  */
 public class Attribut implements ElementClasse {

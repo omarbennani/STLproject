@@ -9,8 +9,8 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * @author Marc Pantel
- *
+ * Implementation of the Abstract Syntax Tree node for a variable assignment expression.
+ * 
  */
 public class VariableAssignmentImpl extends VariableUseImpl implements Assignable {
 
@@ -35,11 +35,4 @@ public class VariableAssignmentImpl extends VariableUseImpl implements Assignabl
 		}
 		return _code;
 	}
-
-	/*@Override
-	public Type getTypeReel() 
-	{
-		return this
-	}*/
-
 }

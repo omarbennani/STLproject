@@ -11,7 +11,7 @@ import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * Implementation of the Abstract Syntax Tree node for a conditional instruction.
+ * Implementation of the Abstract Syntax Tree node for a return instruction.
  * @author Marc Pantel
  *
  */
@@ -19,6 +19,7 @@ public class ReturnInstructionImpl implements Instruction {
 
 	protected Expression ret;
 	protected Type typeRetour;
+	
 	public ReturnInstructionImpl(Expression _ret, Type _typeRetour) {
 		this.ret = _ret;
 		this.typeRetour = _typeRetour;

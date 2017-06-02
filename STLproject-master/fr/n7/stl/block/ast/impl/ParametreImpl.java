@@ -4,6 +4,10 @@ import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Register;
 
+/**
+ * Implementation of the Abstract Syntax Tree node for a parameter declaration instruction.
+ *
+ */
 public class ParametreImpl implements Parametre {
 
 	protected Type type;
@@ -36,13 +40,6 @@ public class ParametreImpl implements Parametre {
 	}
 
 	@Override
-	public int allocateMemory(Register _register, int _offset) {
-		this.offset = _offset;
-		this.register = _register;
-		return 1;
-	}
-
-	@Override
 	public Register getRegister() {
 		return this.register;
 	}
@@ -55,6 +52,13 @@ public class ParametreImpl implements Parametre {
 	@Override
 	public void setType(Type _type) {
 		this.type = _type;
+	}
+	
+	@Override
+	public int allocateMemory(Register _register, int _offset) {
+		this.offset = _offset;
+		this.register = _register;
+		return 1;
 	}
 
 }

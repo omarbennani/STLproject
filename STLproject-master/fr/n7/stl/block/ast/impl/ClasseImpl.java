@@ -19,8 +19,11 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
-public class ClasseImpl implements Classe
-{
+/**
+ * Implementation of the Abstract Syntax Tree node for a clas declaration instruction.
+ *
+ */
+public class ClasseImpl implements Classe {
 	protected String name;
 	protected ObjetUse heritageClasse;
 	protected LinkedList<ParametreGenericite> genericite;

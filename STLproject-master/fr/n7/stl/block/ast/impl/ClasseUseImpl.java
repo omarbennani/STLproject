@@ -13,8 +13,7 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * Implementation of the Abstract Syntax Tree node for a variable use expression.
- * @author Marc Pantel
+ * Implementation of the Abstract Syntax Tree node for a class use expression.
  *
  */
 public class ClasseUseImpl implements ObjetUse {

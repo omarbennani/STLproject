@@ -19,8 +19,7 @@ import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * Implementation of the Abstract Syntax Tree node for a pointer access expression.
- * @author Marc Pantel
+ * Implementation of the Abstract Syntax Tree node for an interface declaration.
  *
  */
 public class InterfaceImpl implements Interface {

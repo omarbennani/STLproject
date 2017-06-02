@@ -14,6 +14,10 @@ import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 import fr.n7.stl.tam.ast.impl.TAMFactoryImpl;
 
+/**
+ * Implementation of the Abstract Syntax Tree node for a constructor declaration instruction.
+ *
+ */
 public class Constructeur implements ElementClasse {
 
 	protected String nom;

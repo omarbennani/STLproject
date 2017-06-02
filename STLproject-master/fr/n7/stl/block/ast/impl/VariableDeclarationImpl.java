@@ -102,6 +102,10 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 	public boolean checkType() {
 		return this.value.getType().compatibleWith(type);
 	}
+	
+	public Type getTypeReel()  {
+		return this.value.getTypeReel();
+	}
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Instruction#allocateMemory(fr.n7.stl.tam.ast.Register, int)
@@ -136,10 +140,4 @@ public class VariableDeclarationImpl implements VariableDeclaration {
 		}
         return _code;
 	}
-
-	public Type getTypeReel() 
-	{
-		return this.value.getTypeReel();
-	}
-
 }

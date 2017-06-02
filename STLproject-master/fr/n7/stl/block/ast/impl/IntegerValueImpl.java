@@ -10,7 +10,7 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * Implementation of the Abstract Syntax Tree node for an integer constant expression.
+ * Implementation of the Abstract Syntax Tree node for an integer value.
  * @author Marc Pantel
  *
  */
@@ -41,6 +41,11 @@ public class IntegerValueImpl implements IntegerValue {
 	public Type getType() {
 		return AtomicType.IntegerType;
 	}
+	
+	@Override
+	public Type getTypeReel() {
+		return AtomicType.IntegerType;
+	}
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Expression#getCode(fr.n7.stl.tam.ast.TAMFactory)
@@ -51,11 +56,4 @@ public class IntegerValueImpl implements IntegerValue {
 		_fragment.add(_factory.createLoadL(this.value));
 		return _fragment;
 	}
-
-	@Override
-	public Type getTypeReel() 
-	{
-		return this.getType();
-	}
-
 }

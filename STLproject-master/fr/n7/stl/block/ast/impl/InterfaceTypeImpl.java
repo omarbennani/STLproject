@@ -10,8 +10,7 @@ import fr.n7.stl.block.ast.ObjetUse;
 import fr.n7.stl.block.ast.Type;
 
 /**
- * Implementation of the Abstract Syntax Tree node for a pointer type.
- * @author Marc Pantel
+ * Implementation of the Abstract Syntax Tree node for a interface type.
  *
  */
 public class InterfaceTypeImpl implements Type {
