@@ -1,0 +1,157 @@
+PUSH 1
+PUSH 1
+LOADL 2
+SUBR MAlloc
+STORE (1) 1[SB]
+LOAD (1) 1[SB]
+LOADL 5
+CALL (LB) Voiture11
+PUSH 1
+LOADL 2
+SUBR MAlloc
+STORE (1) 2[SB]
+LOAD (1) 2[SB]
+CALL (LB) Moto5
+LOADL "Nb portes de v (doit etre egal a 5) :"
+SUBR SOut
+SUBR Ln
+LOAD (1) 1[SB]
+CALL (LB) getNbPortes14
+SUBR IOut
+SUBR Ln
+LOADL "Nb portes de m (doit etre egal a 1) :"
+SUBR SOut
+SUBR Ln
+LOAD (1) 2[SB]
+CALL (LB) getNbPortes9
+SUBR IOut
+SUBR Ln
+LOAD (1) 1[SB]
+LOADL 3
+CALL (LB) setNbPortes15
+LOADL "Nb portes de v (doit etre egal a 3) :"
+SUBR SOut
+SUBR Ln
+LOAD (1) 1[SB]
+CALL (LB) getNbPortes14
+SUBR IOut
+SUBR Ln
+LOAD (1) 1[SB]
+CALL (LB) laver12
+LOAD (1) 2[SB]
+LOADL 7777
+CALL (LB) laver7
+LOAD (1) 0[SB]
+SUBR SOut
+SUBR Ln
+LOADL 6
+SUBR IOut
+SUBR Ln
+POP (0) 2
+HALT
+VehiculeImpl1:
+LOAD (1) -2[LB]
+LOAD (1) -3[LB]
+LOADL 0
+SUBR IAdd
+STOREI (1)
+LOAD (1) -1[LB]
+LOAD (1) -3[LB]
+LOADL 1
+SUBR IAdd
+STOREI (1)
+POP (0) 0
+RETURN (1) 2
+laver2:
+LOADL "Vehicule lave"
+SUBR SOut
+SUBR Ln
+POP (0) 0
+RETURN (0) 1
+getNbPortes3:
+LOAD (1) -1[LB]
+LOADI (2)
+POP (0) 1
+POP (1) 0
+POP (0) 0
+RETURN (1) 1
+setNbPortes4:
+LOAD (1) -1[LB]
+LOAD (1) -2[LB]
+LOADL 0
+SUBR IAdd
+STOREI (1)
+POP (0) 0
+RETURN (0) 2
+Moto5:
+LOADL 2
+LOAD (1) -1[LB]
+LOADL 1
+SUBR IAdd
+STOREI (1)
+LOADL 1
+LOAD (1) -1[LB]
+LOADL 0
+SUBR IAdd
+STOREI (1)
+LOADL "moto"
+LOADA 0[SB]
+STOREI (1)
+POP (0) 0
+RETURN (1) 0
+laver6:
+LOADL "Moto lavee"
+SUBR SOut
+SUBR Ln
+POP (0) 0
+RETURN (0) 1
+laver7:
+LOAD (1) -1[LB]
+SUBR IOut
+SUBR Ln
+POP (0) 0
+RETURN (0) 2
+getNbPortes9:
+LOAD (1) -1[LB]
+LOADI (2)
+POP (0) 1
+POP (1) 0
+POP (0) 0
+RETURN (1) 1
+setNbPortes10:
+LOAD (1) -1[LB]
+LOAD (1) -2[LB]
+LOADL 0
+SUBR IAdd
+STOREI (1)
+POP (0) 0
+RETURN (0) 2
+Voiture11:
+LOAD (1) -1[LB]
+LOAD (1) -2[LB]
+LOADL 0
+SUBR IAdd
+STOREI (1)
+POP (0) 0
+RETURN (1) 1
+laver12:
+LOADL "Voiture lavee"
+SUBR SOut
+SUBR Ln
+POP (0) 0
+RETURN (0) 1
+getNbPortes14:
+LOAD (1) -1[LB]
+LOADI (2)
+POP (0) 1
+POP (1) 0
+POP (0) 0
+RETURN (1) 1
+setNbPortes15:
+LOAD (1) -1[LB]
+LOAD (1) -2[LB]
+LOADL 0
+SUBR IAdd
+STOREI (1)
+POP (0) 0
+RETURN (0) 2

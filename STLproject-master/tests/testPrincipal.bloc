@@ -1,3 +1,6 @@
+// TEST CORRECT
+// Test testant beaucoup de fonctionnalités
+
 interface Vehicule {
     final static int sf = 6;
     void laver();
