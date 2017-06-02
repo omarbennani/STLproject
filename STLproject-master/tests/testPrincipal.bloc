@@ -12,7 +12,9 @@ class VehiculeImpl implements Vehicule {
         this.nbRoues = _nbRoues;
     }
 
-    
+    public void laver() {
+        print("Vehicule lave");
+    }
 
     public int getNbPortes() {
         return this.nbPortes;

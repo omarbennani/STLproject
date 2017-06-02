@@ -306,11 +306,6 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 
 	@Override
-	public Type createObjetType(String _name) {
-		return new ObjetTypeImpl(_name);
-	}
-
-	@Override
 	public Expressions createExpressions()
 	{
 		return new ExpressionsImpl();

@@ -182,12 +182,14 @@ public class ClasseImpl implements Classe
 		for(Signature s : methodesAImplementer) {
 			boolean signatureImplementee = false;
 			for (Methode m : this.getMethodes()) {
-				if (m.signatureEquals(s))
+				if (m.signatureEquals(s)) {
 					signatureImplementee = true;
 					break;
+				}
 			}
-			if (!signatureImplementee)
+			if (!signatureImplementee) {
 				return false;
+			}
 		}
 		for (Methode m : this.getMethodes()) {
 			result = result && m.checkType();

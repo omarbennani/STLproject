@@ -13,7 +13,7 @@ import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * Implementation of the Abstract Syntax Tree node for a variable declaration instruction.
+ * Implementation of the Abstract Syntax Tree node for an object allocation instruction.
  * @author Marc Pantel
  *
  */

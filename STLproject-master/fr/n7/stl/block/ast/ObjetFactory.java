@@ -20,8 +20,6 @@ public interface ObjetFactory {
 	
 	public StaticField createStaticField(Type _type, String _identificateur, Expression _expression);
 
-	public Type createObjetType(String _name);
-
 	public Expressions createExpressions();
 
 	public Arguments createArguments();
@@ -79,10 +77,6 @@ public interface ObjetFactory {
 	
 	public Expression createParametreUse(Parametre _parametre);
 	
-	/*public ArgumentGenericite createArgumentGenericite(String _name);
-
-	public ArgumentGenericite createArgumentGenericite(Objet _obj, List<ArgumentGenericite> _inst);*/
-
 	public ParametreGenericite createParametreGenericite(String _name, LinkedList<Type> _param );
 
 	public ParametreGenericite createParametreGenericite(LinkedList<Type> _param );

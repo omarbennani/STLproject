@@ -127,10 +127,12 @@ public class Methode implements ElementClasse {
 	
 	public boolean signatureEquals(Signature s) {
 		boolean result = true;
-		if (s.equals(nom)) {
+		if (s.getName().equals(nom)) {
 			List<Parametre> parametresS = s.getParametres();
 			int size = parametresS.size();
 			if (size == this.param.size()) {
+				if (size == 0)
+					return true;
 				for (int i = 0; i < size && result; i++) {
 					if (!parametresS.get(i).getType().equals(this.param.get(i)))
 						result = false;
