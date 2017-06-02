@@ -1,0 +1,48 @@
+PUSH 1
+LOADL 1
+SUBR MAlloc
+STORE (1) 0[SB]
+LOAD (1) 0[SB]
+LOADL 2
+CALL (LB) Voiture1
+PUSH 1
+LOAD (1) 0[SB]
+CALL (LB) getSerie3
+STORE (1) 1[SB]
+LOAD (1) 1[SB]
+SUBR IOut
+SUBR Ln
+LOAD (1) 0[SB]
+CALL (LB) laver2
+PUSH 1
+LOAD (1) 0[SB]
+CALL (LB) getSerie3
+STORE (1) 2[SB]
+LOAD (1) 2[SB]
+SUBR IOut
+SUBR Ln
+POP (0) 3
+HALT
+Voiture1:
+LOAD (1) -1[LB]
+LOAD (1) -2[LB]
+LOADL 0
+SUBR IAdd
+STOREI (1)
+POP (0) 0
+RETURN (1) 1
+laver2:
+LOADL 0
+LOAD (1) -1[LB]
+LOADL 0
+SUBR IAdd
+STOREI (1)
+POP (0) 0
+RETURN (0) 1
+getSerie3:
+LOAD (1) -1[LB]
+LOADI (1)
+POP (0) 0
+POP (1) 0
+POP (0) 0
+RETURN (1) 1
