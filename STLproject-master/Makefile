@@ -32,7 +32,7 @@ compile :
 	$(JAVAC) -classpath $(EGGJAR):. Main.java
 
 exec :
-	$(JAVA) -classpath $(EGGJAR):. Main tests/test08E.bloc
+	$(JAVA) -classpath $(EGGJAR):. Main tests/test01C.bloc
 
 clean :
 	-rm Main.class

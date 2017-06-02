@@ -4,7 +4,7 @@
 class Voiture {
     public int serie;
     public Voiture(int t) {
-        serie = t;
+        this.serie = t;
     }
 }
 

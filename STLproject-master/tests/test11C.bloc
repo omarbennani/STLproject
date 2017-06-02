@@ -1,19 +1,22 @@
-Interface Vehicule {
-  void laver();
+// TEST CORRECT
+// Une interface + une classe implémentant l'interface
+
+interface Vehicule {
+    void laver();
 }
-Classe Voiture extends Vehicule{
-  int serie;
-  public Voiture(int s){
-  	serie=s;
-  }
-  public void laver(){
-  	serie=0;
-  }
+
+class Voiture extends Vehicule {
+    private int serie;
+    public Voiture(int s){
+  	    serie = s;
+    }
+    public void laver(){
+  	    this.serie = 0;
+    }
 }
 public class Main {
-	public static void main( String [] args)
-	{
-	Voiture v=new Voiture(2);
-	v.laver();
+	public static void main( String [] args) {
+	    Voiture v = new Voiture(2);
+	    v.laver();
 	}
 }

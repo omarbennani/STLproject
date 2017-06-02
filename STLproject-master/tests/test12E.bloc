@@ -1,19 +1,21 @@
-//Erreur pas de methode laver dans voiture
-Interface Vehicule {
-  void laver();
+// ERREUR
+// Pas de methode laver dans voiture
+
+interface Vehicule {
+    void laver();
 }
 
-Classe Voiture implements Vehicule{
-  int serie;
-  public Voiture(int s){
-  	serie=s;
-  }
+class Voiture implements Vehicule {
+    
+    private int serie;
 
+    public Voiture(int s) {
+  	    serie = s;
+    }
 }
 
 public class Main {
-	public static void main( String [] args)
-	{
-	Voiture v=new Voiture(2);
+	public static void main( String [] args) {
+	    Voiture v = new Voiture(2);
 	}
 }

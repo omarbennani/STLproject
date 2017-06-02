@@ -1,4 +1,4 @@
-// Erreur
+// ERREUR 
 // Tentative d'accès à la methode afficher via un objet alors qu'elle est statique
 
 class Voiture {

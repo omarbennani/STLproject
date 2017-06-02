@@ -1,28 +1,34 @@
-// Type mismatch Ligne 18
+// ERREUR
+// Type mismatch dans methode (lignes 20 et 24)
+
 class Voiture {
+
     public int serie;
+
     public Voiture(int t) {
         serie = t;
     }
-    private void setSerie( int Lserie){
-    	serie=Lserie;
+
+    private void setSerie( int _serie){
+    	serie = _serie;
     }
 }
 class Camion {
+    public boolean serie;
 
-  public bool serie;
-  public Camion(int b) {
-	serie = b;
-  }
-  public void setSerie(int b) {
-	serie = b;
-  }
+    public Camion(int b) {
+        serie = b;
+    }
+
+    public void setSerie(int b) {
+	    serie = b;
+    }
+}
 
 public class Main {
-	public static void main( String [] args)
-	{
-	Voiture v=new Voiture(2);
-	Camion c= new Camion(true);
-	c=v;
+	public static void main( String [] args) {
+	    Voiture v = new Voiture(2);
+	    Camion c = new Camion(true);
+	    c = v;
 	}
 }

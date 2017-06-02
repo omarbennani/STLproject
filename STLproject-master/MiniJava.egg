@@ -1692,11 +1692,6 @@ do
 	o := nil;
 	if Appel^fromFacteur then
 		o := Appel^tdsMethodes.getMethode(Appel^identificateur, Appel^nomClasse, Arguments^ast);
-        if o.isPresent() then
-            error(present, "present");
-        else
-            error(notpresent, "notpresent");
-        end
 	else
 		t := Appel^support.getTypeReel();
 		match t 

@@ -1,20 +1,27 @@
+// TEST CORRECT
+// Appel d'une methode dans une autre methode
+
 class Voiture {
+
     public int serie;
+
     public Voiture(int t) {
         serie = t;
     }
-    public void setSerie( int Lserie){
-    	serie=Lserie;
+
+    public void setSerie(int _serie) {
+    	serie = _serie;
     }
-    public void doubleSet(int Lserie){
-    	this.setSerie(2*Lserie)
+    public void doubleSet(int _serie){
+    	setSerie(2 * _serie);
    }
 }
 
 public class Main {
-	public static void main( String [] args)
-	{
-	Voiture v=new Voiture(2);
-        v.doubleSet(3)
+	public static void main( String [] args) {
+	    Voiture v = new Voiture(2);
+        v.doubleSet(3);
+
+        print(v.serie);
 	}
 }
