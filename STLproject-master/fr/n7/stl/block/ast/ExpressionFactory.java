@@ -3,8 +3,6 @@
  */
 package fr.n7.stl.block.ast;
 
-import java.util.List;
-
 /**
  * Factory to create Abstract Syntax Tree nodes for common expressions in programming languages.
  * @author Marc Pantel

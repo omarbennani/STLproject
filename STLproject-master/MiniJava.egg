@@ -1688,21 +1688,33 @@ local
     d : Declaration;
     od : Optional<Declaration>;
     pu : Expression;
+    p : Parametre;
 do
 	o := nil;
 	if Appel^fromFacteur then
 		o := Appel^tdsMethodes.getMethode(Appel^identificateur, Appel^nomClasse, Arguments^ast);
 	else
-		t := Appel^support.getTypeReel();
-		match t 
-			with ClassTypeImpl then 
-					c := t.getClasse(); 
-					s := c.getName();
-					o := Appel^tdsMethodes.getMethode(Appel^identificateur, s, Arguments^ast);
+        s := nil;
+        match Appel^support
+            with ParametreUseImpl then
+                p := Appel^support.getParametre();
+                if p.getName() = "this" then
+                    s := Appel^nomClasse;
+                    o := Appel^tdsMethodes.getMethode(Appel^identificateur, s, Arguments^ast);
+                end
+        end
+        if s = nil then
+		    t := Appel^support.getTypeReel();
+		    match t
+			    with ClassTypeImpl then 
+					    c := t.getClasse();
+					    s := c.getName();
+					    o := Appel^tdsMethodes.getMethode(Appel^identificateur, s, Arguments^ast);
                     
-			else 
+			    else 
 					error (NOT_AN_OBJECT, t.toString());
-		end
+		    end
+        end
 	end
 
 	if o.isPresent() then

@@ -13,7 +13,7 @@ class Voiture {
     	serie = _serie;
     }
     public void doubleSet(int _serie){
-    	setSerie(2 * _serie);
+    	this.setSerie(2 * _serie);
    }
 }
 
