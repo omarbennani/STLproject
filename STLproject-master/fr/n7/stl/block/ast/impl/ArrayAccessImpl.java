@@ -17,7 +17,13 @@ import fr.n7.stl.tam.ast.TAMFactory;
  */
 public class ArrayAccessImpl implements Expression {
 
+	/**
+	 * L'expression correspondant au tableau.
+	 */
 	protected Expression array;
+	/**
+	 * L'expression correspondant à l'indice de l'élément du tableau auquel on accède.
+	 */
 	protected Expression index;
 
 	/**

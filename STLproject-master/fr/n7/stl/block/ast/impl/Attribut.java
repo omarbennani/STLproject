@@ -9,6 +9,11 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
+/**
+ * Implementation of the Abstract Syntax Tree node for an attribute declaration instruction.
+ * @author Marc Pantel
+ *
+ */
 public class Attribut implements ElementClasse {
 
 	protected DroitAcces droitAcces;
@@ -28,8 +33,7 @@ public class Attribut implements ElementClasse {
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		if(this.droitAcces == DroitAcces.publique)
 			return "public "+typeAtt.toString()+" "+ nom;
 		else if(this.droitAcces == DroitAcces.prive)
@@ -39,38 +43,32 @@ public class Attribut implements ElementClasse {
 	}
 	
 	@Override
-	public void setFinal(boolean _final)
-	{
+	public void setFinal(boolean _final) {
 		this.finaL = _final;
 	}
 	
 	@Override
-	public void setStatic(boolean _static)
-	{
+	public void setStatic(boolean _static) {
 		this.statiC = _static;
 	}
 
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return this.nom;
 	}
 
 	@Override
-	public Type getType()
-	{
+	public Type getType() {
 		return this.typeAtt;
 	}
 
 
-	public Type getTypeReel()
-	{
+	public Type getTypeReel() {
 		return this.typeAtt;
 	}
 
 	@Override
-	public String getClassName()
-	{
+	public String getClassName() {
 		return this.classe.getName();
 	}
 	
@@ -80,6 +78,24 @@ public class Attribut implements ElementClasse {
 	
 	public Register getRegister() {
 		return this.register;
+	}
+	
+	@Override
+	public void setThis(Parametre _this) {
+		// On n'appelle jamais setThis sur un attribut.
+	}
+
+	@Override
+	public void setClasse(Classe _classe) {
+		this.classe = _classe;
+	}
+	
+	public boolean isStatic() {
+		return this.statiC;
+	}
+
+	public DroitAcces getDroitAcces() {
+		return this.droitAcces;
 	}
 	
 	@Override
@@ -100,23 +116,5 @@ public class Attribut implements ElementClasse {
 		} else {
 			return 0;
 		}
-	}
-
-	@Override
-	public void setThis(Parametre _this) {
-	}
-
-	@Override
-	public void setClasse(Classe _classe) {
-		this.classe = _classe;
-	}
-	
-	public boolean isStatic() {
-		return this.statiC;
-	}
-
-	public DroitAcces getDroitAcces()
-	{
-		return this.droitAcces;
 	}
 }

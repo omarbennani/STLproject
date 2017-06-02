@@ -15,59 +15,47 @@ import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * Implementation of the Abstract Syntax Tree node for an instruction block.
- * @author Marc Pantel
+ * Implementation of the Abstract Syntax Tree node for the main method.
  *
  */
 public class MethodePrincipaleImpl implements MethodePrincipale {
 
 	/**
-	 * Sequence of instructions contained in a block.
+	 * Sequence of instructions contained in the main method.
 	 */
 	protected List<Instruction> instructions;
+	
+	/**
+	 * Nom de la classe principale.
+	 */
 	protected String identificateurType;
 	
-
-	/**
-	 * Hierarchical structure of blocks.
-	 * Link to the container block.
-	 * 
-	 */
-    
     private int offset;
 	
 	/**
-	 * Constructor for a block contained in a _context block.
-	 * @param _context Englobing block.
+	 * Constructor for the main method.
+	 * @param _block : The block of the method.
 	 */
 	public MethodePrincipaleImpl(Block _bloc) {
 		this.instructions = _bloc.getInstructions();
 	}
-
-	public void setIdentificateurType(String _id)
-	{
-		this.identificateurType = _id;
-	}
 	
 	/**
-	 * Constructor for a block root of the block hierarchy.
+	 * Constructor for the main method.
 	 */
 	public MethodePrincipaleImpl() {
 		this.instructions = new LinkedList<Instruction>();
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.n7.block.ast.Block#add(fr.n7.block.ast.Instruction)
-	 */
+	public void setIdentificateurType(String _id) {
+		this.identificateurType = _id;
+	}
+	
 	@Override
 	public void add(Instruction _instruction) {
 		this.instructions.add(_instruction);
 	}
 
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.Block#addAll(java.lang.Iterable)
-	 */
 	@Override
 	public void addAll(Iterable<Instruction> _instructions) {
 		for (Instruction i : _instructions) {
@@ -75,9 +63,6 @@ public class MethodePrincipaleImpl implements MethodePrincipale {
 		}
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
 		System.out.println(this.instructions.size());
@@ -93,9 +78,6 @@ public class MethodePrincipaleImpl implements MethodePrincipale {
 		return _local ;
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.Block#checkType()
-	 */
 	@Override
 	public boolean checkType() {
 		boolean result = true;
@@ -105,10 +87,12 @@ public class MethodePrincipaleImpl implements MethodePrincipale {
 		}
 		return result;
 	}
+	
+	@Override
+	public List<Instruction> getInstructions() {
+		return this.instructions;
+	}
 
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.Block#allocateMemory(fr.n7.stl.tam.ast.Register, int)
-	 */
 	@Override
 	public int allocateMemory(Register _register, int _offset) {
 		int _local = _offset;
@@ -119,9 +103,6 @@ public class MethodePrincipaleImpl implements MethodePrincipale {
         return 0;
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.Block#generateCode(fr.n7.stl.tam.ast.TAMFactory)
-	 */
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
@@ -131,11 +112,5 @@ public class MethodePrincipaleImpl implements MethodePrincipale {
         _code.add(_factory.createPop(0, this.offset));
         _code.add(_factory.createHalt());
         return _code;
-	}
-
-
-	public List<Instruction> getInstructions()
-	{
-		return this.instructions;
 	}
 }

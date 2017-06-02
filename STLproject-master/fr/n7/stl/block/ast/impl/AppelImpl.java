@@ -14,14 +14,21 @@ import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * Implementation of the Abstract Syntax Tree node for a binary expression.
- * @author Marc Pantel
- *
+ * Implementation of the Abstract Syntax Tree node for a call of a method.
  */
 public class AppelImpl implements AppelOuAcces, Instruction {
 
+	/**
+	 * La déclaration de la méthode qui est appelée.
+	 */
 	protected Declaration methode;
+	/**
+	 * Les arguments de la méthode qui est appelée.
+	 */
 	protected Arguments args;
+	/**
+	 * L'expression sur laquelle la méthode est appelée.
+	 */
 	protected Expression exp;
 
 	public AppelImpl(Expression _exp, Declaration _meth, Arguments _args)

@@ -103,6 +103,14 @@ public class BlockImpl implements Block {
 		}
 		return result;
 	}
+	
+	/* (non-Javadoc)
+	 * @see fr.n7.stl.block.ast.Block#getInstructions()
+	 */
+	@Override
+	public List<Instruction> getInstructions() {
+		return this.instructions;
+	}
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.Block#allocateMemory(fr.n7.stl.tam.ast.Register, int)
@@ -128,10 +136,5 @@ public class BlockImpl implements Block {
         }
         _code.add(_factory.createPop(0, this.offset));
         return _code;
-	}
-
-	public List<Instruction> getInstructions()
-	{
-		return this.instructions;
 	}
 }

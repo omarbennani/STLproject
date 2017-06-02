@@ -14,7 +14,7 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * Implementation of the Abstract Syntax Tree node for a pointer access expression.
+ * Implementation of the Abstract Syntax Tree node for a list of expressions.
  * @author Marc Pantel
  *
  */
@@ -30,22 +30,19 @@ public class ExpressionsImpl implements Expressions {
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
-	public String toString() 
-	{
+	public String toString() {
 		String local = new String();
 		Iterator<Expression> itr = this.expressions.iterator();
       
-      		while(itr.hasNext()) 
-		{
-         		Expression element = (Expression) (itr.next());
-			local+=element.toString();
-      		}
+  		while(itr.hasNext()) {
+     		Expression element = (Expression) (itr.next());
+     		local+=element.toString();
+  		}
 
 		return local;
 	}
 
-	public void addExpression(Expression _expr)
-	{
+	public void addExpression(Expression _expr){
 		this.expressions.addFirst(_expr);
 	}
 
@@ -54,12 +51,18 @@ public class ExpressionsImpl implements Expressions {
 	 */
 	@Override
 	public Type getType() {
-		throw new SemanticsUndefinedException("getType() not defined in ExpressionsImpl");
+		// getType n'est pas appelé dans Expressions
+		return null;
 	}
 	
 	@Override
 	public Type getTypeReel() {
-		throw new SemanticsUndefinedException("getTypeReel() not defined in ExpressionsImpl");
+		// getTypeReel n'est pas appelé dans Expressions
+		return null;
+	}
+	
+	public List<Expression> getExpressions() {
+		return this.expressions;
 	}
 
 	/* (non-Javadoc)
@@ -69,10 +72,4 @@ public class ExpressionsImpl implements Expressions {
 	public Fragment getCode(TAMFactory _factory) {
 		throw new SemanticsUndefinedException("getCode() not defined in ExpressionsImpl");
 	}
-
-	public List<Expression> getExpressions()
-	{
-		return this.expressions;
-	}
-
 }

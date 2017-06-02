@@ -14,7 +14,7 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * Implementation of the Abstract Syntax Tree node for a variable use expression.
+ * Implementation of the Abstract Syntax Tree node for an attribute use expression.
  * @author Marc Pantel
  *
  */
@@ -24,20 +24,21 @@ public class AttributUseImpl implements Expression {
 	protected Expression exp;
 	
 	/**
-	 * Creates a variable use expression Abstract Syntax Tree node.
-	 * @param _declaration Declaration of the used variable.
+	 * Creates an attribute use expression Abstract Syntax Tree node.
+	 * @param _declaration Declaration of the used attribute.
 	 */
 	public AttributUseImpl(ElementClasse _declaration) {
+		// Ce constructeur est appelé lorsque l'attribut est statique.
+		// L'exprsession le précédant est alors une ClasseUse.
 		this.declaration = _declaration;
 	}
 	
-	public AttributUseImpl(ElementClasse _declaration, Expression _exp) 
-	{
-		/*if(_declaration instanceof Attribut)
-		{
-			Attribut attribut = (Attribut) _declaration;
-			if(attribut.getDroitAcces() == )
-		}*/
+	/**
+	 * Creates an attribute use expression Abstract Syntax Tree node.
+	 * @param _declaration : Declaration of the used attribute.
+	 * @param _expression : Expression précédant l'attribut (ex : this.attribut).
+	 */
+	public AttributUseImpl(ElementClasse _declaration, Expression _exp) {
 		this.declaration = _declaration;
 		this.exp = _exp;
 	}

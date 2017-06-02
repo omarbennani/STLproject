@@ -10,7 +10,7 @@ import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * @author Marc Pantel
+ * Implementation of the Abstract Syntax Tree node for assigning an array element.
  *
  */
 public class ArrayAssignmentImpl extends ArrayAccessImpl implements Assignable {

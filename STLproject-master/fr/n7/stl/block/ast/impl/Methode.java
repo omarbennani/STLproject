@@ -61,8 +61,7 @@ public class Methode implements ElementClasse {
 	}
 	
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		String _local = "";
 	
 		if(this.droitAcces == DroitAcces.publique)
@@ -72,8 +71,7 @@ public class Methode implements ElementClasse {
 		else
 			_local = "protected " +this.typeRet.toString()+ " " + this.nom + "(";
 
-		for (Parametre p : this.param)
-		{
+		for (Parametre p : this.param) {
 			_local+= p.toString()+",";
 		}
 		_local+="){";
@@ -92,26 +90,22 @@ public class Methode implements ElementClasse {
 	}
 
 	@Override
-	public void setFinal(boolean _final)
-	{
+	public void setFinal(boolean _final) {
 		this.finaL = _final;
 	}
 	
 	@Override
-	public void setStatic(boolean _static)
-	{
+	public void setStatic(boolean _static) {
 		this.statiC = _static;
 	}
 
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return this.nom;
 	}
 
 	@Override
-	public Type getType()
-	{
+	public Type getType() {
 		return this.typeRet;
 	}
 	
@@ -123,13 +117,11 @@ public class Methode implements ElementClasse {
 		return this.getType();
 	}
 
-	public List<Parametre> getParametres()
-	{
+	public List<Parametre> getParametres() {
 		return this.param;
 	}
 	
-	public String getClassName()
-	{
+	public String getClassName() {
 		return this.nomClasse;
 	}
 	
@@ -157,6 +149,16 @@ public class Methode implements ElementClasse {
 	}
 	
 	@Override
+	public void setClasse(Classe _classe) {
+		this.classe = _classe;
+		this.thiS.setType(this.classe.getType());
+	}
+	
+	public boolean isStatic() {
+		return this.statiC;
+	}
+	
+	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _res=_factory.createFragment();
 		int tailleDesArguments = 0;
@@ -181,18 +183,7 @@ public class Methode implements ElementClasse {
 			_local -= p.allocateMemory(Register.LB, _local);
 		}
 		_local -= this.thiS.allocateMemory(Register.LB, _local);
-		this.exp.allocateMemory(_register, _offset);
+		this.exp.allocateMemory(Register.LB, 0);
         return 0;
 	}
-
-	@Override
-	public void setClasse(Classe _classe) {
-		this.classe = _classe;
-		this.thiS.setType(this.classe.getType());
-	}
-	
-	public boolean isStatic() {
-		return this.statiC;
-	}
-
 }

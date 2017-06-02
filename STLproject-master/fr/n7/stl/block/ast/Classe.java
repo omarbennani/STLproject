@@ -44,7 +44,10 @@ public interface Classe extends Objet {
 	public int getOffset();
 	
 	public boolean implemente(Interface _interface);
-	//public boolean estEtendu(Classe _classe);
-
-
+	
+	public boolean containsMethode(ElementClasse _methode);
+	
+	public boolean containsAttribut(String _name);
+	
+	public boolean equals(Classe _classe);
 }

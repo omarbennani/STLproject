@@ -8,13 +8,20 @@ import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * Implementation of the Abstract Syntax Tree node for a pointer access expression.
+ * Implementation of the Abstract Syntax Tree node for an array allocation.
  * @author Marc Pantel
  *
  */
 public class ArrayAllocationImpl implements Expression {
 
+	/**
+	 * L'expression correspondant à la taille du tableau.
+	 */
 	protected Expression arraySize;
+	
+	/**
+	 * Le type des éléments du tableau
+	 */
     protected Type type;
 	
 	public ArrayAllocationImpl(Expression _array, Type _type) {

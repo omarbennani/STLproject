@@ -14,20 +14,21 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.TAMFactory;
 
 /**
- * Implementation of the Abstract Syntax Tree node for a variable declaration instruction.
- * @author Marc Pantel
+ * Implementation of the Abstract Syntax Tree node for the arguments of a call of a method.
  *
  */
 public class ArgumentsImpl implements Arguments {
 
+	/**
+	 * Les expressions correspondant aux arguments de la méthode appelée.
+	 */
 	protected Expressions exp;
 	
-	public ArgumentsImpl() 
-	{
+	public ArgumentsImpl() {
 
 	}
-	public ArgumentsImpl(Expressions _exp) 
-	{
+	
+	public ArgumentsImpl(Expressions _exp) {
 		this.exp = _exp;
 	}
 
@@ -35,24 +36,37 @@ public class ArgumentsImpl implements Arguments {
 	 * @see java.lang.Object#toString()
 	 */
 	@Override
-	public String toString() 
-	{
+	public String toString() {
 		return  "(" + ((this.exp != null)?this.exp.toString():new String()) + ")" ;
 	}
 
 	@Override
-	public Type getType()
-	{
-		throw new SemanticsUndefinedException("getType() not defined in ArgumentsImpl");
+	public Type getType() {
+		// Aucun getType n'est effectué sur ArgumentsImpl.
+		return null;
 	}
 	
 	@Override
-	public Type getTypeReel()
-	{
-		throw new SemanticsUndefinedException("getTypeReel() not defined in ArgumentsImpl");
+	public Type getTypeReel() {
+		// Aucun getTypeReel n'est effectué sur ArgumentsImpl.
+		return null;
 	}
 	
-	
+	/**
+	 * Retourne la liste des types des arguments.
+	 * @return La liste des types.
+	 */
+	public List<Type> getListType() {
+		List<Type> t = new LinkedList<Type> ();
+		if (exp != null) {
+			List<Expression> expr = this.exp.getExpressions();
+			for(Expression e : expr)
+			{
+				t.add (e.getType());
+			}
+		}
+		return t;
+	}
 	
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
@@ -64,18 +78,5 @@ public class ArgumentsImpl implements Arguments {
 			}
 		}
 		return _code;
-	}
-
-	public List<Type> getListType()
-	{
-		List<Type> t = new LinkedList<Type> ();
-		if (exp != null) {
-			List<Expression> expr = this.exp.getExpressions();
-			for(Expression e : expr)
-			{
-				t.add (e.getType());
-			}
-		}
-		return t;
 	}
 }

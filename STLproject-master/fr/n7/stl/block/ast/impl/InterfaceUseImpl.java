@@ -57,8 +57,7 @@ public class InterfaceUseImpl implements ObjetUse {
 	}
 
 	@Override
-	public Objet getObjet()
-	{
+	public Objet getObjet() {
 		return this.interface_;
 	}
 

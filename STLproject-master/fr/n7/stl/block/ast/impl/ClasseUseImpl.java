@@ -23,13 +23,18 @@ public class ClasseUseImpl implements ObjetUse {
 	protected LinkedList<ObjetUse> instanceGenericite;
 	
 	/**
-	 * Creates a variable use expression Abstract Syntax Tree node.
-	 * @param _declaration Declaration of the used variable.
+	 * Creates a class use expression Abstract Syntax Tree node.
+	 * @param _classe : Declaration of the used class.
 	 */
 	public ClasseUseImpl(Classe _classe) {
 		this.classe = _classe;
 	}
 
+	/**
+	 * Creates a class use expression Abstract Syntax Tree node.
+	 * @param _classe : Declaration of the used class.
+	 * @param _instanceGenericite : List of 
+	 */
 	public ClasseUseImpl(Classe _classe, LinkedList<ObjetUse> _instanceGenericite) {
 		this.classe = _classe;
 		this.instanceGenericite = _instanceGenericite;

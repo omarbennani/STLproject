@@ -40,14 +40,12 @@ public class InterfaceImpl implements Interface {
 	}
 
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return this.identificateurType;
 	}
 
 	@Override
-	public Type getType()
-	{
+	public Type getType() {
 		return new InterfaceTypeImpl(this);
 	}
 	
@@ -71,16 +69,12 @@ public class InterfaceImpl implements Interface {
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		String result = "interface "+ this.identificateurType + " ";
 		
-		//LinkedList<ParametreGenericite> genericite
-		if(this.genericite != null)
-		{
+		if(this.genericite != null) {
 			result +="<";
-			for(ParametreGenericite p : this.genericite)
-			{
+			for(ParametreGenericite p : this.genericite) {
 				result+= p .toString()+",";
 			}
 			result +="> ";
@@ -88,21 +82,18 @@ public class InterfaceImpl implements Interface {
 
 		Iterator<ObjetUse> itr = this.heritageInterface.iterator();
 		String heritages = new String();
-    		while (itr.hasNext())
-    		{
-      			if(heritages.length() == 0)
-				heritages += " extends " + (itr.next()).toString();
-			else
-				heritages += ", "+ (itr.next()).toString();
-    		}
+		while (itr.hasNext()) {
+  			if(heritages.length() == 0)
+  				heritages += " extends " + (itr.next()).toString();
+  			else
+  				heritages += ", "+ (itr.next()).toString();
+		}
 
 		String elts = new String();
 		Iterator<ElementInterface> itr1 = this.elements.iterator();
-    		while (itr1.hasNext())
-    		{
-				elts += (itr1.next()).toString()+"\n";
-    		}
-
+		while (itr1.hasNext()) {
+			elts += (itr1.next()).toString()+"\n";
+		}
 
 		return new String(result + heritages +"{\n"+elts+"} \n");
 	}
@@ -117,6 +108,7 @@ public class InterfaceImpl implements Interface {
 		return true;
 	}
 	
+	@Override
 	public boolean etends(Interface _interface) {
 		for (ObjetUse ou : this.heritageInterface) {
 			Interface i = (Interface)ou.getObjet();

@@ -12,15 +12,12 @@ import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.TAMFactory;
 
-/**
- * @author Marc Pantel
- *
- */
 public class AttributAssignmentImpl extends AttributUseImpl implements Assignable {
 
 	/**
-	 * Creates a variable assignment expression Abstract Syntax Tree node.
-	 * @param _declaration Declaration of the assigned variable.
+	 * Creates an attribute assignment expression Abstract Syntax Tree node.
+	 * @param _declaration : Declaration of the assigned attribute.
+	 * @param _expression : Expression précédant l'attribut (ex : this.attribut).
 	 */
 	public AttributAssignmentImpl(ElementClasse _declaration, Expression _expression) {
 		super(_declaration);

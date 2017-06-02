@@ -32,8 +32,7 @@ public class InterfaceTypeImpl implements Type {
 		return this;
 	}
 
-	public Interface getInterface()
-	{
+	public Interface getInterface() {
 		return this.interface_;
 	}
 
@@ -55,8 +54,7 @@ public class InterfaceTypeImpl implements Type {
 	 */
 	@Override
 	public boolean compatibleWith(Type _other) {
-		if(_other instanceof InterfaceTypeImpl)
-		{
+		if(_other instanceof InterfaceTypeImpl) {
 			InterfaceTypeImpl  _type = (InterfaceTypeImpl) _other;
 			Interface _interface = _type.getInterface();
 			if(this.interface_.equals(_interface) || this.interface_.etends(_interface))
@@ -70,7 +68,7 @@ public class InterfaceTypeImpl implements Type {
 	 */
 	@Override
 	public Type merge(Type _other) {
-	               throw new SemanticsUndefinedException("equalsTo is undefined in ObjetTypeImpl.java");
+		throw new SemanticsUndefinedException("equalsTo is undefined in ObjetTypeImpl.java");
 	}
 
 	/* (non-Javadoc)
@@ -89,8 +87,7 @@ public class InterfaceTypeImpl implements Type {
 		//return this.interface_.getName();
 
 		String resultat = this.interface_.getName() +" ";
-		if(this.instanceGenericite != null)
-		{
+		if(this.instanceGenericite != null) {
 			resultat +="<";
 			for(ObjetUse o : this.instanceGenericite)
 			{

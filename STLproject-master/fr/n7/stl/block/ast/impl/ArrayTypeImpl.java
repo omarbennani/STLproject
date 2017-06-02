@@ -12,6 +12,9 @@ import fr.n7.stl.block.ast.Type;
  */
 public class ArrayTypeImpl implements Type {
 
+	/**
+	 * Le type des éléments du tableau.
+	 */
 	private Type element;
 	
 	public ArrayTypeImpl(Type _element) {

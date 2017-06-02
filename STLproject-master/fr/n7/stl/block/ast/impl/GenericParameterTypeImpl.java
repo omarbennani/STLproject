@@ -32,8 +32,7 @@ public class GenericParameterTypeImpl implements Type {
 		return this;
 	}
 
-	public ParametreGenericite getParametreGenericite()
-	{
+	public ParametreGenericite getParametreGenericite() {
 		return this.parametreGenericite;
 	}
 
@@ -82,31 +81,8 @@ public class GenericParameterTypeImpl implements Type {
 		return 1;
 	}
 	
-	/*public int getTaillePointee() {
-		int taille = 0;
-		List<Attribut> attributs = this.classe.getAttributs();
-		for (Attribut a : attributs) {
-			taille += a.getType().length();
-		}
-		return taille;
-	}*/
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#toString()
-	 */
 	@Override
 	public String toString() {
-	//	private LinkedList<ObjetUse> instanceGenericite;
-		/*String resultat = this.classe.getName() +" ";
-		if(this.instanceGenericite != null)
-		{
-			resultat +="<";
-			for(ObjetUse o : this.instanceGenericite)
-			{
-				resultat += o.getObjet().getName()+",";
-			}
-			resultat +="> ";
-		}*/
 		return this.parametreGenericite.getName();
 	}
 }

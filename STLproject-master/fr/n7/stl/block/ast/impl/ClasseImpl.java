@@ -1,8 +1,10 @@
 package fr.n7.stl.block.ast.impl;
 
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import fr.n7.stl.block.ast.Classe;
 import fr.n7.stl.block.ast.DroitAcces;
@@ -11,6 +13,7 @@ import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.block.ast.ObjetUse;
 import fr.n7.stl.block.ast.Parametre;
 import fr.n7.stl.block.ast.ParametreGenericite;
+import fr.n7.stl.block.ast.Signature;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
@@ -27,8 +30,7 @@ public class ClasseImpl implements Classe
 	protected int offset;
 
 
-	public ClasseImpl(String _name, LinkedList<ParametreGenericite> _genericite, ObjetUse _heritageClasse, LinkedList<ObjetUse> _implantationInterface, LinkedList<ElementClasse> _elementsClasse)
-	{
+	public ClasseImpl(String _name, LinkedList<ParametreGenericite> _genericite, ObjetUse _heritageClasse, LinkedList<ObjetUse> _implantationInterface, LinkedList<ElementClasse> _elementsClasse) {
 		this.name = _name;
 		this.heritageClasse = _heritageClasse;
 		this.genericite = _genericite;
@@ -36,8 +38,7 @@ public class ClasseImpl implements Classe
 		this.elementsClasse = _elementsClasse;
 	}
 
-	public String getName()
-	{
+	public String getName() {
 		return this.name;
 	}
 	
@@ -72,13 +73,14 @@ public class ClasseImpl implements Classe
 		return attributs;
 	}
 	
-	public boolean containsMethode(Methode _methode) {
+	@Override
+	public boolean containsMethode(ElementClasse _methode) {
 		for (Methode m : this.getMethodes()) {
 			if (m.getName().equals(_methode.getName())) {
 				if (m.getType().equals(_methode.getType())) {
 					List<Parametre> paramsM1 = m.getParametres();
 					int size = paramsM1.size();
-					List<Parametre> paramsM2 = _methode.getParametres();
+					List<Parametre> paramsM2 = ((Methode)_methode).getParametres();
 					if (size == paramsM2.size()) {
 						if (size == 0) {
 							return true;
@@ -99,6 +101,7 @@ public class ClasseImpl implements Classe
 		return false;
 	}
 	
+	@Override
 	public boolean containsAttribut(String _name) {
 		for (Attribut a : this.getAttributs()) {
 			if (a.getName().equals(_name)) {
@@ -149,6 +152,7 @@ public class ClasseImpl implements Classe
 		return methodesMeres;
 	}
 	
+	@Override
 	public List<Methode> getMethodes() {
 		List<Methode> methodes = new LinkedList<Methode>();
 		for (ElementClasse e : this.elementsClasse) {
@@ -160,27 +164,18 @@ public class ClasseImpl implements Classe
 
 	
 	@Override
-	public Type getType()
-	{
+	public Type getType() {
 		return new ClassTypeImpl(this);
 	}
 	
 	public boolean checkType() {
 		boolean result = true;
 
-		for(ElementClasse e : elementsClasse)
-		{
-			if(e instanceof Methode)
-			{
-				Methode m = (Methode) e;
-				result = result && m.checkType();
-			}
-
-		} 
-
-		/*Set<Signature> methodesAImplementer = new HashSet<Signature>(); 
+		// On vérifie que la classe implémente bien toutes les méthodes qu'elle doit implémenter.
+		Set<Signature> methodesAImplementer = new HashSet<Signature>(); 
 		if (this.implantationInterface.size() > 0) {
-			for (Interface i : this.implantationInterface) {
+			for (ObjetUse ou : this.implantationInterface) {
+				Interface i = (Interface)ou.getObjet();
 				methodesAImplementer.addAll(i.getAllSignatures());
 			}
 		}
@@ -196,18 +191,14 @@ public class ClasseImpl implements Classe
 		}
 		for (Methode m : this.getMethodes()) {
 			result = result && m.checkType();
-		}*/
+		}
 		return result;
 	}
 	
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		String local = "class " + this.name+ " ";
-
-		//LinkedList<ParametreGenericite> genericite
-		if(this.genericite != null)
-		{
+		if(this.genericite != null) {
 			local +="<";
 			for(ParametreGenericite p : this.genericite)
 			{
@@ -216,18 +207,15 @@ public class ClasseImpl implements Classe
 			local +="> ";
 		}
 
-		if (this.heritageClasse != null)
-		{
+		if (this.heritageClasse != null) {
 			local += "extends " + this.heritageClasse.toString() + " ";
 		}
 
-		if (this.implantationInterface.size() > 0)
-		{
+		if (this.implantationInterface.size() > 0) {
 			local += "implements ";
 			ObjetUse i;
 			Iterator<ObjetUse> itr = this.implantationInterface.iterator();
-			while(itr.hasNext())
-			{
+			while(itr.hasNext()) {
 				i = (ObjetUse) itr.next();
 				local+=" " + i.toString() +",";
 			}
@@ -236,12 +224,10 @@ public class ClasseImpl implements Classe
 
 		local += "{";
 
-		if (this.elementsClasse.size() >0)
-		{
+		if (this.elementsClasse.size() >0) {
 			ElementClasse e;
 			Iterator<ElementClasse> itr = this.elementsClasse.iterator();
-			while(itr.hasNext())
-			{
+			while(itr.hasNext()) {
 				e = (ElementClasse) itr.next();
 				local+=" " + e.toString() +";\n";
 			}
@@ -261,27 +247,6 @@ public class ClasseImpl implements Classe
 	@Override
 	public int getOffset() {
 		return this.offset;
-	}
-	
-	@Override
-	public Fragment getCode(TAMFactory _factory) {
-		Fragment _code = _factory.createFragment();
-		for (Constructeur c : this.getConstructeurs())
-			_code.append(c.getCode(_factory));
-		for (Methode m : this.getMethodes())
-			_code.append(m.getCode(_factory));
-		return _code;
-	}
-
-	@Override
-	public int allocateMemory(Register _register, int _offset) {
-		int _local = 0;
-        for (ElementClasse ec : this.elementsClasse) {
-            _local += ec.allocateMemory(_register, _local);
-        }
-        this.offset = _offset;
-        this.register = _register;
-		return this.getTailleAttributsStatiques();
 	}
 
 	@Override
@@ -328,36 +293,15 @@ public class ClasseImpl implements Classe
 		return constructeurs;
 	}
 
-	public boolean equals(Classe _classe)
-	{
+	@Override
+	public boolean equals(Classe _classe) {
 		boolean result = true;
 		result = result && (this.name.equals(_classe.getName()));
-		/*ClasseImpl c = (ClasseImpl) _classe;
-		//VERIFICATION QUE LES DEUX CLASSES ONT LES MEME ATTRIBUTS GENERIQUES
-		ArrayList<ParametreGenericite> arraylist = new ArrayList<>(c.getGenericite());
-		for(ParametreGenericite pg : genericite)
-		{
-			result = result && arraylist.contains(pg);
-		}
-		//VERIFICATION QUE LES DEUX CLASSES IMPLANTENT LES MEMES INTERFACES
-		ArrayList<ObjetUse> arraylistOU = new ArrayList<>(c.getImplantationInterface());
-		for(ObjetUse ou : implantationInterface)
-		{
-			result = result && arraylistOU.contains(ou);
-		}
-		//VERIFICATION QUE LES DEUX CLASSES ONT LES MEME ELEMENTS CLASSE
-		ArrayList<ElementClasse> arraylistEC = new ArrayList<>(c.getElementsClasse());
-		for(ElementClasse ec : elementsClasse)
-		{
-			result = result && arraylistEC.contains(ec);
-		}*/
-
 		return result;
 	}
 
-	//VERIFIE QUE LA CLASSE THIS EST ETENDUE PAR LA CLASSE EN PARAMETRE
-	public boolean estEtendue(Classe _classe)
-	{
+	@Override
+	public boolean estEtendue(Classe _classe) {
 		if (((ClasseImpl) _classe).getHeritageClasse() != null) {
 			Classe c = (Classe)((((ClasseImpl) _classe).getHeritageClasse()).getObjet());
 			if (c.getName().equals(this.getName()))
@@ -369,7 +313,7 @@ public class ClasseImpl implements Classe
 		}
 	}
 	
-	//VERIFIE QUE LA CLASSE THIS IMPLEMENTE L'INTERFACE _interface
+	@Override
 	public boolean implemente(Interface _interface) {
 		for (ObjetUse ou : this.implantationInterface) {
 			Interface i = (Interface)ou.getObjet();
@@ -418,24 +362,42 @@ public class ClasseImpl implements Classe
 	}
 	
 
-	public ObjetUse getHeritageClasse()
-	{
+	public ObjetUse getHeritageClasse() {
 		return this.heritageClasse;
 	}
 
-	public LinkedList<ParametreGenericite> getGenericite()
-	{
+	public LinkedList<ParametreGenericite> getGenericite() {
 		return this.genericite;
 	}
 	
-	public LinkedList<ObjetUse> getImplantationInterface()
-	{
+	public LinkedList<ObjetUse> getImplantationInterface() {
 		return this.implantationInterface;
 	}
 
-	public LinkedList<ElementClasse> getElementsClasse()
-	{
+	public LinkedList<ElementClasse> getElementsClasse() {
 		return this.elementsClasse;
+	}
+	
+	
+	@Override
+	public Fragment getCode(TAMFactory _factory) {
+		Fragment _code = _factory.createFragment();
+		for (Constructeur c : this.getConstructeurs())
+			_code.append(c.getCode(_factory));
+		for (Methode m : this.getMethodes())
+			_code.append(m.getCode(_factory));
+		return _code;
+	}
+
+	@Override
+	public int allocateMemory(Register _register, int _offset) {
+		int _local = 0;
+        for (ElementClasse ec : this.elementsClasse) {
+            _local += ec.allocateMemory(_register, _local);
+        }
+        this.offset = _offset;
+        this.register = _register;
+		return this.getTailleAttributsStatiques();
 	}
 	
 }

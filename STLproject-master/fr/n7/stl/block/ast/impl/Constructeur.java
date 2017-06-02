@@ -24,8 +24,7 @@ public class Constructeur implements ElementClasse {
 	private String etiquette;
 	private Parametre thiS;
 
-	public Constructeur(String _name, List<Parametre> _param2, Block _exp2) 
-	{
+	public Constructeur(String _name, List<Parametre> _param2, Block _exp2) {
 		this.nom=_name;
 		this.param=_param2;
 		this.exp=_exp2;
@@ -38,8 +37,7 @@ public class Constructeur implements ElementClasse {
 	}
 
 	@Override
-	public String toString()
-	{
+	public String toString() {
 		String _local = "public " + this.nom + "(";
 		for (Parametre p : this.param)
 		{
@@ -52,27 +50,23 @@ public class Constructeur implements ElementClasse {
 	}
 
 	@Override
-	public void setFinal(boolean _final)
-	{
+	public void setFinal(boolean _final) {
 		this.finaL = _final;
 	}
 	
 	@Override
-	public void setStatic(boolean _static)
-	{
+	public void setStatic(boolean _static) {
 		this.statiC = _static;
 	}
 
 	@Override
-	public String getName()
-	{
+	public String getName() {
 		return this.nom;
 	}
 
 	@Override
-	public Type getType()
-	{
-		throw new SemanticsUndefinedException("getType is undefined in Constructeur");
+	public Type getType() {
+		return this.classe.getType();
 	}
 
 	@Override
@@ -91,6 +85,11 @@ public class Constructeur implements ElementClasse {
 	public void setClasse(Classe _classe) {
 		this.classe = _classe;
 		this.thiS.setType(this.classe.getType());
+	}
+	
+	@Override
+	public void setThis(Parametre _this) {
+		this.thiS = _this;
 	}
 	
 	@Override
@@ -117,10 +116,5 @@ public class Constructeur implements ElementClasse {
 		_local -= this.thiS.allocateMemory(Register.LB, _local);
 		this.exp.allocateMemory(_register, _offset);
 		return 0;
-	}
-
-	@Override
-	public void setThis(Parametre _this) {
-		this.thiS = _this;
 	}
 }

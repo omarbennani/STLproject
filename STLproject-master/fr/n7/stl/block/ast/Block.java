@@ -58,7 +58,10 @@ public interface Block {
 	 */
 	public Fragment getCode(TAMFactory _factory);
 
-
+	/**
+	 * Retourne la liste des instructions contenues dans le bloc.
+	 * @return La liste des instructions du bloc.
+	 */
 	public List<Instruction> getInstructions();
 
 }
