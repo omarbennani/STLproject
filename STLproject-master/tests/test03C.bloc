@@ -1,13 +1,19 @@
+// TEST CORRECT
+// Une classe avec un constructeur, un attribut privé et une méthode void
+
 class Voiture {
-    public int serie;
+    private int serie;
     public Voiture(int t) {
         serie = t;
+    }
+    public void setSerie( int _serie) {
+    	this.serie = _serie;
     }
 }
 
 public class Main {
-	public static void main( String [] args)
-	{
-	Voiture v=new Voiture(2);
+	public static void main( String [] args) {
+	    Voiture v = new Voiture(2);
+        v.setSerie(1);
 	}
 }

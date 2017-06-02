@@ -32,11 +32,17 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 	 */
 	protected Expression exp;
 
-	public AppelImpl(Expression _exp, Declaration _meth, Arguments _args)
-	{
+	public AppelImpl(Expression _exp, Declaration _meth, Arguments _args) {
 		this.args = _args;
 		this.methode = _meth;
 		this.exp = _exp;
+	}
+	
+	public AppelImpl(Declaration _meth, Arguments _args) {
+		// Ce constructeur est appelé lorsque la méthode est statique.
+		// L'expression le précédant est alors une ClasseUse.
+		this.args = _args;
+		this.methode = _meth;
 	}
 
 
@@ -45,6 +51,9 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 	 */
 	@Override
 	public String toString() {
+		if (this.exp == null && ((Methode)this.methode).isStatic()) {
+			this.exp = new ClasseUseImpl(((Methode)this.methode).getClasse());
+		}
 		String res = "";
 		if (this.exp != null)
 			res += this.exp.toString();
@@ -96,7 +105,9 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
-		_code.append(this.exp.getCode(_factory));
+		if (!(this.exp instanceof ClasseUseImpl)) {
+			_code.append(this.exp.getCode(_factory));
+		}
 		_code.append(this.args.getCode(_factory));
 		_code.add(_factory.createCall(((Methode)this.methode).getEtiquette(), Register.LB));
 		return _code;

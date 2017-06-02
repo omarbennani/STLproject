@@ -29,7 +29,7 @@ public class AttributUseImpl implements Expression {
 	 */
 	public AttributUseImpl(ElementClasse _declaration) {
 		// Ce constructeur est appelé lorsque l'attribut est statique.
-		// L'exprsession le précédant est alors une ClasseUse.
+		// L'expression le précédant est alors une ClasseUse.
 		this.declaration = _declaration;
 	}
 	

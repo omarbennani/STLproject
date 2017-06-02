@@ -1713,16 +1713,31 @@ do
 	if o.isPresent() then
 		m := o.get();
         if !Appel^fromFacteur then
-            Acces^support := Appel^factory.createAppel(Appel^support, m, Arguments^ast);
+             if (m.getDroitAcces() = DroitAcces.publique) && !m.isStatic() then
+				Acces^support := Appel^factory.createAppel(Appel^support, m, Arguments^ast);
+			 elseif m.isStatic() then
+				match Appel^support
+					with ClasseUseImpl then 
+						Acces^support := Appel^factory.createAppel(Appel^support, m, Arguments^ast);
+					else
+						error(ACCESS_FORBIDDEN, " You must acces a static method through The class");
+				end
+			else
+				error(ACCESS_FORBIDDEN, " Acces to a private or a protected method is forbidden");
+			end
         else
-            pu := nil;
-            od := Appel^tds.get("this");
-            d := od.get();
-            match d
-            with Parametre then
-                pu := Appel^factory.createParametreUse(d);
+            if !m.isStatic() then
+                pu := nil;
+                od := Appel^tds.get("this");
+                d := od.get();
+                match d
+                with Parametre then
+                    pu := Appel^factory.createParametreUse(d);
+                end
+                Acces^support := Appel^factory.createAppel(pu, m, Arguments^ast);
+            else
+                Acces^support := Appel^factory.createAppel(m, Arguments^ast);
             end
-            Acces^support := Appel^factory.createAppel(pu, m, Arguments^ast);
         end
 	else
 		error (UNDEFINED_METHOD_OR_SIGNATURE_OR_ATTRIBUT_OR_VARIABLE, Appel^identificateur);

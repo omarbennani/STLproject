@@ -401,7 +401,11 @@ public class BlockFactoryImpl implements BlockFactory {
 
 	public AppelOuAcces createAppel(Expression _exp, Declaration _meth, Arguments _args)
 	{
-		return new AppelImpl(_exp, _meth, _args);//, _nomMethode);
+		return new AppelImpl(_exp, _meth, _args);
+	}
+	
+	public AppelOuAcces createAppel(Declaration _meth, Arguments _args) {
+		return new AppelImpl(_meth, _args);
 	}
 	
 	public Expression createAttributUse(ElementClasse _declaration)
@@ -412,17 +416,6 @@ public class BlockFactoryImpl implements BlockFactory {
 	public Expression createAttributUse(ElementClasse _declaration, Expression _exp)
 	{
 		return new AttributUseImpl(_declaration, _exp);
-	}
-
-	public Expression createStaticFieldUse(Declaration _declaration)
-	{
-		return new StaticFieldUseImpl(_declaration);
-	}
-	
-	public Expression createStaticFieldUse(Declaration _declaration, Expression _exp)
-	{
-		System.out.println("createStaticFieldUse\n");
-		return new StaticFieldUseImpl(_declaration, _exp);
 	}
 
 	public ObjetUse createClasseUse(Classe _classe)
@@ -453,14 +446,6 @@ public class BlockFactoryImpl implements BlockFactory {
 	public Expression createParametreUse(Parametre _parametre) {
 		return new ParametreUseImpl(_parametre);
 	}
-
-	/*public ArgumentGenericite createArgumentGenericite(String _name){
-		return new ArgumentGenericiteImpl(_name);
-	}
-
-	public ArgumentGenericite createArgumentGenericite(Objet _obj, List<ArgumentGenericite> _inst){
-		return new ArgumentGenericiteImpl(_obj,_inst);
-	}*/
 
 	public ParametreGenericite createParametreGenericite(String _name, LinkedList<Type> _param )
 	{

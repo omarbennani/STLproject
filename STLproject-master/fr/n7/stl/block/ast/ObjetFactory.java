@@ -57,14 +57,12 @@ public interface ObjetFactory {
 
 	public AppelOuAcces createAppel(Expression _exp, Declaration _meth, Arguments _args);
 	
+	public AppelOuAcces createAppel(Declaration _meth, Arguments _args);
+	
 	public Expression createAttributUse(ElementClasse _declaration);
 
 	public Expression createAttributUse(ElementClasse _declaration, Expression _exp);
 	
-	public Expression createStaticFieldUse(Declaration _declaration);
-
-	public Expression createStaticFieldUse(Declaration _declaration, Expression _exp);
-
 	public ObjetUse createClasseUse(Classe _classe);
 
 	public ObjetUse createClasseUse(Classe _classe, LinkedList<ObjetUse> _instanceGenericite);

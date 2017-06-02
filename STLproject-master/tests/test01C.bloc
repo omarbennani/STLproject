@@ -1,0 +1,15 @@
+// TEST CORRECT
+// Une classe + une création d'une instance de classe
+
+class Voiture {
+    public int serie;
+    public Voiture(int t) {
+        serie = t;
+    }
+}
+
+public class Main {
+	public static void main( String [] args) {
+	Voiture v = new Voiture(2);
+	}
+}

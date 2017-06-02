@@ -1,19 +1,21 @@
 // Erreur
-// Mauvais argument fourni à la fonction setSerie (ligne 17)
+// Tentative d'accès à la methode setSerie qui est privée
 
 class Voiture {
+
     private int serie;
+
     public Voiture(int t) {
         serie = t;
     }
-    public void setSerie( int _serie){
+    private void setSerie( int _serie) {
     	serie = _serie;
     }
 }
 
 public class Main {
 	public static void main( String [] args) {
-	    Voiture v=new Voiture(2);
-        v.setSerie(true)
+	    Voiture v = new Voiture(2);
+        v.setSerie(3);
 	}
 }

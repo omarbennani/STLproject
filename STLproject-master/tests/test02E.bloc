@@ -1,0 +1,15 @@
+// ERREUR
+// Mauvais argument fourni au constructeur Voiture (ligne 13)
+
+class Voiture {
+    public int serie;
+    public Voiture(int t) {
+        serie = t;
+    }
+}
+
+public class Main {
+	public static void main( String [] args) {
+	    Voiture v = new Voiture(true);
+	}
+}

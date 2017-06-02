@@ -129,6 +129,10 @@ public class Methode implements ElementClasse {
 		return this.nomClasse;
 	}
 	
+	public Classe getClasse() {
+		return this.classe;
+	}
+	
 	public boolean signatureEquals(Signature s) {
 		boolean result = true;
 		if (s.getName().equals(nom)) {
@@ -162,6 +166,10 @@ public class Methode implements ElementClasse {
 	
 	public boolean isStatic() {
 		return this.statiC;
+	}
+	
+	public DroitAcces getDroitAcces() {
+		return this.droitAcces;
 	}
 	
 	@Override
