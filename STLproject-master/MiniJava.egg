@@ -1526,7 +1526,7 @@ do
                 end
             end
         else
-            AppelOuAcces^support := Facteur^factory.createStaticFieldUse(s);
+            AppelOuAcces^support := s.getValue();
         end
 	end
 end
@@ -1579,9 +1579,7 @@ do
             else
 				match AppelOuAcces^support
 					with InterfaceUseImpl then 
-						Acces^support := AppelOuAcces^factory.createStaticFieldUse(sf, AppelOuAcces^support);
-					with ClasseUseImpl then 
-						Acces^support := AppelOuAcces^factory.createStaticFieldUse(sf, AppelOuAcces^support);
+						Acces^support := sf.getValue();
 					else
 						error(ACCESS_FORBIDDEN, " You must acces a static field through The class or the interface");
 				end

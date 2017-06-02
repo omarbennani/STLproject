@@ -1,5 +1,5 @@
 interface Vehicule {
-
+    final static int sf = 6;
     void laver();
 }
 
@@ -74,6 +74,8 @@ public class Main {
         v.laver();
         m.laver(7777);
         print(Moto.type);
+
+        print(Vehicule.sf);
 
         
     }

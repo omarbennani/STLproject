@@ -10,13 +10,11 @@ public class ArgumentGenericiteImpl implements ArgumentGenericite{
 	protected String _name;
 	protected LinkedList <Type> _inst;
 
-	public ArgumentGenericiteImpl(String _name2) 
-	{
+	public ArgumentGenericiteImpl(String _name2) {
 		this._name=_name2;
 	}
 	
-	public ArgumentGenericiteImpl(String _name2, LinkedList<Type> _inst2) 
-	{
+	public ArgumentGenericiteImpl(String _name2, LinkedList<Type> _inst2) {
 
 		this._name=_name2;
 		this._inst=new LinkedList<Type>();
@@ -24,8 +22,7 @@ public class ArgumentGenericiteImpl implements ArgumentGenericite{
 			this._inst=_inst2;
 	}
 	
-	public String toString() 
-	{
+	public String toString() {
 		String res=this._name+" ";
 		for(Type arg:_inst)
 			res+=arg.toString()+" ";

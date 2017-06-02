@@ -57,6 +57,11 @@ public class StaticFieldImpl implements StaticField {
 	}
 	
 	@Override
+	public Expression getValue() {
+		return this.expression;
+	}
+	
+	@Override
 	public String getInterfaceName() {
 		InterfaceTypeImpl iType = (InterfaceTypeImpl)this.type;
 		return iType.getInterface().getName();
