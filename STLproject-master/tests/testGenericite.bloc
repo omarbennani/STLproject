@@ -1,3 +1,6 @@
+// TEST CORRECT POUR L'AST
+// Le code n'est cependant pas généré ici.
+
 class Solo<T>
 {
   private T valeur;
