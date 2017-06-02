@@ -66,6 +66,9 @@ public class ObjetAllocationImpl implements Expression {
 				break;
 			}
 		}
+		if (res == null) {
+			throw new ConstructeurUndefinedException("Le constructeur n'existe pas.");
+		}
 		return res;
 		
 	}
