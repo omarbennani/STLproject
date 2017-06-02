@@ -1,3 +1,6 @@
+// ERREUR
+// La classe Honda doit implémenter laver() et detruitre()
+
 interface Vehicule {
     void laver();
 }
@@ -21,6 +24,6 @@ class Honda implements Voiture {
 
 public class Main {
 	public static void main(String [] args) {
-	    Vehicule v = new Voiture(2);
+	    Vehicule v = new Honda(2);
 	}
 }
