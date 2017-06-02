@@ -2,48 +2,35 @@
  * 
  */
 package fr.n7.stl.block.ast.impl;
-import java.net.InterfaceAddress;
-import java.util.List;
 import java.util.LinkedList;
 
-import fr.n7.stl.block.ast.ObjetUse;
-import fr.n7.stl.block.ast.ParametreGenericite;
-import fr.n7.stl.block.ast.ArgumentGenericite;
-import fr.n7.stl.block.ast.Declaration;
 import fr.n7.stl.block.ast.AppelOuAcces;
-import fr.n7.stl.block.ast.DroitAcces;
-import fr.n7.stl.block.ast.Classe;
-import fr.n7.stl.block.ast.ElementClasse;
-import fr.n7.stl.block.ast.Parametre;
-import fr.n7.stl.block.ast.Assignable;
-import fr.n7.stl.block.ast.Expressions;
 import fr.n7.stl.block.ast.Arguments;
+import fr.n7.stl.block.ast.Assignable;
 import fr.n7.stl.block.ast.AtomicType;
 import fr.n7.stl.block.ast.BinaryOperator;
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.BlockFactory;
 import fr.n7.stl.block.ast.BooleanValue;
-import fr.n7.stl.block.ast.Sequence;
-import fr.n7.stl.block.ast.ConstantDeclaration;
+import fr.n7.stl.block.ast.Classe;
+import fr.n7.stl.block.ast.Declaration;
+import fr.n7.stl.block.ast.DroitAcces;
+import fr.n7.stl.block.ast.ElementClasse;
+import fr.n7.stl.block.ast.ElementInterface;
 import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.FieldDeclaration;
-import fr.n7.stl.block.ast.FunctionCall;
+import fr.n7.stl.block.ast.Expressions;
 import fr.n7.stl.block.ast.Instruction;
 import fr.n7.stl.block.ast.Interface;
-import fr.n7.stl.block.ast.Objet;
-import fr.n7.stl.block.ast.RecordType;
+import fr.n7.stl.block.ast.ObjetUse;
+import fr.n7.stl.block.ast.Parametre;
+import fr.n7.stl.block.ast.ParametreGenericite;
+import fr.n7.stl.block.ast.Signature;
+import fr.n7.stl.block.ast.StaticField;
 import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.block.ast.TypeClasse;
 import fr.n7.stl.block.ast.TypeDeclaration;
 import fr.n7.stl.block.ast.UnaryOperator;
 import fr.n7.stl.block.ast.Value;
 import fr.n7.stl.block.ast.VariableDeclaration;
-import fr.n7.stl.block.ast.Interface;
-import fr.n7.stl.block.ast.Signature;
-import fr.n7.stl.block.ast.StaticField;
-import fr.n7.stl.block.ast.ElementInterface;
-import fr.n7.stl.block.ast.CharValue;
-import fr.n7.stl.block.ast.StringValue;
 
 /**
  * Implementation of the factory for building Abstract Syntax Tree node for the Bloc language.
@@ -152,43 +139,11 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 
 	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.TypeFactory#createCoupleType(fr.n7.stl.block.ast.Type, fr.n7.stl.block.ast.Type)
-	 */
-	@Override
-	public Type createCoupleType(Type _first, Type _second) {
-		return new CoupleTypeImpl( _first, _second);
-	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.ExpressionFactory#createCouple(fr.n7.stl.block.ast.Expression, fr.n7.stl.block.ast.Expression)
-	 */
-	@Override
-	public Expression createCouple(Expression _first, Expression _second) {
-		return new CoupleImpl(_first, _second);
-	}
-
-	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.InstructionFactory#createPrinter(fr.n7.stl.block.ast.Expression)
 	 */
 	@Override
 	public Instruction createPrinter(Expression _value) {
 		return new PrinterImpl(_value);
-	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.ExpressionFactory#createFirst(fr.n7.stl.block.ast.Expression)
-	 */
-	@Override
-	public Expression createFirst(Expression _parameter) {
-		return new UnaryExpressionImpl(UnaryOperator.First,_parameter);
-	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.ExpressionFactory#createSecond(fr.n7.stl.block.ast.Expression)
-	 */
-	@Override
-	public Expression createSecond(Expression _parameter) {
-		return new UnaryExpressionImpl(UnaryOperator.Second,_parameter);
 	}
 
 	/* (non-Javadoc)
@@ -231,14 +186,6 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 
 	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.ExpressionFactory#createFunctionCall(fr.n7.stl.block.ast.Expression)
-	 */
-	@Override
-	public FunctionCall createFunctionCall(Expression _function) {
-		return new FunctionCallImpl(_function);
-	}
-
-	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.ExpressionFactory#createArrayAccess(fr.n7.stl.block.ast.Expression, fr.n7.stl.block.ast.Expression)
 	 */
 	@Override
@@ -253,35 +200,13 @@ public class BlockFactoryImpl implements BlockFactory {
 	public Assignable createArrayAssignment(Assignable _array, Expression _index) {
 		return new ArrayAssignmentImpl(_array,_index);
 	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.ExpressionFactory#createFieldAccess(fr.n7.stl.block.ast.Expression, fr.n7.stl.block.ast.FieldDeclaration)
-	 */
-	@Override
-	public Expression createFieldAccess(Expression _record, FieldDeclaration _field) {
-		return new FieldAccessImpl(_record,_field);
-	}
 	
 	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.ExpressionFactory#createFieldAssignment(fr.n7.stl.block.ast.Assignable, fr.n7.stl.block.ast.FieldDeclaration)
+	 * @see fr.n7.stl.block.ast.ExpressionFactory#createArrayAllocation(fr.n7.stl.block.ast.Type, fr.n7.stl.block.ast.Expression)
 	 */
-	@Override
-	public Assignable createFieldAssignment(Assignable _record, FieldDeclaration _field) {
-		return new FieldAssignmentImpl(_record,_field);
-	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.ExpressionFactory#createFieldAccess(fr.n7.stl.block.ast.Expression, java.lang.String)
-	 */
-	@Override
-	public Expression createFieldAccess(Expression _record, String _name) {
-		return new FieldAccessImpl(_record, _name);
-	}
-	
-	@Override
-	public Assignable createFieldAssignment(Assignable _record, String _name) {
-		return new FieldAssignmentImpl(_record, _name);
-	}
+    public Expression createArrayAllocation(Type _type, Expression _array) {
+        return new ArrayAllocationImpl(_array, _type);
+    }
 	
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.InstructionFactory#createBlock()
@@ -320,30 +245,6 @@ public class BlockFactoryImpl implements BlockFactory {
 	}
 
 	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.TypeFactory#createRecordType(java.lang.Iterable)
-	 */
-	@Override
-	public RecordType createRecordType(String _name, Iterable<FieldDeclaration> _fields) {
-		return new RecordTypeImpl(_name, _fields);
-	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.TypeFactory#createRecordType()
-	 */
-	@Override
-	public RecordType createRecordType(String _name) {
-		return new RecordTypeImpl(_name);
-	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.InstructionFactory#createConstantDeclaration(java.lang.String, fr.n7.stl.block.ast.Type, fr.n7.stl.block.ast.Expression)
-	 */
-	@Override
-	public ConstantDeclaration createConstantDeclaration(String _name, Type _type, Expression _value) {
-		return new ConstantDeclarationImpl(_name,_type,_value);
-	}
-
-	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.InstructionFactory#createTypeDeclaration(java.lang.String, fr.n7.stl.block.ast.Type)
 	 */
 	@Override
@@ -359,77 +260,6 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new ArrayTypeImpl(_element);
 	}
 
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.TypeFactory#createPointerType(fr.n7.stl.block.ast.Type)
-	 */
-	@Override
-	public Type createPointerType(Type _element) {
-		return new PointerTypeImpl(_element);
-	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.TypeFactory#createFunctionType(fr.n7.stl.block.ast.Type, java.lang.Iterable)
-	 */
-	@Override
-	public Type createFunctionType(Type _result, Iterable<Type> _parameters) {
-		return new FunctionTypeImpl(_result,_parameters);
-	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.TypeFactory#createFieldDeclaration(java.lang.String, fr.n7.stl.block.ast.Type)
-	 */
-	@Override
-	public FieldDeclaration createFieldDeclaration(String _name, Type _type) {
-		return new FieldDeclarationImpl(_name,_type);
-	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.ExpressionFactory#createTypeConversion(fr.n7.stl.block.ast.Expression, fr.n7.stl.block.ast.Type)
-	 */
-	@Override
-	public Expression createTypeConversion(Expression _target, Type _type) {
-		return new TypeConversionImpl(_target,_type);
-	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.ExpressionFactory#createCollection()
-	 */
-	@Override
-	public Sequence createSequence() {
-		return new SequenceImpl();
-	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.ExpressionFactory#createCollection(java.lang.Iterable)
-	 */
-	@Override
-	public Sequence createSequence(Iterable<Expression> _values) {
-		return new SequenceImpl(_values);
-	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.TypeFactory#createNamedType(fr.n7.stl.block.ast.TypeDeclaration)
-	 */
-	@Override
-	public Type createNamedType(TypeDeclaration _declaration) {
-		return new NamedTypeImpl(_declaration);
-	}
-
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.ExpressionFactory#createPointerAccess(fr.n7.stl.block.ast.Expression)
-	 */
-	@Override
-	public Expression createPointerAccess(Expression _pointer) {
-		return new PointerAccessImpl(_pointer);
-	}
-	
-	/* (non-Javadoc)
-	 * @see fr.n7.stl.block.ast.ExpressionFactory#createPointerAssignment(fr.n7.stl.block.ast.Assignable)
-	 */
-	@Override
-	public Assignable createPointerAssignment(Assignable _pointer) {
-		return new PointerAssignmentImpl(_pointer);
-	}
 
 	/* (non-Javadoc)
 	 * @see fr.n7.stl.block.ast.TypeFactory#createFloatingType()
@@ -454,19 +284,6 @@ public class BlockFactoryImpl implements BlockFactory {
 	public Type createStringType() {
 		return AtomicType.StringType;
 	}
-
-    public Expression createAddressAccess(Assignable _assignable) {
-        return new AddressAccessImpl(_assignable);
-    }
-
-    public Expression createArrayAllocation(Type _type, Expression _array) {
-        return new ArrayAllocationImpl(_array, _type);
-    }
-
-    public Expression createPointerAllocation(Type _type) {
-        return new PointerAllocationImpl(_type);
-    }
-
 
 	//ObjetFactory
 	public Interface createInterface(String _identificateurType,LinkedList<ParametreGenericite> _genericite, LinkedList<ObjetUse> _heritageInterface, LinkedList<ElementInterface> _elements)
@@ -592,11 +409,6 @@ public class BlockFactoryImpl implements BlockFactory {
 		return new AppelImpl(_exp, _meth, _args);//, _nomMethode);
 	}
 	
-	public AppelOuAcces createAcces(Expression _expr, String _ident)
-	{
-		return new AccesImpl(_expr, _ident);
-	}
-
 	public Expression createAttributUse(ElementClasse _declaration)
 	{
 		return new AttributUseImpl(_declaration);

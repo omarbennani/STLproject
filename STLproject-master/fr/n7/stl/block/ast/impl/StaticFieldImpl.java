@@ -3,17 +3,9 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import fr.n7.stl.block.ast.AtomicType;
 import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Assignable;
 import fr.n7.stl.block.ast.StaticField;
-import fr.n7.stl.block.ast.ElementInterface;
 import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.TAMFactory;
-
-import java.util.LinkedList;
-import java.util.Iterator;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a pointer access expression.

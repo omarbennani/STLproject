@@ -12,9 +12,7 @@ class VehiculeImpl implements Vehicule {
         this.nbRoues = _nbRoues;
     }
 
-    public void laver() {
-        print("Vehicule lave");
-    }
+    
 
     public int getNbPortes() {
         return this.nbPortes;
@@ -35,6 +33,15 @@ class Moto extends VehiculeImpl {
         this.nbPortes = 1;
         type = "moto";
     }
+
+    public void laver() {
+        print("Moto lavee");
+    }
+
+    public void laver(int i) {
+        print(i);
+    }
+
 }
 
 class Voiture extends VehiculeImpl {
@@ -43,11 +50,15 @@ class Voiture extends VehiculeImpl {
     public Voiture(int _nbPortes) {
         this.nbPortes = _nbPortes;
     }
+
+    public void laver() {
+        print("Voiture lavee");
+    }
 }
 
 public class Main {
     public static void main(String[] args) {
-        Voiture v = new Voiture(5);
+        Vehicule v = new Voiture(5);
         Vehicule m = new Moto();
 
         print("Nb portes de v (doit etre egal a 5) :");
@@ -57,7 +68,9 @@ public class Main {
         v.setNbPortes(3);
         print("Nb portes de v (doit etre egal a 3) :");
         print(v.getNbPortes());
-
+        
+        v.laver();
+        m.laver(7777);
         print(Moto.type);
 
         

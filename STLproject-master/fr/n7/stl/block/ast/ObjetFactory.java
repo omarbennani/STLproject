@@ -59,8 +59,6 @@ public interface ObjetFactory {
 
 	public AppelOuAcces createAppel(Expression _exp, Declaration _meth, Arguments _args);
 	
-	public AppelOuAcces createAcces(Expression _expr, String _ident);
-
 	public Expression createAttributUse(ElementClasse _declaration);
 
 	public Expression createAttributUse(ElementClasse _declaration, Expression _exp);

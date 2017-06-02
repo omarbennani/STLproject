@@ -3,14 +3,13 @@
  */
 package fr.n7.stl.block.ast.impl;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Iterator;
 
 import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.Instruction;
-import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;

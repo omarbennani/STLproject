@@ -66,7 +66,7 @@ public class AppelImpl implements AppelOuAcces, Instruction {
 
 	@Override
 	public boolean checkType() {
-		// On verifie le nobmre d'argument 
+		// On verifie le nombre d'argument 
 		Boolean _res=(this.args.getListType().size()== ((Methode) this.methode).getParametres().size());
 		// On verifie tous les types de la liste et leur ordre
 		for(int i=0;i<this.args.getListType().size();i++){

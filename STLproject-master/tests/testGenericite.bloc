@@ -13,7 +13,7 @@ class Solo<T>
   }       
 }
 
-class Anonyme
+class Anonyme<T extends Solo>
 {
 	  public Anonyme(){}
 }

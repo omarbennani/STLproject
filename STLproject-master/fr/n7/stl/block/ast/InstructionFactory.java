@@ -45,15 +45,6 @@ public interface InstructionFactory {
 	public Block createBlock(Block _context, Iterable<Instruction> _content);
 	
 	/**
-	 * Create a constant declaration node in the Abstract Syntax Tree.
-	 * @param _name Name of the declared constant.
-	 * @param _type Abstract Syntax Tree for the type of the declared constant.
-	 * @param _value Abstract Syntax Tree for the initial value of the declared constant.
-	 * @return A Constant Declaration node in the Abstract Syntax Tree.
-	 */
-	public ConstantDeclaration createConstantDeclaration(String _name, Type _type, Expression _value);
-	
-	/**
 	 * Create a variable declaration node in the Abstract Syntax Tree.
 	 * @param _name Name of the declared variable.
 	 * @param _type Abstract Syntax Tree for the type of the declared variable.

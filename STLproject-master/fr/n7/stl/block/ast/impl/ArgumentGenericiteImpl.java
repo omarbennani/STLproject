@@ -1,6 +1,5 @@
 package fr.n7.stl.block.ast.impl;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
 import fr.n7.stl.block.ast.ArgumentGenericite;

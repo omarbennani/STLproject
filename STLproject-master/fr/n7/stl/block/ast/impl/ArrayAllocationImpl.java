@@ -2,7 +2,6 @@ package fr.n7.stl.block.ast.impl;
 
 import fr.n7.stl.block.ast.AtomicType;
 import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.Assignable;
 import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Library;

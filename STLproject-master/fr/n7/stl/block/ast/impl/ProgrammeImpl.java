@@ -1,27 +1,22 @@
 package fr.n7.stl.block.ast.impl;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.LinkedList;
-import java.util.Iterator;
 
 import fr.n7.stl.block.ast.Classe;
-import fr.n7.stl.block.ast.Instruction;
 import fr.n7.stl.block.ast.Interface;
+import fr.n7.stl.block.ast.MethodePrincipale;
 import fr.n7.stl.block.ast.Programme;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
-import sun.font.CreatedFontTracker;
-import fr.n7.stl.block.ast.MethodePrincipale;
 
 public class ProgrammeImpl implements Programme {
 
 	protected LinkedList<Interface> interfaces;
 	protected LinkedList<Classe> classes;
 	protected MethodePrincipale princ;
+	private int offset;
 	
-    private int offset;
 
 	
 	public ProgrammeImpl(LinkedList<Interface> _interfaces,LinkedList<Classe> _classes, MethodePrincipale _princ) 
@@ -29,7 +24,6 @@ public class ProgrammeImpl implements Programme {
 			this.interfaces=_interfaces;
 			this.classes=_classes;
 			this.princ = _princ;
-			ParametreImpl p;
 	}
 	
 	public void addClasse(Classe _classe){

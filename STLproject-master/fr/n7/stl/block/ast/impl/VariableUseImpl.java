@@ -68,10 +68,11 @@ public class VariableUseImpl implements Expression {
 				_code.add(_factory.createLoad(this.declaration.getRegister(),
 						this.declaration.getOffset(),
 						1));
-			else
+			else {
 				_code.add(_factory.createLoad(this.declaration.getRegister(),
 						this.declaration.getOffset(),
 						this.declaration.getType().length()));
+			}
 		}
 		return _code;
 	}

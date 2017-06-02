@@ -3,14 +3,11 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import fr.n7.stl.block.ast.Assignable;
 import fr.n7.stl.block.ast.ElementClasse;
 import fr.n7.stl.block.ast.Expression;
-import fr.n7.stl.block.ast.FieldDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Library;
 import fr.n7.stl.tam.ast.TAMFactory;
@@ -36,7 +33,6 @@ public class AttributAssignmentImpl extends AttributUseImpl implements Assignabl
 	@Override
 	public Fragment getCode(TAMFactory _factory) {
 		Fragment _code = _factory.createFragment();
-		int taille = this.declaration.getType().length();
 		int aPop = 0;
 		boolean attributVu = false;
 		if (!((Attribut)this.declaration).statiC) {

@@ -7,7 +7,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
-import fr.n7.stl.block.ast.AtomicType;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Expressions;
 import fr.n7.stl.block.ast.Type;

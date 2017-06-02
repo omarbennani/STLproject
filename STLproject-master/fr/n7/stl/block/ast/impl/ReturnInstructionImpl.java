@@ -3,13 +3,9 @@
  */
 package fr.n7.stl.block.ast.impl;
 
-import java.util.Optional;
-
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.block.ast.Block;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Instruction;
+import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.tam.ast.Fragment;
 import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;

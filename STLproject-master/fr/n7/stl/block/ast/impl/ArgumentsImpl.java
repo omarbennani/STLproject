@@ -3,18 +3,15 @@
  */
 package fr.n7.stl.block.ast.impl;
 
+import java.util.LinkedList;
+import java.util.List;
+
+import fr.n7.stl.block.ast.Arguments;
 import fr.n7.stl.block.ast.Expression;
 import fr.n7.stl.block.ast.Expressions;
 import fr.n7.stl.block.ast.Type;
-import fr.n7.stl.block.ast.Objet;
-import fr.n7.stl.block.ast.Arguments;
-import fr.n7.stl.block.ast.VariableDeclaration;
 import fr.n7.stl.tam.ast.Fragment;
-import fr.n7.stl.tam.ast.Register;
 import fr.n7.stl.tam.ast.TAMFactory;
-
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a variable declaration instruction.

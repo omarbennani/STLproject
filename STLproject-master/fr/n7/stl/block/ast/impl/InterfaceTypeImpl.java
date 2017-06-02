@@ -7,8 +7,6 @@ import java.util.LinkedList;
 
 import fr.n7.stl.block.ast.Interface;
 import fr.n7.stl.block.ast.ObjetUse;
-import fr.n7.stl.block.ast.AtomicType;
-import fr.n7.stl.block.ast.Classe;
 import fr.n7.stl.block.ast.Type;
 
 /**

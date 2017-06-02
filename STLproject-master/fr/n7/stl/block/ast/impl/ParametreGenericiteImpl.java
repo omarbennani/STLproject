@@ -1,10 +1,9 @@
 package fr.n7.stl.block.ast.impl;
 
-import java.util.List;
 import java.util.LinkedList;
 
-import fr.n7.stl.block.ast.Type;
 import fr.n7.stl.block.ast.ParametreGenericite;
+import fr.n7.stl.block.ast.Type;
 
 public class ParametreGenericiteImpl implements ParametreGenericite{
 

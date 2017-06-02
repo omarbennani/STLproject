@@ -4,9 +4,10 @@
 package fr.n7.stl.block.ast.impl;
 
 import java.util.LinkedList;
-import java.util.List;
 
-import fr.n7.stl.block.ast.*;
+import fr.n7.stl.block.ast.ObjetUse;
+import fr.n7.stl.block.ast.ParametreGenericite;
+import fr.n7.stl.block.ast.Type;
 
 /**
  * Implementation of the Abstract Syntax Tree node for a pointer type.
