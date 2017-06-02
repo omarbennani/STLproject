@@ -1,0 +1,20 @@
+// TEST CORRECT
+// Test avec seulement un main + if + while + string
+
+public class Main {
+    public static void main( String [] args) {
+        int i = 0;
+        if (i == 0) {
+            while (i < 10) {
+                i = i + 1;
+                print(i);
+            }
+        }
+        if (i > 10) {
+            print("Bizarre");
+        }
+        else {
+            print("Fin boucle");
+        }
+    }
+}
