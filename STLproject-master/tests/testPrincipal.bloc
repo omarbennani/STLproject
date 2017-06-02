@@ -1,0 +1,65 @@
+interface Vehicule {
+
+    void laver();
+}
+
+class VehiculeImpl implements Vehicule {
+    protected int nbPortes;
+    protected int nbRoues;
+
+    public VehiculeImpl(int _nbPortes, int _nbRoues) {
+        this.nbPortes = _nbPortes;
+        this.nbRoues = _nbRoues;
+    }
+
+    public void laver() {
+        print("Vehicule lave");
+    }
+
+    public int getNbPortes() {
+        return this.nbPortes;
+    }
+
+    public void setNbPortes(int n) {
+        this.nbPortes = n;
+    }
+}
+
+class Moto extends VehiculeImpl {
+    private int nbPortes;
+    private int nbRoues;
+    public static String type;
+
+    public Moto() {
+        this.nbRoues = 2;
+        this.nbPortes = 1;
+        type = "moto";
+    }
+}
+
+class Voiture extends VehiculeImpl {
+    private int nbPortes;
+    private int nbRoues;
+    public Voiture(int _nbPortes) {
+        this.nbPortes = _nbPortes;
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        Voiture v = new Voiture(5);
+        Vehicule m = new Moto();
+
+        print("Nb portes de v (doit etre egal a 5) :");
+        print(v.getNbPortes());
+        print("Nb portes de m (doit etre egal a 1) :");
+        print(m.getNbPortes());
+        v.setNbPortes(3);
+        print("Nb portes de v (doit etre egal a 3) :");
+        print(v.getNbPortes());
+
+        print(Moto.type);
+
+        
+    }
+}
