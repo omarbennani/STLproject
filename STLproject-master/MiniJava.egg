@@ -1740,7 +1740,7 @@ do
             end
         end
 	else
-		error (UNDEFINED_METHOD_OR_SIGNATURE_OR_ATTRIBUT_OR_VARIABLE, Appel^identificateur);
+		error (UNDEFINED_METHOD_OR_SIGNATURE_OR_ATTRIBUT_OR_VARIABLE, " : " + Appel^identificateur);
 	end
     Acces^fromAcces := false;
 

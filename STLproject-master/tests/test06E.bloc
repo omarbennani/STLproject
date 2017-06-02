@@ -1,0 +1,31 @@
+// ERREUR
+// Type mismatch (ligne 29)
+
+class Voiture {
+    public int serie;
+    public Voiture(int t) {
+        serie = t;
+    }
+    private void setSerie( int _serie){
+    	serie = _serie;
+    }
+}
+
+class Camion {
+    public bool serie;
+
+    public Camion(bool b) {
+        serie = b;
+    }
+
+    public void setSerie(bool b) {
+	    serie = b;
+    }
+
+public class Main {
+	public static void main( String [] args) {
+	    Voiture v = new Voiture(2);
+	    Camion c = new Camion(true);
+	    c = v;
+	}
+}

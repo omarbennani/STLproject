@@ -1,0 +1,20 @@
+// TEST CORRECT
+// Création de deux objets voiture et affectation de l'un par l'autre.
+
+class Voiture {
+    public int serie;
+    public Voiture(int t) {
+        serie = t;
+    }
+    public void setSerie( int _serie) {
+    	serie = _serie;
+    }
+}
+
+public class Main {
+	public static void main( String [] args) {
+	    Voiture v = new Voiture(2);
+	    Voiture v2 = new Voiture(3);
+	    v = v2;
+	}
+}
